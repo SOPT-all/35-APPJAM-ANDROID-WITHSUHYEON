@@ -1,0 +1,2 @@
+# SOPT-all-35-APPJAM-ANDROID-WITHSUHYEON
+수현이랑 안드할래?
