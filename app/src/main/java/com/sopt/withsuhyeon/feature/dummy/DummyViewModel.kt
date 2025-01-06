@@ -52,6 +52,22 @@ class DummyViewModel @Inject constructor(
                     DummySideEffect.NavigateToWishlist
                 }
             }
+
+            is DummyEvent.FetchUserDetails -> {
+                setState { copy(isLoading = true) }
+                fetchUserDetails(event.userId)
+            }
+
+            is DummyEvent.FetchUserDetailsSuccess -> {
+                setState { copy(user = event.user, isLoading = false) }
+            }
+
+            is DummyEvent.FetchUserDetailsFailure -> {
+                setState { copy(isLoading = false) }
+                setSideEffect {
+                    DummySideEffect.ShowSnackbar(R.string.error_fetch_user_details)
+                }
+            }
         }
     }
 
@@ -63,6 +79,18 @@ class DummyViewModel @Inject constructor(
                 }
                 .onFailure {
                     setEvent(DummyEvent.FetchReviewsFailure)
+                }
+        }
+    }
+
+    private fun fetchUserDetails(userId: Int) {
+        viewModelScope.launch {
+            dummyRepository.getUserDetails(userId)
+                .onSuccess { user ->
+                    setEvent(DummyEvent.FetchUserDetailsSuccess(user))
+                }
+                .onFailure {
+                    setEvent(DummyEvent.FetchUserDetailsFailure)
                 }
         }
     }

@@ -23,28 +23,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             WithSuhyeonTheme {
-                val navController = rememberNavController()
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    NavHost(
-                        navController = navController,
-                        startDestination = "dummy"
-                    ) {
-                        composable("dummy") {
-                            DummyScreen(
-                                navController = navController,
-                                productId = 123,
-                                modifier = Modifier.fillMaxSize()
-                                    .padding(innerPadding)
-                            )
-                        }
-                        composable("dummy2") {
-                            Text(
-                                text = "Dummy2 Screen",
-                                modifier = Modifier.fillMaxSize(),
-                            )
-                        }
-                    }
-                }
+                DummyScreen(userId = 2)
             }
         }
     }

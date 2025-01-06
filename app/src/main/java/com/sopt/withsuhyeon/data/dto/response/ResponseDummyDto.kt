@@ -28,3 +28,33 @@ data class ReviewItem(
     @SerialName("createdAt")
     val createdAt: String
 )
+
+@Serializable
+data class ResponseUserDto(
+    @SerialName("data")
+    val data: UserDto,
+    @SerialName("support")
+    val support: SupportDto
+)
+
+@Serializable
+data class UserDto(
+    @SerialName("id")
+    val id: Int,
+    @SerialName("email")
+    val email: String,
+    @SerialName("first_name")
+    val firstName: String,
+    @SerialName("last_name")
+    val lastName: String,
+    @SerialName("avatar")
+    val avatar: String
+)
+
+@Serializable
+data class SupportDto(
+    @SerialName("url")
+    val url: String,
+    @SerialName("text")
+    val text: String
+)

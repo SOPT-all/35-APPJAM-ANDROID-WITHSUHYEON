@@ -2,6 +2,7 @@ package com.sopt.withsuhyeon.data.service
 
 import com.sopt.withsuhyeon.data.dto.base.BaseResponse
 import com.sopt.withsuhyeon.data.dto.response.ResponseDummyDto
+import com.sopt.withsuhyeon.data.dto.response.ResponseUserDto
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
@@ -26,4 +27,9 @@ interface DummyService {
         @Path("productId") productId : Int,
         @Header("memberId") memberId : Int,
     ): BaseResponse<String?>
+
+    @GET("/api/users/{userId}")
+    suspend fun getUserDetails(
+        @Path("userId") userId: Int
+    ): ResponseUserDto
 }
