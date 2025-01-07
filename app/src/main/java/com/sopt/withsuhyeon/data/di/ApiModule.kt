@@ -13,6 +13,6 @@ import javax.inject.Singleton
 object ApiModule {
     @Provides
     @Singleton
-    fun provideDummyService(retrofit: Retrofit): DummyService =
+    fun providesDummyService(retrofit: Retrofit): DummyService =
         retrofit.create(DummyService::class.java)
 }
