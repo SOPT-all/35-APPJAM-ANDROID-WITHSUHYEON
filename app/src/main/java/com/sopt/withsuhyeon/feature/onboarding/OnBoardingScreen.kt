@@ -48,6 +48,9 @@ fun OnBoardingScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+        Text(
+            text = "OnBoarding Screen"
+        )
         Button(
             onClick = onButtonClick,
         ) {
