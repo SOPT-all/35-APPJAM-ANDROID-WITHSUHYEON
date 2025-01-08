@@ -58,7 +58,7 @@ class MainNavigator(
     fun navigateHome(navOptions: NavOptions? = null) {
         navController.navigateHome(
             navOptions ?: navOptions {
-                popUpTo(navController.graph.findStartDestination().id) {
+                popUpTo(MainTab.HOME.route) {
                     inclusive = true
                 }
                 launchSingleTop = true
