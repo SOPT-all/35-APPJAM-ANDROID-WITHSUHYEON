@@ -4,9 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavDestination
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import androidx.navigation.NavOptions
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
@@ -54,18 +52,6 @@ class MainNavigator(
     fun navigateOnBoarding() {
         navController.navigateOnBoarding()
     }
-
-    fun navigateHome(navOptions: NavOptions? = null) {
-        navController.navigateHome(
-            navOptions ?: navOptions {
-                popUpTo(MainTab.HOME.route) {
-                    inclusive = true
-                }
-                launchSingleTop = true
-            }
-        )
-    }
-
 
     private fun popBackStack() {
         navController.popBackStack()
