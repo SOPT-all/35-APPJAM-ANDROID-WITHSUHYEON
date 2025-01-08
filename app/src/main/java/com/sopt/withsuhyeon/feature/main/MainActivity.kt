@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.sopt.withsuhyeon.feature.dummy.DummyScreen
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -14,8 +13,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val navigator: MainNavigator = rememberMainNavigator()
             WithSuhyeonTheme {
-                DummyScreen(userId = 2)
+                MainScreen(
+                    navigator = navigator
+                )
             }
         }
     }

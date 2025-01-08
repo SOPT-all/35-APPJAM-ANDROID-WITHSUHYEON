@@ -6,6 +6,7 @@ import androidx.compose.runtime.remember
 import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
@@ -25,7 +26,7 @@ class MainNavigator(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = MainTab.HOME.route
+    val startDestination = Route.OnBoarding
 
     val currentTab: MainTab?
         @SuppressLint("RestrictedApi") @Composable get() = MainTab.find { tab ->
@@ -54,6 +55,17 @@ class MainNavigator(
         navController.navigateOnBoarding()
     }
 
+    fun navigateHome(navOptions: NavOptions? = null) {
+        navController.navigateHome(
+            navOptions ?: navOptions {
+                popUpTo(navController.graph.findStartDestination().id) {
+                    inclusive = true
+                }
+                launchSingleTop = true
+            }
+        )
+    }
+
 
     private fun popBackStack() {
         navController.popBackStack()
@@ -75,7 +87,7 @@ class MainNavigator(
 }
 
 @Composable
-internal fun rememberMainNavigator(
+fun rememberMainNavigator(
     navController: NavHostController = rememberNavController(),
 ): MainNavigator = remember(navController) {
     MainNavigator(navController)
