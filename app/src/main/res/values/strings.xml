@@ -2,6 +2,9 @@
     <string name="app_name">With-Suhyeon</string>
     <string name="goods_snackbar_message_favorite">찜한 상품에 추가되었습니다.</string>
     <string name="error_fetch_reviews">리뷰 불러오기에 실패하였습니다.</string>
-    <string name="action_navigate_to_wishlist">위시리스트로 이동</string>
-    <string name="error_fetch_user_details">유저 정보 불러오기에 실패하였습니다.</string>
+    <string name="bottom_navigation_bar_item_home">위시리스트로 이동</string>
+    <string name="bottom_navigation_bar_item_find_suhyeon">유저 정보 불러오기에 실패하였습니다.</string>
+    <string name="bottom_navigation_bar_item_gallery">위시리스트로 이동</string>
+    <string name="bottom_navigation_bar_item_chat">유저 정보 불러오기에 실패하였습니다.</string>
+    <string name="bottom_navigation_bar_item_my">유저 정보 불러오기에 실패하였습니다.</string>
 </resources>
