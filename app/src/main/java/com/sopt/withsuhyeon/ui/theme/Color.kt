@@ -33,4 +33,3 @@ val Black50 = Color(0x4D000000)
 val White = Color(0xFFFFFFFF)
 
 val Red01 = Color(0xFFFF5747)
-
