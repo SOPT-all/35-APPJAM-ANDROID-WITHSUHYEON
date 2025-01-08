@@ -8,7 +8,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
-import com.sopt.withsuhyeon.core.navigation.MainTabRoute
 import com.sopt.withsuhyeon.core.navigation.Route
 import com.sopt.withsuhyeon.feature.chat.navigation.navigateChat
 import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.navigateFindSuhyeon
@@ -55,12 +54,6 @@ class MainNavigator(
 
     private fun popBackStack() {
         navController.popBackStack()
-    }
-
-    fun popBackStackIfNotHome() {
-        if (!isSameCurrentDestination<MainTabRoute.Home>()) {
-            popBackStack()
-        }
     }
 
     private inline fun <reified T : Route> isSameCurrentDestination(): Boolean =
