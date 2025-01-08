@@ -10,8 +10,10 @@ class OnBoardingContract {
     ) : UiState
 
     sealed interface OnBoardingSideEffect : UiSideEffect {
+        data object NavigateToHome : OnBoardingSideEffect
     }
 
     sealed interface OnBoardingEvent : UiEvent {
+        data object EndLoading : OnBoardingEvent
     }
 }

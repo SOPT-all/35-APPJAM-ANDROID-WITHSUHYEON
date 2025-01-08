@@ -17,7 +17,14 @@ class OnBoardingViewModel @Inject constructor(
 
     override suspend fun handleEvent(event: OnBoardingEvent) {
         when (event) {
-            else -> {}
+            is OnBoardingEvent.EndLoading -> {
+                setState {
+                    copy(isLoading = false)
+                }
+                setSideEffect {
+                    OnBoardingSideEffect.NavigateToHome
+                }
+            }
         }
     }
 }
