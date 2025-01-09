@@ -13,7 +13,6 @@ import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.findSuhyeonNavGraph
 import com.sopt.withsuhyeon.feature.gallery.navigation.galleryNavGraph
 import com.sopt.withsuhyeon.feature.home.navigation.homeNavGraph
 import com.sopt.withsuhyeon.feature.main.MainNavigator
-import com.sopt.withsuhyeon.feature.main.MainTab
 import com.sopt.withsuhyeon.feature.mypage.navigation.myPageNavGraph
 import com.sopt.withsuhyeon.feature.onboarding.navigation.onBoardingNavGraph
 
@@ -50,7 +49,7 @@ fun MainNavHost(
             )
             onBoardingNavGraph(
                 padding = padding,
-                onNavigateToHome = { navigator.navigate(MainTab.HOME) },
+                onNavigateToHome = navigator::navigateToHome,
             )
         }
     }
