@@ -12,7 +12,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.sopt.withsuhyeon.feature.onboarding.contract.OnBoardingContract
+import com.sopt.withsuhyeon.feature.onboarding.contract.OnBoardingContract.OnBoardingSideEffect
+import com.sopt.withsuhyeon.feature.onboarding.contract.OnBoardingContract.OnBoardingEvent
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
@@ -24,7 +25,7 @@ fun OnBoardingRoute(
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collectLatest { effect ->
             when (effect) {
-                OnBoardingContract.OnBoardingSideEffect.NavigateToHome -> {
+                OnBoardingSideEffect.NavigateToHome -> {
                     navigateToHome()
                 }
             }
@@ -33,7 +34,7 @@ fun OnBoardingRoute(
     OnBoardingScreen(
         padding = padding,
         onButtonClick = {
-            viewModel.setEvent(OnBoardingContract.OnBoardingEvent.EndLoading)
+            viewModel.setEvent(OnBoardingEvent.EndLoading)
         }
     )
 }

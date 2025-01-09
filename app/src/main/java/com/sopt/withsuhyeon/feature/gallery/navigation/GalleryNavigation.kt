@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import com.sopt.withsuhyeon.core.navigation.MainTabRoute
 import com.sopt.withsuhyeon.feature.gallery.GalleryRoute
 
-fun NavController.navigateGallery(navOptions: NavOptions) {
+fun NavController.navigateToGallery(navOptions: NavOptions) {
     navigate(MainTabRoute.Gallery, navOptions)
 }
 

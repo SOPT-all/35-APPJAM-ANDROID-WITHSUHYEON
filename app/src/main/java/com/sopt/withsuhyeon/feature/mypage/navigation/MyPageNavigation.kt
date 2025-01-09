@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import com.sopt.withsuhyeon.core.navigation.MainTabRoute
 import com.sopt.withsuhyeon.feature.mypage.MyPageRoute
 
-fun NavController.navigateMyPage(navOptions: NavOptions) {
+fun NavController.navigateToMyPage(navOptions: NavOptions) {
     navigate(MainTabRoute.MyPage, navOptions)
 }
 

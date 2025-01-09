@@ -23,6 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -62,8 +63,8 @@ fun MainBottomBar(
 
                     drawLine(
                         color = borderColor,
-                        start = androidx.compose.ui.geometry.Offset(0f, 0f),
-                        end = androidx.compose.ui.geometry.Offset(size.width, 0f),
+                        start = Offset(0f, 0f),
+                        end = Offset(size.width, 0f),
                         strokeWidth = borderThickness
                     )
                 }

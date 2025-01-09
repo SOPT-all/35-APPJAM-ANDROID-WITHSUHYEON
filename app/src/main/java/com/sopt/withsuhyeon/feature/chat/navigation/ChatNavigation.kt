@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import com.sopt.withsuhyeon.core.navigation.MainTabRoute
 import com.sopt.withsuhyeon.feature.chat.ChatRoute
 
-fun NavController.navigateChat(navOptions: NavOptions) {
+fun NavController.navigateToChat(navOptions: NavOptions) {
     navigate(MainTabRoute.Chat, navOptions)
 }
 

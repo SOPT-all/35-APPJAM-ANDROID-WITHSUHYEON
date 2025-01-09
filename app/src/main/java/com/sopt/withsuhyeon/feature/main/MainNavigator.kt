@@ -9,11 +9,11 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.sopt.withsuhyeon.core.navigation.Route
-import com.sopt.withsuhyeon.feature.chat.navigation.navigateChat
-import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.navigateFindSuhyeon
-import com.sopt.withsuhyeon.feature.gallery.navigation.navigateGallery
-import com.sopt.withsuhyeon.feature.home.navigation.navigateHome
-import com.sopt.withsuhyeon.feature.mypage.navigation.navigateMyPage
+import com.sopt.withsuhyeon.feature.chat.navigation.navigateToChat
+import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.navigateToFindSuhyeon
+import com.sopt.withsuhyeon.feature.gallery.navigation.navigateToGallery
+import com.sopt.withsuhyeon.feature.home.navigation.navigateToHome
+import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToMyPage
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateOnBoarding
 
 class MainNavigator(
@@ -40,15 +40,15 @@ class MainNavigator(
         }
 
         when (tab) {
-            MainTab.HOME -> navController.navigateHome(navOptions)
-            MainTab.FINDSUHYEON -> navController.navigateFindSuhyeon(navOptions)
-            MainTab.GALLERY -> navController.navigateGallery(navOptions)
-            MainTab.CHAT -> navController.navigateChat(navOptions)
-            MainTab.MYPAGE -> navController.navigateMyPage(navOptions)
+            MainTab.HOME -> navController.navigateToHome(navOptions)
+            MainTab.FINDSUHYEON -> navController.navigateToFindSuhyeon(navOptions)
+            MainTab.GALLERY -> navController.navigateToGallery(navOptions)
+            MainTab.CHAT -> navController.navigateToChat(navOptions)
+            MainTab.MYPAGE -> navController.navigateToMyPage(navOptions)
         }
     }
 
-    fun navigateOnBoarding() {
+    fun navigateToOnBoarding() {
         navController.navigateOnBoarding()
     }
 

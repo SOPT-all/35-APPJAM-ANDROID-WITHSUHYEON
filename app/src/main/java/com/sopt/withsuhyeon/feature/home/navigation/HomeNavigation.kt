@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import com.sopt.withsuhyeon.core.navigation.MainTabRoute
 import com.sopt.withsuhyeon.feature.home.HomeRoute
 
-fun NavController.navigateHome(navOptions: NavOptions) {
+fun NavController.navigateToHome(navOptions: NavOptions) {
     navigate(MainTabRoute.Home, navOptions)
 }
 

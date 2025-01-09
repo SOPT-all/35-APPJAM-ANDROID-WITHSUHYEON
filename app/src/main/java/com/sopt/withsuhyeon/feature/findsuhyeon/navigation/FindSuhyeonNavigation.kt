@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import com.sopt.withsuhyeon.core.navigation.MainTabRoute
 import com.sopt.withsuhyeon.feature.findsuhyeon.FindSuhyeonRoute
 
-fun NavController.navigateFindSuhyeon(navOptions: NavOptions) {
+fun NavController.navigateToFindSuhyeon(navOptions: NavOptions) {
     navigate(MainTabRoute.FindSuhyeon, navOptions)
 }
 
