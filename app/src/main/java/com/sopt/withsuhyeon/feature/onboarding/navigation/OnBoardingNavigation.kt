@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import com.sopt.withsuhyeon.feature.onboarding.OnBoardingRoute
 import com.sopt.withsuhyeon.core.navigation.Route.OnBoarding as OnBoardingRoute
 
-fun NavController.navigateOnBoarding() {
+fun NavController.navigateToOnBoarding() {
     navigate(OnBoardingRoute)
 }
 

@@ -16,7 +16,7 @@ import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.navigateToFindSuhyeon
 import com.sopt.withsuhyeon.feature.gallery.navigation.navigateToGallery
 import com.sopt.withsuhyeon.feature.home.navigation.navigateToHome
 import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToMyPage
-import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateOnBoarding
+import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToOnBoarding
 
 class MainNavigator(
     val navController: NavHostController,
@@ -51,7 +51,7 @@ class MainNavigator(
     }
 
     fun navigateToOnBoarding() {
-        navController.navigateOnBoarding()
+        navController.navigateToOnBoarding()
     }
 
     fun navigateToHome(navOptions: NavOptions? = null) {
