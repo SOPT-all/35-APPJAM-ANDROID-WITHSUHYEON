@@ -1,5 +1,7 @@
 package com.sopt.withsuhyeon.ui.theme
 
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 val Purple25 = Color(0xFFFAFAFF)
@@ -33,3 +35,75 @@ val Black50 = Color(0x4D000000)
 val White = Color(0xFFFFFFFF)
 
 val Red01 = Color(0xFFFF5747)
+
+@Immutable
+data class WithSuhyeonColors(
+    val Purple25: Color,
+    val Purple50: Color,
+    val Purple100: Color,
+    val Purple200: Color,
+    val Purple300: Color,
+    val Purple400: Color,
+    val Purple500: Color,
+    val Purple600: Color,
+    val Purple700: Color,
+    val Purple800: Color,
+    val Purple900: Color,
+    val Purple950: Color,
+
+    val Grey25: Color,
+    val Grey50: Color,
+    val Grey100: Color,
+    val Grey200: Color,
+    val Grey300: Color,
+    val Grey400: Color,
+    val Grey500: Color,
+    val Grey600: Color,
+    val Grey700: Color,
+    val Grey800: Color,
+    val Grey900: Color,
+    val Grey950: Color,
+
+    val Black: Color,
+    val Black50: Color,
+    val White: Color,
+
+    val Red01: Color
+)
+
+val defaultWithSuhyeonColors = WithSuhyeonColors(
+    Purple25 = Purple25,
+    Purple50 = Purple50,
+    Purple100 = Purple100,
+    Purple200 = Purple200,
+    Purple300 = Purple300,
+    Purple400 = Purple400,
+    Purple500 = Purple500,
+    Purple600 = Purple600,
+    Purple700 = Purple700,
+    Purple800 = Purple800,
+    Purple900 = Purple900,
+    Purple950 = Purple950,
+
+    Grey25 = Grey25,
+    Grey50 = Grey50,
+    Grey100 = Grey100,
+    Grey200 = Grey200,
+    Grey300 = Grey300,
+    Grey400 = Grey400,
+    Grey500 = Grey500,
+    Grey600 = Grey600,
+    Grey700 = Grey700,
+    Grey800 = Grey800,
+    Grey900 = Grey900,
+    Grey950 = Grey950,
+
+    Black = Black,
+    Black50 = Black50,
+    White = White,
+
+    Red01 = Red01
+)
+
+val LocalWithSuhyeonColorsProvider = staticCompositionLocalOf { defaultWithSuhyeonColors }
+
