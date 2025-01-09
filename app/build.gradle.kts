@@ -69,6 +69,7 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation (libs.kotlinx.collections.immutable)
 
     // Network
     implementation(platform(libs.okhttp.bom))
@@ -91,4 +92,8 @@ dependencies {
     ksp(libs.hilt.android.compiler)
     ksp(libs.hilt.compiler)
     ksp(libs.hilt.manager)
+
+    // Navigation
+    implementation(libs.androidx.compose.navigation)
+    implementation(libs.hilt.navigation.compose)
 }

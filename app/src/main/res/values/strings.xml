@@ -4,4 +4,9 @@
     <string name="error_fetch_reviews">리뷰 불러오기에 실패하였습니다.</string>
     <string name="action_navigate_to_wishlist">위시리스트로 이동</string>
     <string name="error_fetch_user_details">유저 정보 불러오기에 실패하였습니다.</string>
+    <string name="bottom_navigation_bar_item_home">홈</string>
+    <string name="bottom_navigation_bar_item_find_suhyeon">수현이 찾기</string>
+    <string name="bottom_navigation_bar_item_gallery">갤러리</string>
+    <string name="bottom_navigation_bar_item_chat">채팅</string>
+    <string name="bottom_navigation_bar_item_my">MY</string>
 </resources>
