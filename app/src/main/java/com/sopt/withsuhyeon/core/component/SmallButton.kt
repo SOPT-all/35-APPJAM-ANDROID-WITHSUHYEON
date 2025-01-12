@@ -16,9 +16,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.sopt.withsuhyeon.ui.theme.Grey200
-import com.sopt.withsuhyeon.ui.theme.Grey400
+import com.sopt.withsuhyeon.ui.theme.Grey100
+import com.sopt.withsuhyeon.ui.theme.Grey500
 import com.sopt.withsuhyeon.ui.theme.Purple500
+import com.sopt.withsuhyeon.ui.theme.Red01
 import com.sopt.withsuhyeon.ui.theme.White
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
 import com.sopt.withsuhyeon.ui.theme.defaultWithSuhyeonTypography
@@ -26,12 +27,30 @@ import com.sopt.withsuhyeon.ui.theme.defaultWithSuhyeonTypography
 @Composable
 fun SmallButton(
     text: String,
-    color: Color,
-    backgroundColor: Color,
+    type: String? = null,
     modifier: Modifier = Modifier,
     font: TextStyle = defaultWithSuhyeonTypography.body01_B,
     padding: Int = 14,
 ) {
+    val backgroundColor: Color
+    val textColor: Color
+
+    when (type) {
+        "alert" -> {
+            backgroundColor = Red01
+            textColor = White
+        }
+
+        "disabled" -> {
+            backgroundColor = Grey100
+            textColor = Grey500
+        }
+
+        else -> {
+            backgroundColor = Purple500
+            textColor = White
+        }
+    }
     Text(
         modifier = modifier
             .width(160.dp)
@@ -42,7 +61,7 @@ fun SmallButton(
             )
             .padding(vertical = padding.dp),
         text = text,
-        color = color,
+        color = textColor,
         textAlign = TextAlign.Center,
         style = font
     )
@@ -63,13 +82,14 @@ fun SmallButtonPreview(
         ) {
             SmallButton(
                 text = "버튼",
-                color = White,
-                backgroundColor = Purple500,
+                type = "alert"
             )
             SmallButton(
                 text = "버튼",
-                color = Grey400,
-                backgroundColor = Grey200,
+                type = "disabled"
+            )
+            SmallButton(
+                text = "버튼",
             )
         }
     }
