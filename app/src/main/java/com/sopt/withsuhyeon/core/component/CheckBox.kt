@@ -28,6 +28,8 @@ import com.sopt.withsuhyeon.ui.theme.Grey100
 import com.sopt.withsuhyeon.ui.theme.Grey200
 import com.sopt.withsuhyeon.ui.theme.Grey300
 import com.sopt.withsuhyeon.ui.theme.Grey400
+import com.sopt.withsuhyeon.ui.theme.Grey50
+import com.sopt.withsuhyeon.ui.theme.Purple50
 import com.sopt.withsuhyeon.ui.theme.Purple500
 import com.sopt.withsuhyeon.ui.theme.White
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
@@ -36,6 +38,7 @@ import com.sopt.withsuhyeon.ui.theme.defaultWithSuhyeonTypography
 @Composable
 fun CheckBox(
     placeholder: String,
+    type: String = "primary",
     state: String = "default",
     modifier: Modifier = Modifier,
     font: TextStyle = defaultWithSuhyeonTypography.body03_SB,
@@ -50,8 +53,16 @@ fun CheckBox(
         val textColor: Color
         when (state) {
             "checked" -> {
-                backgroundColor = Purple500
-                checkColor = White
+                when (type) {
+                    "secondary" -> {
+                        backgroundColor = Purple50
+                        checkColor = Purple500
+                    }
+                    else -> {
+                        backgroundColor = Purple500
+                        checkColor = White
+                    }
+                }
                 textColor = Black
             }
 
@@ -62,8 +73,16 @@ fun CheckBox(
             }
 
             else -> {
-                backgroundColor = Grey200
-                checkColor = White
+                when (type) {
+                    "secondary" -> {
+                        backgroundColor = Grey50
+                        checkColor = Grey200
+                    }
+                    else -> {
+                        backgroundColor = Grey200
+                        checkColor = White
+                    }
+                }
                 textColor = Black
             }
         }
@@ -114,6 +133,23 @@ fun CheckBoxPreview(
             )
             CheckBox(
                 placeholder = "플레이스 홀더",
+                state = "disabled",
+                onClick = {}
+            )
+            CheckBox(
+                placeholder = "플레이스 홀더",
+                type = "secondary",
+                onClick = {}
+            )
+            CheckBox(
+                placeholder = "플레이스 홀더",
+                type = "secondary",
+                state = "checked",
+                onClick = {}
+            )
+            CheckBox(
+                placeholder = "플레이스 홀더",
+                type = "secondary",
                 state = "disabled",
                 onClick = {}
             )
