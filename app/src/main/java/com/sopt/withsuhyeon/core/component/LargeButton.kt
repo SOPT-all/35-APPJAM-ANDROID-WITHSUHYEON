@@ -16,6 +16,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
+import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.ui.theme.Grey200
 import com.sopt.withsuhyeon.ui.theme.Grey400
 import com.sopt.withsuhyeon.ui.theme.Purple500
@@ -31,6 +32,7 @@ fun LargeButton(
     modifier: Modifier = Modifier,
     padding: Int = 14,
     font: TextStyle = defaultWithSuhyeonTypography.body01_B,
+    onClick: () -> Unit,
 ) {
     val backgroundColor: Color
     val textColor: Color
@@ -52,7 +54,8 @@ fun LargeButton(
             .width(328.dp)
             .height(56.dp)
             .background(backgroundColor, shape = RoundedCornerShape(size = 16.dp))
-            .padding(padding.dp),
+            .padding(padding.dp)
+            .noRippleClickable(onClick),
         contentAlignment = Alignment.Center
     ) {
         Row(
@@ -94,20 +97,24 @@ fun LargeButtonPreview(
                 .padding(20.dp)
         ) {
             LargeButton(
-                text = "버튼"
+                text = "버튼",
+                onClick = {}
             )
             LargeButton(
                 isDisabled = true,
-                text = "버튼"
+                text = "버튼",
+                onClick = {}
             )
             LargeButton(
                 isDownload = true,
-                text = "버튼"
+                text = "버튼",
+                onClick = {}
             )
             LargeButton(
                 isDownload = true,
                 isDisabled = true,
-                text = "버튼"
+                text = "버튼",
+                onClick = {}
             )
         }
     }

@@ -17,6 +17,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.ui.theme.Grey100
 import com.sopt.withsuhyeon.ui.theme.Grey500
 import com.sopt.withsuhyeon.ui.theme.Purple500
@@ -32,6 +33,7 @@ fun SmallButton(
     modifier: Modifier = Modifier,
     font: TextStyle = defaultWithSuhyeonTypography.body01_B,
     padding: Int = 14,
+    onClick: () -> Unit
 ) {
     val backgroundColor: Color
     val textColor: Color
@@ -60,7 +62,8 @@ fun SmallButton(
                 backgroundColor,
                 shape = RoundedCornerShape(size = 16.dp)
             )
-            .padding(vertical = padding.dp),
+            .padding(vertical = padding.dp)
+            .noRippleClickable(onClick),
         text = text,
         color = textColor,
         textAlign = TextAlign.Center,
@@ -84,14 +87,17 @@ fun SmallButtonPreview(
         ) {
             SmallButton(
                 text = "버튼",
-                type = "alert"
+                type = "alert",
+                onClick = {}
             )
             SmallButton(
                 text = "버튼",
-                type = "disabled"
+                type = "disabled",
+                onClick = {}
             )
             SmallButton(
                 text = "버튼",
+                onClick = {}
             )
         }
     }
