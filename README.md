@@ -40,7 +40,7 @@
 - `Timber`
 
 #### 📎 선정 이유
-[Tech Stack 선정 이유](https://serious-option-36e.notion.site/Git-Convention-848d0e8f0b0c4652a2860ed7d92dce9f?pvs=4)
+[Tech Stack 선정 이유](https://serious-option-36e.notion.site/Tech-Stack-f9e3d80c10ab482fa65fa63864782782?pvs=4)
 
 <br>
 
