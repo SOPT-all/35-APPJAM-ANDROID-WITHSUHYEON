@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -20,14 +21,16 @@ import com.sopt.withsuhyeon.ui.theme.Grey400
 import com.sopt.withsuhyeon.ui.theme.Purple500
 import com.sopt.withsuhyeon.ui.theme.White
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
+import com.sopt.withsuhyeon.ui.theme.defaultWithSuhyeonTypography
 
 @Composable
 fun LargeButton(
+    text: String,
     isDisabled: Boolean = false,
     isDownload: Boolean = false,
-    text: String,
     modifier: Modifier = Modifier,
     padding: Int = 14,
+    font: TextStyle = defaultWithSuhyeonTypography.body01_B,
 ) {
     val backgroundColor: Color
     val textColor: Color
@@ -69,7 +72,8 @@ fun LargeButton(
             Text(
                 text = text,
                 color = textColor,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                style = font
             )
         }
     }
@@ -93,8 +97,8 @@ fun LargeButtonPreview(
                 text = "버튼"
             )
             LargeButton(
-                text = "버튼",
-                isDisabled = true
+                isDisabled = true,
+                text = "버튼"
             )
             LargeButton(
                 isDownload = true,
