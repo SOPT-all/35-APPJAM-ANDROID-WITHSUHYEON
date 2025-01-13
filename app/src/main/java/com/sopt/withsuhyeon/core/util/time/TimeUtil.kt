@@ -26,3 +26,16 @@ enum class TimeFormat {
 enum class TimePeriod {
     AM, PM
 }
+
+fun String.toKoreanDay(): String {
+    return when (this) {
+        "MONDAY" -> "월"
+        "TUESDAY" -> "화"
+        "WEDNESDAY" -> "수"
+        "THURSDAY" -> "목"
+        "FRIDAY" -> "금"
+        "SATURDAY" -> "토"
+        "SUNDAY" -> "일"
+        else -> ""
+    }
+}
