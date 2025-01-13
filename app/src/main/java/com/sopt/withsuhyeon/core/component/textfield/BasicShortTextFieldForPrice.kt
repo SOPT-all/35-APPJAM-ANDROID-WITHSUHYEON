@@ -9,8 +9,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
+import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.util.visualtransformation.thousandSeparatorTransformation
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
@@ -43,7 +45,7 @@ fun BasicShortTextFieldForPrice(
         visualTransformation = thousandSeparatorTransformation(),
         trailingContent = {
             Text(
-                text = "원",
+                text = stringResource(R.string.short_text_field_text_won),
                 color = colors.Grey400,
                 style = typography.body02_B,
                 modifier = Modifier

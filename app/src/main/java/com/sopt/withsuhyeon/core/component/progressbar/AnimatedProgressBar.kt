@@ -1,19 +1,25 @@
 package com.sopt.withsuhyeon.core.component.progressbar
 
-import androidx.compose.animation.core.*
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
-import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
 @Composable
 fun AnimatedProgressBar(
@@ -28,7 +34,7 @@ fun AnimatedProgressBar(
             dampingRatio = Spring.DampingRatioMediumBouncy,
             stiffness = Spring.StiffnessMediumLow
         ),
-        label = "ProgressBar Animation"
+        label = stringResource(R.string.label_progressbar_animation)
     )
     Box(
         modifier = modifier
@@ -55,45 +61,6 @@ fun AnimatedProgressBar(
     }
 }
 
-@Composable
-fun AnimatedProgressDemo() {
-    var progress by remember { mutableFloatStateOf(0f) }
-    var currentStep by remember { mutableIntStateOf(0) }
-    val totalSteps = 6
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = "진행률: ${(progress * 100).toInt()}%",
-            style = typography.body01_B
-        )
-
-        AnimatedProgressBar(progress = progress,)
-
-        Button(
-            onClick = {
-                if (currentStep < totalSteps) {
-                    currentStep += 1
-                    progress += 1f/totalSteps
-                }
-            },
-            enabled = currentStep < totalSteps
-        ) {
-            Text(text = "다음 단계")
-        }
-
-        Text(
-            text = "$currentStep / $totalSteps",
-            style = typography.body01_R
-        )
-    }
-}
-
 @Preview(showBackground = true)
 @Composable
 fun PreviewAnimatedProgressBar() {
@@ -105,9 +72,4 @@ fun PreviewAnimatedProgressBar() {
         AnimatedProgressBar(0.83f)
         AnimatedProgressBar(1f)
     }
-}
-@Preview(showBackground = true)
-@Composable
-fun PreviewAnimatedProgressBarDemo() {
-    AnimatedProgressDemo()
 }

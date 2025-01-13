@@ -27,9 +27,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.button.BasicButtonForTextField
 import com.sopt.withsuhyeon.core.util.modifier.addFocusCleaner
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
@@ -144,7 +146,11 @@ fun BasicShortTextField(
             }
             if (visibleLength && maxLength != 0) {
                 Text(
-                    text = "${value.length}/${maxLength}",
+                    text = stringResource(
+                        R.string.short_text_field_character_length,
+                        value.length,
+                        maxLength
+                    ),
                     style = typography.caption01_R.merge(color = colors.Grey400),
                     modifier = Modifier.align(Alignment.Bottom)
                 )

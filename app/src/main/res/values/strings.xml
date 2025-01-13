@@ -9,4 +9,7 @@
     <string name="bottom_navigation_bar_item_gallery">갤러리</string>
     <string name="bottom_navigation_bar_item_chat">채팅</string>
     <string name="bottom_navigation_bar_item_my">MY</string>
+    <string name="label_progressbar_animation">ProgressBar Animation</string>
+    <string name="short_text_field_text_won">원</string>
+    <string name="short_text_field_character_length">%1$s/%2$s</string>
 </resources>
