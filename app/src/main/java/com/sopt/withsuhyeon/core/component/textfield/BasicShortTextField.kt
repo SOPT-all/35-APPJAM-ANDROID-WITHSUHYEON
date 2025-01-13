@@ -48,7 +48,7 @@ fun BasicShortTextField(
     isValid: Boolean = true,
     enabled: Boolean = true,
     visibleLength: Boolean = false,
-    maxLength: Int = Int.MAX_VALUE,
+    maxLength: Int = -1,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
@@ -78,7 +78,14 @@ fun BasicShortTextField(
         BasicTextField(
             value = value,
             enabled = enabled,
-            onValueChange = onValueChange,
+            onValueChange = { input ->
+                val newValue = if (maxLength > 0 && input.length > maxLength) {
+                    input.take(maxLength)
+                } else {
+                    input
+                }
+                onValueChange(newValue)
+            },
             textStyle = typography.body03_R.merge(color = textColor),
             decorationBox = { innerTextField ->
                 Row(
@@ -144,7 +151,7 @@ fun BasicShortTextField(
             } else {
                 Spacer(modifier = Modifier.weight(1f))
             }
-            if (visibleLength && maxLength != 0) {
+            if (visibleLength && maxLength != -1) {
                 Text(
                     text = stringResource(
                         R.string.short_text_field_character_length,
@@ -215,11 +222,7 @@ fun PreviewFullOptionBasicShortTextField() {
             onValueChange = { input ->
                 isValid = input == "텍스트"
                 errorMessage = if (!isValid) "\"텍스트\"라고 입력해주세요." else ""
-                value = if (input.length > maxLength) {
-                    input.take(maxLength)
-                } else {
-                    input
-                }
+                value = input
                 enabled = value != "불가"
 
             },
