@@ -19,14 +19,6 @@ internal val currentMonth = currentDateTime.monthNumber
 internal val currentMinute = currentDateTime.minute
 internal val currentHour = currentDateTime.hour
 
-enum class TimeFormat {
-    HOUR_12, HOUR_24
-}
-
-enum class TimePeriod {
-    AM, PM
-}
-
 fun String.toKoreanDay(): String {
     return when (this) {
         "MONDAY" -> "월"
