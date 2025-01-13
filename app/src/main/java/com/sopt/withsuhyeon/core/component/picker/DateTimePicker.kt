@@ -43,7 +43,10 @@ fun DateTimePicker(
         )
     },
     hourPickerState: PickerState<Int> = remember { PickerState(startDateTime.hour) },
-    minutePickerState: PickerState<Int> = remember { PickerState(startDateTime.minute) },
+    minutePickerState: PickerState<String> = remember {
+        val minuteStr = startDateTime.minute.toString().padStart(2, '0')
+        PickerState(minuteStr)
+    },
     dateItems: List<String> = remember {
         val startDate = LocalDate(2025, 1, 1)
         (0 until 365).map { offset ->
@@ -52,7 +55,7 @@ fun DateTimePicker(
         }
     },
     hourItems: List<Int> = (1..12).toList(),
-    minuteItems: List<Int> = (0..59).toList(),
+    minuteItems: List<String> = (0..59).map { it.toString().padStart(2, '0') },
     visibleItemsCount: Int = 3,
     itemPadding: PaddingValues = PaddingValues(8.dp),
     textStyle: TextStyle = WithSuhyeonTheme.typography.title02_SB.copy(color = Grey400),
