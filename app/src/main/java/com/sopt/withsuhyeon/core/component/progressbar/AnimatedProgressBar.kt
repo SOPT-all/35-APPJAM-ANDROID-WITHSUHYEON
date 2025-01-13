@@ -14,7 +14,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,9 +24,10 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 fun AnimatedProgressBar(
     progress: Float,
     modifier: Modifier = Modifier,
-    backgroundColor: Color = colors.Grey100,
-    progressColor: Color = colors.Purple500,
 ) {
+    val backgroundColor = colors.Grey100
+    val progressColor = colors.Purple500
+
     val animatedProgress by animateFloatAsState(
         targetValue = progress.coerceIn(0f, 1f),
         animationSpec = spring(
