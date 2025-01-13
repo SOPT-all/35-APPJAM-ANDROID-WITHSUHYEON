@@ -22,6 +22,8 @@ hiltNavigationCompose = "1.2.0"
 hiltManager = "1.0.0"
 ksp = "2.0.0-1.0.21"
 androidxComposeNavigation = "2.8.2"
+composeDateTimePicker = "0.0.3"
+kotlinxDatetime = "0.4.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -56,6 +58,8 @@ hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref
 hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 hilt-manager = {group = "androidx.hilt" , name = "hilt-compiler", version.ref = "hiltManager"}
+compose-date-time-picker = { group = "io.github.kez-lab", name = "compose-date-time-picker", version.ref = "composeDateTimePicker" }
+kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
