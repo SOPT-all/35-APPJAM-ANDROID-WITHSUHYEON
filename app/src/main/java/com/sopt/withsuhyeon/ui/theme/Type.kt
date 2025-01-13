@@ -149,7 +149,7 @@ val defaultWithSuhyeonTypography = WithSuhyeonTypography(
         fontSize = 20.sp,
         fontWeight = FontWeight(600),
         lineHeight = 30.sp,
-        lineHeightStyle = lineHeightStyle
+        // lineHeightStyle = lineHeightStyle
     ),
     title02_R = TextStyle(
         fontFamily = withSuhyeonFont,
