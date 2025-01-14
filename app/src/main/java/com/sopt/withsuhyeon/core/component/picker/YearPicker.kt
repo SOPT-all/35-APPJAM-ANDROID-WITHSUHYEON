@@ -26,9 +26,8 @@ import com.kez.picker.PickerState
 import com.kez.picker.rememberPickerState
 import com.sopt.withsuhyeon.core.util.time.YEAR_RANGE
 import com.sopt.withsuhyeon.core.util.time.currentDate
-import com.sopt.withsuhyeon.ui.theme.Black
-import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
+import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 import kotlinx.datetime.LocalDate
 
 @Composable
@@ -39,12 +38,12 @@ fun YearPicker(
     yearItems: List<Int> = YEAR_RANGE.reversed(),
     visibleItemsCount: Int = 3,
     itemPadding: PaddingValues = PaddingValues(top = 12.dp, bottom = 16.dp),
-    textStyle: TextStyle = WithSuhyeonTheme.typography.title02_SB.copy(color = colors.Grey400),
-    selectedTextStyle: TextStyle = WithSuhyeonTheme.typography.title02_SB.copy(color = colors.Black),
+    textStyle: TextStyle = typography.title02_SB.copy(color = colors.Grey400),
+    selectedTextStyle: TextStyle = typography.title02_SB.copy(color = colors.Black),
     dividerColor: Color = Transparent,
     fadingEdgeGradient: Brush = Brush.verticalGradient(
         0f to Transparent,
-        0.5f to Black,
+        0.5f to colors.Black,
         1f to Transparent
     ),
     horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,

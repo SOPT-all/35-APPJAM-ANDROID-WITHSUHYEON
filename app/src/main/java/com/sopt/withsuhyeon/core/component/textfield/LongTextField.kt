@@ -24,10 +24,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.util.KeyStorage.LONG_TEXTFIELD_MAX_LENGTH
-import com.sopt.withsuhyeon.ui.theme.Grey400
-import com.sopt.withsuhyeon.ui.theme.Red01
-import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
+import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
 @Composable
 fun LongTextField(
@@ -55,7 +53,7 @@ fun LongTextField(
                 .border(1.dp, borderColor, RoundedCornerShape(12.dp))
                 .onFocusChanged { focusState -> isFocused = focusState.isFocused },
             maxLines = Int.MAX_VALUE,
-            textStyle = WithSuhyeonTheme.typography.body03_SB,
+            textStyle = typography.body03_SB,
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = Transparent,
                 unfocusedContainerColor = Transparent,
@@ -73,14 +71,14 @@ fun LongTextField(
         ) {
             Text(
                 text = if (isError) stringResource(R.string.long_text_field_max_length_error_message) else stringResource(R.string.long_text_field_max_length_no_message),
-                color = if (isError) Red01 else Transparent,
-                style = WithSuhyeonTheme.typography.body03_R
+                color = if (isError) colors.Red01 else Transparent,
+                style = typography.body03_R
             )
 
             Text(
                 text = "${value.length}/200",
-                color = if (isError) Red01 else Grey400,
-                style = WithSuhyeonTheme.typography.body03_R,
+                color = if (isError) colors.Red01 else colors.Grey400,
+                style = typography.body03_R,
                 modifier = Modifier.align(Alignment.CenterVertically)
             )
         }

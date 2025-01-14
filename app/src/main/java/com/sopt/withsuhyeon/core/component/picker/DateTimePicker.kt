@@ -14,7 +14,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
@@ -30,8 +29,8 @@ import com.sopt.withsuhyeon.core.util.time.currentDate
 import com.sopt.withsuhyeon.core.util.time.currentDateTime
 import com.sopt.withsuhyeon.core.util.time.currentHour
 import com.sopt.withsuhyeon.core.util.time.toKoreanDay
-import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
+import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
@@ -70,12 +69,12 @@ fun DateTimePicker(
     minuteItems: List<String> = MINUTE_RANGE.map { it.toString().padStart(2, '0') },
     visibleItemsCount: Int = 3,
     itemPadding: PaddingValues = PaddingValues(top = 12.dp, bottom = 16.dp, start = 6.dp, end = 6.dp),
-    textStyle: TextStyle = WithSuhyeonTheme.typography.title02_SB.copy(color = colors.Grey400),
-    selectedTextStyle: TextStyle = WithSuhyeonTheme.typography.title02_SB.copy(color = colors.Black),
+    textStyle: TextStyle = typography.title02_SB.copy(color = colors.Grey400),
+    selectedTextStyle: TextStyle = typography.title02_SB.copy(color = colors.Black),
     fadingEdgeGradient: Brush = Brush.verticalGradient(
-        0f to Color.Transparent,
-        0.5f to Color.Black,
-        1f to Color.Transparent
+        0f to Transparent,
+        0.5f to colors.Black,
+        1f to Transparent
     ),
     horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
     verticalAlignment: Alignment.Vertical = Alignment.CenterVertically
