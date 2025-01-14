@@ -25,29 +25,20 @@ fun BasicButtonForTextField(
     enabled: Boolean = true,
     isPrimary: Boolean = false
 ) {
-    val backgroundColor = if (isPrimary) {
-        if (enabled)
-            colors.Purple500
-        else
-            colors.Grey200
-    } else {
-        if (enabled)
-            colors.Purple50
-        else
-            colors.Grey100
+    val backgroundColor = when {
+        isPrimary && enabled -> colors.Purple500
+        isPrimary && !enabled -> colors.Grey200
+        !isPrimary && enabled -> colors.Purple50
+        else -> colors.Grey100
     }
 
-    val textColor = if (isPrimary) {
-        if (enabled)
-            colors.White
-        else
-            colors.Grey400
-    } else {
-        if (enabled)
-            colors.Purple500
-        else
-            colors.Grey300
+    val textColor = when {
+        isPrimary && enabled -> colors.White
+        isPrimary && !enabled -> colors.Grey400
+        !isPrimary && enabled -> colors.Purple500
+        else -> colors.Grey300
     }
+
     Box(
         modifier = modifier
             .background(

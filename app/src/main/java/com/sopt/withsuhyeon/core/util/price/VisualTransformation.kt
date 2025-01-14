@@ -1,4 +1,4 @@
-package com.sopt.withsuhyeon.core.util.visualtransformation
+package com.sopt.withsuhyeon.core.util.price
 
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.OffsetMapping

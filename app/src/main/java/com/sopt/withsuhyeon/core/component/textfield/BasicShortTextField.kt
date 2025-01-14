@@ -56,12 +56,14 @@ fun BasicShortTextField(
     onFocusChange: (Boolean) -> Unit = {},
 ) {
     var isFocused by remember { mutableStateOf(false) }
+    var isMaxLengthExceeded by remember { mutableStateOf(false) }
     val borderColor =
-        if (isFocused)
-            colors.Purple300
-        else if (value.isNotEmpty() && enabled && !isValid)
-            colors.Red01
-        else colors.Grey100
+        when {
+            isFocused -> colors.Purple300
+            isMaxLengthExceeded -> colors.Red01
+            value.isNotEmpty() && enabled && !isValid -> colors.Red01
+            else -> colors.Grey100
+        }
     val textColor = if (enabled) colors.Grey900 else colors.Grey300
     val backgroundColor = if (enabled) colors.White else colors.Grey100
 
@@ -79,12 +81,13 @@ fun BasicShortTextField(
             value = value,
             enabled = enabled,
             onValueChange = { input ->
-                val newValue = if (maxLength > 0 && input.length > maxLength) {
-                    input.take(maxLength)
+                if (maxLength > 0 && input.length > maxLength) {
+                    isMaxLengthExceeded = true
+                    onValueChange(input.take(maxLength))
                 } else {
-                    input
+                    isMaxLengthExceeded = false
+                    onValueChange(input)
                 }
-                onValueChange(newValue)
             },
             textStyle = typography.body03_R.merge(color = textColor),
             decorationBox = { innerTextField ->
@@ -137,7 +140,16 @@ fun BasicShortTextField(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
         ) {
-            if (value.isNotEmpty()
+            if (isMaxLengthExceeded) {
+                Text(
+                    text = stringResource(
+                        R.string.short_text_field_text_max_length_message,
+                        maxLength
+                    ),
+                    style = typography.body03_R.merge(color = colors.Red01),
+                    modifier = Modifier.weight(1f)
+                )
+            } else if (value.isNotEmpty()
                 && !isFocused
                 && !isValid
                 && enabled
@@ -204,7 +216,7 @@ fun PreviewFullOptionBasicShortTextField() {
     var buttonText by remember { mutableStateOf("인증 요청") }
     var buttonEnabled by remember { mutableStateOf(true) }
 
-    val maxLength = 12
+    val maxLength = 30
     Column(
         modifier = Modifier
             .fillMaxSize()
