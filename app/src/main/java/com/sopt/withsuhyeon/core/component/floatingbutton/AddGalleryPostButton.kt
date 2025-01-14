@@ -17,9 +17,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
-import com.sopt.withsuhyeon.ui.theme.Purple500
-import com.sopt.withsuhyeon.ui.theme.White
-import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
+import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
+import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
 @Composable
 fun AddGalleryPostButton(
@@ -29,8 +28,8 @@ fun AddGalleryPostButton(
     FloatingActionButton(
         onClick = onClick,
         modifier = modifier,
-        containerColor = Purple500,
-        contentColor = White,
+        containerColor = colors.Purple500,
+        contentColor = colors.White,
         shape = RoundedCornerShape(28.dp)
     ) {
         Row(
@@ -48,7 +47,7 @@ fun AddGalleryPostButton(
 
             Text(
                 text = stringResource(R.string.btn_add_gallery_post),
-                style = WithSuhyeonTheme.typography.body03_SB
+                style = typography.body03_SB
             )
         }
     }

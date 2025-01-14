@@ -10,8 +10,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
-import com.sopt.withsuhyeon.ui.theme.Purple500
-import com.sopt.withsuhyeon.ui.theme.White
+import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
 @Composable
 fun AddFindSuhyeonPostButton(
@@ -21,8 +20,8 @@ fun AddFindSuhyeonPostButton(
     FloatingActionButton(
         onClick = onClick,
         modifier = modifier.size(56.dp),
-        containerColor = Purple500,
-        contentColor = White,
+        containerColor = colors.Purple500,
+        contentColor = colors.White,
         shape = RoundedCornerShape(28.dp)
     ) {
         Icon(

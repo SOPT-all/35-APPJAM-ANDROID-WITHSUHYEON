@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
@@ -26,10 +27,8 @@ import com.kez.picker.rememberPickerState
 import com.sopt.withsuhyeon.core.util.time.YEAR_RANGE
 import com.sopt.withsuhyeon.core.util.time.currentDate
 import com.sopt.withsuhyeon.ui.theme.Black
-import com.sopt.withsuhyeon.ui.theme.Grey400
-import com.sopt.withsuhyeon.ui.theme.Purple50
-import com.sopt.withsuhyeon.ui.theme.White
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
+import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import kotlinx.datetime.LocalDate
 
 @Composable
@@ -40,13 +39,13 @@ fun YearPicker(
     yearItems: List<Int> = YEAR_RANGE.reversed(),
     visibleItemsCount: Int = 3,
     itemPadding: PaddingValues = PaddingValues(top = 12.dp, bottom = 16.dp),
-    textStyle: TextStyle = WithSuhyeonTheme.typography.title02_SB.copy(color = Grey400),
-    selectedTextStyle: TextStyle = WithSuhyeonTheme.typography.title02_SB.copy(color = Black),
-    dividerColor: Color = Color.Transparent,
+    textStyle: TextStyle = WithSuhyeonTheme.typography.title02_SB.copy(color = colors.Grey400),
+    selectedTextStyle: TextStyle = WithSuhyeonTheme.typography.title02_SB.copy(color = colors.Black),
+    dividerColor: Color = Transparent,
     fadingEdgeGradient: Brush = Brush.verticalGradient(
-        0f to Color.Transparent,
-        0.5f to Color.Black,
-        1f to Color.Transparent
+        0f to Transparent,
+        0.5f to Black,
+        1f to Transparent
     ),
     horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
     verticalAlignment: Alignment.Vertical = Alignment.CenterVertically
@@ -75,7 +74,7 @@ fun YearPicker(
 
     Box(
         modifier = modifier
-            .background(White)
+            .background(colors.White)
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
             .height(totalHeight)
@@ -86,7 +85,7 @@ fun YearPicker(
                 .fillMaxWidth()
                 .height(itemHeight)
                 .background(
-                    color = if (isYearPickerScrolled.value) Purple50 else White,
+                    color = if (isYearPickerScrolled.value) colors.Purple50 else colors.White,
                     shape = RoundedCornerShape(12.dp)
                 )
         )

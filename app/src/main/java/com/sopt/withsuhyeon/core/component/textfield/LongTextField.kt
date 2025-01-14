@@ -19,14 +19,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.graphics.Color.Companion.Transparent
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.sopt.withsuhyeon.ui.theme.Grey100
+import com.sopt.withsuhyeon.R
+import com.sopt.withsuhyeon.core.util.KeyStorage.LONG_TEXTFIELD_MAX_LENGTH
 import com.sopt.withsuhyeon.ui.theme.Grey400
-import com.sopt.withsuhyeon.ui.theme.Purple400
 import com.sopt.withsuhyeon.ui.theme.Red01
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
+import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
 @Composable
 fun LongTextField(
@@ -35,11 +36,11 @@ fun LongTextField(
     modifier: Modifier = Modifier
 ) {
     var isFocused by remember { mutableStateOf(false) }
-    val isError = value.length > 200
+    val isError = value.length > LONG_TEXTFIELD_MAX_LENGTH
     val borderColor = when {
-        isError -> Red
-        isFocused -> Purple400
-        else -> Grey100
+        isError -> colors.Red01
+        isFocused -> colors.Purple400
+        else -> colors.Grey100
     }
 
     Column(
@@ -71,7 +72,7 @@ fun LongTextField(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = if (isError) "최대 200자까지 입력할 수 있어" else "",
+                text = if (isError) stringResource(R.string.long_text_field_max_length_error_message) else stringResource(R.string.long_text_field_max_length_no_message),
                 color = if (isError) Red01 else Transparent,
                 style = WithSuhyeonTheme.typography.body03_R
             )
