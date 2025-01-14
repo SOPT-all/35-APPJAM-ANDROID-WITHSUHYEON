@@ -25,6 +25,7 @@ import com.sopt.withsuhyeon.core.util.time.HOUR12_RANGE
 import com.sopt.withsuhyeon.core.util.time.MINUTE_RANGE
 import com.sopt.withsuhyeon.core.util.time.currentDate
 import com.sopt.withsuhyeon.core.util.time.currentDateTime
+import com.sopt.withsuhyeon.core.util.time.currentHour
 import com.sopt.withsuhyeon.core.util.time.toKoreanDay
 import com.sopt.withsuhyeon.ui.theme.Black
 import com.sopt.withsuhyeon.ui.theme.Grey400
@@ -46,16 +47,15 @@ fun DateTimePicker(
         )
     },
     amPmPickerState: PickerState<String> = remember {
-        val isAm = (startDateTime.hour < 12)
-        PickerState(if (isAm) "오전" else "오후")
+        PickerState(if (currentHour in 0..11) "오전" else "오후")
     },
     hourPickerState: PickerState<Int> = remember {
         val hourIn12HourFormat = if (startDateTime.hour == 0) 12 else startDateTime.hour % 12
         PickerState(hourIn12HourFormat)
     },
     minutePickerState: PickerState<String> = remember {
-        val minuteStr = startDateTime.minute.toString().padStart(2, '0')
-        PickerState(minuteStr)
+        val minute = startDateTime.minute.toString().padStart(2, '0')
+        PickerState(minute)
     },
     dateItems: List<String> = remember {
         val endDate = LocalDate(2025, 12, 31)
