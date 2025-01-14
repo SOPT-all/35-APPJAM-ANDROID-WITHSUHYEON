@@ -19,10 +19,10 @@ fun AddFindSuhyeonPostButton(
 ) {
     FloatingActionButton(
         onClick = onClick,
-        modifier = modifier.size(56.dp),
+        modifier = modifier.size(48.dp),
         containerColor = colors.Purple500,
         contentColor = colors.White,
-        shape = RoundedCornerShape(28.dp)
+        shape = RoundedCornerShape(24.dp)
     ) {
         Icon(
             painter = painterResource(id = R.drawable.ic_plus_24),
