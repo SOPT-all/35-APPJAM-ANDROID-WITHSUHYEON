@@ -30,10 +30,10 @@ fun AddGalleryPostButton(
         modifier = modifier,
         containerColor = colors.Purple500,
         contentColor = colors.White,
-        shape = RoundedCornerShape(28.dp)
+        shape = RoundedCornerShape(41.dp)
     ) {
         Row(
-            modifier = Modifier.padding(12.dp),
+            modifier = Modifier.padding(start = 12.dp, end = 16.dp),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
