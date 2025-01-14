@@ -59,8 +59,8 @@ fun BasicShortTextField(
     var isMaxLengthExceeded by remember { mutableStateOf(false) }
     val borderColor =
         when {
-            isFocused -> colors.Purple300
             isMaxLengthExceeded -> colors.Red01
+            isFocused -> colors.Purple300
             value.isNotEmpty() && enabled && !isValid -> colors.Red01
             else -> colors.Grey100
         }
