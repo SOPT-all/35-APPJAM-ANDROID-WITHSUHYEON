@@ -15,11 +15,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.kez.picker.Picker
 import com.kez.picker.PickerState
+import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.util.size.calculateWidth
 import com.sopt.withsuhyeon.core.util.time.HOUR12_RANGE
 import com.sopt.withsuhyeon.core.util.time.MINUTE_RANGE
@@ -27,11 +30,8 @@ import com.sopt.withsuhyeon.core.util.time.currentDate
 import com.sopt.withsuhyeon.core.util.time.currentDateTime
 import com.sopt.withsuhyeon.core.util.time.currentHour
 import com.sopt.withsuhyeon.core.util.time.toKoreanDay
-import com.sopt.withsuhyeon.ui.theme.Black
-import com.sopt.withsuhyeon.ui.theme.Grey400
-import com.sopt.withsuhyeon.ui.theme.Purple50
-import com.sopt.withsuhyeon.ui.theme.White
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
+import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
@@ -45,9 +45,6 @@ fun DateTimePicker(
         PickerState(
             "${startDateTime.monthNumber}월 ${startDateTime.dayOfMonth}일 ${startDateTime.dayOfWeek.name.toKoreanDay()}"
         )
-    },
-    amPmPickerState: PickerState<String> = remember {
-        PickerState(if (currentHour in 0..11) "오전" else "오후")
     },
     hourPickerState: PickerState<Int> = remember {
         val hourIn12HourFormat = if (startDateTime.hour == 0) 12 else startDateTime.hour % 12
@@ -68,13 +65,13 @@ fun DateTimePicker(
             }
         }
     },
-    amPmItems: List<String> = listOf("오전", "오후"),
+    amPmItems: List<String> = listOf(stringResource(R.string.am), stringResource(R.string.pm)),
     hourItems: List<Int> = HOUR12_RANGE,
     minuteItems: List<String> = MINUTE_RANGE.map { it.toString().padStart(2, '0') },
     visibleItemsCount: Int = 3,
     itemPadding: PaddingValues = PaddingValues(top = 12.dp, bottom = 16.dp, start = 6.dp, end = 6.dp),
-    textStyle: TextStyle = WithSuhyeonTheme.typography.title02_SB.copy(color = Grey400),
-    selectedTextStyle: TextStyle = WithSuhyeonTheme.typography.title02_SB.copy(color = Black),
+    textStyle: TextStyle = WithSuhyeonTheme.typography.title02_SB.copy(color = colors.Grey400),
+    selectedTextStyle: TextStyle = WithSuhyeonTheme.typography.title02_SB.copy(color = colors.Black),
     fadingEdgeGradient: Brush = Brush.verticalGradient(
         0f to Color.Transparent,
         0.5f to Color.Black,
@@ -88,6 +85,13 @@ fun DateTimePicker(
     val hourPickerWidth = calculateWidth(hourItems.map { it.toString() }, textStyle)
     val minutePickerWidth = calculateWidth(minuteItems, textStyle)
 
+    val am = stringResource(R.string.am)
+    val pm = stringResource(R.string.pm)
+
+    val amPmPickerState: PickerState<String> = remember {
+        PickerState(if (currentHour in 0..11) am else pm)
+    }
+
     val density = LocalDensity.current
     val itemHeight = with(density) {
         selectedTextStyle.fontSize.toDp() +
@@ -96,21 +100,21 @@ fun DateTimePicker(
     }
 
     Row(
-        modifier = modifier.background(White),
+        modifier = modifier.background(colors.White),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(
             modifier = Modifier
                 .padding(horizontal = 12.dp)
-                .background(color = White, shape = RoundedCornerShape(12.dp))
+                .background(color = colors.White, shape = RoundedCornerShape(12.dp))
         ) {
             Box(
                 modifier = Modifier
                     .align(Alignment.Center)
                     .height(itemHeight)
                     .width(datePickerWidth)
-                    .background(color = Purple50, shape = RoundedCornerShape(12.dp))
+                    .background(color = colors.Purple50, shape = RoundedCornerShape(12.dp))
             )
             Picker(
                 state = datePickerState,
@@ -121,7 +125,7 @@ fun DateTimePicker(
                 textStyle = textStyle,
                 selectedTextStyle = selectedTextStyle,
                 textModifier = modifier.padding(1.dp),
-                dividerColor = Color.Transparent,
+                dividerColor = Transparent,
                 itemPadding = itemPadding,
                 fadingEdgeGradient = fadingEdgeGradient,
                 horizontalAlignment = horizontalAlignment,
@@ -133,14 +137,14 @@ fun DateTimePicker(
         Box(
             modifier = Modifier
                 .padding(horizontal = 12.dp)
-                .background(color = White, shape = RoundedCornerShape(12.dp))
+                .background(color = colors.White, shape = RoundedCornerShape(12.dp))
         ) {
             Box(
                 modifier = Modifier
                     .align(Alignment.Center)
                     .height(itemHeight)
                     .width(amPmPickerWidth)
-                    .background(color = Purple50, shape = RoundedCornerShape(12.dp))
+                    .background(color = colors.Purple50, shape = RoundedCornerShape(12.dp))
             )
             Picker(
                 state = amPmPickerState,
@@ -151,7 +155,7 @@ fun DateTimePicker(
                 textStyle = textStyle,
                 selectedTextStyle = selectedTextStyle,
                 textModifier = Modifier.padding(itemPadding),
-                dividerColor = Color.Transparent,
+                dividerColor = Transparent,
                 itemPadding = itemPadding,
                 fadingEdgeGradient = fadingEdgeGradient,
                 horizontalAlignment = horizontalAlignment,
@@ -163,14 +167,14 @@ fun DateTimePicker(
         Box(
             modifier = Modifier
                 .padding(horizontal = 12.dp)
-                .background(color = White, shape = RoundedCornerShape(12.dp))
+                .background(color = colors.White, shape = RoundedCornerShape(12.dp))
         ) {
             Box(
                 modifier = Modifier
                     .align(Alignment.Center)
                     .height(itemHeight)
                     .width(hourPickerWidth + minutePickerWidth + 10.dp)
-                    .background(color = Purple50, shape = RoundedCornerShape(12.dp))
+                    .background(color = colors.Purple50, shape = RoundedCornerShape(12.dp))
             )
 
             Row(
@@ -185,7 +189,7 @@ fun DateTimePicker(
                     textStyle = textStyle,
                     selectedTextStyle = selectedTextStyle,
                     textModifier = Modifier.padding(itemPadding),
-                    dividerColor = Color.Transparent,
+                    dividerColor = Transparent,
                     itemPadding = itemPadding,
                     fadingEdgeGradient = fadingEdgeGradient,
                     horizontalAlignment = horizontalAlignment,
@@ -201,7 +205,7 @@ fun DateTimePicker(
                     textStyle = textStyle,
                     selectedTextStyle = selectedTextStyle,
                     textModifier = Modifier.padding(itemPadding),
-                    dividerColor = Color.Transparent,
+                    dividerColor = Transparent,
                     itemPadding = itemPadding,
                     fadingEdgeGradient = fadingEdgeGradient,
                     horizontalAlignment = horizontalAlignment,
