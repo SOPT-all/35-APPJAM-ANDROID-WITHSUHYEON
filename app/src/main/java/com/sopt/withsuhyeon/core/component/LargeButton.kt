@@ -1,15 +1,14 @@
 package com.sopt.withsuhyeon.core.component
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -28,9 +27,8 @@ import com.sopt.withsuhyeon.ui.theme.defaultWithSuhyeonTypography
 fun LargeButton(
     text: String,
     isDisabled: Boolean = false,
-    isDownload: Boolean = false,
+    isDownloadBtn: Boolean = false,
     modifier: Modifier = Modifier,
-    padding: Int = 14,
     font: TextStyle = defaultWithSuhyeonTypography.body01_B,
     onClick: () -> Unit,
 ) {
@@ -51,10 +49,10 @@ fun LargeButton(
 
     Box(
         modifier = modifier
-            .width(328.dp)
+            .fillMaxWidth()
             .height(56.dp)
             .background(backgroundColor, shape = RoundedCornerShape(size = 16.dp))
-            .padding(padding.dp)
+            .padding(horizontal = 16.dp)
             .noRippleClickable(onClick),
         contentAlignment = Alignment.Center
     ) {
@@ -62,11 +60,11 @@ fun LargeButton(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            if (isDownload) {
-                Image(
+            if (isDownloadBtn) {
+                Icon(
                     painter = painterResource(id = R.drawable.ic_download),
                     contentDescription = null,
-                    colorFilter = ColorFilter.tint(textColor),
+                    tint = textColor,
                     modifier = Modifier
                         .size(24.dp)
                         .padding(end = 8.dp)
@@ -106,12 +104,12 @@ fun LargeButtonPreview(
                 onClick = {}
             )
             LargeButton(
-                isDownload = true,
+                isDownloadBtn = true,
                 text = "버튼",
                 onClick = {}
             )
             LargeButton(
-                isDownload = true,
+                isDownloadBtn = true,
                 isDisabled = true,
                 text = "버튼",
                 onClick = {}

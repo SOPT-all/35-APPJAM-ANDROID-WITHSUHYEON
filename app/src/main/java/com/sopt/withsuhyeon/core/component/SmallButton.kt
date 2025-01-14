@@ -2,11 +2,10 @@ package com.sopt.withsuhyeon.core.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,7 +31,6 @@ fun SmallButton(
     type: String? = null,
     modifier: Modifier = Modifier,
     font: TextStyle = defaultWithSuhyeonTypography.body01_B,
-    padding: Int = 14,
     onClick: () -> Unit
 ) {
     val backgroundColor: Color
@@ -54,21 +52,26 @@ fun SmallButton(
             textColor = White
         }
     }
-    Text(
+    Box(
         modifier = modifier
-            .width(160.dp)
-            .height(56.dp)
             .background(
                 backgroundColor,
                 shape = RoundedCornerShape(size = 16.dp)
             )
-            .padding(vertical = padding.dp)
+            .padding(
+                vertical = 14.dp,
+                horizontal = 64.dp
+            )
             .noRippleClickable(onClick),
-        text = text,
-        color = textColor,
-        textAlign = TextAlign.Center,
-        style = font
     )
+    {
+        Text(
+            text = text,
+            color = textColor,
+            textAlign = TextAlign.Center,
+            style = font
+        )
+    }
 }
 
 @Preview
@@ -81,6 +84,7 @@ fun SmallButtonPreview(
             verticalArrangement = Arrangement.spacedBy(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = modifier
+                .fillMaxWidth()
                 .background(White)
                 .fillMaxWidth()
                 .padding(20.dp),
