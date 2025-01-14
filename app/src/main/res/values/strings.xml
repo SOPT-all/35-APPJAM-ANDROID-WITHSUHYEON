@@ -9,4 +9,8 @@
     <string name="bottom_navigation_bar_item_gallery">갤러리</string>
     <string name="bottom_navigation_bar_item_chat">채팅</string>
     <string name="bottom_navigation_bar_item_my">MY</string>
+
+    <!-- Component -->
+    <string name="add_find_suhyeon_post_button_description">Add Find Suhyeon Post Floating Button</string>
+    <string name="btn_add_gallery_post">사진 업로드하기</string>
 </resources>
