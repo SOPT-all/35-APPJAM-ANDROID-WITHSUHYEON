@@ -1,0 +1,87 @@
+package com.sopt.withsuhyeon.core.component.textfield
+
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.Color.Companion.Red
+import androidx.compose.ui.graphics.Color.Companion.Transparent
+import androidx.compose.ui.unit.dp
+import com.sopt.withsuhyeon.ui.theme.Grey100
+import com.sopt.withsuhyeon.ui.theme.Grey400
+import com.sopt.withsuhyeon.ui.theme.Purple400
+import com.sopt.withsuhyeon.ui.theme.Red01
+import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
+
+@Composable
+fun LongTextField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    var isFocused by remember { mutableStateOf(false) }
+    val isError = value.length > 200
+    val borderColor = when {
+        isError -> Red
+        isFocused -> Purple400
+        else -> Grey100
+    }
+
+    Column(
+        modifier = modifier
+    ) {
+        TextField(
+            value = value,
+            onValueChange = onValueChange,
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(min = 188.dp)
+                .border(1.dp, borderColor, RoundedCornerShape(12.dp))
+                .onFocusChanged { focusState -> isFocused = focusState.isFocused },
+            maxLines = Int.MAX_VALUE,
+            textStyle = WithSuhyeonTheme.typography.body03_SB,
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = Transparent,
+                unfocusedContainerColor = Transparent,
+                focusedIndicatorColor = Transparent,
+                unfocusedIndicatorColor = Transparent
+            )
+        )
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 4.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = if (isError) "최대 200자까지 입력할 수 있어" else "",
+                color = if (isError) Red01 else Transparent,
+                style = WithSuhyeonTheme.typography.body03_R
+            )
+
+            Text(
+                text = "${value.length}/200",
+                color = if (isError) Red01 else Grey400,
+                style = WithSuhyeonTheme.typography.body03_R,
+                modifier = Modifier.align(Alignment.CenterVertically)
+            )
+        }
+    }
+}
