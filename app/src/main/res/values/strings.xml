@@ -17,4 +17,12 @@
     <string name="pm">오후</string>
     <string name="long_text_field_max_length_error_message">최대 200자까지 입력할 수 있어</string>
     <string name="long_text_field_max_length_no_message"></string>
+
+    <!-- 공통 컴포넌트 - ProgressBar -->
+    <string name="label_progressbar_animation">ProgressBar Animation</string>
+
+    <!-- 공통 컴포넌트 short_text_field -->
+    <string name="short_text_field_text_won">원</string>
+    <string name="short_text_field_character_length">%1$s/%2$s</string>
+    <string name="short_text_field_text_max_length_message">최대 %1$s글자 이하로 입력해주세요</string>
 </resources>
