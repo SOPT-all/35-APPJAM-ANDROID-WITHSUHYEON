@@ -46,7 +46,7 @@ fun TextSelectDropDownWithIcon(
 @Preview
 @Composable
 fun PreviewSTextSelectDropDownWithIcon() {
-    var value by remember { mutableStateOf("") }
+    val value by remember { mutableStateOf("") }
     var isError by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf("") }
 
