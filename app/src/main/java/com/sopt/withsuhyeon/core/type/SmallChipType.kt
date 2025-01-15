@@ -16,7 +16,7 @@ enum class SmallChipType(
     val horizontalPadding: Dp = 6.dp,
     val verticalPadding: Dp = 2.dp,
     val cornerRadius: Dp = 8.dp,
-    val textStyle: TextStyle = defaultWithSuhyeonTypography.caption02_B,
+    val typography: TextStyle = defaultWithSuhyeonTypography.caption02_B,
     val requiresDynamicString: Boolean = false
 ) {
     IMMINENT_D_DAY(

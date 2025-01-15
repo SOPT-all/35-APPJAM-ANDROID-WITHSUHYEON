@@ -16,7 +16,7 @@ enum class MediumChipType(
     val horizontalPadding: Dp = 8.dp,
     val verticalPadding: Dp = 4.dp,
     val cornerRadius: Dp = 8.dp,
-    val textStyle: TextStyle = defaultWithSuhyeonTypography.caption01_SB,
+    val typography: TextStyle = defaultWithSuhyeonTypography.caption01_SB,
     val requiresDynamicString: Boolean = false
 ) {
     CATEGORY(

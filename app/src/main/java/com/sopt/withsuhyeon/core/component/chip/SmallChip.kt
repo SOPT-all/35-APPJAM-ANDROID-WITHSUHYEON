@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -19,28 +18,28 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
 @Composable
 fun SmallChip(
-    type: SmallChipType,
+    smallChipType: SmallChipType,
     modifier: Modifier = Modifier,
     dynamicString: String = "",
 ) {
-    val contentString = if(type.requiresDynamicString)
-        stringResource(type.titleResId, dynamicString)
+    val contentString = if(smallChipType.requiresDynamicString)
+        stringResource(smallChipType.titleResId, dynamicString)
     else
-        stringResource(type.titleResId)
+        stringResource(smallChipType.titleResId)
     Box(
         modifier = modifier.background(
-            color = type.backgroundColor,
-            shape = RoundedCornerShape(type.cornerRadius)
+            color = smallChipType.backgroundColor,
+            shape = RoundedCornerShape(smallChipType.cornerRadius)
         )
             .padding(
-                vertical = type.verticalPadding,
-                horizontal = type.horizontalPadding
+                vertical = smallChipType.verticalPadding,
+                horizontal = smallChipType.horizontalPadding
             )
 
     ) {
         Text(
             text = contentString,
-            style = type.textStyle.merge(color = type.textColor)
+            style = smallChipType.typography.merge(color = smallChipType.textColor)
         )
     }
 }
@@ -55,21 +54,21 @@ fun PreviewSmallChip() {
     ) {
         SmallChip(
             dynamicString = TAKE_A_PHOTO,
-            type = SmallChipType.CATEGORY
+            smallChipType = SmallChipType.CATEGORY
         )
         SmallChip(
-            type = SmallChipType.MATCH
+            smallChipType = SmallChipType.MATCH
         )
         SmallChip(
-            type = SmallChipType.FINISHED
+            smallChipType = SmallChipType.FINISHED
         )
         SmallChip(
             dynamicString = "3",
-            type = SmallChipType.IMMINENT_D_DAY
+            smallChipType = SmallChipType.IMMINENT_D_DAY
         )
         SmallChip(
             dynamicString = "10",
-            type = SmallChipType.D_DAY
+            smallChipType = SmallChipType.D_DAY
         )
     }
 }

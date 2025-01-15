@@ -19,28 +19,28 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
 @Composable
 fun MediumChip(
-    type: MediumChipType,
+    mediumChipType: MediumChipType,
     modifier: Modifier = Modifier,
     dynamicString: String = "",
 ) {
-    val contentString = if(type.requiresDynamicString)
-        stringResource(type.titleResId, dynamicString)
+    val contentString = if(mediumChipType.requiresDynamicString)
+        stringResource(mediumChipType.titleResId, dynamicString)
     else
-        stringResource(type.titleResId)
+        stringResource(mediumChipType.titleResId)
     Box(
         modifier = modifier.background(
-                color = type.backgroundColor,
-                shape = RoundedCornerShape(type.cornerRadius)
+                color = mediumChipType.backgroundColor,
+                shape = RoundedCornerShape(mediumChipType.cornerRadius)
             )
             .padding(
-                vertical = type.verticalPadding,
-                horizontal = type.horizontalPadding
+                vertical = mediumChipType.verticalPadding,
+                horizontal = mediumChipType.horizontalPadding
             )
 
     ) {
         Text(
             text = contentString,
-            style = type.textStyle.merge(color = type.textColor)
+            style = mediumChipType.typography.merge(color = mediumChipType.textColor)
         )
     }
 }
@@ -55,17 +55,17 @@ fun PreviewMediumChip() {
     ) {
         MediumChip(
             dynamicString = TAKE_A_PHOTO,
-            type = MediumChipType.CATEGORY
+            mediumChipType = MediumChipType.CATEGORY
         )
         MediumChip(
-            type = MediumChipType.MATCH
+            mediumChipType = MediumChipType.MATCH
         )
         MediumChip(
-            type = MediumChipType.FINISHED
+            mediumChipType = MediumChipType.FINISHED
         )
         MediumChip(
             dynamicString = "+99",
-            type = MediumChipType.CHAT
+            mediumChipType = MediumChipType.CHAT
         )
     }
 }
