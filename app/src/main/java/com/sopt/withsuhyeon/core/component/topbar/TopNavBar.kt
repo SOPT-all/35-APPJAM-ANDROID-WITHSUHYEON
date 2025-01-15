@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -28,20 +27,19 @@ fun MainTopNavBar(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(52.dp)
-            .background(colors.Purple100)
+            .background(colors.White)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.Center)
-                .padding(top = 4.dp, start = 16.dp),
+                .padding(top = 7.dp, bottom = 15.dp, start = 16.dp),
             verticalAlignment = Alignment.Top,
             horizontalArrangement = Arrangement.Start
         ) {
             Text(
                 text = text,
-                style = typography.body01_SB,
+                style = typography.title03_B,
                 color = colors.Black
             )
         }
@@ -56,13 +54,13 @@ fun SubTopNavBar(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(52.dp)
-            .background(colors.Purple25)
+            .background(colors.White)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .align(Alignment.Center),
+                .align(Alignment.Center)
+                .padding(top = 8.dp, bottom = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Box(
