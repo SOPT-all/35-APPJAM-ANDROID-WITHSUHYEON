@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -24,6 +25,11 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
+import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_20_TO_24
+import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_25_TO_29
+import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_30_TO_34
+import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_35_TO_39
+import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_40
 import com.sopt.withsuhyeon.core.util.KeyStorage.PHONE_CALL
 import com.sopt.withsuhyeon.core.util.KeyStorage.TAKE_A_PHOTO
 import com.sopt.withsuhyeon.core.util.KeyStorage.VIDEO_CALL
@@ -36,9 +42,11 @@ fun MultiSelectChip(
     text: String = TAKE_A_PHOTO,
     isSelected: Boolean = false,
     enabled: Boolean = true,
+    image : Painter? = null,
 ) {
     val borderColor =
         when {
+            image == null -> Color.Transparent
             isSelected -> colors.Purple100
             else -> Color.Transparent
         }
@@ -58,6 +66,14 @@ fun MultiSelectChip(
             isSelected -> colors.Purple400
             else -> Color.Transparent
         }
+    val startPadding = when {
+        image == null -> 16.dp
+        else -> 0.dp
+    }
+    val verticalPadding = when {
+        image == null -> 20.dp
+        else -> 8.dp
+    }
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.Start),
@@ -66,19 +82,22 @@ fun MultiSelectChip(
                 shape = RoundedCornerShape(20.dp),
             )
             .border(1.dp, borderColor, RoundedCornerShape(20.dp))
-            .padding(8.dp)
+            .padding(vertical = verticalPadding, horizontal =  8.dp)
     ) {
-        Image(
-            painter = painterResource(R.drawable.dummy_ellipse),
-            contentDescription = "MultiSelectChip",
-            contentScale = ContentScale.Fit,
-            modifier = Modifier.size(48.dp)
-                .clip(CircleShape)
-        )
+        if(image != null) {
+            Image(
+                painter = image,
+                contentDescription = "MultiSelectChip",
+                contentScale = ContentScale.Fit,
+                modifier = Modifier.size(48.dp)
+                    .clip(CircleShape)
+            )
+        }
         Text(
             text = text,
             style = typography.body02_SB.merge(color = textColor),
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.padding(start = startPadding)
+                .weight(1f)
         )
         Icon(
             imageVector = ImageVector.vectorResource(R.drawable.ic_check),
@@ -91,25 +110,61 @@ fun MultiSelectChip(
 }
 
 @Composable
-@Preview
-fun PreviewMultiSelectChip() {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+@Preview(
+    widthDp = 800,
+)
+fun PreviewMultiSelectChipWithImage() {
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = Modifier.background(colors.White)
     ) {
-        MultiSelectChip(
-            text = TAKE_A_PHOTO,
-            isSelected = false,
-            enabled = true
-        )
-        MultiSelectChip(
-            text = VIDEO_CALL,
-            isSelected = true,
-            enabled = true
-        )
-        MultiSelectChip(
-            text = PHONE_CALL,
-            isSelected = false,
-            enabled = false
-        )
+        Column(
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.weight(1f)
+        ) {
+            MultiSelectChip(
+                text = TAKE_A_PHOTO,
+                isSelected = false,
+                enabled = true,
+                image =  painterResource(R.drawable.dummy_ellipse)
+            )
+            MultiSelectChip(
+                text = VIDEO_CALL,
+                isSelected = true,
+                enabled = true,
+                image =  painterResource(R.drawable.dummy_ellipse)
+            )
+            MultiSelectChip(
+                text = PHONE_CALL,
+                isSelected = false,
+                enabled = false,
+                image =  painterResource(R.drawable.dummy_ellipse)
+            )
+        }
+        Column(
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.weight(1f)
+        ) {
+            MultiSelectChip(
+                text = AGE_20_TO_24,
+                isSelected = false
+            )
+            MultiSelectChip(
+                text = AGE_25_TO_29,
+                isSelected = true
+            )
+            MultiSelectChip(
+                text = AGE_30_TO_34,
+                isSelected = false
+            )
+            MultiSelectChip(
+                text = AGE_35_TO_39,
+                isSelected = false
+            )
+            MultiSelectChip(
+                text = AGE_40,
+                isSelected = false
+            )
+        }
     }
 }

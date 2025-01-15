@@ -8,4 +8,10 @@ object KeyStorage {
     const val TAKE_A_PHOTO = "사진 촬영"
     const val VIDEO_CALL = "영상 통화"
     const val PHONE_CALL = "전화 통화"
+
+    const val AGE_20_TO_24 = "20 ~ 24"
+    const val AGE_25_TO_29 = "25 ~ 29"
+    const val AGE_30_TO_34 = "30 ~ 34"
+    const val AGE_35_TO_39 = "35 ~ 39"
+    const val AGE_40 = "40세 이상"
 }
