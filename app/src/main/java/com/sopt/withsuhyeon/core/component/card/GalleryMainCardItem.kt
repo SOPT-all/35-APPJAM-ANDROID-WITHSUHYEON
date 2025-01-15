@@ -32,7 +32,7 @@ fun GalleryMainCardItem(
             model = image,
             contentDescription = null,
             modifier = Modifier
-                .size(160.dp)
+                .size(180.dp)
                 .clip(RoundedCornerShape(20.dp))
                 .background(colors.Grey200)
         )
