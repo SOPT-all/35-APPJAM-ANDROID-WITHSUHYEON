@@ -8,6 +8,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -60,14 +61,12 @@ fun DetailMeetingInformationDropDown(
             .border(
                 width = 1.dp,
                 color = colors.Grey100,
-                shape = RoundedCornerShape(
-                    topStart = 24.dp,
-                    topEnd = 24.dp,
-                    bottomStart = if (expanded) 0.dp else 24.dp,
-                    bottomEnd = if (expanded) 0.dp else 24.dp
-                )
+                shape = RoundedCornerShape(24.dp)
             )
-            .background(colors.Grey25)
+            .background(
+                colors.Grey25,
+                RoundedCornerShape(24.dp)
+            )
     ) {
         DetailMeetingInformationExpandButton(
             expanded = expanded,
@@ -228,6 +227,7 @@ fun DetailMeetingInformationDropDownContent(
 fun PreviewDetailMeetingInformationExpandButton() {
     Column(
         modifier = Modifier.padding(10.dp)
+            .fillMaxSize()
     ) {
         DetailMeetingInformationDropDown(
             location = "강남/역삼/삼성",
