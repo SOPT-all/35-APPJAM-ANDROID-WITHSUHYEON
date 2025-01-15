@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.util.KeyStorage.FEMALE
 import com.sopt.withsuhyeon.core.util.KeyStorage.MALE
+import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
@@ -58,6 +59,7 @@ fun SmallSingleSelectChip(
         )
             .border(1.dp, borderColor, RoundedCornerShape(20.dp))
             .padding(12.dp)
+            .noRippleClickable(onClick)
     ) {
         Image(
             painter = image,

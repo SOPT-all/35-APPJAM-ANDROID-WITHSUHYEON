@@ -16,6 +16,7 @@ import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.util.KeyStorage.PHONE_CALL
 import com.sopt.withsuhyeon.core.util.KeyStorage.TAKE_A_PHOTO
 import com.sopt.withsuhyeon.core.util.KeyStorage.VIDEO_CALL
+import com.sopt.withsuhyeon.feature.findsuhyeon.component.chip.MultiSelectChip
 
 @Composable
 fun MultiSelectRequirements(
