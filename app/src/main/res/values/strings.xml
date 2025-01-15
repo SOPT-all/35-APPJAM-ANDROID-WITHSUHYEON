@@ -29,4 +29,7 @@
 
     <!-- 공통 사용 dot   -->
     <string name="dot">・</string>
+
+    <!-- checkbox 종료 버튼   -->
+    <string name="x_close_description">x 버튼</string>
 </resources>
