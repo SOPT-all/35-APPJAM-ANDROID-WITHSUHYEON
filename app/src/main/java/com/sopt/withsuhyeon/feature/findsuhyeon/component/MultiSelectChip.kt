@@ -113,7 +113,7 @@ fun MultiSelectChip(
 @Preview(
     widthDp = 800,
 )
-fun PreviewMultiSelectChipWithImage() {
+fun PreviewMultiSelectChip() {
     Row(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         modifier = Modifier.background(colors.White)
