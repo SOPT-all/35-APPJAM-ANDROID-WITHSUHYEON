@@ -1,6 +1,7 @@
 package com.sopt.withsuhyeon.core.util
 
 object KeyStorage {
+    //TextField
     const val LONG_TEXTFIELD_MAX_LENGTH = 200
     const val SHORT_TEXTFIELD_MAX_LENGTH = 30
 
