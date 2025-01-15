@@ -32,6 +32,7 @@ fun SmallSingleSelectChip(
     modifier: Modifier = Modifier,
     text: String = FEMALE,
     isSelected: Boolean = false,
+    onClick: () -> Unit = {},
     image : Painter = painterResource(R.drawable.dummy_ellipse),
 ) {
     val borderColor =
