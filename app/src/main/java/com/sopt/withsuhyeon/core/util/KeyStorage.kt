@@ -14,4 +14,7 @@ object KeyStorage {
     const val AGE_30_TO_34 = "30 ~ 34"
     const val AGE_35_TO_39 = "35 ~ 39"
     const val AGE_40 = "40세 이상"
+
+    const val FEMALE = "여자"
+    const val MALE = "남자"
 }
