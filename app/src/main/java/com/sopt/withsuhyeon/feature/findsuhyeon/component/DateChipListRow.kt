@@ -1,4 +1,4 @@
-package com.sopt.withsuhyeon.feature.findsuhyeon
+package com.sopt.withsuhyeon.feature.findsuhyeon.component
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
