@@ -31,10 +31,11 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 fun LongTextField(
     value: String,
     onValueChange: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    maxLength: Int = LONG_TEXTFIELD_MAX_LENGTH
 ) {
     var isFocused by remember { mutableStateOf(false) }
-    val isError = value.length > LONG_TEXTFIELD_MAX_LENGTH
+    var isError by remember { mutableStateOf(false) }
     val borderColor = when {
         isError -> colors.Red01
         isFocused -> colors.Purple400
@@ -46,12 +47,25 @@ fun LongTextField(
     ) {
         TextField(
             value = value,
-            onValueChange = onValueChange,
+            onValueChange = { input ->
+                if (input.length <= maxLength) {
+                    isError = false
+                    onValueChange(input)
+                } else {
+                    isError = true
+                    onValueChange(input.substring(0, maxLength))
+                }
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .heightIn(min = 188.dp)
                 .border(1.dp, borderColor, RoundedCornerShape(12.dp))
-                .onFocusChanged { focusState -> isFocused = focusState.isFocused },
+                .onFocusChanged { focusState ->
+                    isFocused = focusState.isFocused
+                    if (!isError && focusState.isFocused) {
+                        isFocused = true
+                    }
+                },
             maxLines = Int.MAX_VALUE,
             textStyle = typography.body03_SB,
             colors = TextFieldDefaults.colors(
