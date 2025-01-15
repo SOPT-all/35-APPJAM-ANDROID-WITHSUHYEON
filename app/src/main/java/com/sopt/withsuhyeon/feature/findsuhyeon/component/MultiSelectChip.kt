@@ -33,6 +33,7 @@ import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_40
 import com.sopt.withsuhyeon.core.util.KeyStorage.PHONE_CALL
 import com.sopt.withsuhyeon.core.util.KeyStorage.TAKE_A_PHOTO
 import com.sopt.withsuhyeon.core.util.KeyStorage.VIDEO_CALL
+import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
@@ -42,6 +43,7 @@ fun MultiSelectChip(
     text: String = TAKE_A_PHOTO,
     isSelected: Boolean = false,
     enabled: Boolean = true,
+    onClick: () -> Unit = {},
     image : Painter? = null,
 ) {
     val borderColor =
@@ -83,6 +85,7 @@ fun MultiSelectChip(
             )
             .border(1.dp, borderColor, RoundedCornerShape(20.dp))
             .padding(vertical = verticalPadding, horizontal =  8.dp)
+            .noRippleClickable(onClick)
     ) {
         if(image != null) {
             Image(
