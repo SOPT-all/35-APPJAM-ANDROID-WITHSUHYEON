@@ -10,6 +10,14 @@
     <string name="bottom_navigation_bar_item_chat">채팅</string>
     <string name="bottom_navigation_bar_item_my">MY</string>
 
+    <!-- Component -->
+    <string name="add_find_suhyeon_post_button_description">Add Find Suhyeon Post Floating Button</string>
+    <string name="btn_add_gallery_post">사진 업로드하기</string>
+    <string name="am">오전</string>
+    <string name="pm">오후</string>
+    <string name="long_text_field_max_length_error_message">최대 200자까지 입력할 수 있어</string>
+    <string name="long_text_field_max_length_no_message"></string>
+
     <!-- 공통 컴포넌트 - ProgressBar -->
     <string name="label_progressbar_animation">ProgressBar Animation</string>
 

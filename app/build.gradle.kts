@@ -96,4 +96,8 @@ dependencies {
     // Navigation
     implementation(libs.androidx.compose.navigation)
     implementation(libs.hilt.navigation.compose)
+
+    // Date Time Picker
+    implementation(libs.compose.date.time.picker)
+    implementation(libs.kotlinx.datetime)
 }
