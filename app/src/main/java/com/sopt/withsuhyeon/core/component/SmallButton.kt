@@ -16,6 +16,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.sopt.withsuhyeon.core.util.KeyStorage.ALERT_TYPE
+import com.sopt.withsuhyeon.core.util.KeyStorage.DISABLED_TYPE
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.ui.theme.Grey100
 import com.sopt.withsuhyeon.ui.theme.Grey500
@@ -37,12 +39,12 @@ fun SmallButton(
     val textColor: Color
 
     when (type) {
-        "alert" -> {
+        ALERT_TYPE -> {
             backgroundColor = Red01
             textColor = White
         }
 
-        "disabled" -> {
+        DISABLED_TYPE -> {
             backgroundColor = Grey100
             textColor = Grey500
         }

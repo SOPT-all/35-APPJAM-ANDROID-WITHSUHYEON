@@ -22,6 +22,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
+import com.sopt.withsuhyeon.core.util.KeyStorage.CHECKED
+import com.sopt.withsuhyeon.core.util.KeyStorage.DISABLED_TYPE
+import com.sopt.withsuhyeon.core.util.KeyStorage.SECONDARY_TYPE
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
@@ -44,9 +47,9 @@ fun CheckBox(
         val checkColor: Color
         val textColor: Color
         when (state) {
-            "checked" -> {
+            CHECKED -> {
                 when (type) {
-                    "secondary" -> {
+                    SECONDARY_TYPE -> {
                         backgroundColor = colors.Purple50
                         checkColor = colors.Purple500
                     }
@@ -59,7 +62,7 @@ fun CheckBox(
                 textColor = colors.Black
             }
 
-            "disabled" -> {
+            DISABLED_TYPE -> {
                 backgroundColor = colors.Grey100
                 checkColor = colors.Grey300
                 textColor = colors.Grey400
@@ -67,7 +70,7 @@ fun CheckBox(
 
             else -> {
                 when (type) {
-                    "secondary" -> {
+                    SECONDARY_TYPE -> {
                         backgroundColor = colors.Grey50
                         checkColor = colors.Grey200
                     }
