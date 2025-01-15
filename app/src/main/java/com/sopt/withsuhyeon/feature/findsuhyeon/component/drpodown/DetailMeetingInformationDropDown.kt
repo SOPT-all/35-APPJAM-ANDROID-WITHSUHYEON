@@ -122,7 +122,9 @@ fun DetailMeetingInformationExpandButton(
         Icon(
             imageVector = ImageVector.vectorResource(R.drawable.ic_arrow_down),
             contentDescription = stringResource(R.string.find_suhyeon_detail_meeting_information),
-            modifier = Modifier.size(24.dp)
+            tint = colors.Grey300,
+            modifier = Modifier
+                .size(24.dp)
                 .noRippleClickable(onClick)
         )
     }
@@ -175,7 +177,7 @@ fun DetailMeetingInformationDropDownContent(
                     style = typography.body03_B.merge(color = colors.Grey700)
                 )
                 Text(
-                    text = "・",
+                    text = stringResource(R.string.find_suhyeon_seperator),
                     style = typography.body03_B.merge(color = colors.Grey300)
                 )
                 Text(

@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
@@ -32,7 +31,6 @@ fun DetailMeetingInformation (
     age: String,
     date: String,
     mediumChipTypeList: List<MediumChipType>,
-    itemId: String? = null,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -87,7 +85,7 @@ fun DetailMeetingInformation (
                     style = typography.body03_B.merge(color = colors.Grey700)
                 )
                 Text(
-                    text = "・",
+                    text = stringResource(R.string.find_suhyeon_seperator),
                     style = typography.body03_B.merge(color = colors.Grey300)
                 )
                 Text(
