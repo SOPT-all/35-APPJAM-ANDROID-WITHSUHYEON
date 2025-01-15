@@ -54,8 +54,7 @@ fun PreviewMediumChip() {
             .background(colors.White)
     ) {
         MediumChip(
-            dynamicString = TAKE_A_PHOTO,
-            mediumChipType = MediumChipType.CATEGORY
+            mediumChipType = MediumChipType.CATEGORY_PHOTO
         )
         MediumChip(
             mediumChipType = MediumChipType.MATCH

@@ -25,6 +25,24 @@ enum class MediumChipType(
         textColor = defaultWithSuhyeonColors.Purple400,
         requiresDynamicString = true
     ),
+    CATEGORY_PHOTO(
+        titleResId = R.string.type_category_photo,
+        backgroundColor = defaultWithSuhyeonColors.Purple50,
+        textColor = defaultWithSuhyeonColors.Purple400,
+        requiresDynamicString = false
+    ),
+    CATEGORY_VIDEO_CALL(
+        titleResId = R.string.type_category_video_call,
+        backgroundColor = defaultWithSuhyeonColors.Purple50,
+        textColor = defaultWithSuhyeonColors.Purple400,
+        requiresDynamicString = true
+    ),
+    CATEGORY_PHONE_CALL(
+        titleResId = R.string.type_category_phone_call,
+        backgroundColor = defaultWithSuhyeonColors.Purple50,
+        textColor = defaultWithSuhyeonColors.Purple400,
+        requiresDynamicString = true
+    ),
     MATCH(
         titleResId = R.string.type_match,
         backgroundColor = defaultWithSuhyeonColors.Grey100,

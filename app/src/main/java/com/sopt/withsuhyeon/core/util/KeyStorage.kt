@@ -21,4 +21,9 @@ object KeyStorage {
 
     const val FEMALE = "여자"
     const val MALE = "남자"
+
+    const val SHORT_FEMALE = "여"
+    const val SHORT_MALE = "남"
+
+    const val FIND_SUHYEON_DETAIL_MEETING_INFORMATION_EXPAND = "expand_item"
 }
