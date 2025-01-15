@@ -21,15 +21,15 @@ data class WithSuhyeonTypography(
     val heading02_B: TextStyle,
     val heading02_SB: TextStyle,
     val heading02_R: TextStyle,
-    val heading03_B: TextStyle,
-    val heading03_SB: TextStyle,
-    val heading03_R: TextStyle,
     val title01_B: TextStyle,
     val title01_SB: TextStyle,
     val title01_R: TextStyle,
     val title02_B: TextStyle,
     val title02_SB: TextStyle,
     val title02_R: TextStyle,
+    val title03_B: TextStyle,
+    val title03_SB: TextStyle,
+    val title03_R: TextStyle,
     val body01_B: TextStyle,
     val body01_SB: TextStyle,
     val body01_R: TextStyle,
@@ -84,24 +84,6 @@ val defaultWithSuhyeonTypography = WithSuhyeonTypography(
         fontWeight = FontWeight(400),
         lineHeight = 40.sp
     ),
-    heading03_B = TextStyle(
-        fontFamily = withSuhyeonFontBold,
-        fontSize = 22.sp,
-        fontWeight = FontWeight(700),
-        lineHeight = 34.sp
-    ),
-    heading03_SB = TextStyle(
-        fontFamily = withSuhyeonFontSemiBold,
-        fontSize = 22.sp,
-        fontWeight = FontWeight(600),
-        lineHeight = 34.sp
-    ),
-    heading03_R = TextStyle(
-        fontFamily = withSuhyeonFontRegular,
-        fontSize = 22.sp,
-        fontWeight = FontWeight(400),
-        lineHeight = 34.sp
-    ),
     title01_B = TextStyle(
         fontFamily = withSuhyeonFontBold,
         fontSize = 24.sp,
@@ -122,17 +104,35 @@ val defaultWithSuhyeonTypography = WithSuhyeonTypography(
     ),
     title02_B = TextStyle(
         fontFamily = withSuhyeonFontBold,
+        fontSize = 22.sp,
+        fontWeight = FontWeight(700),
+        lineHeight = 34.sp
+    ),
+    title02_SB = TextStyle(
+        fontFamily = withSuhyeonFontSemiBold,
+        fontSize = 22.sp,
+        fontWeight = FontWeight(600),
+        lineHeight = 34.sp
+    ),
+    title02_R = TextStyle(
+        fontFamily = withSuhyeonFontRegular,
+        fontSize = 22.sp,
+        fontWeight = FontWeight(400),
+        lineHeight = 34.sp
+    ),
+    title03_B = TextStyle(
+        fontFamily = withSuhyeonFontBold,
         fontSize = 20.sp,
         fontWeight = FontWeight(700),
         lineHeight = 30.sp
     ),
-    title02_SB = TextStyle(
+    title03_SB = TextStyle(
         fontFamily = withSuhyeonFontSemiBold,
         fontSize = 20.sp,
         fontWeight = FontWeight(600),
         lineHeight = 30.sp
     ),
-    title02_R = TextStyle(
+    title03_R = TextStyle(
         fontFamily = withSuhyeonFontRegular,
         fontSize = 20.sp,
         fontWeight = FontWeight(400),
