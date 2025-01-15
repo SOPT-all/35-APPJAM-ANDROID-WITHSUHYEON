@@ -35,4 +35,8 @@
     <string name="type_video_call">매칭 완료</string>
     <string name="type_phone_call">기간 만료</string>
     <string name="type_d_day">D-%1$s</string>
+
+    <!-- 수현이 찾기 -->
+    <string name="type_all">전체</string>
+    <string name="type_date">%1$s/%2$s (%3$s)</string>
 </resources>
