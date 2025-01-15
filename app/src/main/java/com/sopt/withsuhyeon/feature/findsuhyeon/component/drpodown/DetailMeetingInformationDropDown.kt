@@ -114,6 +114,7 @@ fun DetailMeetingInformationExpandButton(
         modifier = modifier
             .fillMaxWidth()
             .padding(20.dp)
+            .noRippleClickable(onClick)
     ) {
         Text(
             text = stringResource(R.string.find_suhyeon_detail_meeting_information),
@@ -125,7 +126,6 @@ fun DetailMeetingInformationExpandButton(
             tint = colors.Grey300,
             modifier = Modifier
                 .size(24.dp)
-                .noRippleClickable(onClick)
         )
     }
 }
