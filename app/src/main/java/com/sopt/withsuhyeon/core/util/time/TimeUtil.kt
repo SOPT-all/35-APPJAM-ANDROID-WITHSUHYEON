@@ -1,0 +1,33 @@
+package com.sopt.withsuhyeon.core.util.time
+
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
+
+internal val YEAR_RANGE = (1905..2006).toList()
+internal val MONTH_RANGE = (1..12).toList()
+
+internal val HOUR24_RANGE = (0..23).toList()
+internal val HOUR12_RANGE = (1..12).toList()
+internal val MINUTE_RANGE = (0..59).toList()
+
+internal val currentDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+
+internal val currentDate = currentDateTime.date
+internal val currentYear = currentDateTime.year
+internal val currentMonth = currentDateTime.monthNumber
+internal val currentMinute = currentDateTime.minute
+internal val currentHour = currentDateTime.hour
+
+fun String.toKoreanDay(): String {
+    return when (this) {
+        "MONDAY" -> "월"
+        "TUESDAY" -> "화"
+        "WEDNESDAY" -> "수"
+        "THURSDAY" -> "목"
+        "FRIDAY" -> "금"
+        "SATURDAY" -> "토"
+        "SUNDAY" -> "일"
+        else -> ""
+    }
+}
