@@ -1,4 +1,4 @@
-package com.sopt.withsuhyeon.feature.findsuhyeon.component
+package com.sopt.withsuhyeon.feature.findsuhyeon.component.chip
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
