@@ -12,9 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterEnd
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
-import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
@@ -49,10 +48,14 @@ fun MainTopNavBar(
 @Composable
 fun SubTopNavBar(
     text: String,
-    onCloseBtnClicked: () -> Unit
+    btnIcon: Painter,
+    isTextVisible: Boolean = true,
+    isBtnVisible: Boolean = true,
+    onCloseBtnClicked: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .background(colors.White)
     ) {
@@ -63,27 +66,31 @@ fun SubTopNavBar(
                 .padding(top = 8.dp, bottom = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Box(
-                modifier = Modifier
-                    .weight(1f),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = text,
-                    style = typography.body01_SB,
-                    color = colors.Black
-                )
+            if (isTextVisible) {
+                Box(
+                    modifier = Modifier
+                        .weight(1f),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = text,
+                        style = typography.body01_B,
+                        color = colors.Black
+                    )
+                }
             }
         }
 
-        Icon(
-            painter = painterResource(id = R.drawable.ic_close),
-            contentDescription = "Close Button",
-            tint = colors.Black,
-            modifier = Modifier
-                .align(CenterEnd)
-                .padding(end = 16.dp)
-                .noRippleClickable { onCloseBtnClicked() }
-        )
+        if (isBtnVisible) {
+            Icon(
+                painter = btnIcon,
+                contentDescription = "Top Nav Bar Btn Icon",
+                tint = colors.Black,
+                modifier = Modifier
+                    .align(CenterEnd)
+                    .padding(end = 10.dp)
+                    .noRippleClickable { onCloseBtnClicked() }
+            )
+        }
     }
 }
