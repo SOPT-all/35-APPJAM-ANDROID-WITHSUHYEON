@@ -27,7 +27,7 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 fun GalleryCategoryBottomSheet(
     isVisible: Boolean,
     categories: List<String>,
-    selectedCategories: Set<String>,
+    selectedCategories: List<String>,
     onCategoryChipClick: (String) -> Unit,
     onConfirmClick: () -> Unit,
     onDismiss: () -> Unit

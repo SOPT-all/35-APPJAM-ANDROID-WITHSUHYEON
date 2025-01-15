@@ -45,7 +45,7 @@ private fun HomeScreen(
         )
 
         var isBottomSheetVisible by remember { mutableStateOf(false) }
-        var selectedCategories by remember { mutableStateOf(setOf<String>()) }
+        var selectedCategories by remember { mutableStateOf(listOf<String>()) }
         val categories = listOf(
             "학교", "카페", "회식", "엠티", "자취방", "도서관",
             "수영장/빠지", "바다/계곡", "스키장", "찜질방", "캠핑/글램핑",
