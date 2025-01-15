@@ -28,7 +28,7 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
 @Composable
-fun SmallMultiSelectChip(
+fun SmallSingleSelectChip(
     modifier: Modifier = Modifier,
     text: String = FEMALE,
     isSelected: Boolean = false,
@@ -77,19 +77,19 @@ fun SmallMultiSelectChip(
 @Preview(
     widthDp = 328
 )
-fun PreviewSmallMultiSelectChip() {
+fun PreviewSmallSingleSelectChip() {
     Row(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         modifier = Modifier.fillMaxWidth()
             .background(color = colors.White)
     ) {
-        SmallMultiSelectChip(
+        SmallSingleSelectChip(
             text = MALE,
             isSelected = false,
             image =  painterResource(R.drawable.dummy_ellipse),
             modifier = Modifier.weight(1f)
         )
-        SmallMultiSelectChip(
+        SmallSingleSelectChip(
             text = FEMALE,
             isSelected = true,
             image =  painterResource(R.drawable.dummy_ellipse),
