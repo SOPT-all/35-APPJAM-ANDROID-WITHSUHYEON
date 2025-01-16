@@ -1,30 +1,11 @@
 package com.sopt.withsuhyeon.feature.onboarding
 
-import com.sopt.withsuhyeon.core.base.BaseViewModel
-import com.sopt.withsuhyeon.feature.onboarding.contract.OnBoardingContract.OnBoardingEvent
-import com.sopt.withsuhyeon.feature.onboarding.contract.OnBoardingContract.OnBoardingSideEffect
-import com.sopt.withsuhyeon.feature.onboarding.contract.OnBoardingContract.OnBoardingUiState
+import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class OnBoardingViewModel @Inject constructor(
-) : BaseViewModel<OnBoardingUiState, OnBoardingSideEffect, OnBoardingEvent>() {
+) : ViewModel() {
 
-    override fun createInitialState(): OnBoardingUiState {
-        return OnBoardingUiState()
-    }
-
-    override suspend fun handleEvent(event: OnBoardingEvent) {
-        when (event) {
-            is OnBoardingEvent.EndLoading -> {
-                setState {
-                    copy(isLoading = false)
-                }
-                setSideEffect {
-                    OnBoardingSideEffect.NavigateToHome
-                }
-            }
-        }
-    }
 }

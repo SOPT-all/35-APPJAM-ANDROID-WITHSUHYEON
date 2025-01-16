@@ -24,7 +24,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -32,9 +31,11 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.sopt.withsuhyeon.feature.main.MainTab
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
+import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
+import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
+import com.sopt.withsuhyeon.ui.theme.defaultWithSuhyeonColors
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
 
@@ -46,7 +47,6 @@ fun MainBottomBar(
     currentTab: MainTab?,
     onTabSelected: (MainTab) -> Unit,
 ) {
-    // TODO: 애니메이션 추후 변경 가능
     AnimatedVisibility(
         visible = visible,
         enter = fadeIn() + slideIn { IntOffset(0, it.height) },
@@ -57,8 +57,7 @@ fun MainBottomBar(
                 .fillMaxWidth()
                 .height(68.dp)
                 .drawBehind {
-                    // TODO: Color 정의 되면 변경
-                    val borderColor = Color.Gray
+                    val borderColor = defaultWithSuhyeonColors.Grey200
                     val borderThickness = 1.dp.toPx()
 
                     drawLine(
@@ -69,8 +68,7 @@ fun MainBottomBar(
                     )
                 }
                 .background(
-                    // TODO: Color 정의 되면 변경
-                    color = Color.White,
+                    color = colors.White,
                 ),
         ) {
             tabs.forEach { tab ->
@@ -91,8 +89,7 @@ private fun RowScope.MainBottomBarItem(
     selected: Boolean,
     onClick: () -> Unit,
 ) {
-    // TODO: Color 정의 되면 변경
-    val itemSelectColor = if (selected) Color.Blue else Color.Black
+    val itemSelectColor = if (selected) colors.Purple500 else colors.Black
 
     Column(
         modifier = modifier
@@ -117,8 +114,8 @@ private fun RowScope.MainBottomBarItem(
         )
         Text(
             text = stringResource(tab.descriptionResId),
-            color = itemSelectColor,
-            fontSize = 12.sp // TODO: 추후 Typo 변경
+            style = typography.caption01_SB.merge(itemSelectColor),
+            color = itemSelectColor
         )
     }
 }
