@@ -1,5 +1,6 @@
 package com.sopt.withsuhyeon.feature.findsuhyeon.component.drpodown
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
@@ -78,27 +79,26 @@ fun DetailMeetingInformationDropDown(
                     color = Color.Transparent
                 )
         )
-
-        if (expanded) {
-            DetailMeetingInformationDropDownContent(
-                location = location,
-                gender = gender,
-                age = age,
-                date = date,
-                mediumChipTypeList = mediumChipTypeList,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(
-                        shape = RoundedCornerShape(
-                            topStart = 0.dp,
-                            topEnd = 0.dp,
-                            bottomStart = 24.dp,
-                            bottomEnd = 24.dp
-                        ),
-                        color = Color.Transparent
-                    )
-            )
-        }
+        AnimatedVisibility(expanded) {
+                DetailMeetingInformationDropDownContent(
+                    location = location,
+                    gender = gender,
+                    age = age,
+                    date = date,
+                    mediumChipTypeList = mediumChipTypeList,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(
+                            shape = RoundedCornerShape(
+                                topStart = 0.dp,
+                                topEnd = 0.dp,
+                                bottomStart = 24.dp,
+                                bottomEnd = 24.dp
+                            ),
+                            color = Color.Transparent
+                        )
+                )
+            }
     }
 }
 
