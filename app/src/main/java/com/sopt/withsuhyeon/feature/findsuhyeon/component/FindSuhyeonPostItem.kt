@@ -110,7 +110,7 @@ fun FindSuhyeonPostItem(
                         style = typography.caption01_SB.merge(color = colors.Grey400)
                     )
                     Text(
-                        text =  stringResource(R.string.find_suhyeon_seperator),
+                        text =  stringResource(R.string.dot),
                         style = typography.caption01_SB.merge(color = colors.Grey400)
                     )
                     Text(

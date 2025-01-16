@@ -177,7 +177,7 @@ fun DetailMeetingInformationDropDownContent(
                     style = typography.body03_B.merge(color = colors.Grey700)
                 )
                 Text(
-                    text = stringResource(R.string.find_suhyeon_seperator),
+                    text = stringResource(R.string.dot),
                     style = typography.body03_B.merge(color = colors.Grey300)
                 )
                 Text(

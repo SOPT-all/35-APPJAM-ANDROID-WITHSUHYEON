@@ -49,7 +49,6 @@
     <string name="find_suhyeon_detail_meeting_requirements">요구사항</string>
     <string name="find_suhyeon_detail_meeting_price">금액</string>
     <string name="find_suhyeon_text_won">원</string>
-    <string name="find_suhyeon_seperator">・</string>
     <string name="find_suhyeon_no_message"></string>
     <string name="find_suhyeon_location">위치</string>
     <string name="find_suhyeon_multi_select_chip">MultiSelectChip</string>
