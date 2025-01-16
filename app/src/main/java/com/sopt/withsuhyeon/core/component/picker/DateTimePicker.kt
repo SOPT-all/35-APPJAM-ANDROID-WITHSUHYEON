@@ -24,7 +24,6 @@ import com.kez.picker.PickerState
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.util.size.calculateWidth
 import com.sopt.withsuhyeon.core.util.time.HOUR12_RANGE
-import com.sopt.withsuhyeon.core.util.time.MINUTE_RANGE
 import com.sopt.withsuhyeon.core.util.time.currentDate
 import com.sopt.withsuhyeon.core.util.time.currentDateTime
 import com.sopt.withsuhyeon.core.util.time.currentHour
@@ -46,12 +45,16 @@ fun DateTimePicker(
         )
     },
     hourPickerState: PickerState<Int> = remember {
-        val hourIn12HourFormat = if (startDateTime.hour == 0) 12 else startDateTime.hour % 12
-        PickerState(hourIn12HourFormat)
+        val roundedUpHour = if ((startDateTime.minute + 4) / 5 * 5 >= 60) {
+            (if (startDateTime.hour % 12 == 11) 12 else (startDateTime.hour + 1) % 12)
+        } else {
+            if (startDateTime.hour == 0) 12 else startDateTime.hour % 12
+        }
+        PickerState(roundedUpHour)
     },
     minutePickerState: PickerState<String> = remember {
-        val minute = startDateTime.minute.toString().padStart(2, '0')
-        PickerState(minute)
+        val minute = ((startDateTime.minute + 4) / 5) * 5
+        PickerState(if (minute == 60) "00" else minute.toString().padStart(2, '0'))
     },
     dateItems: List<String> = remember {
         val endDate = LocalDate(2025, 12, 31)
@@ -66,7 +69,7 @@ fun DateTimePicker(
     },
     amPmItems: List<String> = listOf(stringResource(R.string.am), stringResource(R.string.pm)),
     hourItems: List<Int> = HOUR12_RANGE,
-    minuteItems: List<String> = MINUTE_RANGE.map { it.toString().padStart(2, '0') },
+    minuteItems: List<String> = (0..55 step 5).map { it.toString().padStart(2, '0') },
     visibleItemsCount: Int = 3,
     itemPadding: PaddingValues = PaddingValues(top = 12.dp, bottom = 16.dp, start = 6.dp, end = 6.dp),
     textStyle: TextStyle = typography.title02_SB.copy(color = colors.Grey400),
@@ -159,7 +162,7 @@ fun DateTimePicker(
                 fadingEdgeGradient = fadingEdgeGradient,
                 horizontalAlignment = horizontalAlignment,
                 itemTextAlignment = verticalAlignment,
-                isInfinity = false
+                isInfinity = true
             )
         }
 
