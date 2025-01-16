@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.NavHost
 import com.sopt.withsuhyeon.feature.chat.navigation.chatNavGraph
 import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.findSuhyeonNavGraph
@@ -15,6 +14,7 @@ import com.sopt.withsuhyeon.feature.home.navigation.homeNavGraph
 import com.sopt.withsuhyeon.feature.main.MainNavigator
 import com.sopt.withsuhyeon.feature.mypage.navigation.myPageNavGraph
 import com.sopt.withsuhyeon.feature.onboarding.navigation.onBoardingNavGraph
+import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
 @Composable
 fun MainNavHost(
@@ -25,7 +25,7 @@ fun MainNavHost(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(Color.White)  // TODO: Color 정의 되면 변경
+            .background(colors.Grey50)
     ) {
         NavHost(
             navController = navigator.navController,
