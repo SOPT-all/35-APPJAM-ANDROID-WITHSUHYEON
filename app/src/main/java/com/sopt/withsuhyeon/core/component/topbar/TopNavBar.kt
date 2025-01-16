@@ -13,7 +13,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterEnd
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
@@ -84,7 +86,7 @@ fun SubTopNavBar(
         if (isBtnVisible) {
             Icon(
                 painter = btnIcon,
-                contentDescription = "Top Nav Bar Btn Icon",
+                contentDescription = stringResource(R.string.top_nav_bar_btn_icon_description),
                 tint = colors.Black,
                 modifier = Modifier
                     .align(CenterEnd)

@@ -27,7 +27,25 @@
     <string name="short_text_field_character_length">%1$s/%2$s</string>
     <string name="short_text_field_text_max_length_message">최대 %1$s글자 이하로 입력해주세요</string>
 
+    <!-- 공통 컴포넌트 - Top Nav Bar -->
+    <string name="top_nav_bar_btn_icon_description">Top Nav Bar Btn Icon</string>
+
     <!-- 갤러리 뷰 컴포넌트 - GalleryCategoryBottomSheet -->
     <string name="gallery_category_bottom_sheet_title">카테고리</string>
     <string name="gallery_category_bottom_sheet_confirm_btn">확인</string>
+
+    <!-- 갤러리 -->
+    <string name="gallery_top_nav_bar_title">갤러리</string>
+    <string name="gallery_main_category_chip_total">전체</string>
+
+    <!-- 공통 컴포넌트 - 게시글 -->
+    <string name="post_basic_profile_image_description">Basic Profile Image</string>
+    <string name="post_description_dot">・</string>
+    <string name="post_views_number">조회수</string>
+
+    <!-- 공통 컴포넌트 - Alert Modal -->
+    <string name="alert_modal_delete_post_question">이 게시물을\n정말 삭제하시겠습니까?</string>
+    <string name="alert_modal_delete_post_description">한번 삭제된 게시물은\n다시 복구할 수 없습니다.</string>
+    <string name="alert_modal_delete_btn">삭제하기</string>
+    <string name="alert_modal_cancel_btn">취소하기</string>
 </resources>
