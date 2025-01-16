@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,13 +37,15 @@ fun GalleryRoute(
     viewModel: GalleryViewModel = hiltViewModel()
 ) {
     GalleryScreen(
-        padding = padding
+        padding = padding,
+        viewModel = viewModel
     )
 }
 @SuppressLint("UnrememberedMutableState")
 @Composable
 private fun GalleryScreen(
     padding: PaddingValues,
+    viewModel: GalleryViewModel
 ) {
     val lazyGridState = rememberLazyGridState()
 
@@ -59,18 +62,8 @@ private fun GalleryScreen(
         ) {
             val total = stringResource(R.string.gallery_main_category_chip_total)
             var selectedCategory by remember { mutableStateOf(total) }
-            val categories = listOf("전체", "바다", "학교", "파티룸", "엠티", "수현", "이랑", "합숙")
-
-            val items = listOf(
-                "술자리 사진 모음.zip" to "https://via.placeholder.com/150",
-                "술자리 사진 모음.zip" to "https://via.placeholder.com/150",
-                "술자리 사진 모음.zip" to "https://via.placeholder.com/150",
-                "술자리 사진 모음.zip" to "https://via.placeholder.com/150",
-                "술자리 사진 모음.zip" to "https://via.placeholder.com/150",
-                "술자리 사진 모음.zip" to "https://via.placeholder.com/150",
-                "술자리 사진 모음.zip" to "https://via.placeholder.com/150",
-                "술자리 사진 모음.zip" to "https://via.placeholder.com/150"
-            )
+            val categories by viewModel.categories.collectAsState()
+            val items by viewModel.items.collectAsState()
 
             MainTopNavBar(stringResource(R.string.gallery_top_nav_bar_title))
 
