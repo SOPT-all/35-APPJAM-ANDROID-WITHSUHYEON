@@ -1,4 +1,4 @@
-package com.sopt.withsuhyeon.core.component
+package com.sopt.withsuhyeon.core.component.checkbox
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

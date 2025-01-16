@@ -53,4 +53,20 @@
     <string name="find_suhyeon_no_message"></string>
     <string name="find_suhyeon_location">위치</string>
     <string name="find_suhyeon_multi_select_chip">MultiSelectChip</string>
+
+    <!-- 공통 사용 dot -->
+    <string name="dot">・</string>
+
+    <!-- checkbox 종료 버튼 -->
+    <string name="x_close_description">x 버튼</string>
+
+    <!-- 마이페이지 TabBar에서 사용 -->
+    <string name="my_tab_bar_item_find_suhyeon">수현이 찾기</string>
+    <string name="my_tab_bar_item_gallery">갤러리</string>
+
+    <!-- 차단 바텀시트 -->
+    <string name="block_bottomsheet_title">차단하실 계정이 있을까요?</string>
+    <string name="block_bottomsheet_sub_title">차단하고자하는 전화번호를 입력해주시면,\n앱내에서 숨기기 처리됩니다.</string>
+    <string name="block_bottomsheet_button_text">차단하러 가기</string>
+    <string name="block_bottomsheet_skip_text">괜찮아요</string>
 </resources>
