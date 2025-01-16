@@ -1,13 +1,11 @@
 package com.sopt.withsuhyeon.feature.findsuhyeon.component
 
-import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -24,27 +22,27 @@ import java.time.LocalDate
 
 @Composable
 fun DateChipListRow(
-    scrollState: ScrollState,
     selectedDate: MutableState<Triple<String, String, String>?>,
     dateList: List<Triple<String, String, String>> = emptyList(),
     modifier: Modifier = Modifier
 ) {
-    Row(
+    LazyRow(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier.fillMaxWidth()
             .padding(start = 8.dp)
             .background(colors.White)
-            .horizontalScroll(scrollState)
     ) {
-        DateChip(
-            dateChipType = DateChipType.ALL,
-            isSelected = selectedDate.value == null,
-            onClick = {
-                selectedDate.value = null
-            }
-        )
-        dateList.forEach { date ->
+        item {
+            DateChip(
+                dateChipType = DateChipType.ALL,
+                isSelected = selectedDate.value == null,
+                onClick = {
+                    selectedDate.value = null
+                }
+            )
+        }
+        items(dateList) { date ->
             DateChip(
                 dateChipType = DateChipType.DATE,
                 month = date.first,
@@ -79,13 +77,11 @@ private fun findSuhyeonDateList(): List<Triple<String, String, String>> {
 @Composable
 @Preview
 fun PreviewDateChipListRow() {
-    val scrollState = rememberScrollState()
     val selectedDate = remember {
         mutableStateOf<Triple<String, String, String>?>(null)
     }
     val dateList = findSuhyeonDateList()
     DateChipListRow(
-        scrollState,
         selectedDate,
         dateList
     )

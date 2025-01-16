@@ -147,6 +147,6 @@ fun PreviewFindSuhyeonPost() {
         gender = SHORT_FEMALE,
         age = AGE_20_TO_24,
         date = "1월 25일 (토) 오후 2:30",
-        mediumChipType = MediumChipType.FINISHED
+        mediumChipType = MediumChipType.DURATION_FINISHED
     )
 }

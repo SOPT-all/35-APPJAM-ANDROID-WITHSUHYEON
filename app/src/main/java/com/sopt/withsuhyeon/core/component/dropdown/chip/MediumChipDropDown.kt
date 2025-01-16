@@ -1,4 +1,4 @@
-package com.sopt.withsuhyeon.feature.findsuhyeon.component.drpodown.chip
+package com.sopt.withsuhyeon.core.component.dropdown.chip
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -19,8 +19,8 @@ import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.chip.MediumChip
 import com.sopt.withsuhyeon.core.type.MediumChipType
-import com.sopt.withsuhyeon.feature.findsuhyeon.component.drpodown.basic.BasicSelectDropDown
-import com.sopt.withsuhyeon.feature.findsuhyeon.component.drpodown.text.TextDropDownItem
+import com.sopt.withsuhyeon.core.component.dropdown.basic.BasicSelectDropDown
+import com.sopt.withsuhyeon.core.component.dropdown.text.TextDropDownItem
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
 @Composable

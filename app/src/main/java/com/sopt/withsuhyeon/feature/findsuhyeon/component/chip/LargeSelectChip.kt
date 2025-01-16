@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -38,7 +39,7 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
 @Composable
-fun MultiSelectChip(
+fun LargeSelectChip(
     modifier: Modifier = Modifier,
     text: String = TAKE_A_PHOTO,
     isSelected: Boolean = false,
@@ -79,34 +80,38 @@ fun MultiSelectChip(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.Start),
-        modifier = modifier.background(
+        modifier = modifier
+            .background(
                 color = backgroundColor,
                 shape = RoundedCornerShape(20.dp),
             )
             .border(1.dp, borderColor, RoundedCornerShape(20.dp))
-            .padding(vertical = verticalPadding, horizontal =  8.dp)
+            .padding(vertical = verticalPadding, horizontal = 8.dp)
             .noRippleClickable(onClick)
     ) {
         if(image != null) {
             Image(
                 painter = image,
-                contentDescription = "MultiSelectChip",
+                contentDescription = stringResource(R.string.find_suhyeon_multi_select_chip),
                 contentScale = ContentScale.Fit,
-                modifier = Modifier.size(48.dp)
+                modifier = Modifier
+                    .size(48.dp)
                     .clip(CircleShape)
             )
         }
         Text(
             text = text,
             style = typography.body02_SB.merge(color = textColor),
-            modifier = Modifier.padding(start = startPadding)
+            modifier = Modifier
+                .padding(start = startPadding)
                 .weight(1f)
         )
         Icon(
             imageVector = ImageVector.vectorResource(R.drawable.ic_check),
             tint = checkIconColor,
             contentDescription = "Check",
-            modifier = Modifier.padding(end = 8.dp)
+            modifier = Modifier
+                .padding(end = 8.dp)
                 .size(24.dp)
         )
     }
@@ -116,7 +121,7 @@ fun MultiSelectChip(
 @Preview(
     widthDp = 800,
 )
-fun PreviewMultiSelectChip() {
+fun PreviewLargeSelectChip() {
     Row(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         modifier = Modifier.background(colors.White)
@@ -125,19 +130,19 @@ fun PreviewMultiSelectChip() {
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.weight(1f)
         ) {
-            MultiSelectChip(
+            LargeSelectChip(
                 text = TAKE_A_PHOTO,
                 isSelected = false,
                 enabled = true,
                 image =  painterResource(R.drawable.dummy_ellipse)
             )
-            MultiSelectChip(
+            LargeSelectChip(
                 text = VIDEO_CALL,
                 isSelected = true,
                 enabled = true,
                 image =  painterResource(R.drawable.dummy_ellipse)
             )
-            MultiSelectChip(
+            LargeSelectChip(
                 text = PHONE_CALL,
                 isSelected = false,
                 enabled = false,
@@ -148,23 +153,23 @@ fun PreviewMultiSelectChip() {
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.weight(1f)
         ) {
-            MultiSelectChip(
+            LargeSelectChip(
                 text = AGE_20_TO_24,
                 isSelected = false
             )
-            MultiSelectChip(
+            LargeSelectChip(
                 text = AGE_25_TO_29,
                 isSelected = true
             )
-            MultiSelectChip(
+            LargeSelectChip(
                 text = AGE_30_TO_34,
                 isSelected = false
             )
-            MultiSelectChip(
+            LargeSelectChip(
                 text = AGE_35_TO_39,
                 isSelected = false
             )
-            MultiSelectChip(
+            LargeSelectChip(
                 text = AGE_40,
                 isSelected = false
             )

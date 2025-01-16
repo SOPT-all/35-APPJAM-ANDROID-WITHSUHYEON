@@ -56,14 +56,14 @@ fun PreviewMediumChip() {
             mediumChipType = MediumChipType.CATEGORY_PHOTO
         )
         MediumChip(
-            mediumChipType = MediumChipType.MATCH
+            mediumChipType = MediumChipType.MATCH_FINISHED
         )
         MediumChip(
-            mediumChipType = MediumChipType.FINISHED
+            mediumChipType = MediumChipType.DURATION_FINISHED
         )
         MediumChip(
             dynamicString = "+99",
-            mediumChipType = MediumChipType.CHAT
+            mediumChipType = MediumChipType.CHAT_COUNT
         )
     }
 }

@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.util.KeyStorage.FEMALE
 import com.sopt.withsuhyeon.core.util.KeyStorage.MALE
-import com.sopt.withsuhyeon.feature.findsuhyeon.component.chip.SmallSingleSelectChip
+import com.sopt.withsuhyeon.feature.findsuhyeon.component.chip.SmallSelectChip
 
 @Composable
 fun SingleSelectGender(
@@ -25,7 +25,7 @@ fun SingleSelectGender(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier.fillMaxWidth()
     ) {
-        SmallSingleSelectChip(
+        SmallSelectChip(
             text = MALE,
             isSelected = selectElement.value == MALE,
             image = painterResource(R.drawable.dummy_ellipse),
@@ -35,7 +35,7 @@ fun SingleSelectGender(
             modifier = Modifier.weight(1f)
         )
 
-        SmallSingleSelectChip(
+        SmallSelectChip(
             text = FEMALE,
             isSelected = selectElement.value == FEMALE,
             image = painterResource(R.drawable.dummy_ellipse),

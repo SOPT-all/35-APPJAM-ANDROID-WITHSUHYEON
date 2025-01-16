@@ -1,4 +1,4 @@
-package com.sopt.withsuhyeon.feature.findsuhyeon.component.drpodown.text
+package com.sopt.withsuhyeon.core.component.dropdown.text
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

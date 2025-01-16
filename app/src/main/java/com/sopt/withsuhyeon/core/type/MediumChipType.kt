@@ -17,7 +17,7 @@ enum class MediumChipType(
     val verticalPadding: Dp = 4.dp,
     val cornerRadius: Dp = 8.dp,
     val typography: TextStyle = defaultWithSuhyeonTypography.caption01_SB,
-    val requiresDynamicString: Boolean = false
+    val requiresDynamicString: Boolean = false,
 ) {
     CATEGORY(
         titleResId = R.string.type_category,
@@ -43,23 +43,23 @@ enum class MediumChipType(
         textColor = defaultWithSuhyeonColors.Purple400,
         requiresDynamicString = true
     ),
-    MATCH(
+    MATCH_FINISHED(
         titleResId = R.string.type_match,
         backgroundColor = defaultWithSuhyeonColors.Grey100,
         textColor = defaultWithSuhyeonColors.Grey500,
         requiresDynamicString = false
     ),
-    FINISHED(
+    DURATION_FINISHED(
         titleResId = R.string.type_finished,
         backgroundColor = defaultWithSuhyeonColors.Grey400,
         textColor = defaultWithSuhyeonColors.White,
         requiresDynamicString = false
     ),
-    CHAT(
+    CHAT_COUNT(
         titleResId = R.string.type_chat,
         backgroundColor = defaultWithSuhyeonColors.Purple50,
         textColor = defaultWithSuhyeonColors.Purple900,
         cornerRadius = 16.dp,
-        requiresDynamicString = true
+        requiresDynamicString = true,
     ),
 }

@@ -16,7 +16,7 @@ import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.util.KeyStorage.PHONE_CALL
 import com.sopt.withsuhyeon.core.util.KeyStorage.TAKE_A_PHOTO
 import com.sopt.withsuhyeon.core.util.KeyStorage.VIDEO_CALL
-import com.sopt.withsuhyeon.feature.findsuhyeon.component.chip.MultiSelectChip
+import com.sopt.withsuhyeon.feature.findsuhyeon.component.chip.LargeSelectChip
 
 @Composable
 fun MultiSelectRequirements(
@@ -31,7 +31,7 @@ fun MultiSelectRequirements(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         modifier = modifier.fillMaxWidth()
     ) {
-        MultiSelectChip(
+        LargeSelectChip(
             text = TAKE_A_PHOTO,
             isSelected = isSelectPhoto,
             image =  painterResource(R.drawable.dummy_ellipse),
@@ -43,7 +43,7 @@ fun MultiSelectRequirements(
                     selectList.remove(TAKE_A_PHOTO)
             }
         )
-        MultiSelectChip(
+        LargeSelectChip(
             text = VIDEO_CALL,
             isSelected = isSelectVideoCall,
             image =  painterResource(R.drawable.dummy_ellipse),
@@ -55,7 +55,7 @@ fun MultiSelectRequirements(
                     selectList.remove(VIDEO_CALL)
             }
         )
-        MultiSelectChip(
+        LargeSelectChip(
             text = PHONE_CALL,
             isSelected = isSelectPhoneCall,
             image =  painterResource(R.drawable.dummy_ellipse),

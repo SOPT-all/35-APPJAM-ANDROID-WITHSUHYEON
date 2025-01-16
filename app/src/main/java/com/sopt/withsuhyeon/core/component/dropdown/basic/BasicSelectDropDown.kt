@@ -1,4 +1,4 @@
-package com.sopt.withsuhyeon.feature.findsuhyeon.component.drpodown.basic
+package com.sopt.withsuhyeon.core.component.dropdown.basic
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -22,7 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
-import com.sopt.withsuhyeon.feature.findsuhyeon.component.drpodown.text.TextDropDown
+import com.sopt.withsuhyeon.core.component.dropdown.text.TextDropDown
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
