@@ -29,7 +29,7 @@ fun LocationMenu(
     modifier: Modifier = Modifier
 ) {
     var selectedMainLocationIndex by remember { mutableIntStateOf(0) }
-    var selectedMainLocation by remember { mutableStateOf("") }
+    var selectedMainLocation by remember { mutableStateOf("전국") }
     var selectedSubLocation by remember { mutableStateOf("") }
     Row(
     ) {
@@ -59,7 +59,7 @@ fun LocationMenu(
                 if (selectedMainLocation.isNotEmpty()) {
                     SubLocationChip(
                         locationName = subLocationList[selectedMainLocationIndex][index],
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier.fillMaxWidth(),
                         isSelected = selectedSubLocation == subLocationList[selectedMainLocationIndex][index],
                         onClick = {
                             selectedSubLocation = subLocationList[selectedMainLocationIndex][index]
