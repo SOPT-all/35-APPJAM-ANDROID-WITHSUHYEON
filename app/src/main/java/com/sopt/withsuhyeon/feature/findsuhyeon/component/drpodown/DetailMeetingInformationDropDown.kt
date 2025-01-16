@@ -110,9 +110,10 @@ fun DetailMeetingInformationExpandButton(
 ) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
-            .padding(20.dp)
+            .padding(horizontal = 20.dp, vertical = 16.dp)
             .noRippleClickable(onClick)
     ) {
         Text(
@@ -138,7 +139,7 @@ fun DetailMeetingInformationDropDownContent(
     modifier: Modifier = Modifier
 ) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = modifier
             .fillMaxWidth()
             .padding(start = 20.dp, end = 20.dp, top = 0.dp, bottom = 20.dp)

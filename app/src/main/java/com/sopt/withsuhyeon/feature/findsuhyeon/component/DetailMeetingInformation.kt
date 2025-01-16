@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.market_kurly.core.util.price.toDecimalFormat
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.chip.MediumChip
 import com.sopt.withsuhyeon.core.type.MediumChipType
@@ -30,11 +31,12 @@ fun DetailMeetingInformation (
     gender: String,
     age: String,
     date: String,
+    price: Int,
     mediumChipTypeList: List<MediumChipType>,
     modifier: Modifier = Modifier
 ) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = modifier
             .fillMaxWidth()
             .background(
@@ -46,7 +48,7 @@ fun DetailMeetingInformation (
                 colors.Grey100,
                 RoundedCornerShape(24.dp)
             )
-            .padding(20.dp)
+            .padding(horizontal = 20.dp, vertical = 16.dp)
     ) {
         Text(
             text = stringResource(R.string.find_suhyeon_detail_meeting_information),
@@ -128,6 +130,20 @@ fun DetailMeetingInformation (
                 }
             }
         }
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(
+                text = stringResource(R.string.find_suhyeon_detail_meeting_price),
+                style = typography.body03_R.merge(color = colors.Grey500)
+            )
+            Text(
+                text = price.toDecimalFormat(),
+                style = typography.body03_B.merge(color = colors.Grey700)
+            )
+        }
     }
 }
 
@@ -139,6 +155,7 @@ fun PreviewDetailMeetingInformation() {
         gender = SHORT_FEMALE,
         age = AGE_20_TO_24,
         date = "1월 25일 (토) 오후 2:00",
+        price = 5000,
         mediumChipTypeList = listOf(
             MediumChipType.CATEGORY_PHOTO,
             MediumChipType.CATEGORY_VIDEO_CALL,

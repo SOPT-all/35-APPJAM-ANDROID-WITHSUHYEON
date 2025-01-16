@@ -47,6 +47,7 @@
     <string name="find_suhyeon_detail_meeting_wanted">원하는 수현이</string>
     <string name="find_suhyeon_detail_meeting_date">날짜</string>
     <string name="find_suhyeon_detail_meeting_requirements">요구사항</string>
+    <string name="find_suhyeon_detail_meeting_price">금액</string>
     <string name="find_suhyeon_text_won">원</string>
     <string name="find_suhyeon_seperator">・</string>
     <string name="find_suhyeon_no_message"></string>
