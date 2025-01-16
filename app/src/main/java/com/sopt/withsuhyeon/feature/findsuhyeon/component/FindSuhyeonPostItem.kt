@@ -19,7 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.market_kurly.core.util.price.toDecimalFormat
+import com.sopt.withsuhyeon.core.util.price.toDecimalFormat
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.chip.MediumChip
 import com.sopt.withsuhyeon.core.type.MediumChipType
