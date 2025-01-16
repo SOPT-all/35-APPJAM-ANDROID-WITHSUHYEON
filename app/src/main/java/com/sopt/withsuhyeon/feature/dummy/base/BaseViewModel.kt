@@ -1,4 +1,4 @@
-package com.sopt.withsuhyeon.core.base
+package com.sopt.withsuhyeon.feature.dummy.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
