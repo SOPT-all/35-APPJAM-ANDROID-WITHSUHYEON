@@ -25,10 +25,10 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
 @Composable
-fun BlockPhoneNumberList(
+fun BlockPhoneNumberItem(
     phoneNumber: String,
     backgroundColor: Color = colors.Grey25,
-    color: Color = colors.Grey900,
+    phoneNumberColor: Color = colors.Grey900,
     font: TextStyle = typography.body03_SB,
     modifier: Modifier = Modifier
 ) {
@@ -43,7 +43,7 @@ fun BlockPhoneNumberList(
     ) {
         Text(
             text = phoneNumber,
-            color = color,
+            color = phoneNumberColor,
             style = font,
         )
         Box(
@@ -69,13 +69,13 @@ fun PreviewBlockPhoneNumberList(
                 .fillMaxWidth()
                 .fillMaxHeight()
         ) {
-            BlockPhoneNumberList(
+            BlockPhoneNumberItem(
                 phoneNumber = "01000000000"
             )
-            BlockPhoneNumberList(
+            BlockPhoneNumberItem(
                 phoneNumber = "01000000000"
             )
-            BlockPhoneNumberList(
+            BlockPhoneNumberItem(
                 phoneNumber = "01000000000"
             )
         }

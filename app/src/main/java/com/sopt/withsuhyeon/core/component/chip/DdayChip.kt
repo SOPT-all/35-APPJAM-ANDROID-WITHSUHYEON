@@ -22,7 +22,7 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
 @Composable
-fun DayChip(
+fun DdayChip(
     modifier: Modifier = Modifier,
     font: TextStyle = typography.caption02_B,
     color: Color = colors.Purple500,
@@ -57,7 +57,7 @@ fun PreviewChip(
                 .fillMaxHeight()
                 .padding(30.dp)
         ) {
-            DayChip(
+            DdayChip(
                 duration = 10
             )
         }

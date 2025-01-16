@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
-import com.sopt.withsuhyeon.core.component.chip.DayChip
+import com.sopt.withsuhyeon.core.component.chip.DdayChip
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
@@ -25,7 +25,7 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 @Composable
 fun FindSuhyeonItem(
     title: String,
-    loacation: String,
+    location: String,
     date: String,
     modifier: Modifier = Modifier,
 ) {
@@ -43,7 +43,7 @@ fun FindSuhyeonItem(
                 text = title,
                 style = typography.body02_B
             )
-            DayChip(
+            DdayChip(
                 duration = 10
             )
         }
@@ -55,7 +55,7 @@ fun FindSuhyeonItem(
             horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.Start)
         ) {
             Text(
-                text = loacation,
+                text = location,
                 style = typography.caption01_R,
                 color = colors.Grey500
             )
@@ -90,17 +90,17 @@ fun PreviewFindSuhyeonItem(
         ) {
             FindSuhyeonItem(
                 title = "강남역 수현이 찾아요",
-                loacation = "강남/역삼/삼성",
+                location = "강남/역삼/삼성",
                 date = "1월 25일"
             )
             FindSuhyeonItem(
                 title = "강남역 수현이 찾아요",
-                loacation = "강남/역삼/삼성",
+                location = "강남/역삼/삼성",
                 date = "1월 25일"
             )
             FindSuhyeonItem(
                 title = "강남역 수현이 찾아요",
-                loacation = "강남/역삼/삼성",
+                location = "강남/역삼/삼성",
                 date = "1월 25일"
             )
         }

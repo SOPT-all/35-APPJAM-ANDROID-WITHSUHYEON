@@ -5,10 +5,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -20,8 +21,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
@@ -32,8 +34,8 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BlockBottomSheet(
+    closeSheet: () -> Unit,
     modifier: Modifier = Modifier,
-    closeSheet: () -> Unit
 ) {
     val sheetState = rememberModalBottomSheetState()
     ModalBottomSheet(
@@ -46,53 +48,64 @@ fun BlockBottomSheet(
         Column(
             modifier = modifier
                 .fillMaxWidth()
-                .background(colors.White)
+                .background(colors.White),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 16.dp, top = 16.dp, end = 16.dp),
                 horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.End),
-
-                ) {
+            ) {
                 Icon(
-                    modifier = Modifier.noRippleClickable { },
-                    painter = painterResource(R.drawable.ic_xclose),
+                    modifier = Modifier.noRippleClickable {
+                        // TODO : BottomSheet 닫기 연결
+                    },
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_xclose),
                     contentDescription = stringResource(R.string.x_close_description),
                     tint = colors.Grey400
                 )
             }
             Column(
-                modifier = Modifier.padding(horizontal = 24.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.Top),
             ) {
                 Text(
+                    modifier = Modifier.fillMaxWidth(),
                     text = stringResource(R.string.block_bottomsheet_title),
                     style = typography.title02_B,
                     color = colors.Black
                 )
                 Text(
+                    modifier = Modifier.fillMaxWidth(),
                     text = stringResource(R.string.block_bottomsheet_sub_title),
                     style = typography.body03_SB,
                     color = colors.Grey500
                 )
             }
+
+            Spacer(
+                modifier = Modifier
+                    .height(36.dp)
+                    .fillMaxWidth()
+            )
+            Box(
+                modifier = Modifier
+                    .size(160.dp)
+                    .background(colors.Grey200)
+            )
+            Spacer(
+                modifier = Modifier
+                    .height(36.dp)
+                    .fillMaxWidth()
+            )
+
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 24.dp, vertical = 36.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Box(
-                    modifier = Modifier
-                        .width(160.dp)
-                        .height(160.dp)
-                        .background(colors.Grey200)
-                ) {
-                }
-            }
-            Column(
-                modifier = Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
+                    .padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Top),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
@@ -104,7 +117,9 @@ fun BlockBottomSheet(
                             shape = RoundedCornerShape(size = 16.dp)
                         )
                         .padding(vertical = 14.dp)
-                        .noRippleClickable { },
+                        .noRippleClickable {
+                            // TODO : 차단 하는 스크린 연결
+                        },
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Text(
@@ -113,8 +128,13 @@ fun BlockBottomSheet(
                         style = typography.body01_B
                     )
                 }
+
                 Column(
-                    modifier = modifier.padding(8.dp).noRippleClickable {  }
+                    modifier = modifier
+                        .padding(8.dp, bottom = 20.dp)
+                        .noRippleClickable {
+                            // TODO : BottomSheet 닫기 연결
+                        }
                         .drawBehind {
                             val lineY = size.height
                             drawLine(
@@ -124,7 +144,8 @@ fun BlockBottomSheet(
                                 strokeWidth = 1.dp.toPx()
                             )
                         },
-                    ) {
+                ) {
+
                     Text(
                         modifier = Modifier
                             .noRippleClickable {},

@@ -23,7 +23,7 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
 @Composable
-fun MyTabBar(
+fun MyPostTabBar(
     modifier: Modifier = Modifier
 ) {
     var selectedTab: Int by remember { mutableIntStateOf(0) }
@@ -73,12 +73,12 @@ fun PreviewMyTabBar(
     modifier: Modifier = Modifier
 ) {
     WithSuhyeonTheme {
-        Column(
+            Column(
             modifier = modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
         ) {
-            MyTabBar()
+            MyPostTabBar()
         }
     }
 }
