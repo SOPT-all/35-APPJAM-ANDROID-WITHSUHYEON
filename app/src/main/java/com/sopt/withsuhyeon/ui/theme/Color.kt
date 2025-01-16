@@ -35,6 +35,8 @@ val Black50 = Color(0x4D000000)
 val White = Color(0xFFFFFFFF)
 
 val Red01 = Color(0xFFFF5747)
+val Red02 = Color(0xFFFFA59D)
+val Red03 = Color(0xFFFEF3F2)
 
 @Immutable
 data class WithSuhyeonColors(
@@ -68,7 +70,9 @@ data class WithSuhyeonColors(
     val Black50: Color,
     val White: Color,
 
-    val Red01: Color
+    val Red01: Color,
+    val Red02:  Color,
+    val Red03: Color,
 )
 
 val defaultWithSuhyeonColors = WithSuhyeonColors(
@@ -102,7 +106,9 @@ val defaultWithSuhyeonColors = WithSuhyeonColors(
     Black50 = Black50,
     White = White,
 
-    Red01 = Red01
+    Red01 = Red01,
+    Red02 = Red02,
+    Red03 = Red03
 )
 
 val LocalWithSuhyeonColorsProvider = staticCompositionLocalOf { defaultWithSuhyeonColors }

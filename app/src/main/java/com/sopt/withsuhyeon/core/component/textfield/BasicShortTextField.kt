@@ -33,6 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.button.BasicButtonForTextField
+import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_TEXTFIELD_MAX_LENGTH
 import com.sopt.withsuhyeon.core.util.modifier.addFocusCleaner
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
@@ -216,7 +217,7 @@ fun PreviewFullOptionBasicShortTextField() {
     var buttonText by remember { mutableStateOf("인증 요청") }
     var buttonEnabled by remember { mutableStateOf(true) }
 
-    val maxLength = 30
+    val maxLength = SHORT_TEXTFIELD_MAX_LENGTH
     Column(
         modifier = Modifier
             .fillMaxSize()
