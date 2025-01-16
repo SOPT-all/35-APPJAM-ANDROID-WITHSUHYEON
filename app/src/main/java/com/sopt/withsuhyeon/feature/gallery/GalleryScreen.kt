@@ -1,6 +1,8 @@
 package com.sopt.withsuhyeon.feature.gallery
 
 import android.annotation.SuppressLint
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,12 +10,16 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,8 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.card.GalleryMainCardItem
-import com.sopt.withsuhyeon.core.component.categoryrow.GalleryMainFullCategoryRow
-import com.sopt.withsuhyeon.core.component.categoryrow.GalleryMainShortCategoryRow
+import com.sopt.withsuhyeon.core.component.chip.NewCategoryChip
 import com.sopt.withsuhyeon.core.component.floatingbutton.AnimatedAddPostButton
 import com.sopt.withsuhyeon.core.component.topbar.MainTopNavBar
 
@@ -49,6 +54,15 @@ private fun GalleryScreen(
 ) {
     val lazyGridState = rememberLazyGridState()
 
+    val isScrolled by remember {
+        derivedStateOf { lazyGridState.firstVisibleItemScrollOffset > 0 }
+    }
+
+    val categoryRowHeight by animateDpAsState(
+        targetValue = if (isScrolled) 40.dp else 100.dp,
+        animationSpec = tween(durationMillis = 300), label = "Category Row Height"
+    )
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -67,23 +81,26 @@ private fun GalleryScreen(
 
             MainTopNavBar(stringResource(R.string.gallery_top_nav_bar_title))
 
-            GalleryMainFullCategoryRow(
-                categories = categories,
-                selectedCategory = selectedCategory,
-                onCategorySelected = { category ->
-                    selectedCategory = category
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(categoryRowHeight)
+                    .padding(horizontal = 16.dp)
+            ) {
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    items(categories) { category ->
+                        NewCategoryChip(
+                            category = category,
+                            scrollOffset = lazyGridState.firstVisibleItemScrollOffset.toFloat(),
+                            isSelected = selectedCategory == category,
+                            onClick = { selectedCategory = category }
+                        )
+                    }
                 }
-            )
-
-            Spacer(modifier = Modifier.padding(6.dp))
-
-            GalleryMainShortCategoryRow(
-                categories = categories,
-                selectedCategory = selectedCategory,
-                onCategorySelected = { category ->
-                    selectedCategory = category
-                }
-            )
+            }
 
             Spacer(modifier = Modifier.padding(16.dp))
 
