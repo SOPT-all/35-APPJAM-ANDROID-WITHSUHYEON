@@ -1,10 +1,10 @@
 package com.sopt.withsuhyeon.feature.dummy.contract
 
-import com.sopt.withsuhyeon.core.base.UiEvent
-import com.sopt.withsuhyeon.core.base.UiSideEffect
-import com.sopt.withsuhyeon.core.base.UiState
 import com.sopt.withsuhyeon.domain.entity.DummyModel
 import com.sopt.withsuhyeon.domain.entity.UserModel
+import com.sopt.withsuhyeon.feature.dummy.base.UiEvent
+import com.sopt.withsuhyeon.feature.dummy.base.UiSideEffect
+import com.sopt.withsuhyeon.feature.dummy.base.UiState
 
 class DummyContract {
     data class DummyUiState(

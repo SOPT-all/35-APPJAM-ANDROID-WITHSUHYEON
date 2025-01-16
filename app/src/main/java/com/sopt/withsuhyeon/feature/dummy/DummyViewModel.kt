@@ -2,8 +2,8 @@ package com.sopt.withsuhyeon.feature.dummy
 
 import androidx.lifecycle.viewModelScope
 import com.sopt.withsuhyeon.R
-import com.sopt.withsuhyeon.core.base.BaseViewModel
 import com.sopt.withsuhyeon.domain.repository.DummyRepository
+import com.sopt.withsuhyeon.feature.dummy.base.BaseViewModel
 import com.sopt.withsuhyeon.feature.dummy.contract.DummyContract.DummyUiState
 import com.sopt.withsuhyeon.feature.dummy.contract.DummyContract.DummySideEffect
 import com.sopt.withsuhyeon.feature.dummy.contract.DummyContract.DummyEvent

@@ -3,6 +3,7 @@ package com.sopt.withsuhyeon.feature.main
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -14,6 +15,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.feature.main.component.MainBottomBar
 import com.sopt.withsuhyeon.feature.main.component.MainNavHost
+import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import kotlinx.collections.immutable.toPersistentList
 
 @Composable
@@ -49,7 +51,8 @@ private fun MainScreenContent(
         },
         bottomBar = {
             MainBottomBar(
-                modifier = Modifier.navigationBarsPadding(),
+                modifier = Modifier.background(colors.White)
+                    .navigationBarsPadding(),
                 visible = navigator.shouldShowBottomBar(),
                 tabs = MainTab.entries.toPersistentList(),
                 currentTab = navigator.currentTab,
