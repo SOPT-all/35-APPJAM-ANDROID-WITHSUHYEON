@@ -20,11 +20,11 @@ import com.sopt.withsuhyeon.ui.theme.defaultWithSuhyeonTypography
 
 @Composable
 fun ShowButton(
-    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
     text: String = "보기",
     font: TextStyle = defaultWithSuhyeonTypography.body03_SB,
     color: Color = Grey500,
-    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Text(
         modifier = modifier

@@ -4,21 +4,21 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.sopt.withsuhyeon.feature.onboarding.OnBoardingRoute
-import com.sopt.withsuhyeon.core.navigation.Route.OnBoarding as OnBoardingRoute
+import com.sopt.withsuhyeon.feature.onboarding.TermsOfUseRoute
+import com.sopt.withsuhyeon.core.navigation.Route.TermsOfUse as TermsOfUseRoute
 
-fun NavController.navigateToOnBoarding() {
-    navigate(OnBoardingRoute)
+fun NavController.navigateToTermsOfUse() {
+    navigate(TermsOfUseRoute)
 }
 
-fun NavGraphBuilder.onBoardingNavGraph(
+fun NavGraphBuilder.termsOfUseNavGraph(
     padding: PaddingValues,
-    onNavigateToHome: () -> Unit
+    onNavigateToNext: () -> Unit
 ) {
-    composable<OnBoardingRoute> {
-        OnBoardingRoute(
+    composable<TermsOfUseRoute> {
+        TermsOfUseRoute(
             padding = padding,
-            navigateToHome = onNavigateToHome
+            navigateToNext = onNavigateToNext
         )
     }
 }

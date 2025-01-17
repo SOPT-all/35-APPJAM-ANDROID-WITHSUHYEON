@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 sealed interface Route {
     @Serializable
-    data object OnBoarding : Route
+    data object TermsOfUse : Route
 }
 
 sealed interface MainTabRoute : Route {

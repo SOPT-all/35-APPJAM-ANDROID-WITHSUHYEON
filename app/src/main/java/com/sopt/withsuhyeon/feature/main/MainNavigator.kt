@@ -16,7 +16,7 @@ import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.navigateToFindSuhyeon
 import com.sopt.withsuhyeon.feature.gallery.navigation.navigateToGallery
 import com.sopt.withsuhyeon.feature.home.navigation.navigateToHome
 import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToMyPage
-import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToOnBoarding
+import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToTermsOfUse
 
 class MainNavigator(
     val navController: NavHostController,
@@ -25,7 +25,7 @@ class MainNavigator(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = Route.OnBoarding
+    val startDestination = Route.TermsOfUse
 
     val currentTab: MainTab?
         @SuppressLint("RestrictedApi") @Composable get() = MainTab.find { tab ->
@@ -50,8 +50,8 @@ class MainNavigator(
         }
     }
 
-    fun navigateToOnBoarding() {
-        navController.navigateToOnBoarding()
+    fun navigateToTermsOfUse() {
+        navController.navigateToTermsOfUse()
     }
 
     fun navigateToHome(navOptions: NavOptions? = null) {

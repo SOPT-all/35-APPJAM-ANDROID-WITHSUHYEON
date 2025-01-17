@@ -6,6 +6,7 @@ object KeyStorage {
     const val DISABLED_TYPE = "disabled"
     const val SECONDARY_TYPE = "secondary"
     const val CHECKED = "checked"
+    const val DEFAULT = "default"
     const val SHORT_TEXTFIELD_MAX_LENGTH = 30
 
     //수현이 찾기 - MultiSelectChip
@@ -26,4 +27,6 @@ object KeyStorage {
     const val SHORT_MALE = "남"
 
     const val FIND_SUHYEON_DETAIL_MEETING_INFORMATION_EXPAND = "expand_item"
+
+    const val NEXT_BUTTON_TEXT = "다음"
 }

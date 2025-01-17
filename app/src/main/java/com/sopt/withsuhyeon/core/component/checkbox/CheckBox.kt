@@ -33,11 +33,12 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 @Composable
 fun CheckBox(
     placeholder: String,
+    onClick: () -> Unit,
     type: String = "primary",
     state: String = "default",
-    modifier: Modifier = Modifier,
     font: TextStyle = typography.body03_SB,
-    onClick: () -> Unit
+    modifier: Modifier = Modifier,
+//    TODO :
 ) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
@@ -87,7 +88,7 @@ fun CheckBox(
             modifier = modifier
                 .width(20.dp)
                 .height(20.dp)
-                .padding(horizontal = 4.dp, vertical = 4.dp)
+                .padding(2.dp)
                 .background(backgroundColor, shape = RoundedCornerShape(size = 6.dp))
                 .noRippleClickable(onClick)
         ) {
@@ -121,7 +122,9 @@ fun CheckBoxPreview(
         ) {
             CheckBox(
                 placeholder = "플레이스 홀더",
-                onClick = {}
+                onClick = {
+                // TODO - 선택 state 변하게
+                }
             )
             CheckBox(
                 placeholder = "플레이스 홀더",
