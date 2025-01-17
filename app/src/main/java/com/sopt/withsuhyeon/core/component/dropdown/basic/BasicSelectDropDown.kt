@@ -42,6 +42,7 @@ fun BasicSelectDropDown(
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier.fillMaxWidth()
+            .noRippleClickable(onClick)
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -58,7 +59,6 @@ fun BasicSelectDropDown(
                     shape = RoundedCornerShape(12.dp)
                 )
                 .padding(horizontal = 12.dp, vertical = 14.dp)
-                .noRippleClickable(onClick)
         ) {
             mainContent()
         }
@@ -72,7 +72,7 @@ fun BasicSelectDropDown(
 @Preview
 @Composable
 fun PreviewBasicSelectDropDown() {
-    val value by remember { mutableStateOf("") }
+    val value = remember { mutableStateOf<String?>(null) }
     var isError by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf("") }
 
