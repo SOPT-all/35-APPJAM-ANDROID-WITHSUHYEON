@@ -28,16 +28,12 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 @Composable
 fun GalleryUploadRoute(
     padding: PaddingValues,
-    // image: String,
     viewModel: GalleryViewModel = hiltViewModel()
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
+    GalleryUploadScreen(
+        modifier = Modifier.fillMaxSize()
             .padding(padding)
-    ) {
-        GalleryUploadScreen()
-    }
+    )
 }
 
 @Composable

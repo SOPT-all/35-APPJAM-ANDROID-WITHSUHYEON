@@ -40,7 +40,7 @@ fun MainNavHost(
 
             galleryNavGraph(
                 padding = padding,
-                navController = navigator.navController
+                onNavigateToGalleryUpload = navigator::navigateToGalleryUpload
             )
             chatNavGraph(
                 padding = padding,

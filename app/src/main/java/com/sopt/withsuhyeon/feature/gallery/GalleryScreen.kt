@@ -1,6 +1,7 @@
 package com.sopt.withsuhyeon.feature.gallery
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
@@ -37,26 +38,26 @@ import com.sopt.withsuhyeon.core.component.chip.NewCategoryChip
 import com.sopt.withsuhyeon.core.component.floatingbutton.AnimatedAddPostButton
 import com.sopt.withsuhyeon.core.component.topbar.MainTopNavBar
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
-import androidx.navigation.NavController
-import com.sopt.withsuhyeon.core.component.floatingbutton.AddGalleryPostButton
-import com.sopt.withsuhyeon.core.navigation.Route
 
 @Composable
 fun GalleryRoute(
     padding: PaddingValues,
-    navController: NavController,
+    navigateToGalleryUpload: () -> Unit,
     viewModel: GalleryViewModel = hiltViewModel()
 ) {
     GalleryScreen(
         padding = padding,
-        navController = navController
+        onFloatingButtonClick = {
+            navigateToGalleryUpload()
+        }
     )
 }
 @SuppressLint("UnrememberedMutableState")
 @Composable
 private fun GalleryScreen(
     padding: PaddingValues,
-    navController: NavController
+    onFloatingButtonClick: () -> Unit,
+    viewModel: GalleryViewModel = hiltViewModel()
 ) {
     val lazyGridState = rememberLazyGridState()
 
@@ -140,7 +141,7 @@ private fun GalleryScreen(
             modifier = Modifier
                 .align(BottomEnd)
                 .padding(bottom = 16.dp, end = 16.dp),
-            onClick = { }
+            onClick = onFloatingButtonClick
         )
     }
 }
