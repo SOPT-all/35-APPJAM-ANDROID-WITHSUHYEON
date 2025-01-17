@@ -20,6 +20,8 @@ import com.sopt.withsuhyeon.core.component.button.BasicButtonForTextField
 import com.sopt.withsuhyeon.core.component.button.LargeButton
 import com.sopt.withsuhyeon.core.component.progressbar.AnimatedProgressBar
 import com.sopt.withsuhyeon.core.component.textfield.BasicShortTextField
+import com.sopt.withsuhyeon.core.util.KeyStorage.AFTER_SEND_BUTTON_TEXT
+import com.sopt.withsuhyeon.core.util.KeyStorage.BEFORE_SEND_BUTTON_TEXT
 import com.sopt.withsuhyeon.core.util.KeyStorage.NEXT_BUTTON_TEXT
 import com.sopt.withsuhyeon.feature.onboarding.components.OnBoardingTitle
 
@@ -40,14 +42,12 @@ fun PhoneNumberAuthenticationScreen(
 ) {
     var phoneNumberValue by remember { mutableStateOf("") }
     var isPhoneNumberInputValid by remember { mutableStateOf(false) }
-    var isPhoneNumberInputEnabled by remember { mutableStateOf(true) }
     var isPhoneNumberInputFocused by remember { mutableStateOf(false) }
     var isPhoneNumberAuthVisible by remember { mutableStateOf(false) }
     var isPhoneNumberAuthButtonEnabled by remember { mutableStateOf(false) }
-    var phoneNumberAuthButtonText by remember { mutableStateOf("인증요청") }
+    var phoneNumberAuthButtonText by remember { mutableStateOf(BEFORE_SEND_BUTTON_TEXT) }
     var authNumberValue by remember { mutableStateOf("") }
     var isAuthNumberInputValid by remember { mutableStateOf(false) }
-    var isAuthNumberInputEnabled by remember { mutableStateOf(true) }
     var isAuthNumberInputFocused by remember { mutableStateOf(false) }
 
     Column(
@@ -69,7 +69,6 @@ fun PhoneNumberAuthenticationScreen(
             title = stringResource(R.string.onboarding_phone_number_input_title),
             hint = stringResource(R.string.onboarding_phone_number_input_hint),
             isValid = isPhoneNumberInputValid,
-            enabled = isPhoneNumberInputEnabled,
             onFocusChange = {
                 isPhoneNumberInputFocused = it
             },
@@ -86,7 +85,7 @@ fun PhoneNumberAuthenticationScreen(
                     onClick = {
                         isPhoneNumberAuthVisible = true
                         isPhoneNumberAuthButtonEnabled = false
-                        phoneNumberAuthButtonText = "전송완료"
+                        phoneNumberAuthButtonText = AFTER_SEND_BUTTON_TEXT
                     },
                     modifier = Modifier,
                     enabled = isPhoneNumberAuthButtonEnabled
@@ -102,7 +101,6 @@ fun PhoneNumberAuthenticationScreen(
                 title = stringResource(R.string.onboarding_phone_number_auth_input_title),
                 hint = stringResource(R.string.onboarding_phone_number_auth_input_hint),
                 isValid = isAuthNumberInputValid,
-                enabled = isAuthNumberInputEnabled,
                 onFocusChange = {
                     isAuthNumberInputFocused = it
                 },
