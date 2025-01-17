@@ -3,6 +3,7 @@ package com.sopt.withsuhyeon.feature.gallery
 import android.annotation.SuppressLint
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -35,6 +36,7 @@ import com.sopt.withsuhyeon.core.component.card.GalleryMainCardItem
 import com.sopt.withsuhyeon.core.component.chip.NewCategoryChip
 import com.sopt.withsuhyeon.core.component.floatingbutton.AnimatedAddPostButton
 import com.sopt.withsuhyeon.core.component.topbar.MainTopNavBar
+import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
 @Composable
 fun GalleryRoute(
@@ -81,15 +83,19 @@ private fun GalleryScreen(
 
             MainTopNavBar(stringResource(R.string.gallery_top_nav_bar_title))
 
+            Spacer(modifier = Modifier.fillMaxWidth().height(16.dp).background(colors.White))
+
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(categoryRowHeight)
-                    .padding(horizontal = 16.dp)
+                    .background(color = colors.White)
+                    .padding(start = 16.dp, end = 16.dp)
             ) {
                 LazyRow(
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
                 ) {
                     items(categories) { category ->
                         NewCategoryChip(
@@ -102,16 +108,16 @@ private fun GalleryScreen(
                 }
             }
 
-            Spacer(modifier = Modifier.padding(16.dp))
+            Spacer(modifier = Modifier.fillMaxWidth().height(16.dp).background(colors.White))
 
             LazyVerticalGrid(
                 state = lazyGridState,
                 columns = GridCells.Fixed(2),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
+                    .padding(start = 16.dp, top = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(items.size) { index ->
                     val (text, image) = items[index]
