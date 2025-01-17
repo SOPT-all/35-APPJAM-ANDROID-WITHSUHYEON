@@ -40,6 +40,7 @@ fun MainNavHost(
 
             galleryNavGraph(
                 padding = padding,
+                navController = navigator.navController
             )
             chatNavGraph(
                 padding = padding,

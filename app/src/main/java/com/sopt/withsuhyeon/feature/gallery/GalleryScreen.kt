@@ -13,20 +13,25 @@ import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.sopt.withsuhyeon.core.component.floatingbutton.AddGalleryPostButton
+import com.sopt.withsuhyeon.core.navigation.Route
 
 @Composable
 fun GalleryRoute(
     padding: PaddingValues,
+    navController: NavController,
     viewModel: GalleryViewModel = hiltViewModel()
 ) {
     GalleryScreen(
-        padding = padding
+        padding = padding,
+        navController = navController
     )
 }
 @Composable
 private fun GalleryScreen(
-    padding: PaddingValues
+    padding: PaddingValues,
+    navController: NavController
 ) {
     Box(
         modifier = Modifier
@@ -48,7 +53,9 @@ private fun GalleryScreen(
             modifier = Modifier
                 .align(BottomCenter)
                 .padding(bottom = 16.dp),
-            onClick = { }
+            onClick = {
+                navController.navigate(Route.GalleryUpload)
+            }
         )
     }
 }

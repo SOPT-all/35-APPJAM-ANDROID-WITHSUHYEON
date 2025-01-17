@@ -15,10 +15,14 @@ fun NavController.navigateToGallery(navOptions: NavOptions) {
 }
 
 fun NavGraphBuilder.galleryNavGraph(
-    padding: PaddingValues
+    padding: PaddingValues,
+    navController: NavController
 ) {
     composable<MainTabRoute.Gallery> {
-        GalleryRoute(padding)
+        GalleryRoute(
+            padding = padding,
+            navController = navController
+        )
     }
     composable<Route.GalleryUpload> {
         GalleryUploadRoute(padding)
