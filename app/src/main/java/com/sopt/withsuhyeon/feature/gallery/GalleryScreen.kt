@@ -1,7 +1,6 @@
 package com.sopt.withsuhyeon.feature.gallery
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background

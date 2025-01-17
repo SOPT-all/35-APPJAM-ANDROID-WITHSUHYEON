@@ -55,6 +55,7 @@ private fun GalleryUploadScreen(
     Box(
         modifier = modifier
             .fillMaxSize()
+            .padding(padding)
             .background(colors.White)
     ) {
         SubTopNavBar(
@@ -72,8 +73,9 @@ private fun GalleryUploadScreen(
         Column(
             modifier = modifier
                 .fillMaxSize()
-                .padding(top = 56.dp, bottom = 72.dp, start = 8.dp, end = 8.dp)
-                .verticalScroll(rememberScrollState()),
+                .padding(top = 56.dp)
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 8.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             var isError by remember { mutableStateOf(false) }
@@ -85,6 +87,7 @@ private fun GalleryUploadScreen(
                 "수영장/빠지", "바다/계곡", "스키장", "찜질방", "캠핑/글램핑",
                 "파티룸", "절/교회 수련회", "해외여행", "공항", "기타"
             )
+            var galleryUploadDescription by remember { mutableStateOf("") }
 
             if (isBottomSheetVisible) {
                 GalleryCategoryBottomSheet(
@@ -168,10 +171,14 @@ private fun GalleryUploadScreen(
             )
 
             LongTextField(
-                value = "",
-                onValueChange = {},
+                value = galleryUploadDescription,
+                onValueChange = { newDescription ->
+                    galleryUploadDescription = newDescription
+                },
                 modifier = modifier.padding(horizontal = 16.dp)
             )
+
+            Spacer(modifier = modifier.height(80.dp))
         }
 
         Box(

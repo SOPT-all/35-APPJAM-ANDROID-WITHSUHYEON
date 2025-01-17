@@ -77,7 +77,7 @@ fun GalleryUploadWithPicker(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 84.dp)
+            .padding(horizontal = 84.dp, vertical = 32.dp)
             .aspectRatio(1f)
             .background(color = colors.Grey500, shape = RoundedCornerShape(10.dp))
             .noRippleClickable {
