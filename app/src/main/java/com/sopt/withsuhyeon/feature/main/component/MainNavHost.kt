@@ -49,7 +49,8 @@ fun MainNavHost(
             )
             onBoardingNavGraph(
                 onNavigateToPhoneNumberAuth = navigator::navigateToPhoneNumberAuth,
-                onNavigateToNickNameAuth = navigator::navigateToNicknameAuth
+                onNavigateToNickNameAuth = navigator::navigateToNicknameAuth,
+                onNavigateToSelectYearOfBirth = navigator::navigateToSelectYearOfBirth
             )
         }
     }

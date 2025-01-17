@@ -9,6 +9,8 @@ sealed interface Route {
     data object PhoneNumberAuth : Route
     @Serializable
     data object NickNameAuth : Route
+    @Serializable
+    data object SelectYearOfBirth : Route
 }
 
 sealed interface MainTabRoute : Route {

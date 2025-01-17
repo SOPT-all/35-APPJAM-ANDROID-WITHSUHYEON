@@ -18,6 +18,7 @@ import com.sopt.withsuhyeon.feature.home.navigation.navigateToHome
 import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToMyPage
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToNickNameAuth
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToPhoneNumberAuth
+import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToSelectYearOfBirth
 
 
 class MainNavigator(
@@ -27,7 +28,7 @@ class MainNavigator(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = Route.PhoneNumberAuth
+    val startDestination = Route.NickNameAuth
 
     val currentTab: MainTab?
         @SuppressLint("RestrictedApi") @Composable get() = MainTab.find { tab ->
@@ -57,6 +58,10 @@ class MainNavigator(
 
     fun navigateToNicknameAuth() {
         navController.navigateToNickNameAuth()
+    }
+
+    fun navigateToSelectYearOfBirth() {
+        navController.navigateToSelectYearOfBirth()
     }
 
     fun navigateToHome(navOptions: NavOptions? = null) {
