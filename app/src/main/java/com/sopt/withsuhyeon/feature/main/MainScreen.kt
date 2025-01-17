@@ -1,5 +1,8 @@
 package com.sopt.withsuhyeon.feature.main
 
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material3.Scaffold
@@ -8,6 +11,8 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.feature.main.component.MainBottomBar
 import com.sopt.withsuhyeon.feature.main.component.MainNavHost
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
@@ -36,7 +41,12 @@ private fun MainScreenContent(
         content = { padding ->
             MainNavHost(
                 navigator = navigator,
-                padding = padding
+                padding = PaddingValues(
+                    start = padding.calculateStartPadding(layoutDirection = LayoutDirection.Ltr),
+                    end = padding.calculateEndPadding(layoutDirection = LayoutDirection.Ltr),
+                    bottom = padding.calculateBottomPadding(),
+                    top = 16.dp
+                )
             )
         },
         bottomBar = {
