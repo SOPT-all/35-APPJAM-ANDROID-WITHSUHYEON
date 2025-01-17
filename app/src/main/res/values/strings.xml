@@ -13,7 +13,7 @@
 
     <!-- Component -->
     <string name="add_find_suhyeon_post_button_description">Add Find Suhyeon Post Floating Button</string>
-    <string name="btn_add_gallery_post">사진 업로드하기</string>
+    <string name="btn_add_gallery_post">업로드</string>
     <string name="am">오전</string>
     <string name="pm">오후</string>
     <string name="long_text_field_max_length_error_message">최대 200자까지 입력할 수 있어</string>
@@ -68,4 +68,26 @@
     <string name="block_bottomsheet_sub_title">차단하고자하는 전화번호를 입력해주시면,\n앱내에서 숨기기 처리됩니다.</string>
     <string name="block_bottomsheet_button_text">차단하러 가기</string>
     <string name="block_bottomsheet_skip_text">괜찮아요</string>
+
+    <!-- 공통 컴포넌트 - Top Nav Bar -->
+    <string name="top_nav_bar_btn_icon_description">Top Nav Bar Btn Icon</string>
+
+    <!-- 갤러리 뷰 컴포넌트 - GalleryCategoryBottomSheet -->
+    <string name="gallery_category_bottom_sheet_title">카테고리</string>
+    <string name="gallery_category_bottom_sheet_confirm_btn">확인</string>
+
+    <!-- 갤러리 -->
+    <string name="gallery_top_nav_bar_title">갤러리</string>
+    <string name="gallery_main_category_chip_total">전체</string>
+
+    <!-- 공통 컴포넌트 - 게시글 -->
+    <string name="post_basic_profile_image_description">Basic Profile Image</string>
+    <string name="post_description_dot">・</string>
+    <string name="post_views_number">조회수</string>
+
+    <!-- 공통 컴포넌트 - Alert Modal -->
+    <string name="alert_modal_delete_post_question">이 게시물을\n정말 삭제하시겠습니까?</string>
+    <string name="alert_modal_delete_post_description">한번 삭제된 게시물은\n다시 복구할 수 없습니다.</string>
+    <string name="alert_modal_delete_btn">삭제하기</string>
+    <string name="alert_modal_cancel_btn">취소하기</string>
 </resources>
