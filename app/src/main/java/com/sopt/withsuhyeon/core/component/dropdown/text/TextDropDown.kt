@@ -1,6 +1,10 @@
 package com.sopt.withsuhyeon.core.component.dropdown.text
 
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -14,20 +18,20 @@ fun TextDropDown(
     hint: String,
     isError: Boolean,
     modifier: Modifier = Modifier,
-    value: String = "",
+    value: MutableState<String?>,
     errorMessage: String = "",
-    onClick: () -> Unit,
+    onClick: (String?) -> Unit = {},
     startContent: @Composable () -> Unit = {},
 ) {
     BasicSelectDropDown(
-        isError =  isError,
+        isError = isError,
         errorMessage = errorMessage,
         modifier = modifier,
-        onClick = onClick,
+        onClick = { onClick(value.value) },
         mainContent = {
             TextDropDownItem(
                 modifier = Modifier.weight(1f),
-                value = value,
+                value = value.value,
                 hint = hint,
                 startContent = startContent
             )
@@ -38,7 +42,7 @@ fun TextDropDown(
 @Preview
 @Composable
 fun PreviewTextDropDown() {
-    val value by remember { mutableStateOf("") }
+    val value = remember { mutableStateOf<String?>(null) }
     var isError by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf("") }
 
@@ -49,7 +53,7 @@ fun PreviewTextDropDown() {
         errorMessage = errorMessage,
         onClick = {
             isError = !isError
-            if(isError)
+            if (isError)
                 errorMessage = "필수로 입력해줘"
         }
     )
