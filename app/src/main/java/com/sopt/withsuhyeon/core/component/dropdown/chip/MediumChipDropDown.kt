@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -28,15 +27,16 @@ fun MediumChipDropDown(
     hint: String,
     isError: Boolean,
     modifier: Modifier = Modifier,
-    mediumChipTypeList: List<MediumChipType> = emptyList(),
     errorMessage: String = "",
-    onClick: () -> Unit,
+    onClick: (List<MediumChipType>) -> Unit,
 ) {
+    val mediumChipTypeList by remember { mutableStateOf(listOf<MediumChipType>()) }
+
     BasicSelectDropDown(
         isError =  isError,
         errorMessage = errorMessage,
         modifier = modifier,
-        onClick = onClick,
+        onClick = { onClick(mediumChipTypeList)},
         mainContent = {
             if(mediumChipTypeList.isEmpty()) {
                 TextDropDownItem(
@@ -48,8 +48,7 @@ fun MediumChipDropDown(
             else {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = modifier
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     mediumChipTypeList.forEach { chipType ->
                         MediumChip(
@@ -74,16 +73,12 @@ fun MediumChipDropDown(
 fun PreviewMediumChipDropDown() {
     val isError by remember { mutableStateOf(false) }
     val errorMessage by remember { mutableStateOf("") }
-    val mediumChipTypeList = remember { mutableStateListOf<MediumChipType>() }
+
     MediumChipDropDown (
         hint = "눌러서 요청사항 선택하기",
         isError = isError,
         errorMessage = errorMessage,
         onClick = {
-            mediumChipTypeList.add(
-                MediumChipType.CATEGORY_PHOTO
-            )
-        },
-        mediumChipTypeList = mediumChipTypeList
+        }
     )
 }
