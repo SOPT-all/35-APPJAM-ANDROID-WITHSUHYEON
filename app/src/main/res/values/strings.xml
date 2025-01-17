@@ -68,4 +68,7 @@
     <string name="block_bottomsheet_sub_title">차단하고자하는 전화번호를 입력해주시면,\n앱내에서 숨기기 처리됩니다.</string>
     <string name="block_bottomsheet_button_text">차단하러 가기</string>
     <string name="block_bottomsheet_skip_text">괜찮아요</string>
+
+    <!-- 갤러리 뷰 -->
+    <string name="gallery_upload_image_description">Gallery Upload Image</string>
 </resources>
