@@ -19,13 +19,17 @@ import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.button.LargeButton
 import com.sopt.withsuhyeon.core.component.progressbar.AnimatedProgressBar
 import com.sopt.withsuhyeon.core.component.textfield.BasicShortTextField
+import com.sopt.withsuhyeon.core.util.KeyStorage.DEFAULT
+import com.sopt.withsuhyeon.core.util.KeyStorage.LENGTH_ERROR
+import com.sopt.withsuhyeon.core.util.KeyStorage.LENGTH_ERROR_MESSAGE
 import com.sopt.withsuhyeon.core.util.KeyStorage.NEXT_BUTTON_TEXT
+import com.sopt.withsuhyeon.core.util.KeyStorage.SPECIAL_CHARACTER_ERROR
+import com.sopt.withsuhyeon.core.util.KeyStorage.SPECIAL_CHARACTER_ERROR_MESSAGE
 import com.sopt.withsuhyeon.feature.onboarding.components.OnBoardingTitle
 
 @Composable
 fun NickNameAuthenticationRoute(
     navigateToNext: () -> Unit,
-    viewModel: OnBoardingViewModel = hiltViewModel()
 ) {
     NickNameAuthenticationScreen(
         onButtonClick = navigateToNext
@@ -35,11 +39,22 @@ fun NickNameAuthenticationRoute(
 @Composable
 fun NickNameAuthenticationScreen(
     onButtonClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: OnBoardingViewModel = hiltViewModel()
 ) {
     var nicknameValue by remember { mutableStateOf("") }
     var isNicknameValid by remember { mutableStateOf(false) }
+    var nicknameErrorType by remember { mutableStateOf(LENGTH_ERROR) }
     var isNicknameTextFiledFocused by remember { mutableStateOf(false) }
+    var errorMessage by remember { mutableStateOf("") }
+
+    fun updateErrorMessage(validationState: String) {
+        errorMessage = when (validationState) {
+            LENGTH_ERROR -> LENGTH_ERROR_MESSAGE
+            SPECIAL_CHARACTER_ERROR -> SPECIAL_CHARACTER_ERROR_MESSAGE
+            else -> ""
+        }
+    }
 
     Column(
         modifier = modifier
@@ -64,18 +79,19 @@ fun NickNameAuthenticationScreen(
                 isNicknameTextFiledFocused = it
             },
             onValueChange = { input ->
-                isNicknameValid = input.length in 2..12
                 nicknameValue = input
+                nicknameErrorType = viewModel.isNicknameValid(input)
+                updateErrorMessage(nicknameErrorType)
+                isNicknameValid = nicknameErrorType == DEFAULT
             },
             maxLength = 12,
-            errorMessage = stringResource(R.string.onboarding_nickname_max_input_error_message),
+            errorMessage = errorMessage
         )
-        // TODO - 특수기호나 각종 에러 케이스 뷰모델 구현
         Spacer(modifier = Modifier.weight(1f))
         LargeButton(
             onClick = onButtonClick,
             text = NEXT_BUTTON_TEXT,
-            isDisabled = !isNicknameValid,
+            isDisabled = nicknameErrorType != DEFAULT,
         )
     }
 }

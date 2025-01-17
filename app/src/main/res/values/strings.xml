@@ -84,5 +84,4 @@
     <string name="onboarding_nickname_screen_title">수현이랑에서 사용할\n닉네임을 입력해주세요</string>
     <string name="onboarding_nickname_input_title">닉네임</string>
     <string name="onboarding_nickname_input_hint">한글, 영문, 숫자로 조합된 2~12자</string>
-    <string name="onboarding_nickname_max_input_error_message">최대 12글자 이하로 입력해주세요</string>
 </resources>
