@@ -13,7 +13,7 @@ import com.sopt.withsuhyeon.feature.gallery.navigation.galleryNavGraph
 import com.sopt.withsuhyeon.feature.home.navigation.homeNavGraph
 import com.sopt.withsuhyeon.feature.main.MainNavigator
 import com.sopt.withsuhyeon.feature.mypage.navigation.myPageNavGraph
-import com.sopt.withsuhyeon.feature.onboarding.navigation.termsOfUseNavGraph
+import com.sopt.withsuhyeon.feature.onboarding.navigation.onBoardingNavGraph
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
 @Composable
@@ -47,9 +47,9 @@ fun MainNavHost(
             myPageNavGraph(
                 padding = padding,
             )
-            termsOfUseNavGraph(
-                padding = padding,
-                onNavigateToNext = navigator::navigateToHome,
+            onBoardingNavGraph(
+                onNavigateToPhoneNumberAuth = navigator::navigateToPhoneNumberAuth,
+                onNavigateToNickNameAuth = navigator::navigateToNicknameAuth
             )
         }
     }

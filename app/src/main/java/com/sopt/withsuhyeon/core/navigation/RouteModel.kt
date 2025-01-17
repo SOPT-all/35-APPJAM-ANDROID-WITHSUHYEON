@@ -5,6 +5,10 @@ import kotlinx.serialization.Serializable
 sealed interface Route {
     @Serializable
     data object TermsOfUse : Route
+    @Serializable
+    data object PhoneNumberAuth : Route
+    @Serializable
+    data object NickNameAuth : Route
 }
 
 sealed interface MainTabRoute : Route {

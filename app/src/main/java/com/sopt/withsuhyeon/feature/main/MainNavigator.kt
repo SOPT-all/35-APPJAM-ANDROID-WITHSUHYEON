@@ -16,7 +16,9 @@ import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.navigateToFindSuhyeon
 import com.sopt.withsuhyeon.feature.gallery.navigation.navigateToGallery
 import com.sopt.withsuhyeon.feature.home.navigation.navigateToHome
 import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToMyPage
-import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToTermsOfUse
+import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToNickNameAuth
+import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToPhoneNumberAuth
+
 
 class MainNavigator(
     val navController: NavHostController,
@@ -25,7 +27,7 @@ class MainNavigator(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = Route.TermsOfUse
+    val startDestination = Route.PhoneNumberAuth
 
     val currentTab: MainTab?
         @SuppressLint("RestrictedApi") @Composable get() = MainTab.find { tab ->
@@ -49,9 +51,12 @@ class MainNavigator(
             MainTab.MYPAGE -> navController.navigateToMyPage(navOptions)
         }
     }
+    fun navigateToPhoneNumberAuth() {
+        navController.navigateToPhoneNumberAuth()
+    }
 
-    fun navigateToTermsOfUse() {
-        navController.navigateToTermsOfUse()
+    fun navigateToNicknameAuth() {
+        navController.navigateToNickNameAuth()
     }
 
     fun navigateToHome(navOptions: NavOptions? = null) {

@@ -237,7 +237,6 @@ fun PreviewFullOptionBasicShortTextField() {
                 errorMessage = if (!isValid) "\"텍스트\"라고 입력해주세요." else ""
                 value = input
                 enabled = value != "불가"
-
             },
             errorMessage = errorMessage,
             visibleLength = true,

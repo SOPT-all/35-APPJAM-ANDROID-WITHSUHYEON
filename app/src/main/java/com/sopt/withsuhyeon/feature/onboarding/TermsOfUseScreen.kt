@@ -3,7 +3,6 @@ package com.sopt.withsuhyeon.feature.onboarding
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -12,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -32,17 +30,15 @@ import com.sopt.withsuhyeon.core.util.KeyStorage.CHECKED
 import com.sopt.withsuhyeon.core.util.KeyStorage.DEFAULT
 import com.sopt.withsuhyeon.core.util.KeyStorage.NEXT_BUTTON_TEXT
 import com.sopt.withsuhyeon.core.util.KeyStorage.SECONDARY_TYPE
+import com.sopt.withsuhyeon.feature.onboarding.components.OnBoardingTitle
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
-import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
 @Composable
 fun TermsOfUseRoute(
-    padding: PaddingValues,
     navigateToNext: () -> Unit,
     viewModel: OnBoardingViewModel = hiltViewModel()
 ) {
     TermsOfUseScreen(
-        padding = padding,
         onButtonClick = {
             navigateToNext()
         }
@@ -51,7 +47,6 @@ fun TermsOfUseRoute(
 
 @Composable
 fun TermsOfUseScreen(
-    padding: PaddingValues,
     onButtonClick: () -> Unit,
     modifier: Modifier = Modifier,
 
@@ -78,10 +73,7 @@ fun TermsOfUseScreen(
         Spacer(
             modifier = Modifier.height(16.dp)
         )
-        Text(
-            text = stringResource(R.string.onboarding_temrs_of_use_title),
-            style = typography.title02_B,
-        )
+        OnBoardingTitle(stringResource(R.string.onboarding_temrs_of_use_title),)
         Spacer(
             modifier = Modifier.height(32.dp)
         )
@@ -183,7 +175,9 @@ fun TermsOfUseScreen(
         Spacer(modifier = Modifier.height(16.dp))
         LargeButton(
             onClick = {
-                // TODO - Navigate 시키기
+                if (isAllTermsSelected) {
+                    onButtonClick()
+                }
             },
             text = NEXT_BUTTON_TEXT,
             isDisabled = !isAllTermsSelected,
