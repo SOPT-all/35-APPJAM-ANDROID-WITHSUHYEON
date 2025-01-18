@@ -1,11 +1,12 @@
 package com.sopt.withsuhyeon.feature.onboarding
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,10 +21,13 @@ import com.sopt.withsuhyeon.core.component.button.BasicButtonForTextField
 import com.sopt.withsuhyeon.core.component.button.LargeButton
 import com.sopt.withsuhyeon.core.component.progressbar.AnimatedProgressBar
 import com.sopt.withsuhyeon.core.component.textfield.BasicShortTextField
+import com.sopt.withsuhyeon.core.component.topbar.MainTopNavBar
 import com.sopt.withsuhyeon.core.util.KeyStorage.AFTER_SEND_BUTTON_TEXT
 import com.sopt.withsuhyeon.core.util.KeyStorage.BEFORE_SEND_BUTTON_TEXT
+import com.sopt.withsuhyeon.core.util.KeyStorage.EMPTY_STRING
 import com.sopt.withsuhyeon.core.util.KeyStorage.NEXT_BUTTON_TEXT
 import com.sopt.withsuhyeon.feature.onboarding.components.OnBoardingTitle
+import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
 @Composable
 fun PhoneNumberAuthenticationRoute(
@@ -40,22 +44,30 @@ fun PhoneNumberAuthenticationScreen(
     onButtonClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var phoneNumberValue by remember { mutableStateOf("") }
+    var phoneNumberValue by remember { mutableStateOf(EMPTY_STRING) }
     var isPhoneNumberInputValid by remember { mutableStateOf(false) }
     var isPhoneNumberInputFocused by remember { mutableStateOf(false) }
     var isPhoneNumberAuthVisible by remember { mutableStateOf(false) }
     var isPhoneNumberAuthButtonEnabled by remember { mutableStateOf(false) }
     var phoneNumberAuthButtonText by remember { mutableStateOf(BEFORE_SEND_BUTTON_TEXT) }
-    var authNumberValue by remember { mutableStateOf("") }
+    var authNumberValue by remember { mutableStateOf(EMPTY_STRING) }
     var isAuthNumberInputValid by remember { mutableStateOf(false) }
     var isAuthNumberInputFocused by remember { mutableStateOf(false) }
 
     Column(
         modifier = modifier
-            .padding(16.dp)
-            .fillMaxWidth()
-            .fillMaxHeight(),
+            .background(color = colors.White)
+            .padding(
+                vertical = 16.dp,
+                horizontal = 16.dp
+            )
+            .fillMaxSize()
+
     ) {
+        MainTopNavBar(
+            text = EMPTY_STRING,
+            modifier = Modifier.padding(20.dp)
+        )
         AnimatedProgressBar(progress = 0.33f)
         Spacer(
             modifier = Modifier.height(16.dp)
@@ -78,7 +90,6 @@ fun PhoneNumberAuthenticationScreen(
                 phoneNumberValue = input
             },
             maxLength = 11,
-            errorMessage = stringResource(R.string.onboarding_phone_number_duplication_error_message),
             trailingContent = {
                 BasicButtonForTextField(
                     text = phoneNumberAuthButtonText,
@@ -109,10 +120,16 @@ fun PhoneNumberAuthenticationScreen(
                     authNumberValue = input
                 },
                 maxLength = 6,
-                errorMessage = stringResource(R.string.onboarding_phone_number_duplication_error_message),
             )
         }
         Spacer(modifier = Modifier.weight(1f))
+
+        HorizontalDivider(
+            modifier = Modifier.height(1.dp)
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         LargeButton(
             onClick = onButtonClick,
             text = NEXT_BUTTON_TEXT,

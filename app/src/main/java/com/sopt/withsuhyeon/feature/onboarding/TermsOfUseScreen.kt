@@ -1,12 +1,12 @@
 package com.sopt.withsuhyeon.feature.onboarding
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -28,9 +28,9 @@ import com.sopt.withsuhyeon.core.component.button.ShowButton
 import com.sopt.withsuhyeon.core.component.checkbox.CheckBox
 import com.sopt.withsuhyeon.core.component.progressbar.AnimatedProgressBar
 import com.sopt.withsuhyeon.core.component.topbar.MainTopNavBar
-import com.sopt.withsuhyeon.core.component.topbar.SubTopNavBar
 import com.sopt.withsuhyeon.core.util.KeyStorage.CHECKED
 import com.sopt.withsuhyeon.core.util.KeyStorage.DEFAULT
+import com.sopt.withsuhyeon.core.util.KeyStorage.EMPTY_STRING
 import com.sopt.withsuhyeon.core.util.KeyStorage.NEXT_BUTTON_TEXT
 import com.sopt.withsuhyeon.core.util.KeyStorage.SECONDARY_TYPE
 import com.sopt.withsuhyeon.feature.onboarding.components.OnBoardingTitle
@@ -62,25 +62,25 @@ fun TermsOfUseScreen(
     fun updateAllTermsSelectedState() {
         isAllTermsSelected = isAgedSelected && isTermsSelected && isPersonalInformationSelected
     }
-    Box() {
-        MainTopNavBar(
-            text = ""
-        )
-    }
     Column(
         modifier = modifier
+            .background(color = colors.White)
             .padding(
-                vertical = 20.dp,
+                vertical = 16.dp,
                 horizontal = 16.dp
             )
-            .fillMaxWidth()
-            .fillMaxHeight()
+            .fillMaxSize()
+
     ) {
+        MainTopNavBar(
+            text = EMPTY_STRING,
+            modifier = Modifier.padding(20.dp)
+        )
         AnimatedProgressBar(progress = 0.1f)
         Spacer(
             modifier = Modifier.height(16.dp)
         )
-        OnBoardingTitle(stringResource(R.string.onboarding_temrs_of_use_title),)
+        OnBoardingTitle(stringResource(R.string.onboarding_temrs_of_use_title))
         Spacer(
             modifier = Modifier.height(32.dp)
         )

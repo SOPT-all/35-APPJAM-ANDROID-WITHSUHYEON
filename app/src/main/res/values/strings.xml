@@ -109,4 +109,5 @@
     <string name="alert_modal_delete_post_description">한번 삭제된 게시물은\n다시 복구할 수 없습니다.</string>
     <string name="alert_modal_delete_btn">삭제하기</string>
     <string name="alert_modal_cancel_btn">취소하기</string>
+
 </resources>
