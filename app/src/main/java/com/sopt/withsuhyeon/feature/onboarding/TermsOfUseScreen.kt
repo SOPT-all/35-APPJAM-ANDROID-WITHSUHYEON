@@ -2,6 +2,7 @@ package com.sopt.withsuhyeon.feature.onboarding
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -26,6 +27,8 @@ import com.sopt.withsuhyeon.core.component.button.LargeButton
 import com.sopt.withsuhyeon.core.component.button.ShowButton
 import com.sopt.withsuhyeon.core.component.checkbox.CheckBox
 import com.sopt.withsuhyeon.core.component.progressbar.AnimatedProgressBar
+import com.sopt.withsuhyeon.core.component.topbar.MainTopNavBar
+import com.sopt.withsuhyeon.core.component.topbar.SubTopNavBar
 import com.sopt.withsuhyeon.core.util.KeyStorage.CHECKED
 import com.sopt.withsuhyeon.core.util.KeyStorage.DEFAULT
 import com.sopt.withsuhyeon.core.util.KeyStorage.NEXT_BUTTON_TEXT
@@ -59,7 +62,11 @@ fun TermsOfUseScreen(
     fun updateAllTermsSelectedState() {
         isAllTermsSelected = isAgedSelected && isTermsSelected && isPersonalInformationSelected
     }
-
+    Box() {
+        MainTopNavBar(
+            text = ""
+        )
+    }
     Column(
         modifier = modifier
             .padding(

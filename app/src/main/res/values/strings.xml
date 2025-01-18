@@ -73,7 +73,6 @@
     <string name="block_bottomsheet_button_text">차단하러 가기</string>
     <string name="block_bottomsheet_skip_text">괜찮아요</string>
 
-<<<<<<< HEAD
     <!-- 수현이랑 온보딩 플로우 String 모음-->
     <string name="onboarding_temrs_of_use_title">수현이랑\n서비스 이용약관</string>
     <string name="onboarding_temrs_of_use_all_agree">모두 동의</string>
@@ -89,7 +88,6 @@
     <string name="onboarding_nickname_screen_title">수현이랑에서 사용할\n닉네임을 입력해주세요</string>
     <string name="onboarding_nickname_input_title">닉네임</string>
     <string name="onboarding_nickname_input_hint">한글, 영문, 숫자로 조합된 2~12자</string>
-=======
     <!-- 공통 컴포넌트 - Top Nav Bar -->
     <string name="top_nav_bar_btn_icon_description">Top Nav Bar Btn Icon</string>
 
@@ -111,5 +109,4 @@
     <string name="alert_modal_delete_post_description">한번 삭제된 게시물은\n다시 복구할 수 없습니다.</string>
     <string name="alert_modal_delete_btn">삭제하기</string>
     <string name="alert_modal_cancel_btn">취소하기</string>
->>>>>>> 9d67d1615c0ed3d1b57216a247ead3e06f471d1c
 </resources>
