@@ -22,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.sopt.withsuhyeon.R
@@ -58,6 +59,18 @@ private fun GalleryUploadScreen(
     onCloseBtnClick: () -> Unit,
     viewModel: GalleryViewModel = hiltViewModel()
 ) {
+    var titleValue by remember { mutableStateOf("") }
+    var isTitleValid by remember { mutableStateOf(true) }
+    val titleErrorMessage = if (!isTitleValid) "필수로 입력해줘" else ""
+
+    var selectedCategory by remember { mutableStateOf("") }
+    var hoveredCategory by remember { mutableStateOf("") }
+    var isCategoryValid by remember { mutableStateOf(true) }
+    val categoryErrorMessage = if (!isCategoryValid) "필수로 입력해줘" else ""
+
+    var galleryUploadDescription by remember { mutableStateOf("") }
+    var isBottomSheetVisible by remember { mutableStateOf(false) }
+
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -70,7 +83,7 @@ private fun GalleryUploadScreen(
                 .background(colors.White)
         ) {
             SubTopNavBar(
-                text = "업로드",
+                text = stringResource(R.string.gallery_sub_nav_bar_title),
                 btnIcon = painterResource(R.drawable.ic_close),
                 isTextVisible = true,
                 isBtnVisible = true,
@@ -91,26 +104,23 @@ private fun GalleryUploadScreen(
                 .padding(horizontal = 8.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            var isError by remember { mutableStateOf(false) }
-            var errorMessage by remember { mutableStateOf("") }
-            var isBottomSheetVisible by remember { mutableStateOf(false) }
-            var selectedCategory by remember { mutableStateOf("") }
             val categories = listOf(
                 "학교", "카페", "회식", "엠티", "자취방", "도서관",
                 "수영장/빠지", "바다/계곡", "스키장", "찜질방", "캠핑/글램핑",
                 "파티룸", "절/교회 수련회", "해외여행", "공항", "기타"
             )
-            var galleryUploadDescription by remember { mutableStateOf("") }
 
             if (isBottomSheetVisible) {
                 GalleryCategoryBottomSheet(
                     isVisible = isBottomSheetVisible,
                     categories = categories,
-                    selectedCategory = selectedCategory,
+                    selectedCategory = hoveredCategory,
                     onCategoryChipClick = { category ->
-                        selectedCategory = category
+                        hoveredCategory = category
                     },
                     onConfirmClick = {
+                        selectedCategory = hoveredCategory
+                        isCategoryValid = selectedCategory.isNotEmpty()
                         isBottomSheetVisible = false
                     },
                     onDismiss = {
@@ -129,7 +139,7 @@ private fun GalleryUploadScreen(
             Spacer(modifier = modifier.height(8.dp))
 
             Text(
-                text = "카테고리",
+                text = stringResource(R.string.category_subtitle),
                 style = typography.body03_SB,
                 color = colors.Grey600,
                 modifier = modifier.padding(horizontal = 16.dp)
@@ -137,9 +147,9 @@ private fun GalleryUploadScreen(
 
             TextDropDown(
                 value = selectedCategory,
-                hint = "눌러서 카테고리 선택하기",
-                isError = isError,
-                errorMessage = errorMessage,
+                hint = stringResource(R.string.category_text_drop_down_hint),
+                isError = !isCategoryValid,
+                errorMessage = categoryErrorMessage,
                 onClick = {
                     isBottomSheetVisible = true
                 },
@@ -147,32 +157,32 @@ private fun GalleryUploadScreen(
             )
 
             Text(
-                text = "제목",
+                text = stringResource(R.string.post_title_subtitle),
                 style = typography.body03_SB,
                 color = colors.Grey600,
                 modifier = modifier.padding(horizontal = 16.dp)
             )
 
-            var value by remember { mutableStateOf("") }
-            var isValid by remember { mutableStateOf(false) }
-            var enabled by remember { mutableStateOf(true) }
-            var isFocused by remember { mutableStateOf(false) }
-
-            BasicShortTextField(
-                value = value,
-                hint = "텍스트를 입력해주세요",
-                isValid = isValid,
-                enabled = enabled,
-                onFocusChange = {
-                    isFocused = it
-                },
-                onValueChange = {
-                    value = it
-                },
-                visibleLength = true,
-                maxLength = 30,
-                modifier = modifier.padding(horizontal = 8.dp)
-            )
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                BasicShortTextField(
+                    value = titleValue,
+                    onValueChange = { newValue ->
+                        titleValue = newValue
+                        isTitleValid = newValue.isNotEmpty()
+                    },
+                    hint = "텍스트를 입력해주세요",
+                    isValid = isTitleValid,
+                    errorMessage = titleErrorMessage,
+                    visibleLength = true,
+                    maxLength = 30,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
 
             Spacer(modifier = modifier.height(16.dp))
 
@@ -185,6 +195,7 @@ private fun GalleryUploadScreen(
 
             LongTextField(
                 value = galleryUploadDescription,
+                hint = stringResource(R.string.post_title_description_hint),
                 onValueChange = { newDescription ->
                     galleryUploadDescription = newDescription
                 },
@@ -203,7 +214,17 @@ private fun GalleryUploadScreen(
         ) {
             LargeButton(
                 text = "완료",
-                onClick = onCompleteBtnClick
+                onClick = {
+                    val isTitleInputValid = titleValue.isNotEmpty()
+                    val isCategoryInputValid = selectedCategory.isNotEmpty()
+
+                    isTitleValid = isTitleInputValid
+                    isCategoryValid = isCategoryInputValid
+
+                    if (isTitleInputValid && isCategoryInputValid) {
+                        onCompleteBtnClick()
+                    }
+                }
             )
         }
     }
