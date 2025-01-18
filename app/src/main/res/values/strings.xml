@@ -85,4 +85,5 @@
     <string name="onboarding_nickname_input_title">닉네임</string>
     <string name="onboarding_nickname_input_hint">한글, 영문, 숫자로 조합된 2~12자</string>
     <string name="onboarding_year_of_birth_title">태어난 년도를\n선택해주세요</string>
+    <string name="onboarding_gender_select_title">성별을\n선택해주세요</string>
 </resources>

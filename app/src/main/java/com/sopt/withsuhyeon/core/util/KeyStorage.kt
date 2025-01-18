@@ -36,4 +36,6 @@ object KeyStorage {
     const val SPECIAL_CHARACTER_ERROR = "specialError"
     const val LENGTH_ERROR_MESSAGE = "최대 12글자 이하로 입력해주세요"
     const val SPECIAL_CHARACTER_ERROR_MESSAGE = "특수기호를 제거해주세요"
+
+    const val EMPTY_STRING =""
 }
