@@ -37,8 +37,7 @@ fun ChatRoute(
 @Composable
 private fun ChatScreen(
     padding: PaddingValues,
-    onChatRoomListItemClick: () -> Unit
-    padding: PaddingValues,
+    onChatRoomListItemClick: () -> Unit,
     viewModel: ChatViewModel = hiltViewModel()
 ) {
     val sampleChatRooms by viewModel.chatRooms.collectAsState()
