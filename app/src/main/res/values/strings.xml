@@ -53,8 +53,9 @@
     <string name="find_suhyeon_location">위치</string>
     <string name="find_suhyeon_multi_select_chip">MultiSelectChip</string>
 
-    <!-- 공통 사용 dot -->
+    <!-- 공통 사용 dot, blank -->
     <string name="dot">・</string>
+    <string name="blank"></string>
 
     <!-- checkbox 종료 버튼 -->
     <string name="x_close_description">x 버튼</string>
@@ -69,9 +70,6 @@
     <string name="block_bottomsheet_button_text">차단하러 가기</string>
     <string name="block_bottomsheet_skip_text">괜찮아요</string>
 
-    <!-- 갤러리 뷰 -->
-    <string name="gallery_upload_image_description">Gallery Upload Image</string>
-
     <!-- 공통 컴포넌트 - Top Nav Bar -->
     <string name="top_nav_bar_btn_icon_description">Top Nav Bar Btn Icon</string>
 
@@ -82,6 +80,13 @@
     <!-- 갤러리 -->
     <string name="gallery_top_nav_bar_title">갤러리</string>
     <string name="gallery_main_category_chip_total">전체</string>
+    <string name="gallery_upload_image_description">Gallery Upload Image</string>
+    <string name="gallery_sub_nav_bar_title">업로드</string>
+    <string name="category_subtitle">카테고리</string>
+    <string name="category_text_drop_down_hint">눌러서 카테고리 선택하기</string>
+    <string name="post_title_subtitle">제목</string>
+    <string name="post_title_description_hint">텍스트를 입력해주세요</string>
+    <string name="post_description_subtitle">설명 (선택)</string>
 
     <!-- 공통 컴포넌트 - 게시글 -->
     <string name="post_basic_profile_image_description">Basic Profile Image</string>
