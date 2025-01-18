@@ -14,6 +14,7 @@ import com.sopt.withsuhyeon.core.navigation.Route
 import com.sopt.withsuhyeon.feature.chat.navigation.navigateToChat
 import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.navigateToFindSuhyeon
 import com.sopt.withsuhyeon.feature.gallery.navigation.navigateToGallery
+import com.sopt.withsuhyeon.feature.gallery.navigation.navigateToGalleryPostDetail
 import com.sopt.withsuhyeon.feature.gallery.navigation.navigateToGalleryUpload
 import com.sopt.withsuhyeon.feature.home.navigation.navigateToHome
 import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToMyPage
@@ -70,7 +71,11 @@ class MainNavigator(
         navController.navigateToGalleryUpload()
     }
 
-    private fun popBackStack() {
+    fun navigateToGalleryPostDetail() {
+        navController.navigateToGalleryPostDetail()
+    }
+
+    fun popBackStack() {
         navController.popBackStack()
     }
 

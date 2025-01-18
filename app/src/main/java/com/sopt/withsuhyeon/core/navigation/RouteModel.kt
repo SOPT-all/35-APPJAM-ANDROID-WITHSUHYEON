@@ -7,6 +7,8 @@ sealed interface Route {
     data object OnBoarding : Route
     @Serializable
     data object GalleryUpload : Route
+    @Serializable
+    data object GalleryPostDetail : Route
 }
 
 sealed interface MainTabRoute : Route {
