@@ -19,30 +19,33 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.sopt.withsuhyeon.R
+import com.sopt.withsuhyeon.core.component.bottomsheet.DeletePostBottomSheet
 import com.sopt.withsuhyeon.core.component.bottomsheet.GalleryCategoryBottomSheet
 import com.sopt.withsuhyeon.core.component.button.LargeButton
 import com.sopt.withsuhyeon.core.component.dropdown.text.TextDropDown
+import com.sopt.withsuhyeon.core.component.modal.AlertModal
 import com.sopt.withsuhyeon.core.component.textfield.BasicShortTextField
 import com.sopt.withsuhyeon.core.component.textfield.LongTextField
 import com.sopt.withsuhyeon.core.component.topbar.SubTopNavBar
-import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
 @Composable
 fun GalleryUploadRoute(
-    padding: PaddingValues
+    padding: PaddingValues,
+    popBackStackToGallery: () -> Unit
 ) {
     GalleryUploadScreen(
-        padding = padding
+        padding = padding,
+        onCompleteBtnClick = {
+            popBackStackToGallery()
+        }
     )
 }
 
@@ -50,25 +53,64 @@ fun GalleryUploadRoute(
 private fun GalleryUploadScreen(
     padding: PaddingValues,
     modifier: Modifier = Modifier,
+    onCompleteBtnClick: () -> Unit,
     viewModel: GalleryViewModel = hiltViewModel()
 ) {
+    var isDeleteBottomSheetVisible by remember { mutableStateOf(false) }
+    var isDeleteAlertModalVisible by remember { mutableStateOf (false) }
+
+    if (isDeleteBottomSheetVisible) {
+        DeletePostBottomSheet(
+            isBottomSheetVisible = isDeleteBottomSheetVisible,
+            onDeleteClick = {
+                isDeleteBottomSheetVisible = false
+                isDeleteAlertModalVisible = true
+            },
+            onCloseClick = {
+                isDeleteBottomSheetVisible = false
+            },
+            onDismiss = {
+                isDeleteBottomSheetVisible = false
+            }
+        )
+    }
+
+    if (isDeleteAlertModalVisible) {
+        AlertModal(
+            onDeleteClick = {
+                isDeleteAlertModalVisible = false
+                onCompleteBtnClick()
+            },
+            onCancelClick = {
+                isDeleteAlertModalVisible = false
+            }
+        )
+    }
+
     Box(
         modifier = modifier
             .fillMaxSize()
             .padding(padding)
             .background(colors.White)
     ) {
-        SubTopNavBar(
-            text = "업로드",
-            btnIcon = painterResource(R.drawable.ic_close),
-            isTextVisible = true,
-            isBtnVisible = true,
-            onCloseBtnClicked = {},
-            modifier = modifier
+        Column(
+            modifier = Modifier
                 .fillMaxWidth()
                 .background(colors.White)
-                .align(Alignment.TopCenter)
-        )
+        ) {
+            SubTopNavBar(
+                text = "업로드",
+                btnIcon = painterResource(R.drawable.ic_menu),
+                isTextVisible = true,
+                isBtnVisible = true,
+                onCloseBtnClicked = {
+                    isDeleteBottomSheetVisible = true
+                },
+                modifier = modifier
+                    .fillMaxWidth()
+                    .background(colors.White)
+            )
+        }
 
         Column(
             modifier = modifier
@@ -188,15 +230,10 @@ private fun GalleryUploadScreen(
                 .padding(16.dp)
                 .align(BottomCenter)
         ) {
-            LargeButton("완료") { }
+            LargeButton(
+                text = "완료",
+                onClick = onCompleteBtnClick
+            )
         }
     }
 }
-
-//@Preview
-//@Composable
-//private fun GalleryUploadScreenPreview() {
-//    WithSuhyeonTheme {
-//        GalleryUploadScreen()
-//    }
-//}
