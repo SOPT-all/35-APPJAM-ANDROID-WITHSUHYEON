@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -56,15 +57,16 @@ fun SmallButton(
     }
     Box(
         modifier = modifier
+            .width(160.dp)
             .background(
                 backgroundColor,
                 shape = RoundedCornerShape(size = 16.dp)
             )
             .padding(
-                vertical = 14.dp,
-                horizontal = 64.dp
+                vertical = 14.dp
             )
             .noRippleClickable(onClick),
+        contentAlignment = Alignment.Center
     )
     {
         Text(

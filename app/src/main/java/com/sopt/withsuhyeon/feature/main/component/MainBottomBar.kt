@@ -52,12 +52,12 @@ fun MainBottomBar(
         enter = fadeIn() + slideIn { IntOffset(0, it.height) },
         exit = fadeOut() + slideOut { IntOffset(0, it.height) }
     ) {
+        val borderColor = defaultWithSuhyeonColors.Grey200
         Row(
             modifier = modifier
                 .fillMaxWidth()
                 .height(68.dp)
                 .drawBehind {
-                    val borderColor = defaultWithSuhyeonColors.Grey200
                     val borderThickness = 1.dp.toPx()
 
                     drawLine(
