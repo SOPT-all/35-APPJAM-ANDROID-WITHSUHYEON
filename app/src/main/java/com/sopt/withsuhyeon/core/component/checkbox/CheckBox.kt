@@ -23,7 +23,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.util.KeyStorage.CHECKED
+import com.sopt.withsuhyeon.core.util.KeyStorage.DEFAULT
 import com.sopt.withsuhyeon.core.util.KeyStorage.DISABLED_TYPE
+import com.sopt.withsuhyeon.core.util.KeyStorage.PRIMARY_TYPE
 import com.sopt.withsuhyeon.core.util.KeyStorage.SECONDARY_TYPE
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
@@ -34,8 +36,8 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 fun CheckBox(
     placeholder: String,
     onClick: () -> Unit,
-    type: String = "primary",
-    state: String = "default",
+    type: String = PRIMARY_TYPE,
+    state: String = DEFAULT,
     font: TextStyle = typography.body03_SB,
     modifier: Modifier = Modifier,
 //    TODO :

@@ -4,6 +4,7 @@ object KeyStorage {
     const val LONG_TEXTFIELD_MAX_LENGTH = 200
     const val ALERT_TYPE = "alert"
     const val DISABLED_TYPE = "disabled"
+    const val PRIMARY_TYPE = "primary"
     const val SECONDARY_TYPE = "secondary"
     const val CHECKED = "checked"
     const val DEFAULT = "default"

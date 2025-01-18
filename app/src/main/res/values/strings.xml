@@ -110,4 +110,7 @@
     <string name="alert_modal_delete_btn">삭제하기</string>
     <string name="alert_modal_cancel_btn">취소하기</string>
 
+    <!-- ShowButton -->
+    <string name="show_button_title">보기</string>
+
 </resources>

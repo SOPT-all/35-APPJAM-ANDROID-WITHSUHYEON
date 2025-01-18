@@ -3,6 +3,7 @@ package com.sopt.withsuhyeon.feature.onboarding
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -67,16 +68,22 @@ fun TermsOfUseScreen(
             .background(color = colors.White)
             .padding(
                 vertical = 16.dp,
-                horizontal = 16.dp
             )
             .fillMaxSize()
-
     ) {
         MainTopNavBar(
             text = EMPTY_STRING,
-            modifier = Modifier.padding(20.dp)
         )
-        AnimatedProgressBar(progress = 0.1f)
+        HorizontalDivider(
+            modifier = Modifier.height(1.dp),
+            color = colors.Grey100
+        )
+        AnimatedProgressBar(
+            progress = 0.1f,
+            modifier = Modifier.padding(
+                16.dp
+            )
+        )
         Spacer(
             modifier = Modifier.height(16.dp)
         )
@@ -85,6 +92,9 @@ fun TermsOfUseScreen(
             modifier = Modifier.height(32.dp)
         )
         Row(
+            modifier = Modifier.padding(
+                horizontal = 16.dp
+            ),
             horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -109,78 +119,88 @@ fun TermsOfUseScreen(
         Spacer(
             modifier = Modifier.height(16.dp)
         )
-        Column(
-            modifier = Modifier
-                .border(
-                    width = 1.dp, color = colors.Grey100, RoundedCornerShape(size = 24.dp)
-                )
-                .padding(
-                    horizontal = 20.dp,
-                    vertical = 24.dp
-                ),
-            verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Top),
+        Box(
+            modifier = Modifier.padding(horizontal = 16.dp)
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
-            ) {
-                CheckBox(
-                    placeholder = stringResource(R.string.onboarding_terms_of_use_age),
-                    onClick = {
-                        isAgedSelected = !isAgedSelected
-                        updateAllTermsSelectedState()
-                    },
-                    type = SECONDARY_TYPE,
-                    state = if (isAgedSelected) CHECKED else DEFAULT
-                )
-                ShowButton(onClick = {
-                    // TODO - 정책 연결
-                })
-            }
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
-            ) {
-                CheckBox(
-                    placeholder = stringResource(R.string.onboarding_terms_of_use_agree),
-                    onClick = {
-                        isTermsSelected = !isTermsSelected
-                        updateAllTermsSelectedState()
-                    },
-                    type = SECONDARY_TYPE,
-                    state = if (isTermsSelected) CHECKED else DEFAULT
-                )
-                ShowButton(onClick = {
-                    // TODO - 정책 연결
-                })
-            }
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
-            ) {
-                CheckBox(
-                    placeholder = stringResource(R.string.onboarding_temrs_of_use_personal_information),
-                    onClick = {
-                        isPersonalInformationSelected = !isPersonalInformationSelected
-                        updateAllTermsSelectedState()
+            Column(
+                modifier = Modifier
+                    .border(
+                        width = 1.dp, color = colors.Grey100, RoundedCornerShape(size = 24.dp)
+                    )
+                    .padding(
+                        horizontal = 20.dp,
+                        vertical = 24.dp
+                    ),
 
-                    },
-                    type = SECONDARY_TYPE,
-                    state = if (isPersonalInformationSelected) CHECKED else DEFAULT
-                )
-                ShowButton(onClick = {
-                    // TODO - 정책 연결
-                })
+                verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Top),
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
+                ) {
+                    CheckBox(
+                        placeholder = stringResource(R.string.onboarding_terms_of_use_age),
+                        onClick = {
+                            isAgedSelected = !isAgedSelected
+                            updateAllTermsSelectedState()
+                        },
+                        type = SECONDARY_TYPE,
+                        state = if (isAgedSelected) CHECKED else DEFAULT
+                    )
+                    ShowButton(onClick = {
+                        // TODO - 정책 연결
+                    })
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
+                ) {
+                    CheckBox(
+                        placeholder = stringResource(R.string.onboarding_terms_of_use_agree),
+                        onClick = {
+                            isTermsSelected = !isTermsSelected
+                            updateAllTermsSelectedState()
+                        },
+                        type = SECONDARY_TYPE,
+                        state = if (isTermsSelected) CHECKED else DEFAULT
+                    )
+                    ShowButton(onClick = {
+                        // TODO - 정책 연결
+                    })
+                }
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
+                ) {
+                    CheckBox(
+                        placeholder = stringResource(R.string.onboarding_temrs_of_use_personal_information),
+                        onClick = {
+                            isPersonalInformationSelected = !isPersonalInformationSelected
+                            updateAllTermsSelectedState()
+
+                        },
+                        type = SECONDARY_TYPE,
+                        state = if (isPersonalInformationSelected) CHECKED else DEFAULT
+                    )
+                    ShowButton(onClick = {
+                        // TODO - 정책 연결
+                    })
+                }
             }
         }
 
         Spacer(modifier = Modifier.weight(1f))
 
         HorizontalDivider(
-            modifier = Modifier.height(1.dp)
+            modifier = Modifier.height(1.dp),
+            color = colors.Grey100
         )
+
         Spacer(modifier = Modifier.height(16.dp))
+
         LargeButton(
+            modifier = Modifier.padding(horizontal = 16.dp),
             onClick = {
                 if (isAllTermsSelected) {
                     onButtonClick()
