@@ -3,6 +3,7 @@ package com.sopt.withsuhyeon.feature.onboarding.navigation
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.sopt.withsuhyeon.feature.onboarding.GenderSelectRoute
 import com.sopt.withsuhyeon.feature.onboarding.NickNameAuthenticationRoute
 import com.sopt.withsuhyeon.feature.onboarding.PhoneNumberAuthenticationRoute
 import com.sopt.withsuhyeon.feature.onboarding.TermsOfUseRoute
@@ -12,6 +13,8 @@ import com.sopt.withsuhyeon.core.navigation.Route.PhoneNumberAuth as PhoneNumber
 import com.sopt.withsuhyeon.core.navigation.Route.NickNameAuth as NickNameAuthRoute
 import com.sopt.withsuhyeon.core.navigation.Route.SelectYearOfBirth as YearOfBirthRoute
 import com.sopt.withsuhyeon.core.navigation.Route.SelectGender as SelectGenderRoute
+import com.sopt.withsuhyeon.core.navigation.Route.PostProfileImage as PostProfileImageRoute
+
 
 
 fun NavController.navigateToTermsOfUse() {
@@ -34,11 +37,16 @@ fun NavController.navigateToSelectGender() {
     navigate(SelectGenderRoute)
 }
 
+fun NavController.navigateToPostProfileImage() {
+    navigate(PostProfileImageRoute)
+}
+
 fun NavGraphBuilder.onBoardingNavGraph(
     onNavigateToPhoneNumberAuth: () -> Unit,
     onNavigateToNickNameAuth: () -> Unit,
     onNavigateToSelectYearOfBirth: () -> Unit,
-    onNavigateToSelectGender: () -> Unit
+    onNavigateToSelectGender: () -> Unit,
+    onNavigateToPostProfileImage: () -> Unit
 ) {
     composable<TermsOfUseRoute> {
         TermsOfUseRoute(
@@ -57,7 +65,12 @@ fun NavGraphBuilder.onBoardingNavGraph(
     }
     composable<YearOfBirthRoute> {
         YearOfBirthRoute(
-            navigateToNext = onNavigateToSelectYearOfBirth
+            navigateToNext = onNavigateToSelectGender
+        )
+    }
+    composable<SelectGenderRoute> {
+        GenderSelectRoute(
+            navigateToNext = {}
         )
     }
 }

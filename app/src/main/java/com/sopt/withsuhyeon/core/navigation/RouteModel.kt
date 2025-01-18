@@ -13,6 +13,8 @@ sealed interface Route {
     data object SelectYearOfBirth : Route
     @Serializable
     data object SelectGender : Route
+    @Serializable
+    data object PostProfileImage : Route
 }
 
 sealed interface MainTabRoute : Route {

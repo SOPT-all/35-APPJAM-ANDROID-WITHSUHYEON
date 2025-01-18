@@ -18,6 +18,7 @@ import com.sopt.withsuhyeon.feature.home.navigation.navigateToHome
 import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToMyPage
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToNickNameAuth
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToPhoneNumberAuth
+import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToPostProfileImage
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToSelectGender
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToSelectYearOfBirth
 
@@ -66,6 +67,9 @@ class MainNavigator(
     }
     fun navigateToSelectGender() {
         navController.navigateToSelectGender()
+    }
+    fun navigateToPostProfileImage() {
+        navController.navigateToPostProfileImage()
     }
 
     fun navigateToHome(navOptions: NavOptions? = null) {
