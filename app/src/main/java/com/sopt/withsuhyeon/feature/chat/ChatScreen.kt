@@ -58,7 +58,10 @@ private fun ChatScreen(
                 .fillMaxWidth()
                 .fillMaxHeight()
         ) {
-            TotalChatRoomList(chatRooms = sampleChatRooms)
+            TotalChatRoomList(
+                chatRooms = sampleChatRooms,
+                onChatRoomListItemClick = onChatRoomListItemClick
+            )
         }
     }
 }
