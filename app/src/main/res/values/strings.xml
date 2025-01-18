@@ -47,11 +47,15 @@
     <string name="find_suhyeon_detail_meeting_wanted">원하는 수현이</string>
     <string name="find_suhyeon_detail_meeting_date">날짜</string>
     <string name="find_suhyeon_detail_meeting_requirements">요구사항</string>
-    <string name="find_suhyeon_detail_meeting_price">금액</string>
+    <string name="find_suhyeon_price">금액</string>
     <string name="find_suhyeon_text_won">원</string>
     <string name="find_suhyeon_no_message"></string>
     <string name="find_suhyeon_location">위치</string>
     <string name="find_suhyeon_multi_select_chip">MultiSelectChip</string>
+
+    <!-- 공통 컴포넌트 PostBottomBar -->
+    <string name="post_bottom_bar_start_chating">채팅하기</string>
+    <string name="post_bottom_bar_in_progress_chating">대화 중인 채팅</string>
 
     <!-- 공통 사용 dot, blank -->
     <string name="dot">・</string>

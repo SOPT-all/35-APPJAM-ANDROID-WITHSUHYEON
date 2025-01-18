@@ -136,7 +136,7 @@ fun DetailMeetingInformation (
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
-                text = stringResource(R.string.find_suhyeon_detail_meeting_price),
+                text = stringResource(R.string.find_suhyeon_price),
                 style = typography.body03_R.merge(color = colors.Grey500)
             )
             Text(
