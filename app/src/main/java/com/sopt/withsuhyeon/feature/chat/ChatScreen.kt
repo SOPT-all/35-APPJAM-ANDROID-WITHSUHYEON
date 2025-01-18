@@ -19,7 +19,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.list.TotalChatRoomList
 import com.sopt.withsuhyeon.core.component.topbar.MainTopNavBar
-import com.sopt.withsuhyeon.domain.entity.ChatRoomModel
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
 @Composable

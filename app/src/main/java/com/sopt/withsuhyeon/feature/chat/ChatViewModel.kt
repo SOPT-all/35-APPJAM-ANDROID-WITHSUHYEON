@@ -5,17 +5,15 @@ import com.sopt.withsuhyeon.domain.entity.ChatRoomModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
 class ChatViewModel @Inject constructor(
 ) : ViewModel() {
 
-    private val _chatRooms = MutableStateFlow<List<ChatRoomModel>>(emptyList())
-    val chatRooms: StateFlow<List<ChatRoomModel>> get() = _chatRooms
-
-    init {
-        _chatRooms.value = listOf(
+    private val _chatRooms = MutableStateFlow(
+        listOf(
             ChatRoomModel(
                 profileImage = "https://via.placeholder.com/150",
                 partnerName = "작심이 친구",
@@ -87,5 +85,6 @@ class ChatViewModel @Inject constructor(
                 unreadChatCount = "98"
             ),
         )
-    }
+    )
+    val chatRooms: StateFlow<List<ChatRoomModel>> = _chatRooms.asStateFlow()
 }
