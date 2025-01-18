@@ -72,7 +72,7 @@ fun BasicSelectDropDown(
 @Preview
 @Composable
 fun PreviewBasicSelectDropDown() {
-    val value = remember { mutableStateOf<String?>(null) }
+    val value by remember { mutableStateOf<String?>(null) }
     var isError by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf("") }
 

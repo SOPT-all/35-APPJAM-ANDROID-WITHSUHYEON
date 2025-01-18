@@ -3,7 +3,6 @@ package com.sopt.withsuhyeon.core.component.dropdown.text
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -21,7 +20,7 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 fun TextSelectDropDownWithIcon(
     hint: String,
     isError: Boolean,
-    value: MutableState<String?>,
+    value: String?,
     modifier: Modifier = Modifier,
     errorMessage: String = "",
     onClick: (String?) -> Unit,
@@ -47,7 +46,7 @@ fun TextSelectDropDownWithIcon(
 @Preview
 @Composable
 fun PreviewSTextSelectDropDownWithIcon() {
-    val value = remember { mutableStateOf<String?>("") }
+    val value by remember { mutableStateOf<String?>("") }
     var isError by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf("") }
 

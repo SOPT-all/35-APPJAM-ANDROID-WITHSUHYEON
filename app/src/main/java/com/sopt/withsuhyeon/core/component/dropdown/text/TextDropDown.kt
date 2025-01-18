@@ -1,7 +1,6 @@
 package com.sopt.withsuhyeon.core.component.dropdown.text
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -15,7 +14,7 @@ fun TextDropDown(
     hint: String,
     isError: Boolean,
     modifier: Modifier = Modifier,
-    value: MutableState<String?>,
+    value: String?,
     errorMessage: String = "",
     onClick: (String?) -> Unit = {},
     startContent: @Composable () -> Unit = {},
@@ -24,11 +23,11 @@ fun TextDropDown(
         isError = isError,
         errorMessage = errorMessage,
         modifier = modifier,
-        onClick = { onClick(value.value) },
+        onClick = { onClick(value) },
         mainContent = {
             TextDropDownItem(
                 modifier = Modifier.weight(1f),
-                value = value.value,
+                value = value,
                 hint = hint,
                 startContent = startContent
             )
@@ -39,7 +38,7 @@ fun TextDropDown(
 @Preview
 @Composable
 fun PreviewTextDropDown() {
-    val value = remember { mutableStateOf<String?>(null) }
+    val value by remember { mutableStateOf<String?>(null) }
     var isError by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf("") }
 
