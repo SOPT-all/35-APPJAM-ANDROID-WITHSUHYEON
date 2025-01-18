@@ -10,11 +10,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.kez.picker.rememberPickerState
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.button.LargeButton
 import com.sopt.withsuhyeon.core.component.picker.YearPicker
 import com.sopt.withsuhyeon.core.component.progressbar.AnimatedProgressBar
 import com.sopt.withsuhyeon.core.util.KeyStorage.NEXT_BUTTON_TEXT
+import com.sopt.withsuhyeon.core.util.time.currentDate
 import com.sopt.withsuhyeon.feature.onboarding.components.OnBoardingTitle
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
@@ -33,6 +35,9 @@ fun YearOfBirthScreen(
     modifier: Modifier = Modifier,
     viewModel: OnBoardingViewModel = hiltViewModel()
 ) {
+    val yearPickerState = rememberPickerState(currentDate.year)
+    val selectedYear = yearPickerState.selectedItem - 1
+    // TODO - 지금 2025, 2024 이런 식으로 나옴..! 바꾸기!
     Column(
         modifier = modifier
             .padding(16.dp)
@@ -44,7 +49,10 @@ fun YearOfBirthScreen(
         YearPicker()
         Spacer(modifier = Modifier.weight(1f))
         LargeButton(
-            onClick = onButtonClick,
+            onClick = {
+                viewModel.updateYear(selectedYear)
+                onButtonClick()
+            },
             text = NEXT_BUTTON_TEXT,
             isDisabled = false,
         )

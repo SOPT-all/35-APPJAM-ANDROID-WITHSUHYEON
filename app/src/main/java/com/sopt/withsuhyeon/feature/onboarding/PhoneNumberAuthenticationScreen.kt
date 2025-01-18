@@ -78,7 +78,7 @@ fun PhoneNumberAuthenticationScreen(
                 phoneNumberValue = input
             },
             maxLength = 11,
-            errorMessage = stringResource(R.string.onboarding_phone_number_duplication_error_message),
+//            errorMessage = stringResource(R.string.onboarding_phone_number_duplication_error_message),
             trailingContent = {
                 BasicButtonForTextField(
                     text = phoneNumberAuthButtonText,
