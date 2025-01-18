@@ -19,6 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.button.SmallButton
+import com.sopt.withsuhyeon.core.util.KeyStorage.ALERT_TYPE
+import com.sopt.withsuhyeon.core.util.KeyStorage.DISABLED_TYPE
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
@@ -64,7 +66,7 @@ fun AlertModal(
                 ) {
                     SmallButton(
                         text = stringResource(R.string.alert_modal_cancel_btn),
-                        type = "disabled",
+                        type = DISABLED_TYPE,
                         modifier = Modifier.weight(1f)
                     ) {
                         onCancelClick()
@@ -72,7 +74,7 @@ fun AlertModal(
 
                     SmallButton(
                         text = stringResource(R.string.alert_modal_delete_btn),
-                        type = "alert",
+                        type = ALERT_TYPE,
                         modifier = Modifier.weight(1f)
                     ) {
                         onDeleteClick()
