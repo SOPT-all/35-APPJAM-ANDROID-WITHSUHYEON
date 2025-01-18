@@ -14,15 +14,20 @@ import androidx.hilt.navigation.compose.hiltViewModel
 @Composable
 fun ChatRoute(
     padding: PaddingValues,
+    navigateToChatRoom: () -> Unit,
     viewModel: ChatViewModel = hiltViewModel()
 ) {
     ChatScreen(
-        padding = padding
+        padding = padding,
+        onChatRoomListItemClick = {
+            navigateToChatRoom()
+        }
     )
 }
 @Composable
 private fun ChatScreen(
-    padding: PaddingValues
+    padding: PaddingValues,
+    onChatRoomListItemClick: () -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxSize()

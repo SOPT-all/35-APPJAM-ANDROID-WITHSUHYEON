@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.sopt.withsuhyeon.core.navigation.Route
 import com.sopt.withsuhyeon.feature.chat.navigation.navigateToChat
+import com.sopt.withsuhyeon.feature.chat.navigation.navigateToChatRoom
 import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.navigateToFindSuhyeon
 import com.sopt.withsuhyeon.feature.gallery.navigation.navigateToGallery
 import com.sopt.withsuhyeon.feature.home.navigation.navigateToHome
@@ -63,6 +64,10 @@ class MainNavigator(
                 launchSingleTop = true
             }
         )
+    }
+
+    fun navigateToChatRoom() {
+        navController.navigateToChatRoom()
     }
 
     private fun popBackStack() {

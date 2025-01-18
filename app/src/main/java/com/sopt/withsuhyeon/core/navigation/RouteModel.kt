@@ -5,6 +5,8 @@ import kotlinx.serialization.Serializable
 sealed interface Route {
     @Serializable
     data object OnBoarding : Route
+    @Serializable
+    data object ChatRoom : Route
 }
 
 sealed interface MainTabRoute : Route {
