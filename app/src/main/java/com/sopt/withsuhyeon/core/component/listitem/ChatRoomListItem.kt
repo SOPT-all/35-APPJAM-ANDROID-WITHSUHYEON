@@ -39,7 +39,9 @@ fun ChatRoomListItem(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(colors.White)
     ) {
         Row(
             modifier = Modifier
