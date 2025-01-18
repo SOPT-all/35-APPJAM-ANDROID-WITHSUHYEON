@@ -45,6 +45,9 @@ fun GalleryUploadRoute(
         padding = padding,
         onCompleteBtnClick = {
             popBackStackToGallery()
+        },
+        onCloseBtnClick = {
+            popBackStackToGallery()
         }
     )
 }
@@ -54,6 +57,7 @@ private fun GalleryUploadScreen(
     padding: PaddingValues,
     modifier: Modifier = Modifier,
     onCompleteBtnClick: () -> Unit,
+    onCloseBtnClick: () -> Unit,
     viewModel: GalleryViewModel = hiltViewModel()
 ) {
     var isDeleteBottomSheetVisible by remember { mutableStateOf(false) }
@@ -100,11 +104,11 @@ private fun GalleryUploadScreen(
         ) {
             SubTopNavBar(
                 text = "업로드",
-                btnIcon = painterResource(R.drawable.ic_menu),
+                btnIcon = painterResource(R.drawable.ic_close),
                 isTextVisible = true,
                 isBtnVisible = true,
                 onCloseBtnClicked = {
-                    isDeleteBottomSheetVisible = true
+                    onCloseBtnClick()
                 },
                 modifier = modifier
                     .fillMaxWidth()

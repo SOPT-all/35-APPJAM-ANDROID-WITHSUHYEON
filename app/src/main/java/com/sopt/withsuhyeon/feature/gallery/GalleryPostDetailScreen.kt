@@ -17,14 +17,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
+import com.sopt.withsuhyeon.core.component.bottomsheet.DeletePostBottomSheet
 import com.sopt.withsuhyeon.core.component.button.LargeButton
 import com.sopt.withsuhyeon.core.component.chip.MediumChip
+import com.sopt.withsuhyeon.core.component.modal.AlertModal
 import com.sopt.withsuhyeon.core.component.profile.PostProfileInfoRow
 import com.sopt.withsuhyeon.core.component.topbar.SubTopNavBar
 import com.sopt.withsuhyeon.core.type.MediumChipType
@@ -34,16 +37,21 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
 @Composable
 fun GalleryPostDetailRoute(
-    padding: PaddingValues
+    padding: PaddingValues,
+    popBackStackToGallery: () -> Unit
 ) {
     GalleryPostDetailScreen(
-        padding = padding
+        padding = padding,
+        onDownloadBtnClick = {
+            popBackStackToGallery()
+        }
     )
 }
 
 @Composable
 fun GalleryPostDetailScreen(
     padding: PaddingValues,
+    onDownloadBtnClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val category by remember { mutableStateOf("") }
@@ -53,6 +61,37 @@ fun GalleryPostDetailScreen(
     val date by remember { mutableStateOf("") }
     val galleryPostContent by remember { mutableStateOf("") }
 
+    var isDeleteBottomSheetVisible by remember { mutableStateOf(false) }
+    var isDeleteAlertModalVisible by remember { mutableStateOf (false) }
+
+    if (isDeleteBottomSheetVisible) {
+        DeletePostBottomSheet(
+            isBottomSheetVisible = isDeleteBottomSheetVisible,
+            onDeleteClick = {
+                isDeleteBottomSheetVisible = false
+                isDeleteAlertModalVisible = true
+            },
+            onCloseClick = {
+                isDeleteBottomSheetVisible = false
+            },
+            onDismiss = {
+                isDeleteBottomSheetVisible = false
+            }
+        )
+    }
+
+    if (isDeleteAlertModalVisible) {
+        AlertModal(
+            onDeleteClick = {
+                isDeleteAlertModalVisible = false
+                onDownloadBtnClick()
+            },
+            onCancelClick = {
+                isDeleteAlertModalVisible = false
+            }
+        )
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -61,10 +100,12 @@ fun GalleryPostDetailScreen(
     ) {
         SubTopNavBar(
             text = "",
-            btnIcon = painterResource(R.drawable.ic_close),
+            btnIcon = painterResource(R.drawable.ic_menu),
             isTextVisible = true,
             isBtnVisible = true,
-            onCloseBtnClicked = {},
+            onCloseBtnClicked = {
+                isDeleteBottomSheetVisible = true
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .background(colors.White)
@@ -131,7 +172,7 @@ fun GalleryPostDetailScreen(
         ) {
             LargeButton(
                 text = "다운로드",
-                onClick = {},
+                onClick = onDownloadBtnClick,
                 isDownloadBtn = true,
                 modifier = Modifier.fillMaxWidth()
             )

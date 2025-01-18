@@ -44,7 +44,8 @@ fun NavGraphBuilder.galleryNavGraph(
     }
     composable<Route.GalleryPostDetail> {
         GalleryPostDetailRoute(
-            padding = padding
+            padding = padding,
+            popBackStackToGallery = onPopBackStackToGallery
         )
     }
 }
