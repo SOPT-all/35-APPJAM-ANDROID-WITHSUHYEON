@@ -25,11 +25,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.sopt.withsuhyeon.R
-import com.sopt.withsuhyeon.core.component.bottomsheet.DeletePostBottomSheet
 import com.sopt.withsuhyeon.core.component.bottomsheet.GalleryCategoryBottomSheet
 import com.sopt.withsuhyeon.core.component.button.LargeButton
 import com.sopt.withsuhyeon.core.component.dropdown.text.TextDropDown
-import com.sopt.withsuhyeon.core.component.modal.AlertModal
 import com.sopt.withsuhyeon.core.component.textfield.BasicShortTextField
 import com.sopt.withsuhyeon.core.component.textfield.LongTextField
 import com.sopt.withsuhyeon.core.component.topbar.SubTopNavBar
@@ -60,37 +58,6 @@ private fun GalleryUploadScreen(
     onCloseBtnClick: () -> Unit,
     viewModel: GalleryViewModel = hiltViewModel()
 ) {
-    var isDeleteBottomSheetVisible by remember { mutableStateOf(false) }
-    var isDeleteAlertModalVisible by remember { mutableStateOf (false) }
-
-    if (isDeleteBottomSheetVisible) {
-        DeletePostBottomSheet(
-            isBottomSheetVisible = isDeleteBottomSheetVisible,
-            onDeleteClick = {
-                isDeleteBottomSheetVisible = false
-                isDeleteAlertModalVisible = true
-            },
-            onCloseClick = {
-                isDeleteBottomSheetVisible = false
-            },
-            onDismiss = {
-                isDeleteBottomSheetVisible = false
-            }
-        )
-    }
-
-    if (isDeleteAlertModalVisible) {
-        AlertModal(
-            onDeleteClick = {
-                isDeleteAlertModalVisible = false
-                onCompleteBtnClick()
-            },
-            onCancelClick = {
-                isDeleteAlertModalVisible = false
-            }
-        )
-    }
-
     Box(
         modifier = modifier
             .fillMaxSize()
