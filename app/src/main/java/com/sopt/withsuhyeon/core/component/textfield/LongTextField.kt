@@ -33,6 +33,7 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 @Composable
 fun LongTextField(
     value: String,
+    hint: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     maxLength: Int = LONG_TEXTFIELD_MAX_LENGTH,
@@ -61,6 +62,13 @@ fun LongTextField(
                     isError = true
                     onValueChange(input.substring(0, maxLength))
                 }
+            },
+            placeholder = {
+                Text(
+                    text = hint,
+                    style = typography.body03_R,
+                    color = colors.Grey400
+                )
             },
             modifier = Modifier
                 .fillMaxWidth()
