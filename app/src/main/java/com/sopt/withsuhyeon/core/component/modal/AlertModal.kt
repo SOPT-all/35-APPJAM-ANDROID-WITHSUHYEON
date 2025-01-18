@@ -25,12 +25,12 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
 @Composable
 fun AlertModal(
-    onDelete: () -> Unit,
-    onCancel: () -> Unit,
+    onDeleteClick: () -> Unit,
+    onCancelClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Dialog(
-        onDismissRequest = onCancel
+        onDismissRequest = onCancelClick
     ) {
         Surface(
             shape = RoundedCornerShape(24.dp),
@@ -67,7 +67,7 @@ fun AlertModal(
                         type = "disabled",
                         modifier = Modifier.weight(1f)
                     ) {
-                        onCancel()
+                        onCancelClick()
                     }
 
                     SmallButton(
@@ -75,7 +75,7 @@ fun AlertModal(
                         type = "alert",
                         modifier = Modifier.weight(1f)
                     ) {
-                        onDelete()
+                        onDeleteClick()
                     }
                 }
             }
@@ -83,7 +83,7 @@ fun AlertModal(
     }
 }
 
-@Preview (showBackground = true)
+@Preview(showBackground = true)
 @Composable
 private fun AlertModalPreview() {
     WithSuhyeonTheme {
