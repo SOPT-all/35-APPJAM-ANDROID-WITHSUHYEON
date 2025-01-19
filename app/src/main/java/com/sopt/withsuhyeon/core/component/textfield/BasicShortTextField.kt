@@ -60,9 +60,9 @@ fun BasicShortTextField(
     var isMaxLengthExceeded by remember { mutableStateOf(false) }
     val borderColor =
         when {
+            value.isNotEmpty() && !isValid -> colors.Red01
             isMaxLengthExceeded -> colors.Red01
             isFocused -> colors.Purple300
-            value.isNotEmpty() && enabled && !isValid -> colors.Red01
             else -> colors.Grey100
         }
     val textColor = if (enabled) colors.Grey900 else colors.Grey300
@@ -151,7 +151,6 @@ fun BasicShortTextField(
                     modifier = Modifier.weight(1f)
                 )
             } else if (value.isNotEmpty()
-                && !isFocused
                 && !isValid
                 && enabled
                 && errorMessage.isNotEmpty()
@@ -237,7 +236,6 @@ fun PreviewFullOptionBasicShortTextField() {
                 errorMessage = if (!isValid) "\"텍스트\"라고 입력해주세요." else ""
                 value = input
                 enabled = value != "불가"
-
             },
             errorMessage = errorMessage,
             visibleLength = true,
