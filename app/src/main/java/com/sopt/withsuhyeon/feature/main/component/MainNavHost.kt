@@ -40,6 +40,9 @@ fun MainNavHost(
 
             galleryNavGraph(
                 padding = padding,
+                onNavigateToGalleryUpload = navigator::navigateToGalleryUpload,
+                onNavigateToGalleryPostDetail = navigator::navigateToGalleryPostDetail,
+                onPopBackStackToGallery = navigator::popBackStack
             )
             chatNavGraph(
                 padding = padding,

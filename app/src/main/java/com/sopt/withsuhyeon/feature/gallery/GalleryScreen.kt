@@ -41,18 +41,27 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 @Composable
 fun GalleryRoute(
     padding: PaddingValues,
+    navigateToGalleryUpload: () -> Unit,
+    navigateToGalleryPostDetail: () -> Unit,
     viewModel: GalleryViewModel = hiltViewModel()
 ) {
     GalleryScreen(
         padding = padding,
-        viewModel = viewModel
+        onFloatingButtonClick = {
+            navigateToGalleryUpload()
+        },
+        onGalleryCardItemClick = {
+            navigateToGalleryPostDetail()
+        }
     )
 }
 @SuppressLint("UnrememberedMutableState")
 @Composable
 private fun GalleryScreen(
     padding: PaddingValues,
-    viewModel: GalleryViewModel
+    onFloatingButtonClick: () -> Unit,
+    onGalleryCardItemClick: () -> Unit,
+    viewModel: GalleryViewModel = hiltViewModel()
 ) {
     val lazyGridState = rememberLazyGridState()
 
@@ -124,6 +133,7 @@ private fun GalleryScreen(
                     GalleryMainCardItem(
                         text = text,
                         image = image,
+                        onClick = onGalleryCardItemClick,
                         modifier = Modifier
                     )
                 }
@@ -136,7 +146,7 @@ private fun GalleryScreen(
             modifier = Modifier
                 .align(BottomEnd)
                 .padding(bottom = 16.dp, end = 16.dp),
-            onClick = { }
+            onClick = onFloatingButtonClick
         )
     }
 }

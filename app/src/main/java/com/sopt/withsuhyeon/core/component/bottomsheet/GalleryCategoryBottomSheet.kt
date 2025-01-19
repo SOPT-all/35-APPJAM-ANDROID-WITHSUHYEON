@@ -27,7 +27,7 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 fun GalleryCategoryBottomSheet(
     isVisible: Boolean,
     categories: List<String>,
-    selectedCategories: List<String>,
+    selectedCategory: String,
     onCategoryChipClick: (String) -> Unit,
     onConfirmClick: () -> Unit,
     onDismiss: () -> Unit
@@ -57,7 +57,7 @@ fun GalleryCategoryBottomSheet(
                     categories.forEach { category ->
                         CategoryChip(
                             text = category,
-                            isSelected = selectedCategories.contains(category),
+                            isSelected = selectedCategory.contains(category),
                             onClick = { onCategoryChipClick(category) }
                         )
                     }
@@ -67,7 +67,7 @@ fun GalleryCategoryBottomSheet(
 
                 LargeButton(
                     text = stringResource(R.string.gallery_category_bottom_sheet_confirm_btn),
-                    isDisabled = selectedCategories.isEmpty(),
+                    isDisabled = selectedCategory.isEmpty(),
                     onClick = { onConfirmClick() }
                 )
             }
