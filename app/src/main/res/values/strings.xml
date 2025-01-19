@@ -114,7 +114,7 @@
     <string name="onboarding_gender_select_title">성별을\n선택해주세요</string>
     <string name="onboarding_profile_select_title">프로필 이미지를\n등록해주세요</string>
     <string name="profile_image">프로필 이미지</string>
-
+    <string name="onboarding_location_select_title">자주 활동하는\n지역을 선택해주세요</string>
     <!-- ShowButton -->
     <string name="show_button_title">보기</string>
 
