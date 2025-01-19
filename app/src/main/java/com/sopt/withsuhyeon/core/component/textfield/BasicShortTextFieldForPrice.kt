@@ -23,6 +23,7 @@ fun BasicShortTextFieldForPrice(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
+    errorMessage: String = "",
     hint: String = "",
     isValid: Boolean = true,
     enabled: Boolean = true,
@@ -54,7 +55,8 @@ fun BasicShortTextFieldForPrice(
                 modifier = Modifier
                     .align(Alignment.CenterEnd)
             )
-        }
+        },
+        errorMessage = errorMessage
     )
 }
 
