@@ -22,19 +22,15 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 @Composable
 fun DateChip(
     dateChipType: DateChipType,
+    date: String,
     modifier: Modifier = Modifier,
-    month: String? = null,
-    day: String? = null,
-    dayOfWeek: String? = null,
     isSelected: Boolean = false,
     onClick: () -> Unit = {}
 ) {
     val dynamicString = if(dateChipType.requiresDynamicString)
         stringResource(
             dateChipType.titleResId,
-            month.orEmpty(),
-            day.orEmpty(),
-            dayOfWeek.orEmpty()
+            date
         )
     else
         stringResource(dateChipType.titleResId)
@@ -45,7 +41,7 @@ fun DateChip(
         dateChipType.unSelectedTextColor
 
     Box(
-        modifier = modifier            .noRippleClickable(onClick)
+        modifier = modifier.noRippleClickable(onClick)
             .padding(10.dp)
     ) {
         Text(
@@ -59,7 +55,7 @@ fun DateChip(
 fun PreviewDateChip() {
     val modifier = Modifier
     val selectedDate = remember {
-        mutableStateOf<Triple<String, String, String>?>(null)
+        mutableStateOf<String?>(null)
     }
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -73,16 +69,15 @@ fun PreviewDateChip() {
             isSelected = selectedDate.value == null,
             onClick = {
                 selectedDate.value = null
-            }
+            },
+            date = "전체",
         )
         DateChip(
             dateChipType = DateChipType.DATE,
-            month = "1",
-            day = "11",
-            dayOfWeek = "토",
-            isSelected = selectedDate.value == Triple("1", "11","토"),
+            date = "1/25 (토)",
+            isSelected = selectedDate.value == "1/25 (토)",
             onClick = {
-                selectedDate.value = Triple("1", "11","토")
+                selectedDate.value = "1/25 (토)"
             }
         )
     }
