@@ -5,6 +5,9 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.datetime.LocalDate
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 internal val YEAR_RANGE = (1905..2006).toList()
 internal val MONTH_RANGE = (1..12).toList()
@@ -21,12 +24,25 @@ internal val currentMonth = currentDateTime.monthNumber
 internal val currentMinute = currentDateTime.minute
 internal val currentHour = currentDateTime.hour
 
-fun String.toDate(): LocalDate {
+fun String.toFindSuhyeonUploadDate(): LocalDate {
     val pattern = Regex("(\\d{1,2})월 (\\d{1,2})일.*")
     val match = pattern.matchEntire(this) ?: throw IllegalArgumentException("Invalid date format")
     val (month, day) = match.destructured
     val currentYear = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).year
     return LocalDate(currentYear, month.toInt(), day.toInt())
+}
+
+fun String.toAllPostRequestDate(): String {
+    val currentYear = Calendar.getInstance().get(Calendar.YEAR)
+
+    val cleanedDate = this.replace(Regex("""\s*\([가-힣]+\)"""), "")
+
+    val inputFormat = SimpleDateFormat("M/dd, yyyy", Locale.KOREA)
+    val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA)
+
+    val dateWithYear = "$cleanedDate, $currentYear"
+    val date = inputFormat.parse(dateWithYear) ?: throw IllegalArgumentException("Invalid date format")
+    return outputFormat.format(date)
 }
 
 fun Int.toTime(amPm: String): Int {
