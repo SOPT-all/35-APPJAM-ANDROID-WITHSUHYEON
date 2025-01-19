@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.button.LargeButton
 import com.sopt.withsuhyeon.core.component.progressbar.AnimatedProgressBar
@@ -55,7 +56,8 @@ fun GenderSelectRoute(
 fun GenderSelectScreen(
     padding: PaddingValues,
     onButtonClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: OnBoardingViewModel = hiltViewModel()
 ) {
     var genderState by remember { mutableStateOf(EMPTY_STRING) }
     val backgroundMale = if (genderState == MALE) {
@@ -129,6 +131,7 @@ fun GenderSelectScreen(
                         .padding(start = 8.dp, top = 24.dp, end = 8.dp, bottom = 16.dp)
                         .noRippleClickable {
                             genderState = MALE
+                            viewModel.updateGender(MALE)
                         },
                     verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.Bottom),
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -152,6 +155,7 @@ fun GenderSelectScreen(
                         .padding(start = 8.dp, top = 24.dp, end = 8.dp, bottom = 16.dp)
                         .noRippleClickable {
                             genderState = FEMALE
+                            viewModel.updateGender(FEMALE)
                         },
                     verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.Bottom),
                     horizontalAlignment = Alignment.CenterHorizontally,

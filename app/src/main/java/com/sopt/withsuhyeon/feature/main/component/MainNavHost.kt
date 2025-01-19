@@ -53,7 +53,8 @@ fun MainNavHost(
                 onNavigateToNickNameAuth = navigator::navigateToNicknameAuth,
                 onNavigateToSelectYearOfBirth = navigator::navigateToSelectYearOfBirth,
                 onNavigateToSelectGender = navigator::navigateToSelectGender,
-                onNavigateToPostProfileImage = navigator::navigateToPostProfileImage
+                onNavigateToPostProfileImage = navigator::navigateToPostProfileImage,
+                onNavigateToSelectLocation = navigator::navigateToSelectLocation
             )
         }
     }

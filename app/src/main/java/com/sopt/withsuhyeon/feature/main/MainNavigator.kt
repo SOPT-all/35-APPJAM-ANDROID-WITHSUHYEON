@@ -20,6 +20,7 @@ import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToNickNameAuth
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToPhoneNumberAuth
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToPostProfileImage
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToSelectGender
+import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToSelectLocation
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToSelectYearOfBirth
 
 
@@ -70,6 +71,9 @@ class MainNavigator(
     }
     fun navigateToPostProfileImage() {
         navController.navigateToPostProfileImage()
+    }
+    fun navigateToSelectLocation() {
+        navController.navigateToSelectLocation()
     }
 
     fun navigateToHome(navOptions: NavOptions? = null) {

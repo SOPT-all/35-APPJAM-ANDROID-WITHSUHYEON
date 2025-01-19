@@ -7,6 +7,8 @@ import androidx.navigation.compose.composable
 import com.sopt.withsuhyeon.feature.onboarding.GenderSelectRoute
 import com.sopt.withsuhyeon.feature.onboarding.NickNameAuthenticationRoute
 import com.sopt.withsuhyeon.feature.onboarding.PhoneNumberAuthenticationRoute
+import com.sopt.withsuhyeon.feature.onboarding.SelectLocationRoute
+import com.sopt.withsuhyeon.feature.onboarding.SelectProfileRoute
 import com.sopt.withsuhyeon.feature.onboarding.TermsOfUseRoute
 import com.sopt.withsuhyeon.feature.onboarding.YearOfBirthRoute
 import com.sopt.withsuhyeon.core.navigation.Route.TermsOfUse as TermsOfUseRoute
@@ -15,8 +17,7 @@ import com.sopt.withsuhyeon.core.navigation.Route.NickNameAuth as NickNameAuthRo
 import com.sopt.withsuhyeon.core.navigation.Route.SelectYearOfBirth as YearOfBirthRoute
 import com.sopt.withsuhyeon.core.navigation.Route.SelectGender as SelectGenderRoute
 import com.sopt.withsuhyeon.core.navigation.Route.PostProfileImage as PostProfileImageRoute
-
-
+import com.sopt.withsuhyeon.core.navigation.Route.SelectLocation as SelectLocationRoute
 
 fun NavController.navigateToTermsOfUse() {
     navigate(TermsOfUseRoute)
@@ -42,13 +43,18 @@ fun NavController.navigateToPostProfileImage() {
     navigate(PostProfileImageRoute)
 }
 
+fun NavController.navigateToSelectLocation() {
+    navigate(SelectLocationRoute)
+}
+
 fun NavGraphBuilder.onBoardingNavGraph(
     padding: PaddingValues,
     onNavigateToPhoneNumberAuth: () -> Unit,
     onNavigateToNickNameAuth: () -> Unit,
     onNavigateToSelectYearOfBirth: () -> Unit,
     onNavigateToSelectGender: () -> Unit,
-    onNavigateToPostProfileImage: () -> Unit
+    onNavigateToPostProfileImage: () -> Unit,
+    onNavigateToSelectLocation: () -> Unit
 ) {
     composable<TermsOfUseRoute> {
         TermsOfUseRoute(
@@ -76,6 +82,18 @@ fun NavGraphBuilder.onBoardingNavGraph(
     }
     composable<SelectGenderRoute> {
         GenderSelectRoute(
+            navigateToNext = onNavigateToPostProfileImage,
+            padding = padding
+        )
+    }
+    composable<PostProfileImageRoute> {
+        SelectProfileRoute(
+            navigateToNext = onNavigateToSelectLocation,
+            padding = padding
+        )
+    }
+    composable<SelectLocationRoute> {
+        SelectLocationRoute(
             navigateToNext = {},
             padding = padding
         )
