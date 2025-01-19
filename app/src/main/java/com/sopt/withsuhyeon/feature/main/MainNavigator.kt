@@ -14,9 +14,14 @@ import com.sopt.withsuhyeon.core.navigation.Route
 import com.sopt.withsuhyeon.feature.chat.navigation.navigateToChat
 import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.navigateToFindSuhyeon
 import com.sopt.withsuhyeon.feature.gallery.navigation.navigateToGallery
+import com.sopt.withsuhyeon.feature.gallery.navigation.navigateToGalleryPostDetail
+import com.sopt.withsuhyeon.feature.gallery.navigation.navigateToGalleryUpload
 import com.sopt.withsuhyeon.feature.home.navigation.navigateToHome
 import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToMyPage
-import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToOnBoarding
+import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToNickNameAuth
+import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToPhoneNumberAuth
+import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToSelectYearOfBirth
+
 
 class MainNavigator(
     val navController: NavHostController,
@@ -25,7 +30,7 @@ class MainNavigator(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = Route.OnBoarding
+    val startDestination = Route.TermsOfUse
 
     val currentTab: MainTab?
         @SuppressLint("RestrictedApi") @Composable get() = MainTab.find { tab ->
@@ -49,9 +54,16 @@ class MainNavigator(
             MainTab.MYPAGE -> navController.navigateToMyPage(navOptions)
         }
     }
+    fun navigateToPhoneNumberAuth() {
+        navController.navigateToPhoneNumberAuth()
+    }
 
-    fun navigateToOnBoarding() {
-        navController.navigateToOnBoarding()
+    fun navigateToNicknameAuth() {
+        navController.navigateToNickNameAuth()
+    }
+
+    fun navigateToSelectYearOfBirth() {
+        navController.navigateToSelectYearOfBirth()
     }
 
     fun navigateToHome(navOptions: NavOptions? = null) {
@@ -65,7 +77,15 @@ class MainNavigator(
         )
     }
 
-    private fun popBackStack() {
+    fun navigateToGalleryUpload() {
+        navController.navigateToGalleryUpload()
+    }
+
+    fun navigateToGalleryPostDetail() {
+        navController.navigateToGalleryPostDetail()
+    }
+
+    fun popBackStack() {
         navController.popBackStack()
     }
 

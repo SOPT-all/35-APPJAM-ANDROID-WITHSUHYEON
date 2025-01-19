@@ -1,7 +1,14 @@
 package com.sopt.withsuhyeon.core.component.button
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -9,41 +16,39 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
-import com.sopt.withsuhyeon.ui.theme.Grey200
-import com.sopt.withsuhyeon.ui.theme.Grey400
-import com.sopt.withsuhyeon.ui.theme.Purple500
 import com.sopt.withsuhyeon.ui.theme.White
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
-import com.sopt.withsuhyeon.ui.theme.defaultWithSuhyeonTypography
+import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
+import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
 @Composable
-fun LargeButton(
-    onClick: () -> Unit,
+fun DeleteLargeButton(
     text: String,
-    isDisabled: Boolean = false,
-    isDownloadBtn: Boolean = false,
+    isDownloadBtn: Boolean = true,
     modifier: Modifier = Modifier,
-    font: TextStyle = defaultWithSuhyeonTypography.body01_B,
+    font: TextStyle = typography.body01_B,
+    onClick: () -> Unit,
 ) {
     val backgroundColor: Color
     val textColor: Color
 
-    when (isDisabled) {
+    when (isDownloadBtn) {
         true -> {
-            backgroundColor = Grey200
-            textColor = Grey400
+            backgroundColor = colors.Grey50
+            textColor = colors.Red01
         }
 
         else -> {
-            backgroundColor = Purple500
-            textColor = White
+            backgroundColor = colors.Grey50
+            textColor = colors.Grey500
         }
     }
 
@@ -62,7 +67,7 @@ fun LargeButton(
         ) {
             if (isDownloadBtn) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_download),
+                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_delete),
                     contentDescription = null,
                     tint = textColor,
                     modifier = Modifier
@@ -82,7 +87,7 @@ fun LargeButton(
 
 @Preview(showBackground = true)
 @Composable
-fun LargeButtonPreview(
+fun DeleteLargeButtonPreview(
     modifier: Modifier = Modifier
 ) {
     WithSuhyeonTheme {
@@ -94,25 +99,14 @@ fun LargeButtonPreview(
                 .fillMaxWidth()
                 .padding(20.dp)
         ) {
-            LargeButton(
+            DeleteLargeButton(
                 text = "버튼",
                 onClick = {}
             )
-            LargeButton(
-                isDisabled = true,
-                text = "버튼",
-                onClick = {}
-            )
-            LargeButton(
-                isDownloadBtn = true,
-                text = "버튼",
-                onClick = {}
-            )
-            LargeButton(
-                isDownloadBtn = true,
-                isDisabled = true,
-                text = "버튼",
-                onClick = {}
+            DeleteLargeButton(
+                text = "닫기",
+                onClick = {},
+                isDownloadBtn = false
             )
         }
     }

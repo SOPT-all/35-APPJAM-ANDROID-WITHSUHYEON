@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -59,9 +60,10 @@ fun BasicShortTextField(
     var isMaxLengthExceeded by remember { mutableStateOf(false) }
     val borderColor =
         when {
-            value.isNotEmpty() && enabled && !isValid -> colors.Red01
+            value.isNotEmpty() && !isValid -> colors.Red01
             isMaxLengthExceeded -> colors.Red01
             isFocused -> colors.Purple300
+            !isValid -> colors.Red01
             else -> colors.Grey100
         }
     val textColor = if (enabled) colors.Grey900 else colors.Grey300
@@ -239,7 +241,6 @@ fun PreviewFullOptionBasicShortTextField() {
                 errorMessage = if (!isValid) "\"텍스트\"라고 입력해주세요." else ""
                 value = input
                 enabled = value != "불가"
-
             },
             errorMessage = errorMessage,
             visibleLength = true,

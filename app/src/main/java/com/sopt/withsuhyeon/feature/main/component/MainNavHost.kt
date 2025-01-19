@@ -40,6 +40,9 @@ fun MainNavHost(
 
             galleryNavGraph(
                 padding = padding,
+                onNavigateToGalleryUpload = navigator::navigateToGalleryUpload,
+                onNavigateToGalleryPostDetail = navigator::navigateToGalleryPostDetail,
+                onPopBackStackToGallery = navigator::popBackStack
             )
             chatNavGraph(
                 padding = padding,
@@ -48,8 +51,9 @@ fun MainNavHost(
                 padding = padding,
             )
             onBoardingNavGraph(
-                padding = padding,
-                onNavigateToHome = navigator::navigateToHome,
+                onNavigateToPhoneNumberAuth = navigator::navigateToPhoneNumberAuth,
+                onNavigateToNickNameAuth = navigator::navigateToNicknameAuth,
+                onNavigateToSelectYearOfBirth = navigator::navigateToSelectYearOfBirth
             )
         }
     }

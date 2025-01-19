@@ -4,8 +4,10 @@ object KeyStorage {
     const val LONG_TEXTFIELD_MAX_LENGTH = 200
     const val ALERT_TYPE = "alert"
     const val DISABLED_TYPE = "disabled"
+    const val PRIMARY_TYPE = "primary"
     const val SECONDARY_TYPE = "secondary"
     const val CHECKED = "checked"
+    const val DEFAULT = "default"
     const val SHORT_TEXTFIELD_MAX_LENGTH = 30
 
     //수현이 찾기
@@ -28,4 +30,15 @@ object KeyStorage {
     const val MAX_PRICE_STRING = "99999"
 
     const val FIND_SUHYEON_DETAIL_MEETING_INFORMATION_EXPAND = "expand_item"
+
+    const val NEXT_BUTTON_TEXT = "다음"
+    const val BEFORE_SEND_BUTTON_TEXT = "인증요청"
+    const val AFTER_SEND_BUTTON_TEXT = "전송완료"
+
+    const val LENGTH_ERROR = "lengthError"
+    const val SPECIAL_CHARACTER_ERROR = "specialError"
+    const val LENGTH_ERROR_MESSAGE = "최대 12글자 이하로 입력해주세요"
+    const val SPECIAL_CHARACTER_ERROR_MESSAGE = "특수기호를 제거해주세요"
+
+    const val EMPTY_STRING =""
 }
