@@ -95,7 +95,6 @@ fun GenderSelectScreen(
         )
     }
 
-
     Column(
         modifier = modifier
             .background(color = colors.White)
