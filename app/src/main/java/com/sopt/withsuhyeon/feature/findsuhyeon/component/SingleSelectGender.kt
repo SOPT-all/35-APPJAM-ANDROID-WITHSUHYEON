@@ -9,7 +9,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
@@ -30,18 +31,18 @@ fun SingleSelectGender(
         SmallSelectChip(
             text = MALE,
             isSelected = selectElement == MALE,
-            image = painterResource(R.drawable.dummy_ellipse),
+            image = ImageVector.vectorResource(R.drawable.img_boy_suma),
             onClick = {
                 selectElement = MALE
                 onSelect(MALE)
             },
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
 
         SmallSelectChip(
             text = FEMALE,
             isSelected = selectElement == FEMALE,
-            image = painterResource(R.drawable.dummy_ellipse),
+            image = ImageVector.vectorResource(R.drawable.img_girl_suma),
             onClick = {
                 selectElement = FEMALE
                 onSelect(FEMALE)

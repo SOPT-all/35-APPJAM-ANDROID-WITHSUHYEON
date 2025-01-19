@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -17,9 +18,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.chip.MediumChip
-import com.sopt.withsuhyeon.core.type.MediumChipType
 import com.sopt.withsuhyeon.core.component.dropdown.basic.BasicSelectDropDown
 import com.sopt.withsuhyeon.core.component.dropdown.text.TextDropDownItem
+import com.sopt.withsuhyeon.core.type.MediumChipType
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
 @Composable
@@ -28,17 +29,16 @@ fun MediumChipDropDown(
     isError: Boolean,
     modifier: Modifier = Modifier,
     errorMessage: String = "",
-    onClick: (List<MediumChipType>) -> Unit,
+    onClick: () -> Unit,
+    selectedList: List<String>
 ) {
-    val mediumChipTypeList by remember { mutableStateOf(listOf<MediumChipType>()) }
-
     BasicSelectDropDown(
         isError =  isError,
         errorMessage = errorMessage,
         modifier = modifier,
-        onClick = { onClick(mediumChipTypeList)},
+        onClick = onClick,
         mainContent = {
-            if(mediumChipTypeList.isEmpty()) {
+            if(selectedList.isEmpty()) {
                 TextDropDownItem(
                     modifier = Modifier.weight(1f),
                     value = null,
@@ -50,15 +50,16 @@ fun MediumChipDropDown(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    mediumChipTypeList.forEach { chipType ->
+                    selectedList.forEach { chipType ->
                         MediumChip(
-                            mediumChipType = chipType
+                            mediumChipType = MediumChipType.CATEGORY,
+                            dynamicString = chipType
                         )
                     }
                 }
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_arrow_down),
-                    contentDescription = stringResource(R.string.find_suhyeon_detail_meeting_information),
+                    contentDescription = stringResource(R.string.find_suhyeon_multi_select_chip),
                     tint = colors.Grey400,
                     modifier = Modifier
                         .size(24.dp)
@@ -71,14 +72,20 @@ fun MediumChipDropDown(
 @Preview
 @Composable
 fun PreviewMediumChipDropDown() {
-    val isError by remember { mutableStateOf(false) }
-    val errorMessage by remember { mutableStateOf("") }
-
-    MediumChipDropDown (
+    var selectedList by remember {
+        mutableStateOf(
+            listOf(
+                "사진 촬영",
+                "영상 통화"
+            )
+        )
+    }
+    MediumChipDropDown(
         hint = "눌러서 요청사항 선택하기",
-        isError = isError,
-        errorMessage = errorMessage,
+        isError = false,
         onClick = {
-        }
+
+        },
+        selectedList = selectedList
     )
 }

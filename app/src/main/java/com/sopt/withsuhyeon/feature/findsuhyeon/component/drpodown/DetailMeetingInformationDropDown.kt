@@ -113,8 +113,8 @@ fun DetailMeetingInformationExpandButton(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp, vertical = 16.dp)
             .noRippleClickable(onClick)
+            .padding(horizontal = 20.dp, vertical = 16.dp)
     ) {
         Text(
             text = stringResource(R.string.find_suhyeon_detail_meeting_information),
