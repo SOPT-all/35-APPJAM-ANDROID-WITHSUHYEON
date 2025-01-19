@@ -1,6 +1,7 @@
 package com.sopt.withsuhyeon.feature.onboarding
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -30,15 +31,18 @@ import com.sopt.withsuhyeon.feature.onboarding.components.OnBoardingTitle
 @Composable
 fun NickNameAuthenticationRoute(
     navigateToNext: () -> Unit,
+    padding: PaddingValues
 ) {
     NickNameAuthenticationScreen(
-        onButtonClick = navigateToNext
+        onButtonClick = navigateToNext,
+        padding = padding
     )
 }
 
 @Composable
 fun NickNameAuthenticationScreen(
     onButtonClick: () -> Unit,
+    padding: PaddingValues,
     modifier: Modifier = Modifier,
     viewModel: OnBoardingViewModel = hiltViewModel()
 ) {
@@ -58,6 +62,7 @@ fun NickNameAuthenticationScreen(
 
     Column(
         modifier = modifier
+            .padding(padding)
             .padding(16.dp)
             .fillMaxWidth()
             .fillMaxHeight(),

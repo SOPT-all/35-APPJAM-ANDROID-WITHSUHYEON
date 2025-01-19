@@ -3,6 +3,7 @@ package com.sopt.withsuhyeon.feature.onboarding
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -35,13 +36,15 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
 @Composable
 fun TermsOfUseRoute(
+    padding: PaddingValues,
     navigateToNext: () -> Unit,
     viewModel: OnBoardingViewModel = hiltViewModel()
 ) {
     TermsOfUseScreen(
         onButtonClick = {
             navigateToNext()
-        }
+        },
+        padding = padding
     )
 }
 
@@ -49,8 +52,8 @@ fun TermsOfUseRoute(
 fun TermsOfUseScreen(
     onButtonClick: () -> Unit,
     modifier: Modifier = Modifier,
-
-    ) {
+    padding: PaddingValues,
+) {
     var isAllTermsSelected by remember { mutableStateOf(false) }
     var isAgedSelected by remember { mutableStateOf(false) }
     var isTermsSelected by remember { mutableStateOf(false) }
@@ -62,6 +65,7 @@ fun TermsOfUseScreen(
 
     Column(
         modifier = modifier
+            .padding(padding)
             .padding(
                 vertical = 20.dp,
                 horizontal = 16.dp
@@ -73,7 +77,7 @@ fun TermsOfUseScreen(
         Spacer(
             modifier = Modifier.height(16.dp)
         )
-        OnBoardingTitle(stringResource(R.string.onboarding_temrs_of_use_title),)
+        OnBoardingTitle(stringResource(R.string.onboarding_temrs_of_use_title))
         Spacer(
             modifier = Modifier.height(32.dp)
         )

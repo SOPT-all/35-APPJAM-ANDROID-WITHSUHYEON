@@ -2,6 +2,7 @@ package com.sopt.withsuhyeon.feature.onboarding
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -22,16 +23,19 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
 @Composable
 fun YearOfBirthRoute(
-    navigateToNext: () -> Unit
+    navigateToNext: () -> Unit,
+    padding: PaddingValues
 ) {
     YearOfBirthScreen(
-        onButtonClick = navigateToNext
+        onButtonClick = navigateToNext,
+        padding = padding
     )
 }
 
 @Composable
 fun YearOfBirthScreen(
     onButtonClick: () -> Unit,
+    padding: PaddingValues,
     modifier: Modifier = Modifier,
     viewModel: OnBoardingViewModel = hiltViewModel()
 ) {
@@ -40,6 +44,7 @@ fun YearOfBirthScreen(
     // TODO - 지금 2025, 2024 이런 식으로 나옴..! 바꾸기!
     Column(
         modifier = modifier
+            .padding(padding)
             .padding(16.dp)
             .background(colors.White)
     ) {

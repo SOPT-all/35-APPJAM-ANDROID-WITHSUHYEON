@@ -3,6 +3,7 @@ package com.sopt.withsuhyeon.feature.onboarding
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -31,15 +32,18 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
 @Composable
 fun GenderSelectRoute(
+    padding: PaddingValues,
     navigateToNext: () -> Unit
 ) {
     GenderSelectScreen(
-        onButtonClick = navigateToNext
+        onButtonClick = navigateToNext,
+        padding = padding
     )
 }
 
 @Composable
 fun GenderSelectScreen(
+    padding: PaddingValues,
     onButtonClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -47,6 +51,7 @@ fun GenderSelectScreen(
     Column(
         modifier = modifier
             .background(color = colors.White)
+            .padding(padding)
             .padding(
                 vertical = 16.dp,
                 horizontal = 16.dp

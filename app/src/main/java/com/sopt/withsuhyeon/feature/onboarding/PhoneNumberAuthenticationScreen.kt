@@ -1,6 +1,7 @@
 package com.sopt.withsuhyeon.feature.onboarding
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,16 +29,19 @@ import com.sopt.withsuhyeon.feature.onboarding.components.OnBoardingTitle
 @Composable
 fun PhoneNumberAuthenticationRoute(
     navigateToNext: () -> Unit,
+    padding: PaddingValues,
     viewModel: OnBoardingViewModel = hiltViewModel()
 ) {
     PhoneNumberAuthenticationScreen(
-        onButtonClick = navigateToNext
+        onButtonClick = navigateToNext,
+        padding = padding
     )
 }
 
 @Composable
 fun PhoneNumberAuthenticationScreen(
     onButtonClick: () -> Unit,
+    padding: PaddingValues,
     modifier: Modifier = Modifier
 ) {
     var phoneNumberValue by remember { mutableStateOf("") }
@@ -52,6 +56,7 @@ fun PhoneNumberAuthenticationScreen(
 
     Column(
         modifier = modifier
+            .padding(padding)
             .padding(16.dp)
             .fillMaxWidth()
             .fillMaxHeight(),

@@ -1,5 +1,6 @@
 package com.sopt.withsuhyeon.feature.onboarding.navigation
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -42,6 +43,7 @@ fun NavController.navigateToPostProfileImage() {
 }
 
 fun NavGraphBuilder.onBoardingNavGraph(
+    padding: PaddingValues,
     onNavigateToPhoneNumberAuth: () -> Unit,
     onNavigateToNickNameAuth: () -> Unit,
     onNavigateToSelectYearOfBirth: () -> Unit,
@@ -50,27 +52,32 @@ fun NavGraphBuilder.onBoardingNavGraph(
 ) {
     composable<TermsOfUseRoute> {
         TermsOfUseRoute(
-            navigateToNext = onNavigateToPhoneNumberAuth
+            navigateToNext = onNavigateToPhoneNumberAuth,
+            padding = padding
         )
     }
     composable<PhoneNumberAuthRoute> {
         PhoneNumberAuthenticationRoute(
-            navigateToNext = onNavigateToNickNameAuth
+            navigateToNext = onNavigateToNickNameAuth,
+            padding = padding
         )
     }
     composable<NickNameAuthRoute> {
         NickNameAuthenticationRoute(
-            navigateToNext = onNavigateToSelectYearOfBirth
+            navigateToNext = onNavigateToSelectYearOfBirth,
+            padding = padding
         )
     }
     composable<YearOfBirthRoute> {
         YearOfBirthRoute(
-            navigateToNext = onNavigateToSelectGender
+            navigateToNext = onNavigateToSelectGender,
+            padding = padding
         )
     }
     composable<SelectGenderRoute> {
         GenderSelectRoute(
-            navigateToNext = {}
+            navigateToNext = {},
+            padding = padding
         )
     }
 }

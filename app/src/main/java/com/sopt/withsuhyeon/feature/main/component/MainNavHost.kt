@@ -48,6 +48,7 @@ fun MainNavHost(
                 padding = padding,
             )
             onBoardingNavGraph(
+                padding = padding,
                 onNavigateToPhoneNumberAuth = navigator::navigateToPhoneNumberAuth,
                 onNavigateToNickNameAuth = navigator::navigateToNicknameAuth,
                 onNavigateToSelectYearOfBirth = navigator::navigateToSelectYearOfBirth,
