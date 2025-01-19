@@ -1,12 +1,13 @@
 package com.sopt.withsuhyeon.feature.onboarding
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -21,10 +22,13 @@ import com.sopt.withsuhyeon.core.component.button.BasicButtonForTextField
 import com.sopt.withsuhyeon.core.component.button.LargeButton
 import com.sopt.withsuhyeon.core.component.progressbar.AnimatedProgressBar
 import com.sopt.withsuhyeon.core.component.textfield.BasicShortTextField
+import com.sopt.withsuhyeon.core.component.topbar.MainTopNavBar
 import com.sopt.withsuhyeon.core.util.KeyStorage.AFTER_SEND_BUTTON_TEXT
 import com.sopt.withsuhyeon.core.util.KeyStorage.BEFORE_SEND_BUTTON_TEXT
+import com.sopt.withsuhyeon.core.util.KeyStorage.EMPTY_STRING
 import com.sopt.withsuhyeon.core.util.KeyStorage.NEXT_BUTTON_TEXT
 import com.sopt.withsuhyeon.feature.onboarding.components.OnBoardingTitle
+import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
 @Composable
 fun PhoneNumberAuthenticationRoute(
@@ -56,71 +60,88 @@ fun PhoneNumberAuthenticationScreen(
 
     Column(
         modifier = modifier
+            .background(color = colors.White)
             .padding(padding)
-            .padding(16.dp)
-            .fillMaxWidth()
-            .fillMaxHeight(),
+            .fillMaxSize()
     ) {
-        AnimatedProgressBar(progress = 0.33f)
-        Spacer(
-            modifier = Modifier.height(16.dp)
+        MainTopNavBar(text = EMPTY_STRING)
+        HorizontalDivider(
+            modifier = Modifier.height(1.dp),
+            color = colors.Grey100
         )
-        OnBoardingTitle(text = stringResource(R.string.onboarding_phone_number_title))
-        Spacer(
-            modifier = Modifier.height(32.dp)
-        )
-        BasicShortTextField(
-            value = phoneNumberValue,
-            title = stringResource(R.string.onboarding_phone_number_input_title),
-            hint = stringResource(R.string.onboarding_phone_number_input_hint),
-            isValid = isPhoneNumberInputValid,
-            onFocusChange = {
-                isPhoneNumberInputFocused = it
-            },
-            onValueChange = { input ->
-                isPhoneNumberInputValid = input.length == 11
-                isPhoneNumberAuthButtonEnabled = input.length == 11
-                phoneNumberValue = input
-            },
-            maxLength = 11,
-//            errorMessage = stringResource(R.string.onboarding_phone_number_duplication_error_message),
-            trailingContent = {
-                BasicButtonForTextField(
-                    text = phoneNumberAuthButtonText,
-                    onClick = {
-                        isPhoneNumberAuthVisible = true
-                        isPhoneNumberAuthButtonEnabled = false
-                        phoneNumberAuthButtonText = AFTER_SEND_BUTTON_TEXT
-                    },
-                    modifier = Modifier,
-                    enabled = isPhoneNumberAuthButtonEnabled
-                )
-            }
-        )
-        Spacer(
-            modifier = Modifier.height(12.dp)
-        )
-        if (isPhoneNumberAuthVisible) {
+        Column(
+            modifier = Modifier.weight(1f).padding(horizontal = 16.dp)
+        ) {
+            AnimatedProgressBar(
+                progress = 0.33f,
+                modifier = Modifier.padding(top = 16.dp)
+            )
+            Spacer(
+                modifier = Modifier.height(16.dp)
+            )
+            OnBoardingTitle(text = stringResource(R.string.onboarding_phone_number_title))
+            Spacer(
+                modifier = Modifier.height(32.dp)
+            )
             BasicShortTextField(
-                value = authNumberValue,
-                title = stringResource(R.string.onboarding_phone_number_auth_input_title),
-                hint = stringResource(R.string.onboarding_phone_number_auth_input_hint),
-                isValid = isAuthNumberInputValid,
+                value = phoneNumberValue,
+                title = stringResource(R.string.onboarding_phone_number_input_title),
+                hint = stringResource(R.string.onboarding_phone_number_input_hint),
+                isValid = isPhoneNumberInputValid,
                 onFocusChange = {
-                    isAuthNumberInputFocused = it
+                    isPhoneNumberInputFocused = it
                 },
                 onValueChange = { input ->
-                    isAuthNumberInputValid = input.length == 6
-                    authNumberValue = input
+                    isPhoneNumberInputValid = input.length == 11
+                    isPhoneNumberAuthButtonEnabled = input.length == 11
+                    phoneNumberValue = input
                 },
-                maxLength = 6,
-                errorMessage = stringResource(R.string.onboarding_phone_number_duplication_error_message),
+                maxLength = 11,
+                trailingContent = {
+                    BasicButtonForTextField(
+                        text = phoneNumberAuthButtonText,
+                        onClick = {
+                            isPhoneNumberAuthVisible = true
+                            isPhoneNumberAuthButtonEnabled = false
+                            phoneNumberAuthButtonText = AFTER_SEND_BUTTON_TEXT
+                        },
+                        modifier = Modifier,
+                        enabled = isPhoneNumberAuthButtonEnabled
+                    )
+                }
             )
+            Spacer(
+                modifier = Modifier.height(12.dp)
+            )
+            if (isPhoneNumberAuthVisible) {
+                BasicShortTextField(
+                    value = authNumberValue,
+                    title = stringResource(R.string.onboarding_phone_number_auth_input_title),
+                    hint = stringResource(R.string.onboarding_phone_number_auth_input_hint),
+                    isValid = isAuthNumberInputValid,
+                    onFocusChange = {
+                        isAuthNumberInputFocused = it
+                    },
+                    onValueChange = { input ->
+                        isAuthNumberInputValid = input.length == 6
+                        authNumberValue = input
+                    },
+                    maxLength = 6,
+                    errorMessage = stringResource(R.string.onboarding_phone_number_duplication_error_message),
+                )
+            }
+            Spacer(modifier = Modifier.weight(1f))
         }
-        Spacer(modifier = Modifier.weight(1f))
+        HorizontalDivider(
+            modifier = Modifier.height(1.dp),
+            color = colors.Grey100
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+
         LargeButton(
             onClick = onButtonClick,
             text = NEXT_BUTTON_TEXT,
+            modifier = Modifier.padding(horizontal = 16.dp),
             isDisabled = !isAuthNumberInputValid
         )
     }

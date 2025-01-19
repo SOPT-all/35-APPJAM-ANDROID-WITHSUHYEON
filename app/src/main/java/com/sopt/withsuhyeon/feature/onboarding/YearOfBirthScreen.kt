@@ -4,8 +4,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -16,6 +18,8 @@ import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.button.LargeButton
 import com.sopt.withsuhyeon.core.component.picker.YearPicker
 import com.sopt.withsuhyeon.core.component.progressbar.AnimatedProgressBar
+import com.sopt.withsuhyeon.core.component.topbar.MainTopNavBar
+import com.sopt.withsuhyeon.core.util.KeyStorage.EMPTY_STRING
 import com.sopt.withsuhyeon.core.util.KeyStorage.NEXT_BUTTON_TEXT
 import com.sopt.withsuhyeon.core.util.time.currentDate
 import com.sopt.withsuhyeon.feature.onboarding.components.OnBoardingTitle
@@ -44,21 +48,41 @@ fun YearOfBirthScreen(
     // TODO - 지금 2025, 2024 이런 식으로 나옴..! 바꾸기!
     Column(
         modifier = modifier
+            .background(color = colors.White)
             .padding(padding)
-            .padding(16.dp)
-            .background(colors.White)
+            .fillMaxSize()
     ) {
-        AnimatedProgressBar(progress = 0.66f)
-        OnBoardingTitle(text = stringResource(R.string.onboarding_year_of_birth_title))
-        Spacer(modifier = Modifier.height(100.dp))
-        YearPicker()
-        Spacer(modifier = Modifier.weight(1f))
+        MainTopNavBar(text = EMPTY_STRING)
+        HorizontalDivider(
+            modifier = Modifier.height(1.dp),
+            color = colors.Grey100
+        )
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .padding(horizontal = 16.dp)
+        ) {
+            AnimatedProgressBar(
+                progress = 0.66f,
+                modifier = Modifier.padding(top = 16.dp)
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            OnBoardingTitle(text = stringResource(R.string.onboarding_year_of_birth_title))
+            Spacer(modifier = Modifier.height(100.dp))
+            YearPicker()
+        }
+        HorizontalDivider(
+            modifier = Modifier.height(1.dp),
+            color = colors.Grey100
+        )
+        Spacer(modifier = Modifier.height(16.dp))
         LargeButton(
             onClick = {
                 viewModel.updateYear(selectedYear)
                 onButtonClick()
             },
             text = NEXT_BUTTON_TEXT,
+            modifier = Modifier.padding(horizontal = 16.dp),
             isDisabled = false,
         )
     }

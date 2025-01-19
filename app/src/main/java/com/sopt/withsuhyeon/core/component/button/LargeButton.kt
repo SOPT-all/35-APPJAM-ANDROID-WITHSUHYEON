@@ -27,9 +27,9 @@ import com.sopt.withsuhyeon.ui.theme.defaultWithSuhyeonTypography
 fun LargeButton(
     onClick: () -> Unit,
     text: String,
+    modifier: Modifier = Modifier,
     isDisabled: Boolean = false,
     isDownloadBtn: Boolean = false,
-    modifier: Modifier = Modifier,
     font: TextStyle = defaultWithSuhyeonTypography.body01_B,
 ) {
     val backgroundColor: Color
