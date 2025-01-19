@@ -83,6 +83,14 @@
     <!-- 갤러리 -->
     <string name="gallery_top_nav_bar_title">갤러리</string>
     <string name="gallery_main_category_chip_total">전체</string>
+    <string name="gallery_upload_image_description">Gallery Upload Image</string>
+    <string name="gallery_sub_nav_bar_title">업로드</string>
+    <string name="category_subtitle">카테고리</string>
+    <string name="category_text_drop_down_hint">눌러서 카테고리 선택하기</string>
+    <string name="post_title_subtitle">제목</string>
+    <string name="post_title_description_hint">텍스트를 입력해주세요</string>
+    <string name="post_description_subtitle">설명 (선택)</string>
+    <string name="gallery_download_btn">다운로드</string>
 
     <!-- 공통 컴포넌트 - 게시글 -->
     <string name="post_basic_profile_image_description">Basic Profile Image</string>
@@ -115,7 +123,23 @@
     <string name="onboarding_profile_select_title">프로필 이미지를\n등록해주세요</string>
     <string name="profile_image">프로필 이미지</string>
     <string name="onboarding_location_select_title">자주 활동하는\n지역을 선택해주세요</string>
+    <!-- 채팅 -->
+    <string name="total_chatroom_top_nav_bar_title">채팅</string>
+
     <!-- ShowButton -->
     <string name="show_button_title">보기</string>
 
+
+    <!-- 마이페이지 -->
+    <string name="my_page_title">마이페이지</string>
+    <string name="my_page_my_post">내 게시물</string>
+    <string name="my_page_manage">관리</string>
+    <string name="my_page_manage_blocked_account">차단계정 관리</string>
+    <string name="my_page_manage_interested_region">관심 지역 설정</string>
+    <string name="my_page_logout">로그아웃</string>
+    <string name="my_page_withdraw">탈퇴하기</string>
+    <string name="my_page_profile_description">My Page profile</string>
+    <string name="my_page_right_arrow_description">My Page Right Arrow</string>
+    <string name="my_page_block_icon_description">My Page Block Icon</string>
+    <string name="my_page_info_icon_description">My Page Info Icon</string>
 </resources>

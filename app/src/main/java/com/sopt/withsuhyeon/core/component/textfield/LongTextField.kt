@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -21,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.util.KeyStorage.LONG_TEXTFIELD_MAX_LENGTH
@@ -30,9 +33,13 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 @Composable
 fun LongTextField(
     value: String,
+    hint: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    maxLength: Int = LONG_TEXTFIELD_MAX_LENGTH
+    maxLength: Int = LONG_TEXTFIELD_MAX_LENGTH,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
 ) {
     var isFocused by remember { mutableStateOf(false) }
     var isError by remember { mutableStateOf(false) }
@@ -56,6 +63,13 @@ fun LongTextField(
                     onValueChange(input.substring(0, maxLength))
                 }
             },
+            placeholder = {
+                Text(
+                    text = hint,
+                    style = typography.body03_R,
+                    color = colors.Grey400
+                )
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .heightIn(min = 188.dp)
@@ -73,7 +87,10 @@ fun LongTextField(
                 unfocusedContainerColor = Transparent,
                 focusedIndicatorColor = Transparent,
                 unfocusedIndicatorColor = Transparent
-            )
+            ),
+            keyboardOptions = keyboardOptions,
+            keyboardActions = keyboardActions,
+            visualTransformation = visualTransformation
         )
 
         Row(
