@@ -53,7 +53,9 @@ fun LargeButton(
             .height(56.dp)
             .background(backgroundColor, shape = RoundedCornerShape(size = 16.dp))
             .padding(horizontal = 16.dp)
-            .noRippleClickable(onClick),
+            .let {
+                if (isDisabled) it else it.noRippleClickable(onClick)
+            },
         contentAlignment = Alignment.Center
     ) {
         Row(
