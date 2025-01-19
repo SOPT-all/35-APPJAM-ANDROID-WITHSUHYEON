@@ -27,6 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.button.LargeButton
+import com.sopt.withsuhyeon.core.component.modal.AlertModal
 import com.sopt.withsuhyeon.core.component.progressbar.AnimatedProgressBar
 import com.sopt.withsuhyeon.core.component.textfield.BasicShortTextField
 import com.sopt.withsuhyeon.core.component.textfield.LongTextField
@@ -61,6 +62,8 @@ fun FindSuhyeonDetailMeetingInformationScreen(
     val oneStep = 1f / step
     var progress by remember { mutableFloatStateOf(oneStep*6) }
 
+    var isDeleteAlertModalVisible by remember { mutableStateOf (false) }
+
     LaunchedEffect(Unit) {
         progress = oneStep * 6
         progress += oneStep
@@ -83,7 +86,7 @@ fun FindSuhyeonDetailMeetingInformationScreen(
                 isTextVisible = true,
                 isBtnVisible = true,
                 onCloseBtnClicked = {
-                    onCloseBtnClick()
+                    isDeleteAlertModalVisible = !isDeleteAlertModalVisible
                 },
                 modifier = modifier
                     .fillMaxWidth()
@@ -172,6 +175,17 @@ fun FindSuhyeonDetailMeetingInformationScreen(
                 }
             )
         }
+        if (isDeleteAlertModalVisible) {
+            AlertModal(
+                onDeleteClick = {
+                    isDeleteAlertModalVisible = false
+                },
+                onCancelClick = {
+                    onCloseBtnClick()
+                    isDeleteAlertModalVisible = false
+                }
+            )
+        }
     }
 }
 
@@ -180,7 +194,9 @@ fun FindSuhyeonDetailMeetingInformationScreen(
 fun PreviewFindSuhyeonDetailMeetingInformationScreen() {
     FindSuhyeonDetailMeetingInformationScreen(
         padding = PaddingValues(0.dp),
-        onCloseBtnClick = {},
+        onCloseBtnClick = {
+
+        },
         onCompleteBtnClick = { }
     )
 }
