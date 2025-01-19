@@ -42,7 +42,6 @@ fun BasicSelectDropDown(
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier.fillMaxWidth()
-            .noRippleClickable(onClick)
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -59,13 +58,15 @@ fun BasicSelectDropDown(
                     shape = RoundedCornerShape(12.dp)
                 )
                 .padding(horizontal = 12.dp, vertical = 14.dp)
+                .noRippleClickable(onClick)
         ) {
             mainContent()
         }
-        Text(
-            text = if(isError) errorMessage else stringResource(R.string.find_suhyeon_no_message),
-            style = typography.body03_R.merge(color = borderAndErrorTextColor)
-        )
+        if(isError)
+            Text(
+                text = errorMessage,
+                style = typography.body03_R.merge(color = borderAndErrorTextColor)
+            )
     }
 }
 
