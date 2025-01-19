@@ -119,6 +119,9 @@
     <string name="alert_modal_delete_btn">삭제하기</string>
     <string name="alert_modal_cancel_btn">취소하기</string>
 
+    <!-- 채팅 -->
+    <string name="total_chatroom_top_nav_bar_title">채팅</string>
+
     <!-- ShowButton -->
     <string name="show_button_title">보기</string>
 
