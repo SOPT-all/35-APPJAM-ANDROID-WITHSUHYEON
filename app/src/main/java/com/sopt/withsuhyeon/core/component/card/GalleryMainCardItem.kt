@@ -14,6 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
@@ -22,10 +23,12 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 fun GalleryMainCardItem(
     text: String,
     image: String,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier
+            .noRippleClickable { onClick() },
         horizontalAlignment = Alignment.Start
     ) {
         AsyncImage(
@@ -51,6 +54,6 @@ fun GalleryMainCardItem(
 @Composable
 private fun GalleryMainCardItemPreview() {
     WithSuhyeonTheme {
-        GalleryMainCardItem("술자리 사진 모음집", "")
+        GalleryMainCardItem("술자리 사진 모음집", "https://via.placeholder.com/150", {})
     }
 }
