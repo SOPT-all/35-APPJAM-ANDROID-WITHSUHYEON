@@ -24,7 +24,7 @@ internal val currentMonth = currentDateTime.monthNumber
 internal val currentMinute = currentDateTime.minute
 internal val currentHour = currentDateTime.hour
 
-fun String.toFindSuhyeonUploadDate(): LocalDate {
+fun String.toDate(): LocalDate {
     val pattern = Regex("(\\d{1,2})월 (\\d{1,2})일.*")
     val match = pattern.matchEntire(this) ?: throw IllegalArgumentException("Invalid date format")
     val (month, day) = match.destructured
