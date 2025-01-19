@@ -28,6 +28,8 @@
     <string name="short_text_field_text_max_length_message">최대 %1$s글자 이하로 입력해주세요</string>
 
     <!-- 공통 컴포넌트 chip -->
+    <string name="type_all">전체</string>
+    <string name="type_date">%1$s</string>
     <string name="type_category">%1$s</string>
     <string name="type_category_photo">사진 촬영</string>
     <string name="type_category_video_call">영상 통화</string>
@@ -40,8 +42,6 @@
     <string name="type_d_day">D-%1$s</string>
 
     <!-- 수현이 찾기 -->
-    <string name="type_all">전체</string>
-    <string name="type_date">%1$s/%2$s (%3$s)</string>
     <string name="find_suhyeon_detail_meeting_information">상세 만남 정보</string>
     <string name="find_suhyeon_detail_meeting_location">위치</string>
     <string name="find_suhyeon_detail_meeting_wanted">원하는 수현이</string>
@@ -52,6 +52,20 @@
     <string name="find_suhyeon_no_message"></string>
     <string name="find_suhyeon_location">위치</string>
     <string name="find_suhyeon_multi_select_chip">MultiSelectChip</string>
+    <string name="find_suhyeon_upload_title_price">주고싶은 금액을 입력해줘</string>
+    <string name="find_suhyeon_upload_title_error_message">99,999원까지 입력할 수 있어요</string>
+    <string name="find_suhyeon_upload_hint_price">금액 입력하기</string>
+    <string name="find_suhyeon_upload_title_date">언제 만날지 선택해줘</string>
+    <string name="find_suhyeon_upload_fint_date">날짜 및 시간 선택하기</string>
+    <string name="find_suhyeon_upload_title_location">수현이 만날 곳을 선택해줘</string>
+    <string name="find_suhyeon_upload_hint_location">만날 장소 선택하기</string>
+    <string name="find_suhyeon_upload_hint_requirements">요청사항 선택하기 (중복 선택 가능)</string>
+    <string name="find_suhyeon_upload_title_reqirements">요청사항을 선택해줘</string>
+    <string name="find_suhyeon_upload_title_age">수현이의 나이를 선택해줘</string>
+    <string name="find_suhyeon_upload_hint_age">눌러서 나이 선택하기</string>
+    <string name="find_suhyeon_upload_title_gender">수현이의 성별을 선택해줘</string>
+    <string name="find_suhyeon_upload_text_input_done">입력 완료</string>
+    <string name="smallselectchip">SmallSelectChip</string>
 
     <!-- 공통 컴포넌트 PostBottomBar -->
     <string name="post_bottom_bar_start_chating">채팅하기</string>
@@ -94,24 +108,12 @@
     <string name="alert_modal_delete_post_description">한번 삭제된 게시물은\n다시 복구할 수 없습니다.</string>
     <string name="alert_modal_delete_btn">삭제하기</string>
     <string name="alert_modal_cancel_btn">취소하기</string>
-    <string name="bottom_sheet_btn_select_done">선택 완료</string>
-    <string name="find_suhyeon_upload_title_price">주고싶은 금액을 입력해줘</string>
-    <string name="find_suhyeon_upload_title_error_message">99,999원까지 입력할 수 있어요</string>
-    <string name="find_suhyeon_upload_hint_price">금액 입력하기</string>
-    <string name="find_suhyeon_upload_title_date">언제 만날지 선택해줘</string>
-    <string name="find_suhyeon_upload_fint_date">날짜 및 시간 선택하기</string>
-    <string name="find_suhyeon_upload_title_location">수현이 만날 곳을 선택해줘</string>
-    <string name="find_suhyeon_upload_hint_location">만날 장소 선택하기</string>
-    <string name="find_suhyeon_upload_hint_requirements">요청사항 선택하기 (중복 선택 가능)</string>
-    <string name="find_suhyeon_upload_title_reqirements">요청사항을 선택해줘</string>
-    <string name="find_suhyeon_upload_title_age">수현이의 나이를 선택해줘</string>
-    <string name="find_suhyeon_upload_hint_age">눌러서 나이 선택하기</string>
-    <string name="find_suhyeon_upload_title_gender">수현이의 성별을 선택해줘</string>
-    <string name="find_suhyeon_upload_text_input_done">입력 완료</string>
-    <string name="smallselectchip">SmallSelectChip</string>
+
+    <!-- 수현이 찾기 바텀 시트 -->
     <string name="bottom_sheet_title_age">나이대 선택</string>
     <string name="bottom_sheet_title_date">날짜와 시간을 선택해줘</string>
     <string name="bottom_sheet_title_location">만날 위치 선택</string>
     <string name="bottom_sheet_title_main_title">요청사항 선택</string>
     <string name="bottom_sheet_title_sub_title">중복선택 가능</string>
+    <string name="bottom_sheet_btn_select_done">선택 완료</string>
 </resources>
