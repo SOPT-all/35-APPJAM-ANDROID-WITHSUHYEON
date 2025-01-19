@@ -8,7 +8,7 @@ object KeyStorage {
     const val CHECKED = "checked"
     const val SHORT_TEXTFIELD_MAX_LENGTH = 30
 
-    //수현이 찾기 - MultiSelectChip
+    //수현이 찾기
     const val TAKE_A_PHOTO = "사진 촬영"
     const val VIDEO_CALL = "영상 통화"
     const val PHONE_CALL = "전화 통화"
@@ -24,6 +24,8 @@ object KeyStorage {
 
     const val SHORT_FEMALE = "여"
     const val SHORT_MALE = "남"
+
+    const val MAX_PRICE_STRING = "99999"
 
     const val FIND_SUHYEON_DETAIL_MEETING_INFORMATION_EXPAND = "expand_item"
 }
