@@ -17,8 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.sopt.withsuhyeon.core.component.bottomsheet.GalleryCategoryBottomSheet
-import com.sopt.withsuhyeon.core.component.picker.DateTimePicker
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.ui.theme.Purple100
 
@@ -46,12 +44,6 @@ private fun HomeScreen(
         )
 
         var isBottomSheetVisible by remember { mutableStateOf(false) }
-        var selectedCategories by remember { mutableStateOf(listOf<String>()) }
-        val categories = listOf(
-            "학교", "카페", "회식", "엠티", "자취방", "도서관",
-            "수영장/빠지", "바다/계곡", "스키장", "찜질방", "캠핑/글램핑",
-            "파티룸", "절/교회 수련회", "해외여행", "공항", "기타"
-        )
 
         Box(
             modifier = Modifier
@@ -63,29 +55,6 @@ private fun HomeScreen(
         ) {
             Text(
                 text = "카테고리 바텀 시트"
-            )
-        }
-
-        DateTimePicker()
-
-        if (isBottomSheetVisible) {
-            GalleryCategoryBottomSheet(
-                isVisible = isBottomSheetVisible,
-                categories = categories,
-                selectedCategories = selectedCategories,
-                onCategoryChipClick = { category ->
-                    selectedCategories = if (selectedCategories.contains(category)) {
-                        selectedCategories - category
-                    } else {
-                        selectedCategories + category
-                    }
-                },
-                onConfirmClick = {
-                    isBottomSheetVisible = false
-                },
-                onDismiss = {
-                    isBottomSheetVisible = false
-                }
             )
         }
     }
