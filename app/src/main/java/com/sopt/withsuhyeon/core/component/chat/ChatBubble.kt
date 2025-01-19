@@ -26,7 +26,7 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 fun ChatBubble(
     message: String,
     time: String,
-    isSentByUser: Boolean,
+    isSentByOwner: Boolean,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -34,9 +34,9 @@ fun ChatBubble(
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp),
         verticalAlignment = Alignment.Bottom,
-        horizontalArrangement = if (isSentByUser) Arrangement.End else Arrangement.Start
+        horizontalArrangement = if (isSentByOwner) Arrangement.End else Arrangement.Start
     ) {
-        if (!isSentByUser) {
+        if (!isSentByOwner) {
             Box(
                 modifier = Modifier
                     .size(36.dp)
@@ -45,7 +45,7 @@ fun ChatBubble(
             Spacer(modifier = Modifier.width(8.dp))
         }
 
-        if (!isSentByUser) {
+        if (!isSentByOwner) {
             Box(
                 modifier = Modifier
                     .background(
