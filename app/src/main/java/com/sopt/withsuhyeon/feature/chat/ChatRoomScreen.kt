@@ -16,7 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -57,17 +56,16 @@ private fun ChatRoomScreen(
         return now.format(formatter).replace("AM", "오전").replace("PM", "오후")
     }
 
-    Box(
+    Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(padding)
             .background(colors.White)
+            .padding(padding)
     ) {
         Column(
-            modifier = modifier
-                .fillMaxWidth()
+            modifier = Modifier
                 .background(colors.White)
-                .align(Alignment.TopStart)
+                .weight(1f)
         ) {
             SubTopNavBar(
                 text = "작심이",
@@ -81,31 +79,29 @@ private fun ChatRoomScreen(
                 postTitle = "강남역에서 수현이 되어주실 분!",
                 price = 20000
             )
-        }
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(top = 142.dp, bottom = 58.dp)
-                .background(colors.White)
-                .verticalScroll(rememberScrollState())
-                .align(Alignment.TopStart)
-        ) {
-            messages.forEach { (message, isSentByUser, time) ->
-                ChatBubble(
-                    message = message,
-                    time = time,
-                    isSentByUser = isSentByUser
-                )
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+                    .verticalScroll(rememberScrollState())
+            ) {
+                messages.forEach { (message, isSentByOwner, time) ->
+                    ChatBubble(
+                        message = message,
+                        time = time,
+                        isSentByOwner = isSentByOwner
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
             }
         }
-
-        Spacer(modifier = Modifier.height(16.dp))
 
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .align(Alignment.BottomCenter)
+                .imePadding()
         ) {
             ChatRoomTextFieldRow(
                 text = inputText,
@@ -117,7 +113,7 @@ private fun ChatRoomScreen(
                         setInputText("")
                     }
                 },
-                modifier = Modifier.fillMaxWidth().imePadding()
+                modifier = Modifier.fillMaxWidth()
             )
         }
     }
@@ -135,17 +131,17 @@ private fun ChatRoomScreenPreview() {
             ChatBubble(
                 message = "지금은 몇시일까요 지금은 몇시일까요 지금은 몇시일까요 지금은 몇시일까요 지금은 몇시일까요",
                 time = "오후 04:01",
-                isSentByUser = false
+                isSentByOwner = false
             )
             ChatBubble(
                 message = "시러요",
                 time = "오후 04:01",
-                isSentByUser = true
+                isSentByOwner = true
             )
             ChatBubble(
                 message = "히히",
                 time = "오후 08:40",
-                isSentByUser = false
+                isSentByOwner = false
             )
         }
     }

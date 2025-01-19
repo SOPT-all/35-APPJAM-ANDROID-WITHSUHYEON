@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.sopt.withsuhyeon.core.component.bottomsheet.GalleryCategoryBottomSheet
+import com.sopt.withsuhyeon.core.component.picker.DateTimePicker
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.ui.theme.Purple100
 
@@ -64,6 +65,8 @@ private fun HomeScreen(
                 text = "카테고리 바텀 시트"
             )
         }
+
+        DateTimePicker()
 
         if (isBottomSheetVisible) {
             GalleryCategoryBottomSheet(

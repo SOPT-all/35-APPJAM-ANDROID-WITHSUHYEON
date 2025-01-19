@@ -32,11 +32,13 @@ fun ChatRoomTextFieldRow(
     onSendClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val isMessageTextFieldNotEmpty = text.isNotBlank()
+
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp)
-            .background(colors.White),
+            .background(colors.White)
+            .padding(horizontal = 16.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
@@ -73,17 +75,16 @@ fun ChatRoomTextFieldRow(
             modifier = Modifier
                 .size(40.dp)
                 .background(
-                    color = colors.Grey50,
+                    color = if (isMessageTextFieldNotEmpty) colors.Purple50 else colors.Grey50,
                     shape = RoundedCornerShape(20.dp)
                 )
-                .padding(4.dp)
                 .noRippleClickable(onClick = onSendClick),
             contentAlignment = Alignment.Center
         ) {
             Icon(
-                painter = painterResource(R.drawable.ic_btn_send),
-                contentDescription = "Send",
-                tint = colors.Grey300
+                painter = painterResource(R.drawable.ic_send),
+                contentDescription = stringResource(R.string.message_textfield_send_button_description),
+                tint = if (isMessageTextFieldNotEmpty) colors.Purple500 else colors.Grey300
             )
         }
     }

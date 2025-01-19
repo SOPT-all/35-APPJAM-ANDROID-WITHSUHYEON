@@ -9,8 +9,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
@@ -33,7 +35,7 @@ fun NavigateToPostButton(
     )
     {
         Text(
-            text = "게시물 보기",
+            text = stringResource(R.string.navigate_to_post_button_title),
             color = colors.Purple500,
             textAlign = TextAlign.Center,
             style = typography.caption01_B
