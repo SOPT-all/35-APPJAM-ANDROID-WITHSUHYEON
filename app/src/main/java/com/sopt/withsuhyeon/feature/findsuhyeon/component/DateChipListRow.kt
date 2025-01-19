@@ -28,6 +28,7 @@ fun DateChipListRow(
     modifier: Modifier = Modifier,
     onSelect: (String) -> Unit
 ) {
+    var tempSelectedDate by remember { mutableStateOf(selectedDate) }
     LazyRow(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -40,7 +41,8 @@ fun DateChipListRow(
                 dateChipType = DateChipType.DATE,
                 isSelected = selectedDate == date,
                 onClick = {
-                    onSelect(selectedDate)
+                    tempSelectedDate = date
+                    onSelect(tempSelectedDate)
                 },
                 date = date
             )
