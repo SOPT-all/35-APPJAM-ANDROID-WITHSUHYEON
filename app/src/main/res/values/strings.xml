@@ -116,4 +116,5 @@
     <string name="bottom_sheet_title_main_title">요청사항 선택</string>
     <string name="bottom_sheet_title_sub_title">중복선택 가능</string>
     <string name="bottom_sheet_btn_select_done">선택 완료</string>
+    <string name="find_suhyeon">수현이 찾기</string>
 </resources>
