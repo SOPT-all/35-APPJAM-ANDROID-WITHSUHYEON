@@ -181,21 +181,11 @@ fun GalleryPostDetailScreen(
                 .align(Alignment.BottomCenter)
         ) {
             LargeButton(
-                text = "다운로드",
+                text = stringResource(R.string.gallery_download_btn),
                 onClick = onDownloadBtnClick,
                 isDownloadBtn = true,
                 modifier = Modifier.fillMaxWidth()
             )
         }
-    }
-}
-
-@Preview
-@Composable
-private fun GalleryPostDetailScreenPreview() {
-    WithSuhyeonTheme {
-//        GalleryPostDetailScreen(
-//            "바다", "가평엠티라능", "", "작심이", "1월 1일", "123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"
-//        )
     }
 }

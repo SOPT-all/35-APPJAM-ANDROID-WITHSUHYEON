@@ -106,6 +106,7 @@
     <string name="post_title_subtitle">제목</string>
     <string name="post_title_description_hint">텍스트를 입력해주세요</string>
     <string name="post_description_subtitle">설명 (선택)</string>
+    <string name="gallery_download_btn">다운로드</string>
 
     <!-- 공통 컴포넌트 - 게시글 -->
     <string name="post_basic_profile_image_description">Basic Profile Image</string>
