@@ -25,12 +25,12 @@ import com.sopt.withsuhyeon.ui.theme.defaultWithSuhyeonTypography
 
 @Composable
 fun LargeButton(
+    onClick: () -> Unit,
     text: String,
     isDisabled: Boolean = false,
     isDownloadBtn: Boolean = false,
     modifier: Modifier = Modifier,
     font: TextStyle = defaultWithSuhyeonTypography.body01_B,
-    onClick: () -> Unit,
 ) {
     val backgroundColor: Color
     val textColor: Color

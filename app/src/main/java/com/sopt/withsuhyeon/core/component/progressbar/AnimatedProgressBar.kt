@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.runtime.Composable
@@ -45,7 +44,6 @@ fun AnimatedProgressBar(
             .background(
                 color = colors.White
             )
-            .padding(16.dp)
             .fillMaxWidth()
             .height(8.dp)
             .background(
