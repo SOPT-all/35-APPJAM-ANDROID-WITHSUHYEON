@@ -24,7 +24,6 @@ import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.chip.MediumChip
 import com.sopt.withsuhyeon.core.type.MediumChipType
 import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_20_TO_24
-import com.sopt.withsuhyeon.core.util.KeyStorage.FEMALE
 import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_FEMALE
 import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_MALE
 import com.sopt.withsuhyeon.domain.entity.PostItemModel
