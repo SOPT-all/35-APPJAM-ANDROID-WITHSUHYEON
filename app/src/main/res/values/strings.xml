@@ -94,4 +94,17 @@
     <string name="alert_modal_delete_post_description">한번 삭제된 게시물은\n다시 복구할 수 없습니다.</string>
     <string name="alert_modal_delete_btn">삭제하기</string>
     <string name="alert_modal_cancel_btn">취소하기</string>
+
+    <!-- 마이페이지 -->
+    <string name="my_page_title">마이페이지</string>
+    <string name="my_page_my_post">내 게시물</string>
+    <string name="my_page_manage">관리</string>
+    <string name="my_page_manage_blocked_account">차단계정 관리</string>
+    <string name="my_page_manage_interested_region">관심 지역 설정</string>
+    <string name="my_page_logout">로그아웃</string>
+    <string name="my_page_withdraw">탈퇴하기</string>
+    <string name="my_page_profile_description">My Page profile</string>
+    <string name="my_page_right_arrow_description">My Page Right Arrow</string>
+    <string name="my_page_block_icon_description">My Page Block Icon</string>
+    <string name="my_page_info_icon_description">My Page Info Icon</string>
 </resources>

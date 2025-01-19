@@ -16,10 +16,15 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -49,8 +54,10 @@ private fun MyPageScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
+        val nickname by remember { mutableStateOf("") }
+
         MainTopNavBar(
-            text = "마이페이지"
+            text = stringResource(R.string.my_page_title)
         )
 
         Column(
@@ -70,11 +77,11 @@ private fun MyPageScreen(
             ) {
                 Image(
                     painter = painterResource(R.drawable.ic_profile),
-                    contentDescription = null,
+                    contentDescription = stringResource(R.string.my_page_profile_description),
                     modifier = Modifier.size(44.dp)
                 )
                 Text(
-                    text = "작심이",
+                    text = nickname,
                     style = typography.body02_B,
                     modifier = Modifier
                         .align(CenterVertically)
@@ -88,7 +95,7 @@ private fun MyPageScreen(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "내 게시물",
+                    text = stringResource(R.string.my_page_my_post),
                     style = typography.body02_B,
                     color = colors.Black,
                     modifier = Modifier
@@ -96,7 +103,7 @@ private fun MyPageScreen(
                 )
                 Icon(
                     painter = painterResource(R.drawable.ic_right_arrow),
-                    contentDescription = null,
+                    contentDescription = stringResource(R.string.my_page_right_arrow_description),
                     tint = colors.Grey400,
                     modifier = Modifier
                         .align(CenterVertically)
@@ -107,7 +114,7 @@ private fun MyPageScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
-            text = "관리",
+            text = stringResource(R.string.my_page_manage),
             style = typography.body03_B,
             color = colors.Grey900,
             modifier = Modifier
@@ -135,13 +142,13 @@ private fun MyPageScreen(
                 ) {
                     Icon(
                         painter = painterResource(R.drawable.ic_block),
-                        contentDescription = null,
+                        contentDescription = stringResource(R.string.my_page_block_icon_description),
                         tint = colors.Grey600,
                         modifier = Modifier
                             .padding(start = 12.dp, top = 14.dp, bottom = 14.dp)
                     )
                     Text(
-                        text = "차단계정 관리",
+                        text = stringResource(R.string.my_page_manage_blocked_account),
                         style = typography.body02_B,
                         modifier = Modifier
                             .padding(vertical = 14.dp)
@@ -150,7 +157,7 @@ private fun MyPageScreen(
 
                 Icon(
                     painter = painterResource(R.drawable.ic_right_arrow),
-                    contentDescription = null,
+                    contentDescription = stringResource(R.string.my_page_right_arrow_description),
                     tint = colors.Grey400,
                     modifier = Modifier
                         .align(CenterVertically)
@@ -169,13 +176,13 @@ private fun MyPageScreen(
                 ) {
                     Icon(
                         painter = painterResource(R.drawable.ic_info),
-                        contentDescription = null,
+                        contentDescription = stringResource(R.string.my_page_info_icon_description),
                         tint = colors.Grey600,
                         modifier = Modifier
                             .padding(start = 12.dp, top = 14.dp, bottom = 14.dp)
                     )
                     Text(
-                        text = "관심 지역 설정",
+                        text = stringResource(R.string.my_page_manage_interested_region),
                         style = typography.body02_B,
                         modifier = Modifier
                             .padding(vertical = 14.dp)
@@ -184,7 +191,7 @@ private fun MyPageScreen(
 
                 Icon(
                     painter = painterResource(R.drawable.ic_right_arrow),
-                    contentDescription = null,
+                    contentDescription = stringResource(R.string.my_page_right_arrow_description),
                     tint = colors.Grey400,
                     modifier = Modifier
                         .align(CenterVertically)
@@ -209,7 +216,7 @@ private fun MyPageScreen(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "로그아웃",
+                    text = stringResource(R.string.my_page_logout),
                     style = typography.body02_B,
                     color = colors.Black,
                     modifier = Modifier
@@ -217,7 +224,7 @@ private fun MyPageScreen(
                 )
                 Icon(
                     painter = painterResource(R.drawable.ic_right_arrow),
-                    contentDescription = null,
+                    contentDescription = stringResource(R.string.my_page_right_arrow_description),
                     tint = colors.Grey400,
                     modifier = Modifier
                         .align(CenterVertically)
@@ -233,7 +240,7 @@ private fun MyPageScreen(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "탈퇴하기",
+                    text = stringResource(R.string.my_page_withdraw),
                     style = typography.body02_B,
                     color = colors.Red01,
                     modifier = Modifier
@@ -241,7 +248,7 @@ private fun MyPageScreen(
                 )
                 Icon(
                     painter = painterResource(R.drawable.ic_right_arrow),
-                    contentDescription = null,
+                    contentDescription = stringResource(R.string.my_page_right_arrow_description),
                     tint = colors.Grey400,
                     modifier = Modifier
                         .align(CenterVertically)
