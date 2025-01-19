@@ -11,9 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.ui.theme.Grey500
 import com.sopt.withsuhyeon.ui.theme.defaultWithSuhyeonTypography
@@ -21,7 +23,7 @@ import com.sopt.withsuhyeon.ui.theme.defaultWithSuhyeonTypography
 @Composable
 fun ShowButton(
     onClick: () -> Unit,
-    text: String = "보기",
+    text: String = stringResource(R.string.show_button_title),
     font: TextStyle = defaultWithSuhyeonTypography.body03_SB,
     color: Color = Grey500,
     modifier: Modifier = Modifier,

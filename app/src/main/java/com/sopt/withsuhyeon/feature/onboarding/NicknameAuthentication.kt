@@ -63,6 +63,7 @@ fun NickNameAuthenticationScreen(
             else -> ""
         }
     }
+
     Column(
         modifier = modifier
             .background(color = colors.White)

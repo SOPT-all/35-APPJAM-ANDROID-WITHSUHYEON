@@ -13,7 +13,7 @@ fun OnBoardingTitle(
     modifier: Modifier = Modifier
 ) {
     Text(
-        modifier = modifier.padding(vertical = 20.dp),
+        modifier = modifier.padding(vertical = 20.dp, horizontal = 16.dp),
         text = text,
         style = typography.title02_B,
     )
