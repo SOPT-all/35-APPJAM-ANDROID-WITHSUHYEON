@@ -76,13 +76,9 @@ fun PhoneNumberAuthenticationScreen(
                 progress = 0.33f,
                 modifier = Modifier.padding(top = 16.dp)
             )
-            Spacer(
-                modifier = Modifier.height(16.dp)
-            )
+            Spacer(modifier = Modifier.height(16.dp))
             OnBoardingTitle(text = stringResource(R.string.onboarding_phone_number_title))
-            Spacer(
-                modifier = Modifier.height(32.dp)
-            )
+            Spacer(modifier = Modifier.height(32.dp))
             BasicShortTextField(
                 value = phoneNumberValue,
                 title = stringResource(R.string.onboarding_phone_number_input_title),

@@ -45,7 +45,6 @@ fun YearOfBirthScreen(
 ) {
     val yearPickerState = rememberPickerState(currentDate.year)
     val selectedYear = yearPickerState.selectedItem - 1
-    // TODO - 지금 2025, 2024 이런 식으로 나옴..! 바꾸기!
     Column(
         modifier = modifier
             .background(color = colors.White)
