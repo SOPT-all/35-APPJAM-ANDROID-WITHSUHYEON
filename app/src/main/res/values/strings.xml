@@ -94,4 +94,24 @@
     <string name="alert_modal_delete_post_description">한번 삭제된 게시물은\n다시 복구할 수 없습니다.</string>
     <string name="alert_modal_delete_btn">삭제하기</string>
     <string name="alert_modal_cancel_btn">취소하기</string>
+    <string name="bottom_sheet_btn_select_done">선택 완료</string>
+    <string name="find_suhyeon_upload_title_price">주고싶은 금액을 입력해줘</string>
+    <string name="find_suhyeon_upload_title_error_message">99,999원까지 입력할 수 있어요</string>
+    <string name="find_suhyeon_upload_hint_price">금액 입력하기</string>
+    <string name="find_suhyeon_upload_title_date">언제 만날지 선택해줘</string>
+    <string name="find_suhyeon_upload_fint_date">날짜 및 시간 선택하기</string>
+    <string name="find_suhyeon_upload_title_location">수현이 만날 곳을 선택해줘</string>
+    <string name="find_suhyeon_upload_hint_location">만날 장소 선택하기</string>
+    <string name="find_suhyeon_upload_hint_requirements">요청사항 선택하기 (중복 선택 가능)</string>
+    <string name="find_suhyeon_upload_title_reqirements">요청사항을 선택해줘</string>
+    <string name="find_suhyeon_upload_title_age">수현이의 나이를 선택해줘</string>
+    <string name="find_suhyeon_upload_hint_age">눌러서 나이 선택하기</string>
+    <string name="find_suhyeon_upload_title_gender">수현이의 성별을 선택해줘</string>
+    <string name="find_suhyeon_upload_text_input_done">입력 완료</string>
+    <string name="smallselectchip">SmallSelectChip</string>
+    <string name="bottom_sheet_title_age">나이대 선택</string>
+    <string name="bottom_sheet_title_date">날짜와 시간을 선택해줘</string>
+    <string name="bottom_sheet_title_location">만날 위치 선택</string>
+    <string name="bottom_sheet_title_main_title">요청사항 선택</string>
+    <string name="bottom_sheet_title_sub_title">중복선택 가능</string>
 </resources>
