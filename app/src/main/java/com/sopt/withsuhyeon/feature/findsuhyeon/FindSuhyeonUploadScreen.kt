@@ -196,6 +196,7 @@ fun FindSuhyeonUploadScreen(
                                     isSelectedPrice = false
                                 }
                                 priceButtonEnabled = isPriceValid
+                                // TODO: 입력 완료 버튼은 활성화, 자동으로 99,999원으로 변경되도록
                             },
                             hint = stringResource(R.string.find_suhyeon_upload_hint_price),
                             onFocusChange = { isFocused ->
