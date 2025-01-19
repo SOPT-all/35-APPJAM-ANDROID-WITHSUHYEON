@@ -72,7 +72,7 @@ fun MediumChipDropDown(
 @Preview
 @Composable
 fun PreviewMediumChipDropDown() {
-    var selectedList by remember {
+    val selectedList by remember {
         mutableStateOf(
             listOf(
                 "사진 촬영",

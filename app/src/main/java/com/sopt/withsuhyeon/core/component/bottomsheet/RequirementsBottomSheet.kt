@@ -112,9 +112,9 @@ fun RequirementsBottomSheet(
 @Composable
 fun PreviewRequirementsBottomSheet() {
     var isBottomSheetVisible by remember { mutableStateOf(false) }
-    var selectedRequirementsList by remember { mutableStateOf(listOf<String>()) }
+    val selectedRequirementsList by remember { mutableStateOf(listOf<String>()) }
     val density = LocalDensity.current
-    val navigationBarsPadding = WindowInsets.navigationBars.getBottom(density).dp
+
     Column(
         modifier = Modifier
             .fillMaxSize()

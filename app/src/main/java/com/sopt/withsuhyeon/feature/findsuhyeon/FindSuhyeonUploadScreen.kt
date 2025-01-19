@@ -114,7 +114,7 @@ fun FindSuhyeonUploadScreen(
     var isLocationBottomSheetVisible by remember { mutableStateOf(false) }
     var isDateTimePickerBottomSheetVisible by remember { mutableStateOf(false) }
 
-    var isComplete =
+    val isComplete =
         isSelectedGender && isSelectedAge && isSelectedRequirements && isSelectedLocation && isSelectedPrice
 
     var priceTextValue by remember { mutableStateOf("") }
