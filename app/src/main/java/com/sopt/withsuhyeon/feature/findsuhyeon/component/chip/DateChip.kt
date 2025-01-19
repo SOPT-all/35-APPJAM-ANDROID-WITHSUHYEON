@@ -45,8 +45,8 @@ fun DateChip(
         dateChipType.unSelectedTextColor
 
     Box(
-        modifier = modifier.padding(10.dp)
-            .noRippleClickable(onClick)
+        modifier = modifier            .noRippleClickable(onClick)
+            .padding(10.dp)
     ) {
         Text(
             text = dynamicString,
