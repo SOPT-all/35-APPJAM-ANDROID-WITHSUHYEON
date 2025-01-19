@@ -4,12 +4,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
@@ -21,7 +19,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -30,7 +27,6 @@ import com.sopt.withsuhyeon.core.component.bottomsheet.draghandle.BottomSheetDra
 import com.sopt.withsuhyeon.core.component.button.LargeButton
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.feature.findsuhyeon.component.SingleSelectAge
-import com.sopt.withsuhyeon.ui.theme.Purple100
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
@@ -40,54 +36,54 @@ fun AgeBottomSheet(
     isVisible: Boolean,
     ageList: List<String>,
     selectedAge: String?,
-    onAgeChipClick: (String) -> Unit,
-    onConfirmClick: () -> Unit,
+    onConfirmClick: (String?) -> Unit,
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val density = LocalDensity.current
-    val navigationBarsPadding = WindowInsets.navigationBars.getBottom(density).dp
+    var tempSelectedAge by remember { mutableStateOf(selectedAge) }
+
     if (isVisible) {
-        ModalBottomSheet(
-            onDismissRequest = { onDismiss() },
-            sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false),
-            containerColor = colors.White,
-            modifier = modifier.fillMaxWidth()
-                .height(678.dp)
-                .padding(bottom = navigationBarsPadding),
-            dragHandle = {
-                BottomSheetDragHandle()
-            }
-        ) {
-            Column(
-                modifier = Modifier.padding(
-                    horizontal = 16.dp
-                )
+        Box(modifier = modifier.wrapContentHeight()) {
+            ModalBottomSheet(
+                onDismissRequest = { onDismiss() },
+                sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
+                containerColor = colors.White,
+                modifier = Modifier
+                    .fillMaxWidth(),
+                dragHandle = {
+                    BottomSheetDragHandle()
+                }
             ) {
-                Text(
-                    text = "나이대 선택",
-                    style = typography.title02_B,
-                    modifier = Modifier.padding(start = 8.dp)
-                )
                 Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 32.dp)
+                    modifier = Modifier.padding(horizontal = 16.dp)
                 ) {
-                    SingleSelectAge(
-                        ageList = ageList,
-                        onSelect = { age ->
-                            if (age != null) {
-                                onAgeChipClick(age)
+                    Text(
+                        text = stringResource(R.string.bottom_sheet_title_age),
+                        style = typography.title02_B,
+                        modifier = Modifier.padding(start = 8.dp)
+                    )
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 32.dp)
+                    ) {
+                        SingleSelectAge(
+                            ageList = ageList,
+                            selectedAge = tempSelectedAge,
+                            onSelect = { age ->
+                                tempSelectedAge = age
                             }
+                        )
+                    }
+                    LargeButton(
+                        text = stringResource(R.string.bottom_sheet_btn_select_done),
+                        isDisabled = tempSelectedAge.isNullOrEmpty(),
+                        onClick = {
+                            onConfirmClick(tempSelectedAge)
+                            onDismiss()
                         }
                     )
                 }
-                LargeButton(
-                    text = stringResource(R.string.gallery_category_bottom_sheet_confirm_btn),
-                    isDisabled = selectedAge.isNullOrEmpty(),
-                    onClick = onConfirmClick
-                )
             }
         }
     }
@@ -97,9 +93,10 @@ fun AgeBottomSheet(
 @Composable
 fun PreviewAgeBottomSheet() {
     var isBottomSheetVisible by remember { mutableStateOf(false) }
-    var selectedAge by remember { mutableStateOf("") }
+    var selectedAge by remember { mutableStateOf<String?>("") }
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .background(colors.White),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
@@ -109,7 +106,7 @@ fun PreviewAgeBottomSheet() {
                 .padding(top = 16.dp)
                 .noRippleClickable { isBottomSheetVisible = true }
                 .padding(horizontal = 24.dp, vertical = 12.dp)
-                .background(Purple100),
+                .background(colors.Purple100),
             contentAlignment = Alignment.Center
         ) {
             Text(
@@ -126,16 +123,14 @@ fun PreviewAgeBottomSheet() {
                     "35 ~ 39",
                     "40대 이상"
                 ),
-                selectedAge = selectedAge,
-                onAgeChipClick = { age ->
+                onConfirmClick = { age ->
                     selectedAge = age
-                },
-                onConfirmClick = {
                     isBottomSheetVisible = false
                 },
                 onDismiss = {
                     isBottomSheetVisible = false
                 },
+                selectedAge = ""
             )
         }
     }
