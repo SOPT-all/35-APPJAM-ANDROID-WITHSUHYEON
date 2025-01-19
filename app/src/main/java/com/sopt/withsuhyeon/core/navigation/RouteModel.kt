@@ -4,7 +4,13 @@ import kotlinx.serialization.Serializable
 
 sealed interface Route {
     @Serializable
-    data object OnBoarding : Route
+    data object TermsOfUse : Route
+    @Serializable
+    data object PhoneNumberAuth : Route
+    @Serializable
+    data object NickNameAuth : Route
+    @Serializable
+    data object SelectYearOfBirth : Route
 }
 
 sealed interface MainTabRoute : Route {
