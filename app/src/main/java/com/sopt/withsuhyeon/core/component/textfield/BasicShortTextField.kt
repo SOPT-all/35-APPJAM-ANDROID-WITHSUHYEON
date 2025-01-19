@@ -60,9 +60,9 @@ fun BasicShortTextField(
     var isMaxLengthExceeded by remember { mutableStateOf(false) }
     val borderColor =
         when {
+            value.isNotEmpty() && enabled && !isValid -> colors.Red01
             isMaxLengthExceeded -> colors.Red01
             isFocused -> colors.Purple300
-            value.isNotEmpty() && enabled && !isValid -> colors.Red01
             else -> colors.Grey100
         }
     val textColor = if (enabled) colors.Grey900 else colors.Grey300
@@ -151,7 +151,6 @@ fun BasicShortTextField(
                     modifier = Modifier.weight(1f)
                 )
             } else if (value.isNotEmpty()
-                && !isFocused
                 && !isValid
                 && enabled
                 && errorMessage.isNotEmpty()
@@ -162,7 +161,11 @@ fun BasicShortTextField(
                     modifier = Modifier.weight(1f)
                 )
             } else {
-                Spacer(modifier = Modifier.weight(1f))
+                Text(
+                    text = "",
+                    style = typography.body03_R.merge(color = colors.Red01),
+                    modifier = Modifier.weight(1f)
+                )
             }
             if (visibleLength && maxLength != -1) {
                 Text(
