@@ -445,10 +445,12 @@ fun FindSuhyeonUploadScreen(
                         )
                     }
                     .padding(16.dp)
-                    .imePadding()
-            ) {
-                // TODO: navigateToUploadDetail()
-            }
+                    .imePadding(),
+                onClick = {
+                    // TODO: navigateToUploadDetail()
+                },
+                isDownloadBtn = false
+            )
         }
     }
 }
