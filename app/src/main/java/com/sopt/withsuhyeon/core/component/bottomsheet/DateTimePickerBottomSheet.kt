@@ -31,7 +31,9 @@ import com.sopt.withsuhyeon.core.util.time.currentDateTime
 import com.sopt.withsuhyeon.core.util.time.toFormattedString
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.LocalTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -98,7 +100,6 @@ fun DateTimePickerBottomSheet(
 @Composable
 fun PreviewDateTimePickerBottomSheet() {
     var isBottomSheetVisible by remember { mutableStateOf(false) }
-    var selectedAge by remember { mutableStateOf<String?>("") }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -119,23 +120,16 @@ fun PreviewDateTimePickerBottomSheet() {
             )
         }
         if (isBottomSheetVisible) {
-            AgeBottomSheet(
+            DateTimePickerBottomSheet(
                 isVisible = true,
-                ageList = listOf(
-                    "20 ~ 24",
-                    "25 ~ 29",
-                    "30 ~ 34",
-                    "35 ~ 39",
-                    "40대 이상"
-                ),
-                onConfirmClick = { age ->
-                    selectedAge = age
-                    isBottomSheetVisible = false
+                onConfirmClick = { i, e ->
+
                 },
                 onDismiss = {
                     isBottomSheetVisible = false
                 },
-                selectedAge = ""
+                selectedDateString = "1월 25일 (토) 오후 2:00",
+                selectedDate = LocalDateTime(LocalDate(2025, 1, 25), LocalTime(2,0,0))
             )
         }
     }
