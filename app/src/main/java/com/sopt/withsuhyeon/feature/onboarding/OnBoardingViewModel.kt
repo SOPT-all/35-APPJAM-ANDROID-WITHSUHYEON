@@ -31,7 +31,7 @@ class OnBoardingViewModel @Inject constructor(
         Log.e("here", _yearState.value.year.toString())
     }
 
-    fun updateGender(gender: String) {
+    fun updateGender(gender: Boolean) {
         _gender.update { state ->
             state.copy(
                 gender = gender
