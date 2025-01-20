@@ -94,7 +94,7 @@ fun PhoneNumberAuthenticationScreen(
                 },
                 maxLength = 11,
                 trailingContent = {
-                    BasicButtonForTextField(
+                    BasicButtonForTextField (
                         text = phoneNumberAuthButtonText,
                         onClick = {
                             isPhoneNumberAuthVisible = true

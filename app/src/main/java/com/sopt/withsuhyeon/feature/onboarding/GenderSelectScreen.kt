@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -17,6 +18,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -59,8 +61,8 @@ fun GenderSelectScreen(
     modifier: Modifier = Modifier,
     viewModel: OnBoardingViewModel = hiltViewModel()
 ) {
-    var genderState by remember { mutableStateOf(EMPTY_STRING) }
-    val backgroundMale = if (genderState == MALE) {
+    var genderState by remember { mutableStateOf<Boolean?>(null) }
+    val backgroundMale = if (genderState == true) {
         Modifier
             .background(
                 color = colors.Purple50,
@@ -77,7 +79,7 @@ fun GenderSelectScreen(
             shape = RoundedCornerShape(size = 24.dp)
         )
     }
-    val backgroundFemale = if (genderState == FEMALE) {
+    val backgroundFemale = if (genderState == false) {
         Modifier
             .background(
                 color = colors.Purple50,
@@ -125,14 +127,14 @@ fun GenderSelectScreen(
                 Column(
                     modifier = Modifier
                         .weight(1f)
-                        .height(156.dp)
+                        .aspectRatio(1f)
                         .then(backgroundMale)
                         .padding(start = 8.dp, top = 24.dp, end = 8.dp, bottom = 16.dp)
                         .noRippleClickable {
-                            genderState = MALE
-                            viewModel.updateGender(MALE)
+                            genderState = true
+                            viewModel.updateGender(true)
                         },
-                    verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.Bottom),
+                    verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Icon(
@@ -143,20 +145,20 @@ fun GenderSelectScreen(
                     Text(
                         text = MALE,
                         style = typography.title03_SB,
-                        color = if (genderState == MALE) colors.Purple600 else colors.Grey400
+                        color = if (genderState == true) colors.Purple600 else colors.Grey400
                     )
                 }
                 Column(
                     modifier = Modifier
                         .weight(1f)
-                        .height(156.dp)
+                        .aspectRatio(1f)
                         .then(backgroundFemale)
                         .padding(start = 8.dp, top = 24.dp, end = 8.dp, bottom = 16.dp)
                         .noRippleClickable {
-                            genderState = FEMALE
-                            viewModel.updateGender(FEMALE)
+                            genderState = false
+                            viewModel.updateGender(false)
                         },
-                    verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.Bottom),
+                    verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Icon(
@@ -167,7 +169,7 @@ fun GenderSelectScreen(
                     Text(
                         text = FEMALE,
                         style = typography.title03_SB,
-                        color = if (genderState == FEMALE) colors.Purple600 else colors.Grey400
+                        color = if (genderState == false) colors.Purple600 else colors.Grey400
                     )
                 }
 
@@ -180,7 +182,7 @@ fun GenderSelectScreen(
             onClick = onButtonClick,
             text = NEXT_BUTTON_TEXT,
             modifier = Modifier.padding(horizontal = 16.dp),
-            isDisabled = genderState == EMPTY_STRING
+            isDisabled = genderState == null
         )
     }
 }

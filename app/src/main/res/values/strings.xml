@@ -57,7 +57,7 @@
     <string name="post_bottom_bar_start_chating">채팅하기</string>
     <string name="post_bottom_bar_in_progress_chating">대화 중인 채팅</string>
 
-    <!-- 공통 사용 dot -->
+    <!-- 공통 사용 dot, blank -->
     <string name="dot">・</string>
     <string name="blank"></string>
 

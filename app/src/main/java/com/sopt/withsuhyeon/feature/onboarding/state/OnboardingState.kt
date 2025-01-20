@@ -5,5 +5,5 @@ data class YearOfBirthState(
 )
 
 data class GenderState(
-    val gender: String = ""
+    val gender: Boolean = true
 )
