@@ -10,6 +10,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import com.sopt.withsuhyeon.core.navigation.MainTabRoute
 import com.sopt.withsuhyeon.core.navigation.Route
 import com.sopt.withsuhyeon.feature.chat.navigation.navigateToChat
 import com.sopt.withsuhyeon.feature.chat.navigation.navigateToChatRoom
@@ -86,12 +87,11 @@ class MainNavigator(
         navController.navigateToGalleryPostDetail()
     }
 
-    fun popBackStack() {
     fun navigateToChatRoom() {
         navController.navigateToChatRoom()
     }
 
-    private fun popBackStack() {
+    fun popBackStack() {
         navController.popBackStack()
     }
 

@@ -29,6 +29,8 @@ fun NavGraphBuilder.chatNavGraph(
         )
     }
     composable<Route.ChatRoom> {
-        ChatRoomRoute(padding)
+        ChatRoomRoute(
+            padding = padding
+        )
     }
 }

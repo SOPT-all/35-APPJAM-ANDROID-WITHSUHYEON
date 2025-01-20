@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.core.view.WindowCompat
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
 import dagger.hilt.android.AndroidEntryPoint
 

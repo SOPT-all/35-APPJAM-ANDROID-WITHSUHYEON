@@ -14,8 +14,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -33,11 +36,13 @@ fun ChatRoomTextFieldRow(
     modifier: Modifier = Modifier
 ) {
     val isMessageTextFieldNotEmpty = text.isNotBlank()
+    // val focusRequester = remember { FocusRequester()}
 
     Row(
         modifier = modifier
             .fillMaxWidth()
             .background(colors.White)
+            // .focusRequester(focusRequester)
             .padding(horizontal = 16.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp)
