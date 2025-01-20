@@ -54,6 +54,7 @@ private fun MainScreenContent(
                 )
             )
         },
+        contentWindowInsets = WindowInsets(0, 0, 0, 0),
         bottomBar = {
             MainBottomBar(
                 modifier = Modifier.background(colors.White)
