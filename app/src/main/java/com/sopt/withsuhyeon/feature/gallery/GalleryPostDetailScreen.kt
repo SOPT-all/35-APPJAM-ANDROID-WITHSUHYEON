@@ -151,7 +151,6 @@ fun GalleryPostDetailScreen(
                 profileImage = profileImage,
                 userName = userName,
                 date = date,
-                views = "00"
             )
 
             HorizontalDivider(
