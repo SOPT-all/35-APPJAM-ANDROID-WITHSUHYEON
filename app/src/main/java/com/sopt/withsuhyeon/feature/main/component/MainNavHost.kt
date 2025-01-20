@@ -57,7 +57,9 @@ fun MainNavHost(
                 onNavigateToSelectYearOfBirth = navigator::navigateToSelectYearOfBirth,
                 onNavigateToSelectGender = navigator::navigateToSelectGender,
                 onNavigateToPostProfileImage = navigator::navigateToPostProfileImage,
-                onNavigateToSelectLocation = navigator::navigateToSelectLocation
+                onNavigateToSelectLocation = navigator::navigateToSelectLocation,
+                onNavigateToFinish = navigator::navigateToOnboardingFinish,
+                onNavigateToHome = navigator::navigateToHome
             )
         }
     }

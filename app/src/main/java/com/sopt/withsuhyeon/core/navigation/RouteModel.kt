@@ -11,7 +11,6 @@ sealed interface Route {
     data object NickNameAuth : Route
     @Serializable
     data object SelectYearOfBirth : Route
-    data object OnBoarding : Route
     @Serializable
     data object GalleryUpload : Route
     @Serializable
@@ -22,6 +21,8 @@ sealed interface Route {
     data object PostProfileImage : Route
     @Serializable
     data object SelectLocation : Route
+    @Serializable
+    data object OnboardingFinish : Route
 }
 
 sealed interface MainTabRoute : Route {
