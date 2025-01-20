@@ -35,7 +35,7 @@ fun PostProfileInfoRow(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 11.dp),
+            .padding(vertical = 11.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
 
@@ -71,5 +71,9 @@ fun PostProfileInfoRow(
 @Preview (showBackground = true)
 @Composable
 private fun Preview() {
-    PostProfileInfoRow("https://via.placeholder.com/150", "작심이", "1월 12일", "00")
+    PostProfileInfoRow(
+        "https://via.placeholder.com/150",
+        "작심이",
+        "1월 12일"
+    )
 }
