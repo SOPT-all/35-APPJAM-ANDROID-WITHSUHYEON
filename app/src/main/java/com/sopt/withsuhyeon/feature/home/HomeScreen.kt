@@ -65,25 +65,25 @@ private fun HomeScreen(
             )
         }
 
-        if (isBottomSheetVisible) {
-            GalleryCategoryBottomSheet(
-                isVisible = isBottomSheetVisible,
-                categories = categories,
-                selectedCategories = selectedCategories,
-                onCategoryChipClick = { category ->
-                    selectedCategories = if (selectedCategories.contains(category)) {
-                        selectedCategories - category
-                    } else {
-                        selectedCategories + category
-                    }
-                },
-                onConfirmClick = {
-                    isBottomSheetVisible = false
-                },
-                onDismiss = {
-                    isBottomSheetVisible = false
-                }
-            )
-        }
+//        if (isBottomSheetVisible) {
+//            GalleryCategoryBottomSheet(
+//                isVisible = isBottomSheetVisible,
+//                categories = categories,
+//                selectedCategories = selectedCategories,
+//                onCategoryChipClick = { category ->
+//                    selectedCategories = if (selectedCategories.contains(category)) {
+//                        selectedCategories - category
+//                    } else {
+//                        selectedCategories + category
+//                    }
+//                },
+//                onConfirmClick = {
+//                    isBottomSheetVisible = false
+//                },
+//                onDismiss = {
+//                    isBottomSheetVisible = false
+//                }
+//            )
+//        }
     }
 }

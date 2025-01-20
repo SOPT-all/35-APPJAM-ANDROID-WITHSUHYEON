@@ -57,7 +57,7 @@ fun SmallButton(
     }
     Box(
         modifier = modifier
-            .width(160.dp)
+            .fillMaxWidth()
             .background(
                 backgroundColor,
                 shape = RoundedCornerShape(size = 16.dp)

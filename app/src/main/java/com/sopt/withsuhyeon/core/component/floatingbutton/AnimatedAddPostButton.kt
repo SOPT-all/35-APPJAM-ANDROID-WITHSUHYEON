@@ -24,6 +24,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
+import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
@@ -44,7 +45,7 @@ fun AnimatedAddPostButton(
     )
 
     FloatingActionButton(
-        onClick = onClick,
+        onClick = { onClick() },
         modifier = modifier
             .height(48.dp)
             .width(floatingButtonWidth),

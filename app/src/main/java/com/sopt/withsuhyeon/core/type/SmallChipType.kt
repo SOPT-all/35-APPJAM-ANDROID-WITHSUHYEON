@@ -51,4 +51,11 @@ enum class SmallChipType(
         textColor = defaultWithSuhyeonColors.Purple400,
         requiresDynamicString = true
     ),
+    CHAT_COUNT(
+        titleResId = R.string.type_chat,
+        backgroundColor = defaultWithSuhyeonColors.Purple50,
+        textColor = defaultWithSuhyeonColors.Purple900,
+        horizontalPadding = 6.dp,
+        requiresDynamicString = true
+    )
 }
