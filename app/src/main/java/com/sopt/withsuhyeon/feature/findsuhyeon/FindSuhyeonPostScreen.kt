@@ -20,6 +20,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.bottombar.PostBottomBar
 import com.sopt.withsuhyeon.core.component.bottomsheet.DeletePostBottomSheet
@@ -33,6 +34,15 @@ import com.sopt.withsuhyeon.feature.findsuhyeon.component.DetailMeetingInformati
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
+@Composable
+fun FindSuhyeonPostRoute(
+    padding: PaddingValues,
+    viewModel: FindSuhyeonViewModel = hiltViewModel()
+) {
+    FindSuhyeonPostScreen(
+        padding = padding
+    )
+}
 @Composable
 fun FindSuhyeonPostScreen(
     modifier: Modifier = Modifier,

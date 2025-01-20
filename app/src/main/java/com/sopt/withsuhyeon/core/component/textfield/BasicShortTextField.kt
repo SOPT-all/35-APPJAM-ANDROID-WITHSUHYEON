@@ -27,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.VisualTransformation
@@ -52,6 +53,7 @@ fun BasicShortTextField(
     enabled: Boolean = true,
     visibleLength: Boolean = false,
     maxLength: Int = -1,
+    textFieldBorderColor: Color? = null,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
@@ -61,13 +63,14 @@ fun BasicShortTextField(
     var isFocused by remember { mutableStateOf(false) }
     var isMaxLengthExceeded by remember { mutableStateOf(false) }
     val borderColor =
-        when {
-            value.isNotEmpty() && !isValid -> colors.Red01
-            isMaxLengthExceeded -> colors.Red01
-            isFocused -> colors.Purple300
-            !isValid -> colors.Red01
-            else -> colors.Grey100
-        }
+        textFieldBorderColor
+            ?: when {
+                value.isNotEmpty() && !isValid -> colors.Red01
+                isMaxLengthExceeded -> colors.Red01
+                isFocused -> colors.Purple300
+                !isValid -> colors.Red01
+                else -> colors.Grey100
+            }
     val textColor = if (enabled) colors.Grey900 else colors.Grey300
     val backgroundColor = if (enabled) colors.White else colors.Grey100
 

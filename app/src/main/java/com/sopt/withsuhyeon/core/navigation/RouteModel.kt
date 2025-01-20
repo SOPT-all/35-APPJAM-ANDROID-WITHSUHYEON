@@ -23,6 +23,15 @@ sealed interface Route {
     data object GalleryPostDetail : Route
     @Serializable
     data object ChatRoom : Route
+
+    @Serializable
+    data object FindSuhyeonUpload : Route
+
+    @Serializable
+    data object FindSuhyeonUploadDetail : Route
+
+    @Serializable
+    data object FindSuhyeonPost : Route
 }
 
 sealed interface MainTabRoute : Route {

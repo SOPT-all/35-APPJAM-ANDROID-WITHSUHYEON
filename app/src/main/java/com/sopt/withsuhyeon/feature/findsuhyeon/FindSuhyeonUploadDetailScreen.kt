@@ -25,6 +25,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.button.LargeButton
 import com.sopt.withsuhyeon.core.component.modal.AlertModal
@@ -42,14 +43,25 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
 @Composable
-fun FindSuhyeonDetailMeetingInformationScreen(
+fun FindSuhyeonUploadDetailRoute(
+    padding: PaddingValues,
+    navigateUp: () -> Unit,
+    navigateToMyPost: () -> Unit,
+    viewModel: FindSuhyeonViewModel = hiltViewModel()
+) {
+    FindSuhyeonUploadDetailScreen(
+        padding = padding,
+        onCloseBtnClick = navigateUp,
+        onCompleteBtnClick = navigateToMyPost
+    )
+}
+@Composable
+fun FindSuhyeonUploadDetailScreen(
     modifier: Modifier = Modifier,
     padding: PaddingValues,
     onCloseBtnClick: () -> Unit,
     onCompleteBtnClick: () -> Unit
 ) {
-
-
     val focusManager = LocalFocusManager.current
     var titleValue by remember { mutableStateOf("") }
     var isTitleValid by remember { mutableStateOf(true) }
@@ -192,7 +204,7 @@ fun FindSuhyeonDetailMeetingInformationScreen(
 @Preview
 @Composable
 fun PreviewFindSuhyeonDetailMeetingInformationScreen() {
-    FindSuhyeonDetailMeetingInformationScreen(
+    FindSuhyeonUploadDetailScreen(
         padding = PaddingValues(0.dp),
         onCloseBtnClick = {
 
