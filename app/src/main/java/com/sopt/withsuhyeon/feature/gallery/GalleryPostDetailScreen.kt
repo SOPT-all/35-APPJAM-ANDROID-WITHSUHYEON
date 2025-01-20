@@ -23,7 +23,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.bottomsheet.DeletePostBottomSheet
@@ -33,7 +32,6 @@ import com.sopt.withsuhyeon.core.component.modal.AlertModal
 import com.sopt.withsuhyeon.core.component.profile.PostProfileInfoRow
 import com.sopt.withsuhyeon.core.component.topbar.SubTopNavBar
 import com.sopt.withsuhyeon.core.type.MediumChipType
-import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
