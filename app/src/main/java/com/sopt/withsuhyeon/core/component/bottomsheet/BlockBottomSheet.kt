@@ -1,5 +1,6 @@
 package com.sopt.withsuhyeon.core.component.bottomsheet
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -85,23 +86,11 @@ fun BlockBottomSheet(
                     color = colors.Grey500
                 )
             }
-
-            Spacer(
-                modifier = Modifier
-                    .height(36.dp)
-                    .fillMaxWidth()
+            Image(
+                modifier = Modifier.size(216.dp),
+                imageVector = ImageVector.vectorResource(R.drawable.img_block),
+                contentDescription = ""
             )
-            Box(
-                modifier = Modifier
-                    .size(160.dp)
-                    .background(colors.Grey200)
-            )
-            Spacer(
-                modifier = Modifier
-                    .height(36.dp)
-                    .fillMaxWidth()
-            )
-
             Column(
                 modifier = Modifier
                     .fillMaxWidth()

@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.sopt.withsuhyeon.core.component.bottomsheet.BlockBottomSheet
 import com.sopt.withsuhyeon.core.component.bottomsheet.GalleryCategoryBottomSheet
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.ui.theme.Purple100
@@ -34,6 +35,7 @@ fun HomeRoute(
 private fun HomeScreen(
     padding: PaddingValues
 ) {
+    BlockBottomSheet(closeSheet = {})
     Column(
         modifier = Modifier.fillMaxSize()
             .padding(padding),
