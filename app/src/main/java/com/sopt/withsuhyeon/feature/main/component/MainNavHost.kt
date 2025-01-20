@@ -52,9 +52,13 @@ fun MainNavHost(
                 padding = padding,
             )
             onBoardingNavGraph(
+                padding = padding,
                 onNavigateToPhoneNumberAuth = navigator::navigateToPhoneNumberAuth,
                 onNavigateToNickNameAuth = navigator::navigateToNicknameAuth,
-                onNavigateToSelectYearOfBirth = navigator::navigateToSelectYearOfBirth
+                onNavigateToSelectYearOfBirth = navigator::navigateToSelectYearOfBirth,
+                onNavigateToSelectGender = navigator::navigateToSelectGender,
+                onNavigateToPostProfileImage = navigator::navigateToPostProfileImage,
+                onNavigateToSelectLocation = navigator::navigateToSelectLocation
             )
         }
     }
