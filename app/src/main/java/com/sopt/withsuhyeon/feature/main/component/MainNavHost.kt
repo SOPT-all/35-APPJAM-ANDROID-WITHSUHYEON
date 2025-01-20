@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.navigation
 import com.sopt.withsuhyeon.feature.chat.navigation.chatNavGraph
 import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.findSuhyeonNavGraph
 import com.sopt.withsuhyeon.feature.gallery.navigation.galleryNavGraph
@@ -36,6 +37,10 @@ fun MainNavHost(
             )
             findSuhyeonNavGraph(
                 padding = padding,
+                onNavigateToFindSuheyonUpload = navigator::navigateToFindSuhyeonUpload,
+                onNavigateToFindSuhyeon = { navigator.navigateToFindSuhyeon() },
+                onNavigateToFindSuhyeonPost = navigator::navigateToFindSuhyeonPost,
+                onNavigateToFindSuheyonUploadDetail = navigator::navigateToFindSuhyeonUploadDetail,
             )
 
             galleryNavGraph(
