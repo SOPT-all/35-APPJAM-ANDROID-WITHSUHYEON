@@ -18,6 +18,8 @@ sealed interface Route {
     @Serializable
     data object SelectLocation : Route
     @Serializable
+    data object GalleryUpload : Route
+    @Serializable
     data object GalleryPostDetail : Route
     @Serializable
     data object ChatRoom : Route
