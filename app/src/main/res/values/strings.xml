@@ -74,21 +74,6 @@
     <string name="block_bottomsheet_button_text">차단하러 가기</string>
     <string name="block_bottomsheet_skip_text">괜찮아요</string>
 
-    <!-- 수현이랑 온보딩 플로우 String 모음-->
-    <string name="onboarding_temrs_of_use_title">수현이랑\n서비스 이용약관</string>
-    <string name="onboarding_temrs_of_use_all_agree">모두 동의</string>
-    <string name="onboarding_terms_of_use_age">[필수] 만 18세 이상</string>
-    <string name="onboarding_terms_of_use_agree">[필수] 이용약관 동의</string>
-    <string name="onboarding_temrs_of_use_personal_information">[필수] 개인정보 처리방침 동의</string>
-    <string name="onboarding_phone_number_title">본인인증을 위한\n휴대폰 번호 인증이 필요해요</string>
-    <string name="onboarding_phone_number_duplication_error_message">이미 가입된 번호입니다</string>
-    <string name="onboarding_phone_number_input_title">휴대폰 번호</string>
-    <string name="onboarding_phone_number_input_hint"> - 를 제외한 휴대폰 번호를 입력해주세요</string>
-    <string name="onboarding_phone_number_auth_input_title">인증 번호 (6자리)</string>
-    <string name="onboarding_phone_number_auth_input_hint">인증번호 6자리</string>
-    <string name="onboarding_nickname_screen_title">수현이랑에서 사용할\n닉네임을 입력해주세요</string>
-    <string name="onboarding_nickname_input_title">닉네임</string>
-    <string name="onboarding_nickname_input_hint">한글, 영문, 숫자로 조합된 2~12자</string>
     <!-- 공통 컴포넌트 - Top Nav Bar -->
     <string name="top_nav_bar_btn_icon_description">Top Nav Bar Btn Icon</string>
 
@@ -121,6 +106,26 @@
 
     <!-- 채팅 -->
     <string name="total_chatroom_top_nav_bar_title">채팅</string>
+
+    <!-- 수현이랑 온보딩 플로우 String 모음-->
+    <string name="onboarding_temrs_of_use_title">수현이랑\n서비스 이용약관</string>
+    <string name="onboarding_temrs_of_use_all_agree">모두 동의</string>
+    <string name="onboarding_terms_of_use_age">[필수] 만 18세 이상</string>
+    <string name="onboarding_terms_of_use_agree">[필수] 이용약관 동의</string>
+    <string name="onboarding_temrs_of_use_personal_information">[필수] 개인정보 처리방침 동의</string>
+    <string name="onboarding_phone_number_title">본인인증을 위한\n휴대폰 번호 인증이 필요해요</string>
+    <string name="onboarding_phone_number_duplication_error_message">이미 가입된 번호입니다</string>
+    <string name="onboarding_phone_number_input_title">휴대폰 번호</string>
+    <string name="onboarding_phone_number_input_hint"> - 를 제외한 휴대폰 번호를 입력해주세요</string>
+    <string name="onboarding_phone_number_auth_input_title">인증 번호 (6자리)</string>
+    <string name="onboarding_phone_number_auth_input_hint">인증번호 6자리</string>
+    <string name="onboarding_nickname_screen_title">수현이랑에서 사용할\n닉네임을 입력해주세요</string>
+    <string name="onboarding_nickname_input_title">닉네임</string>
+    <string name="onboarding_nickname_input_hint">한글, 영문, 숫자로 조합된 2~12자</string>
+    <string name="onboarding_year_of_birth_title">태어난 년도를\n선택해주세요</string>
+    <string name="onboarding_gender_select_title">성별을\n선택해주세요</string>
+    <string name="onboarding_profile_select_title">프로필 이미지를\n등록해주세요</string>
+    <string name="profile_image">프로필 이미지</string>
 
     <!-- ShowButton -->
     <string name="show_button_title">보기</string>
