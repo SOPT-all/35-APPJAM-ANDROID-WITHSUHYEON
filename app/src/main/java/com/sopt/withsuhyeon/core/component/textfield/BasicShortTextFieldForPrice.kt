@@ -1,5 +1,6 @@
 package com.sopt.withsuhyeon.core.component.textfield
 
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,9 +23,11 @@ fun BasicShortTextFieldForPrice(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
+    errorMessage: String = "",
     hint: String = "",
     isValid: Boolean = true,
     enabled: Boolean = true,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
     onFocusChange: (Boolean) -> Unit = {},
 ) {
     BasicShortTextField(
@@ -42,6 +45,7 @@ fun BasicShortTextFieldForPrice(
         keyboardOptions = KeyboardOptions.Default.copy(
             keyboardType = KeyboardType.Number
         ),
+        keyboardActions = keyboardActions,
         visualTransformation = thousandSeparatorTransformation(),
         trailingContent = {
             Text(
@@ -51,7 +55,8 @@ fun BasicShortTextFieldForPrice(
                 modifier = Modifier
                     .align(Alignment.CenterEnd)
             )
-        }
+        },
+        errorMessage = errorMessage
     )
 }
 

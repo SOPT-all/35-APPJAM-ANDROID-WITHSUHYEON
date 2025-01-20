@@ -17,10 +17,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.core.component.dropdown.text.TextDropDown
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
@@ -62,17 +60,18 @@ fun BasicSelectDropDown(
         ) {
             mainContent()
         }
-        Text(
-            text = if(isError) errorMessage else stringResource(R.string.find_suhyeon_no_message),
-            style = typography.body03_R.merge(color = borderAndErrorTextColor)
-        )
+        if(isError)
+            Text(
+                text = errorMessage,
+                style = typography.body03_R.merge(color = borderAndErrorTextColor)
+            )
     }
 }
 
 @Preview
 @Composable
 fun PreviewBasicSelectDropDown() {
-    val value by remember { mutableStateOf("") }
+    val value by remember { mutableStateOf<String?>(null) }
     var isError by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf("") }
 

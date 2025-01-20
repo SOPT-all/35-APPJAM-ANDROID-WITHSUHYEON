@@ -41,6 +41,7 @@ private fun MainScreenContent(
     snackBarHostState: SnackbarHostState,
 ) {
     val imeIsShown = WindowInsets.isImeVisible
+
     Scaffold(
         modifier = modifier,
         content = { padding ->
@@ -52,6 +53,7 @@ private fun MainScreenContent(
                     bottom = if(imeIsShown) 0.dp else padding.calculateBottomPadding(),
                     top = 16.dp
                 )
+
             )
         },
         contentWindowInsets = WindowInsets(0, 0, 0, 0),

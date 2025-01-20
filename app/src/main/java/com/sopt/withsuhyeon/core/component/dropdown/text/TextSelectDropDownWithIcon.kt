@@ -20,10 +20,10 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 fun TextSelectDropDownWithIcon(
     hint: String,
     isError: Boolean,
+    value: String?,
     modifier: Modifier = Modifier,
-    value: String = "",
     errorMessage: String = "",
-    onClick: () -> Unit,
+    onClick: (String?) -> Unit,
 ) {
     TextDropDown(
         value = value,
@@ -46,7 +46,7 @@ fun TextSelectDropDownWithIcon(
 @Preview
 @Composable
 fun PreviewSTextSelectDropDownWithIcon() {
-    val value by remember { mutableStateOf("") }
+    val value by remember { mutableStateOf<String?>("") }
     var isError by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf("") }
 

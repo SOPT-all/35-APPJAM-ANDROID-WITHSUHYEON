@@ -1,6 +1,5 @@
 package com.sopt.withsuhyeon.feature.findsuhyeon.component.chip
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -10,15 +9,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
@@ -34,7 +34,7 @@ fun SmallSelectChip(
     text: String = FEMALE,
     isSelected: Boolean = false,
     onClick: () -> Unit = {},
-    image : Painter = painterResource(R.drawable.dummy_ellipse),
+    image : ImageVector = ImageVector.vectorResource(R.drawable.dummy_ellipse),
 ) {
     val borderColor =
         when {
@@ -53,20 +53,22 @@ fun SmallSelectChip(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.Start),
-        modifier = modifier.background(
-            color = backgroundColor,
-            shape = RoundedCornerShape(20.dp),
-        )
+        modifier = modifier
+            .background(
+                color = backgroundColor,
+                shape = RoundedCornerShape(20.dp),
+            )
             .border(1.dp, borderColor, RoundedCornerShape(20.dp))
-            .padding(12.dp)
             .noRippleClickable(onClick)
+            .padding(12.dp)
     ) {
-        Image(
-            painter = image,
-            contentDescription = "MultiSelectChip",
-            contentScale = ContentScale.Fit,
-            modifier = Modifier.size(48.dp)
-                .clip(CircleShape)
+        Icon(
+            imageVector = image,
+            contentDescription = stringResource(R.string.smallselectchip),
+            modifier = Modifier
+                .size(48.dp)
+                .clip(CircleShape),
+            tint = Color.Unspecified
         )
         Text(
             text = text,
@@ -83,19 +85,20 @@ fun SmallSelectChip(
 fun PreviewSmallSelectChip() {
     Row(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
             .background(color = colors.White)
     ) {
         SmallSelectChip(
             text = MALE,
             isSelected = false,
-            image =  painterResource(R.drawable.dummy_ellipse),
+            image =  ImageVector.vectorResource(R.drawable.img_boy_suma),
             modifier = Modifier.weight(1f)
         )
         SmallSelectChip(
             text = FEMALE,
             isSelected = true,
-            image =  painterResource(R.drawable.dummy_ellipse),
+            image = ImageVector.vectorResource(R.drawable.img_girl_suma),
             modifier = Modifier.weight(1f)
         )
     }
