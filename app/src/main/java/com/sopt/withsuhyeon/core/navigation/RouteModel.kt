@@ -11,10 +11,12 @@ sealed interface Route {
     data object NickNameAuth : Route
     @Serializable
     data object SelectYearOfBirth : Route
+    @Serializable
+    data object SelectGender : Route
+    @Serializable
     data object OnBoarding : Route
     @Serializable
     data object GalleryUpload : Route
-
     @Serializable
     data object GalleryPostDetail : Route
 
@@ -26,6 +28,9 @@ sealed interface Route {
 
     @Serializable
     data class FindSuhyeonPost(val id: Long?) : Route
+    data object PostProfileImage : Route
+    @Serializable
+    data object SelectLocation : Route
 }
 
 sealed interface MainTabRoute : Route {
