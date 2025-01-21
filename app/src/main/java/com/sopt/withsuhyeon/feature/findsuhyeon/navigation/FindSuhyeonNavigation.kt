@@ -66,7 +66,8 @@ fun NavGraphBuilder.findSuhyeonNavGraph(
         val id = navBackStackEntry.toRoute<Route.FindSuhyeonPost>().id
         FindSuhyeonPostRoute(
             padding = padding,
-            id = id
+            id = id,
+            navigateToFindSuhyeon = onNavigateToFindSuhyeon
         )
     }
 }
