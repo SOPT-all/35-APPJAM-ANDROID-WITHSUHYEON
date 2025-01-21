@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -248,9 +248,11 @@ private fun FindSuhyeonScreen(
                     .padding(top = 16.dp, start = 16.dp, end = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                items(postList) { post ->
+                itemsIndexed(postList) { index, post ->
+                    val isLastItem = index == postList.size - 1
                     FindSuhyeonPostItem(
                         postItemModel = post,
+                        modifier = Modifier.padding(bottom = if (isLastItem) 16.dp else 0.dp)
                     )
                 }
             }
