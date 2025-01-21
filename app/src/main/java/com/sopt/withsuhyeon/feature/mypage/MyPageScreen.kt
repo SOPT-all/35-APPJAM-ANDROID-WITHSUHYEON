@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.topbar.MainTopNavBar
+import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
@@ -37,15 +38,18 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 @Composable
 fun MyPageRoute(
     padding: PaddingValues,
+    navigateToBlockUser: () -> Unit,
     viewModel: MyPageViewModel = hiltViewModel()
 ) {
     MyPageScreen(
-        padding = padding
+        padding = padding,
+        navigateToBlockUser = navigateToBlockUser
     )
 }
 @Composable
 private fun MyPageScreen(
-    padding: PaddingValues
+    padding: PaddingValues,
+    navigateToBlockUser: () -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
@@ -152,6 +156,7 @@ private fun MyPageScreen(
                         style = typography.body02_B,
                         modifier = Modifier
                             .padding(vertical = 14.dp)
+                            .noRippleClickable(navigateToBlockUser)
                     )
                 }
 
@@ -262,6 +267,6 @@ private fun MyPageScreen(
 @Composable
 private fun MyPageScreenPreview() {
     WithSuhyeonTheme {
-        MyPageScreen(padding = PaddingValues())
+        MyPageScreen(padding = PaddingValues(), navigateToBlockUser = {})
     }
 }

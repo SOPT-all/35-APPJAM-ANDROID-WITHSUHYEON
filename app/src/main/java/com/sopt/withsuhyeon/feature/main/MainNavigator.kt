@@ -19,6 +19,7 @@ import com.sopt.withsuhyeon.feature.gallery.navigation.navigateToGalleryPostDeta
 import com.sopt.withsuhyeon.feature.gallery.navigation.navigateToGalleryUpload
 import com.sopt.withsuhyeon.feature.home.navigation.navigateToBlockUser
 import com.sopt.withsuhyeon.feature.home.navigation.navigateToHome
+import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToBlockUserFromMyPage
 import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToMyPage
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToNickNameAuth
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToOnboardingFinish
@@ -36,7 +37,7 @@ class MainNavigator(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = Route.Login
+    val startDestination = MainTabRoute.Home
 
     val currentTab: MainTab?
         @SuppressLint("RestrictedApi") @Composable get() = MainTab.find { tab ->
@@ -95,6 +96,10 @@ class MainNavigator(
 
     fun navigateToLogin() {
         navController.navigateToOnboardingFinish()
+    }
+
+    fun navigateToBlockUserFromMyPage() {
+        navController.navigateToBlockUserFromMyPage()
     }
 
     fun navigateToHome(navOptions: NavOptions? = null) {

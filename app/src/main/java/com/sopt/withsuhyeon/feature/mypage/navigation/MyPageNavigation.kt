@@ -6,16 +6,22 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.sopt.withsuhyeon.core.navigation.MainTabRoute
+import com.sopt.withsuhyeon.core.navigation.Route
 import com.sopt.withsuhyeon.feature.mypage.MyPageRoute
 
 fun NavController.navigateToMyPage(navOptions: NavOptions) {
     navigate(MainTabRoute.MyPage, navOptions)
 }
 
+fun NavController.navigateToBlockUserFromMyPage() {
+    navigate(Route.BlockUser)
+}
+
 fun NavGraphBuilder.myPageNavGraph(
-    padding: PaddingValues
+    padding: PaddingValues,
+    onNavigateToBlockUser: () -> Unit
 ) {
     composable<MainTabRoute.MyPage> {
-        MyPageRoute(padding)
+        MyPageRoute(padding, navigateToBlockUser = onNavigateToBlockUser)
     }
 }
