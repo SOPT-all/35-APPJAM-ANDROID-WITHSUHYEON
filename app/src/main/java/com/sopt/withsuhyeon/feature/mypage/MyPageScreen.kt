@@ -167,12 +167,11 @@ private fun MyPageScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 8.dp, vertical = 8.dp),
+                    .padding(horizontal = 8.dp, vertical = 8.dp)
+                    .noRippleClickable(navigateToBlockUser),
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Row(
-                    modifier = Modifier
-                        .noRippleClickable(navigateToBlockUser),
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
                     Icon(

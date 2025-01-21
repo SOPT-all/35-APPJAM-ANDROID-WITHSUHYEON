@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
 import com.sopt.withsuhyeon.feature.chat.navigation.chatNavGraph
 import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.findSuhyeonNavGraph
 import com.sopt.withsuhyeon.feature.gallery.navigation.galleryNavGraph
@@ -22,6 +23,8 @@ fun MainNavHost(
     navigator: MainNavigator,
     padding: PaddingValues
 ) {
+    val navController = rememberNavController()
+
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -34,7 +37,7 @@ fun MainNavHost(
             homeNavGraph(
                 padding = padding,
                 onNavigateToBlockUser = navigator::navigateToBlockUser,
-                onNavigateToHome = navigator::navigateToHome,
+                popBackStack = navigator::popBackStack
             )
             findSuhyeonNavGraph(
                 padding = padding,

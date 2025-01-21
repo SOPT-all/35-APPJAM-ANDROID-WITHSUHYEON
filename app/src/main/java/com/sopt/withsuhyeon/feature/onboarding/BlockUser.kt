@@ -44,18 +44,18 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 @Composable
 fun BlockUserRoute(
     padding: PaddingValues,
-    navigateToHome: () -> Unit,
+    navigateToPreviousScreen: () -> Unit
 ) {
     BlockUserScreen(
         padding = padding,
-        navigateToHome = navigateToHome
+        onSaveButtonClick =  navigateToPreviousScreen
     )
 }
 
 @Composable
 fun BlockUserScreen(
     padding: PaddingValues,
-    navigateToHome: () -> Unit,
+    onSaveButtonClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var value by remember { mutableStateOf(EMPTY_STRING) }
@@ -73,7 +73,7 @@ fun BlockUserScreen(
         SubTopNavBar(
             text = stringResource(R.string.block_screen_title),
             btnIcon = painterResource(R.drawable.ic_xclose_24),
-            onCloseBtnClicked = { navigateToHome() }
+            onCloseBtnClicked = onSaveButtonClick
         )
         HorizontalDivider(color = colors.Grey100)
         Spacer(modifier = Modifier.height(4.dp))
@@ -183,7 +183,7 @@ fun BlockUserScreen(
         HorizontalDivider(color = colors.Grey100)
         Spacer(modifier = Modifier.height(16.dp))
         LargeButton(
-            onClick = {},
+            onClick = onSaveButtonClick,
             text = SAVE_BUTTON_TEXT,
             modifier = Modifier.padding(horizontal = 16.dp),
             isDisabled = phoneNumberList.isEmpty()
