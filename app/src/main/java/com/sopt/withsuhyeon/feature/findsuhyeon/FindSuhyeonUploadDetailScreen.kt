@@ -1,6 +1,5 @@
 package com.sopt.withsuhyeon.feature.findsuhyeon
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -174,8 +173,6 @@ fun FindSuhyeonUploadDetailScreen(
                     if(!isTitleInputValid)
                         viewModel.updateErrorMessage(titleLengthErrorMessage)
                     if (isTitleInputValid) {
-                        Log.d("&&", uploadState.toString())
-                        Log.d("&&", detailState.toString())
                         onCompleteBtnClick()
                     }
                 }
