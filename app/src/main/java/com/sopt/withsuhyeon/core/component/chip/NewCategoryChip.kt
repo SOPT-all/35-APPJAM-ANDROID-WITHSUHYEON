@@ -26,11 +26,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
 @Composable
 fun NewCategoryChip(
+    imageUrl: String,
     category: String,
     scrollOffset: Float,
     isSelected: Boolean,
@@ -110,10 +112,12 @@ fun NewCategoryChip(
                             .alpha(allTextOpacity)
                     )
                 } else {
-                    Box(
+                    AsyncImage(
+                        model = imageUrl,
+                        contentDescription = null,
                         modifier = Modifier
                             .size(boxSize)
-                            .background(colors.Grey200).width(boxSize)
+                            .background(colors.Grey200)
                     )
                 }
 

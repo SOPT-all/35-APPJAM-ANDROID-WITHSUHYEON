@@ -19,6 +19,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -31,11 +32,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.sopt.withsuhyeon.BuildConfig.TOKEN
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.card.GalleryMainCardItem
 import com.sopt.withsuhyeon.core.component.chip.NewCategoryChip
 import com.sopt.withsuhyeon.core.component.floatingbutton.AnimatedAddPostButton
 import com.sopt.withsuhyeon.core.component.topbar.MainTopNavBar
+import com.sopt.withsuhyeon.domain.entity.Category
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
 @Composable
@@ -45,8 +48,15 @@ fun GalleryRoute(
     navigateToGalleryPostDetail: () -> Unit,
     viewModel: GalleryViewModel = hiltViewModel()
 ) {
+    val categories by viewModel.categories.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.getGalleryCategories()
+    }
+
     GalleryScreen(
         padding = padding,
+        categories = categories,
         onFloatingButtonClick = {
             navigateToGalleryUpload()
         },
@@ -59,6 +69,7 @@ fun GalleryRoute(
 @Composable
 private fun GalleryScreen(
     padding: PaddingValues,
+    categories: List<Category>,
     onFloatingButtonClick: () -> Unit,
     onGalleryCardItemClick: () -> Unit,
     viewModel: GalleryViewModel = hiltViewModel()
@@ -87,8 +98,8 @@ private fun GalleryScreen(
         ) {
             val total = stringResource(R.string.gallery_main_category_chip_total)
             var selectedCategory by remember { mutableStateOf(total) }
-            val categories by viewModel.categories.collectAsState()
-            val items by viewModel.items.collectAsState()
+            // val categories by viewModel.categories.collectAsState()
+            // val items by viewModel.items.collectAsState()
 
             MainTopNavBar(stringResource(R.string.gallery_top_nav_bar_title))
 
@@ -108,10 +119,11 @@ private fun GalleryScreen(
                 ) {
                     items(categories) { category ->
                         NewCategoryChip(
-                            category = category,
+                            imageUrl = category.imageUrl,
+                            category = category.category,
                             scrollOffset = lazyGridState.firstVisibleItemScrollOffset.toFloat(),
-                            isSelected = selectedCategory == category,
-                            onClick = { selectedCategory = category }
+                            isSelected = selectedCategory == category.category,
+                            onClick = { selectedCategory = category.category }
                         )
                     }
                 }
@@ -128,15 +140,15 @@ private fun GalleryScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(items.size) { index ->
-                    val (text, image) = items[index]
-                    GalleryMainCardItem(
-                        text = text,
-                        image = image,
-                        onClick = onGalleryCardItemClick,
-                        modifier = Modifier
-                    )
-                }
+//                items(items.size) { index ->
+//                    val (text, image) = items[index]
+//                    GalleryMainCardItem(
+//                        text = text,
+//                        image = image,
+//                        onClick = onGalleryCardItemClick,
+//                        modifier = Modifier
+//                    )
+//                }
             }
         }
 
