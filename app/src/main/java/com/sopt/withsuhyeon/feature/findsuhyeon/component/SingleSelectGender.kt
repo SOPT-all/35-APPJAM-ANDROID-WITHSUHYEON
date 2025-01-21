@@ -21,9 +21,10 @@ import com.sopt.withsuhyeon.feature.findsuhyeon.component.chip.SmallSelectChip
 @Composable
 fun SingleSelectGender(
     modifier: Modifier = Modifier,
+    selectedGender: String,
     onSelect: (String?) -> Unit = {}
 ) {
-    var selectElement by remember { mutableStateOf<String?>(null) }
+    var selectElement by remember { mutableStateOf<String?>(selectedGender) }
     Row(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier.fillMaxWidth()
@@ -56,5 +57,7 @@ fun SingleSelectGender(
 @Composable
 @Preview
 fun PreviewSingleSelectGender() {
-    SingleSelectGender()
+    SingleSelectGender(
+        selectedGender = FEMALE
+    )
 }
