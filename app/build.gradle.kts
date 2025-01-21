@@ -100,4 +100,10 @@ dependencies {
     // Date Time Picker
     implementation(libs.compose.date.time.picker)
     implementation(libs.kotlinx.datetime)
+
+    // Lottie
+    implementation (libs.lottie.compose)
+
+    // SwipeRefresh
+    implementation (libs.accompanist.swiperefresh)
 }
