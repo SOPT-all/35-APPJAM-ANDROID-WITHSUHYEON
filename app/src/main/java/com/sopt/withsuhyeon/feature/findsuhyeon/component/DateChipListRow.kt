@@ -2,30 +2,33 @@ package com.sopt.withsuhyeon.feature.findsuhyeon.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.core.type.DateChipType
-import com.sopt.withsuhyeon.core.util.time.toKoreanDay
 import com.sopt.withsuhyeon.feature.findsuhyeon.component.chip.DateChip
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
-import java.time.LocalDate
 
 @Composable
 fun DateChipListRow(
-    selectedDate: MutableState<Triple<String, String, String>?>,
-    dateList: List<Triple<String, String, String>> = emptyList(),
-    modifier: Modifier = Modifier
+    selectedDate: String,
+    dateList: List<String>,
+    modifier: Modifier = Modifier,
+    onSelect: (String) -> Unit
 ) {
+    var tempSelectedDate by remember { mutableStateOf(selectedDate) }
     LazyRow(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -33,56 +36,41 @@ fun DateChipListRow(
             .padding(start = 8.dp)
             .background(colors.White)
     ) {
-        item {
-            DateChip(
-                dateChipType = DateChipType.ALL,
-                isSelected = selectedDate.value == null,
-                onClick = {
-                    selectedDate.value = null
-                }
-            )
-        }
         items(dateList) { date ->
             DateChip(
                 dateChipType = DateChipType.DATE,
-                month = date.first,
-                day = date.second,
-                dayOfWeek = date.third,
-                isSelected = selectedDate.value == date,
+                isSelected = selectedDate == date,
                 onClick = {
-                    selectedDate.value = date
-                }
+                    tempSelectedDate = date
+                    onSelect(tempSelectedDate)
+                },
+                date = date
             )
         }
     }
-}
-private fun findSuhyeonDateList(): List<Triple<String, String, String>> {
-    val today = LocalDate.now()
-    val dateList = mutableListOf<Triple<String, String, String>>()
-
-    for (i in 0..6) {
-        val date = today.plusDays(i.toLong())
-        dateList.add(
-            Triple(
-                date.monthValue.toString(),
-                date.dayOfMonth.toString(),
-                date.dayOfWeek.name.toKoreanDay()
-            )
-        )
-    }
-
-    return dateList
 }
 
 @Composable
 @Preview
 fun PreviewDateChipListRow() {
-    val selectedDate = remember {
-        mutableStateOf<Triple<String, String, String>?>(null)
-    }
-    val dateList = findSuhyeonDateList()
-    DateChipListRow(
-        selectedDate,
-        dateList
+    var selectedDate by remember { mutableStateOf("전체") }
+    val dateList = listOf(
+        "전체",
+        "1/25 (토)",
+        "1/26 (일)",
+        "1/27 (월)",
+        "1/28 (화)",
+        "1/29 (수)",
+        "1/30 (목)",
+        "1/31 (금)",
     )
+    Box(modifier = Modifier.fillMaxSize()) {
+        DateChipListRow(
+            selectedDate,
+            dateList,
+            onSelect = { date ->
+                selectedDate = date
+            }
+        )
+    }
 }

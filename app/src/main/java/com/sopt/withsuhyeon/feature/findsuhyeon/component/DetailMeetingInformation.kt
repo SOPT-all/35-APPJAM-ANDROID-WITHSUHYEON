@@ -22,19 +22,20 @@ import com.sopt.withsuhyeon.core.component.chip.MediumChip
 import com.sopt.withsuhyeon.core.type.MediumChipType
 import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_20_TO_24
 import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_FEMALE
+import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_MALE
+import com.sopt.withsuhyeon.domain.entity.PostDetailInfoModel
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
 @Composable
 fun DetailMeetingInformation (
-    location: String,
-    gender: String,
-    age: String,
-    date: String,
-    price: Int,
-    mediumChipTypeList: List<MediumChipType>,
+    postDetailInfoModel: PostDetailInfoModel,
     modifier: Modifier = Modifier
 ) {
+    val genderString = if(postDetailInfoModel.gender)
+        SHORT_MALE
+    else
+        SHORT_FEMALE
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = modifier
@@ -68,7 +69,7 @@ fun DetailMeetingInformation (
                 style = typography.body03_R.merge(color = colors.Grey500)
             )
             Text(
-                text = location,
+                text = postDetailInfoModel.region,
                 style = typography.body03_B.merge(color = colors.Grey700)
             )
         }
@@ -83,7 +84,7 @@ fun DetailMeetingInformation (
             )
             Row {
                 Text(
-                    text = gender,
+                    text = genderString,
                     style = typography.body03_B.merge(color = colors.Grey700)
                 )
                 Text(
@@ -91,7 +92,7 @@ fun DetailMeetingInformation (
                     style = typography.body03_B.merge(color = colors.Grey300)
                 )
                 Text(
-                    text = age,
+                    text = postDetailInfoModel.age,
                     style = typography.body03_B.merge(color = colors.Grey700)
                 )
             }
@@ -106,7 +107,7 @@ fun DetailMeetingInformation (
                 style = typography.body03_R.merge(color = colors.Grey500)
             )
             Text(
-                text = date,
+                text = postDetailInfoModel.date,
                 style = typography.body03_B.merge(color = colors.Grey700)
             )
         }
@@ -123,7 +124,7 @@ fun DetailMeetingInformation (
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                mediumChipTypeList.forEach { chipType ->
+                postDetailInfoModel.requests.forEach { chipType ->
                     MediumChip(
                         mediumChipType = chipType
                     )
@@ -140,7 +141,7 @@ fun DetailMeetingInformation (
                 style = typography.body03_R.merge(color = colors.Grey500)
             )
             Text(
-                text = price.toDecimalFormat(),
+                text = postDetailInfoModel.price.toDecimalFormat(),
                 style = typography.body03_B.merge(color = colors.Grey700)
             )
         }
@@ -151,15 +152,17 @@ fun DetailMeetingInformation (
 @Composable
 fun PreviewDetailMeetingInformation() {
     DetailMeetingInformation(
-        location = "강남/역삼/삼성",
-        gender = SHORT_FEMALE,
-        age = AGE_20_TO_24,
-        date = "1월 25일 (토) 오후 2:00",
-        price = 5000,
-        mediumChipTypeList = listOf(
-            MediumChipType.CATEGORY_PHOTO,
-            MediumChipType.CATEGORY_VIDEO_CALL,
-            MediumChipType.CATEGORY_PHONE_CALL,
+        postDetailInfoModel = PostDetailInfoModel(
+            region = "강남/역삼/삼성",
+            gender = false,
+            age = AGE_20_TO_24,
+            date = "1월 25일 (토) 오후 2:00",
+            price = 5000,
+            requests = listOf(
+                MediumChipType.CATEGORY_PHOTO,
+                MediumChipType.CATEGORY_VIDEO_CALL,
+                MediumChipType.CATEGORY_PHONE_CALL,
+            )
         )
     )
 }

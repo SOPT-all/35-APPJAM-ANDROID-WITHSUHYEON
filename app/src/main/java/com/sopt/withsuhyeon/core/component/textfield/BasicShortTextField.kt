@@ -8,11 +8,11 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -72,7 +72,9 @@ fun BasicShortTextField(
     val backgroundColor = if (enabled) colors.White else colors.Grey100
 
     Column(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth()
+            .wrapContentHeight()
+        ,
         verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically)
     ) {
         if (title.isNotEmpty()) {
@@ -127,7 +129,7 @@ fun BasicShortTextField(
             keyboardActions = keyboardActions,
             visualTransformation = visualTransformation,
             singleLine = true,
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .background(
                     color = backgroundColor,
@@ -153,8 +155,8 @@ fun BasicShortTextField(
                     style = typography.body03_R.merge(color = colors.Red01),
                     modifier = Modifier.weight(1f)
                 )
-            } else if (value.isNotEmpty()
-                && !isValid
+            } else if (
+                !isValid
                 && enabled
                 && errorMessage.isNotEmpty()
             ) {
@@ -164,7 +166,11 @@ fun BasicShortTextField(
                     modifier = Modifier.weight(1f)
                 )
             } else {
-                Spacer(modifier = Modifier.weight(1f))
+                Text(
+                    text = "",
+                    style = typography.body03_R.merge(color = colors.Red01),
+                    modifier = Modifier.weight(1f)
+                )
             }
             if (visibleLength && maxLength != -1) {
                 Text(

@@ -37,6 +37,7 @@ import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_20_TO_24
 import com.sopt.withsuhyeon.core.util.KeyStorage.FIND_SUHYEON_DETAIL_MEETING_INFORMATION_EXPAND
 import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_FEMALE
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
+import com.sopt.withsuhyeon.domain.entity.PostDetailInfoModel
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
@@ -113,20 +114,22 @@ fun DetailMeetingInformationExpandButton(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp, vertical = 16.dp)
             .noRippleClickable(onClick)
+            .padding(horizontal = 20.dp, vertical = 16.dp)
     ) {
         Text(
             text = stringResource(R.string.find_suhyeon_detail_meeting_information),
             style = typography.body03_B.merge(color = colors.Grey900)
         )
-        Icon(
-            imageVector = ImageVector.vectorResource(R.drawable.ic_arrow_down),
-            contentDescription = stringResource(R.string.find_suhyeon_detail_meeting_information),
-            tint = colors.Grey300,
-            modifier = Modifier
-                .size(24.dp)
-        )
+        if(!expanded) {
+            Icon(
+                imageVector = ImageVector.vectorResource(R.drawable.ic_arrow_down),
+                contentDescription = stringResource(R.string.find_suhyeon_detail_meeting_information),
+                tint = colors.Grey300,
+                modifier = Modifier
+                    .size(24.dp)
+            )
+        }
     }
 }
 @Composable
