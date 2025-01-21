@@ -41,7 +41,7 @@ fun FindSuhyeonPostScreen(
     var isDeleteBottomSheetVisible by remember { mutableStateOf(false) }
     var isDeleteAlertModalVisible by remember { mutableStateOf (false) }
 
-    val bolderColor = colors.Grey100
+    val borderColor = colors.Grey100
 
     Column(
         modifier = modifier
@@ -64,7 +64,7 @@ fun FindSuhyeonPostScreen(
                 modifier = Modifier.drawBehind {
                     val borderThickness = 1.dp.toPx()
                     drawLine(
-                        color = bolderColor,
+                        color = borderColor,
                         start = Offset(0f, size.height),
                         end = Offset(size.width, size.height),
                         strokeWidth = borderThickness
@@ -90,7 +90,7 @@ fun FindSuhyeonPostScreen(
                     modifier = Modifier.drawBehind {
                         val borderThickness = 1.dp.toPx()
                         drawLine(
-                            color = bolderColor,
+                            color = borderColor,
                             start = Offset(0f, size.height),
                             end = Offset(size.width, size.height),
                             strokeWidth = borderThickness
