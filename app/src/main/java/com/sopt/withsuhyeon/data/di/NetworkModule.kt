@@ -25,10 +25,21 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    fun providesAuthorizationInterceptor(): okhttp3.Interceptor = okhttp3.Interceptor { chain ->
+        val request = chain.request().newBuilder()
+            .addHeader("Authorization", "Bearer ${BuildConfig.TOKEN}")
+            .build()
+        chain.proceed(request)
+    }
+
+    @Provides
+    @Singleton
     fun providesOkHttpClient(
-        loggingInterceptor: HttpLoggingInterceptor
+        loggingInterceptor: HttpLoggingInterceptor,
+        authorizationInterceptor: okhttp3.Interceptor
     ): OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(loggingInterceptor)
+        .addInterceptor(authorizationInterceptor)
         .build()
 
     @Provides

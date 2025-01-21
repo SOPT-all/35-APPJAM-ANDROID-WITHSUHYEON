@@ -10,7 +10,12 @@ plugins {
 }
 
 val properties = Properties().apply {
-    load(project.rootProject.file("local.properties").inputStream())
+    val localPropertiesFile = project.rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        load(localPropertiesFile.inputStream())
+    } else {
+        throw IllegalStateException("local.properties file not found")
+    }
 }
 
 android {
@@ -26,6 +31,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "BASE_URL", properties["base.url"].toString())
+        buildConfigField("String", "TOKEN", properties["token"].toString())
     }
 
     buildTypes {
