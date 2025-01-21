@@ -1,6 +1,7 @@
 package com.sopt.withsuhyeon.feature.gallery
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
@@ -32,13 +33,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.sopt.withsuhyeon.BuildConfig.TOKEN
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.card.GalleryMainCardItem
 import com.sopt.withsuhyeon.core.component.chip.NewCategoryChip
 import com.sopt.withsuhyeon.core.component.floatingbutton.AnimatedAddPostButton
 import com.sopt.withsuhyeon.core.component.topbar.MainTopNavBar
-import com.sopt.withsuhyeon.domain.entity.Category
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
 @Composable
@@ -48,15 +47,8 @@ fun GalleryRoute(
     navigateToGalleryPostDetail: () -> Unit,
     viewModel: GalleryViewModel = hiltViewModel()
 ) {
-    val categories by viewModel.categories.collectAsState()
-
-    LaunchedEffect(Unit) {
-        viewModel.getGalleryCategories()
-    }
-
     GalleryScreen(
         padding = padding,
-        categories = categories,
         onFloatingButtonClick = {
             navigateToGalleryUpload()
         },
@@ -69,7 +61,6 @@ fun GalleryRoute(
 @Composable
 private fun GalleryScreen(
     padding: PaddingValues,
-    categories: List<Category>,
     onFloatingButtonClick: () -> Unit,
     onGalleryCardItemClick: () -> Unit,
     viewModel: GalleryViewModel = hiltViewModel()
@@ -85,6 +76,21 @@ private fun GalleryScreen(
         animationSpec = tween(durationMillis = 300), label = "Category Row Height"
     )
 
+    val categories by viewModel.categories.collectAsState()
+    val galleries by viewModel.galleries.collectAsState()
+    var selectedCategory by remember { mutableStateOf("전체") }
+
+    LaunchedEffect(Unit) {
+        viewModel.getGalleryCategories()
+        viewModel.getGalleryTotal("전체")
+    }
+
+    LaunchedEffect(selectedCategory) {
+        selectedCategory?.let {
+            viewModel.getGalleryTotal(it)
+        }
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -96,11 +102,6 @@ private fun GalleryScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
-            val total = stringResource(R.string.gallery_main_category_chip_total)
-            var selectedCategory by remember { mutableStateOf(total) }
-            // val categories by viewModel.categories.collectAsState()
-            // val items by viewModel.items.collectAsState()
-
             MainTopNavBar(stringResource(R.string.gallery_top_nav_bar_title))
 
             Spacer(modifier = Modifier.fillMaxWidth().height(16.dp).background(colors.White))
@@ -117,13 +118,26 @@ private fun GalleryScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                 ) {
+                    item {
+                        NewCategoryChip(
+                            imageUrl = "https://example.com/default-image.jpg",
+                            category = "전체", // 기본 카테고리 이름 (예: "전체")
+                            scrollOffset = lazyGridState.firstVisibleItemScrollOffset.toFloat(),
+                            isSelected = selectedCategory == "전체",
+                            onClick = {
+                                selectedCategory = "전체" // 기본 카테고리를 선택했을 때 처리
+                            }
+                        )
+                    }
                     items(categories) { category ->
                         NewCategoryChip(
                             imageUrl = category.imageUrl,
                             category = category.category,
                             scrollOffset = lazyGridState.firstVisibleItemScrollOffset.toFloat(),
                             isSelected = selectedCategory == category.category,
-                            onClick = { selectedCategory = category.category }
+                            onClick = {
+                                selectedCategory = category.category
+                            }
                         )
                     }
                 }
@@ -140,15 +154,15 @@ private fun GalleryScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-//                items(items.size) { index ->
-//                    val (text, image) = items[index]
-//                    GalleryMainCardItem(
-//                        text = text,
-//                        image = image,
-//                        onClick = onGalleryCardItemClick,
-//                        modifier = Modifier
-//                    )
-//                }
+                items(galleries.size) { index ->
+                    val gallery = galleries[index]
+                    GalleryMainCardItem(
+                        text = gallery.title,
+                        image = gallery.imageUrl,
+                        onClick = onGalleryCardItemClick,
+                        modifier = Modifier
+                    )
+                }
             }
         }
 

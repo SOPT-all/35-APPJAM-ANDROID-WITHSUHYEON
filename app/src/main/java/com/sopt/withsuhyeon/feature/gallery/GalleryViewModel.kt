@@ -3,6 +3,7 @@ package com.sopt.withsuhyeon.feature.gallery
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.withsuhyeon.domain.entity.Category
+import com.sopt.withsuhyeon.domain.entity.Gallery
 import com.sopt.withsuhyeon.domain.repository.GalleryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,6 +21,12 @@ class GalleryViewModel @Inject constructor(
     private val _categories = MutableStateFlow<List<Category>>(emptyList())
     val categories: StateFlow<List<Category>> = _categories.asStateFlow()
 
+    private val _galleries = MutableStateFlow<List<Gallery>>(emptyList())
+    val galleries: StateFlow<List<Gallery>> = _galleries.asStateFlow()
+
+    private val _selectedCategory = MutableStateFlow<String?>(null)
+    val selectedCategory: StateFlow<String?> = _selectedCategory.asStateFlow()
+
     private val _errorMessage = MutableStateFlow<String?>(null)
     val errorMessage: StateFlow<String?> = _errorMessage.asStateFlow()
 
@@ -28,6 +35,19 @@ class GalleryViewModel @Inject constructor(
             galleryRepository.getGalleryCategories()
                 .onSuccess { categories ->
                     _categories.update { categories }
+                    _selectedCategory.value = categories.firstOrNull()?.category
+                }
+                .onFailure { error ->
+                    _errorMessage.update { error.message }
+                }
+        }
+    }
+
+    fun getGalleryTotal(category: String) {
+        viewModelScope.launch {
+            galleryRepository.getGalleryTotal(category)
+                .onSuccess { galleries ->
+                    _galleries.update { galleries }
                 }
                 .onFailure { error ->
                     _errorMessage.update { error.message }
