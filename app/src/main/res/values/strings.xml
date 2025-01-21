@@ -173,4 +173,6 @@
     <string name="home_title_now">수현이는 지금</string>
     <string name="home_view_all">전체보기</string>
     <string name="home_title_post">수현이가 되어줘</string>
+    <string name="home_count">건</string>
+    <string name="home_text_around">내주변</string>
 </resources>
