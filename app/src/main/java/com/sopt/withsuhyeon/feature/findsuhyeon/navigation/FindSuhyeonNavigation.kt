@@ -50,7 +50,8 @@ fun NavGraphBuilder.findSuhyeonNavGraph(
         FindSuhyeonUploadRoute(
             padding,
             navigateUp = onNavigateToFindSuhyeon,
-            navigateToUploadDetail = onNavigateToFindSuheyonUploadDetail
+            navigateToUploadDetail = onNavigateToFindSuheyonUploadDetail,
+            viewModel = hiltViewModel()
         )
     }
     composable<Route.FindSuhyeonUploadDetail> {
