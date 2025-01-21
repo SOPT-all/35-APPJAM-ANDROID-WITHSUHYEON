@@ -6,6 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.sopt.withsuhyeon.feature.onboarding.FinishRoute
 import com.sopt.withsuhyeon.feature.onboarding.GenderSelectRoute
+import com.sopt.withsuhyeon.feature.onboarding.LoginRoute
 import com.sopt.withsuhyeon.feature.onboarding.NickNameAuthenticationRoute
 import com.sopt.withsuhyeon.feature.onboarding.PhoneNumberAuthenticationRoute
 import com.sopt.withsuhyeon.feature.onboarding.SelectLocationRoute
@@ -21,6 +22,8 @@ import com.sopt.withsuhyeon.core.navigation.Route.PostProfileImage as PostProfil
 import com.sopt.withsuhyeon.core.navigation.Route.SelectLocation as SelectLocationRoute
 import com.sopt.withsuhyeon.core.navigation.Route.OnboardingFinish as OnboardingFinishRoute
 import com.sopt.withsuhyeon.core.navigation.MainTabRoute.Home as HomeRoute
+import com.sopt.withsuhyeon.core.navigation.Route.Login as LoginRoute
+
 
 
 fun NavController.navigateToPhoneNumberAuth() {
@@ -111,6 +114,12 @@ fun NavGraphBuilder.onBoardingNavGraph(
     composable<OnboardingFinishRoute> {
         FinishRoute(
             navigateToNext = onNavigateToHome,
+            padding = padding
+        )
+    }
+    composable<LoginRoute> {
+        LoginRoute(
+            navigateToLoginFinish = onNavigateToFinish,
             padding = padding
         )
     }

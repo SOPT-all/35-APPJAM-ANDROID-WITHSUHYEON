@@ -36,7 +36,7 @@ class MainNavigator(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = MainTabRoute.Home
+    val startDestination = Route.Login
 
     val currentTab: MainTab?
         @SuppressLint("RestrictedApi") @Composable get() = MainTab.find { tab ->
@@ -91,6 +91,10 @@ class MainNavigator(
 
     fun navigateToBlockUser() {
         navController.navigateToBlockUser()
+    }
+
+    fun navigateToLogin() {
+        navController.navigateToOnboardingFinish()
     }
 
     fun navigateToHome(navOptions: NavOptions? = null) {

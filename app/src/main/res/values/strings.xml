@@ -155,4 +155,9 @@
     <string name="block_screen_empty_text">아직 차단된 번호가 없어요</string>
     <string name="block_screen_block_number_text">차단된 연락처</string>
     <string name="block_screen_empty_image">차단번호가 등록되지 않은 스크린을 설명하기 위한 이미지입니다.</string>
+
+    <!-- 로그인 화면   -->
+    <string name="login_title">휴대폰 번호 인증으로\n로그인해주세요</string>
+    <string name="login_input_hint"> - 를 제외한 휴대폰 번호를 입력해주세요</string>
+    <string name="login_input_title">휴대폰 번호</string>
 </resources>

@@ -61,7 +61,7 @@ fun MainNavHost(
                 onNavigateToPostProfileImage = navigator::navigateToPostProfileImage,
                 onNavigateToSelectLocation = navigator::navigateToSelectLocation,
                 onNavigateToFinish = navigator::navigateToOnboardingFinish,
-                onNavigateToHome = navigator::navigateToHome
+                onNavigateToHome = navigator::navigateToHome,
             )
         }
     }
