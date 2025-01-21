@@ -12,10 +12,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -23,10 +25,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
+import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
 @Composable
@@ -42,53 +48,38 @@ fun NewCategoryChip(
     var iconSize by remember { mutableStateOf(36f) }
     var circleWidth by remember { mutableStateOf(60f) }
     var circleHeight by remember { mutableStateOf(60f) }
-    var insideTextOpacity by remember { mutableStateOf(-2f) }
+    var insideTextOpacity by remember { mutableStateOf(-5f) }
     var outsideTextOpacity by remember { mutableStateOf(1f) }
     var textWidth by remember { mutableStateOf(0f) }
-    var textHeight by remember { mutableStateOf(20f) }
-    var allTextWidth by remember { mutableStateOf(30f) }
+    var textHeight by remember { mutableStateOf(26f) }
+    var allTextWidth by remember { mutableStateOf(40f) }
     var allTextOpacity by remember { mutableStateOf(1f) }
 
-    val chipSize by animateDpAsState(
-        targetValue = if (scrollOffset > 0) 70.dp else 60.dp,
-        animationSpec = tween(durationMillis = 300), label = "Box Size"
-    )
-
-    val boxSize by animateDpAsState(
-        targetValue = if (scrollOffset > 0) 18.dp else 36.dp,
-        animationSpec = tween(durationMillis = 300), label = "Box Size"
-    )
-
-    val chipTextColor by animateColorAsState(
-        targetValue = if (isSelected) colors.Purple600 else colors.Grey400,
-        animationSpec = tween(durationMillis = 300), label = "Chip Text Color"
-    )
-
+    // 스크롤 변경 감지 시 애니메이션 적용
     LaunchedEffect(scrollOffset) {
         val progress = (-scrollOffset / 100f).coerceIn(0f, 1f)
-        insideTextOpacity = -2f + (progress * 3)
-        outsideTextOpacity = 1f - (progress * 0.8f)
-        allTextOpacity = 1f - (progress * 2.5f)
-        allTextWidth = 30f - (progress * 20f)
-        textWidth = afterTextWidth * progress
-        circleHeight = 60f - (15 * progress)
-        iconSize = 36f - (12 * progress)
-        textHeight = 20f - (progress * 10)
+        insideTextOpacity = -5f + (progress * 6)
+        outsideTextOpacity = 1f - (progress * 1.17f)
+        allTextOpacity = 1f - (progress * 3)
+        allTextWidth = 40f - (progress * 40f)
+        textWidth = (afterTextWidth * progress)
+        circleHeight = 60f - (23 * progress)
+        iconSize = 36f - (18 * progress)
+        textHeight = 26f - (progress * 26)
 
         circleWidth = if (category == "전체") {
-            60f + ((afterTextWidth - 20) * progress)
+            60f + ((afterTextWidth - 31) * progress)
         } else {
-            60f + ((afterTextWidth - 15) * progress)
+            60f + ((afterTextWidth - 18) * progress)
         }
     }
 
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.noRippleClickable { onClick() }
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
             modifier = Modifier
-                .size(width = chipSize, height = circleHeight.dp)
+                .size(width = circleWidth.dp, height = circleHeight.dp)
                 .background(
                     color = if (isSelected) colors.Purple500 else colors.Grey50,
                     shape = CircleShape
@@ -104,16 +95,18 @@ fun NewCategoryChip(
                         text = "ALL",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
-                        color = if (isSelected) Color.White else colors.Purple500,
+                        color = if (isSelected) colors.White else colors.Grey200,
                         modifier = Modifier
                             .width(allTextWidth.dp)
                             .alpha(allTextOpacity)
                     )
                 } else {
-                    Box(
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_gallery),
+                        contentDescription = null,
+                        tint = colors.Grey300,
                         modifier = Modifier
-                            .size(boxSize)
-                            .background(colors.Grey200).width(boxSize)
+                            .size(iconSize.dp)
                     )
                 }
 
@@ -121,7 +114,7 @@ fun NewCategoryChip(
                     text = category,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.SemiBold,
-                    color = chipTextColor,
+                    color = if (isSelected) Color.White else Color(0xFF757575),
                     maxLines = 1,
                     modifier = Modifier
                         .width(textWidth.dp)
@@ -134,10 +127,19 @@ fun NewCategoryChip(
             text = category,
             fontSize = 14.sp,
             fontWeight = FontWeight.Bold,
-            color = if (isSelected) colors.Purple500 else colors.Grey400,
+            color = if (isSelected) colors.Purple600 else colors.Grey400,
             modifier = Modifier
                 .height(textHeight.dp)
                 .alpha(outsideTextOpacity)
         )
+    }
+
+}
+
+@Preview
+@Composable
+private fun NewCategoryChipPreview() {
+    WithSuhyeonTheme {
+        NewCategoryChip("바다", 0f, true, {})
     }
 }
