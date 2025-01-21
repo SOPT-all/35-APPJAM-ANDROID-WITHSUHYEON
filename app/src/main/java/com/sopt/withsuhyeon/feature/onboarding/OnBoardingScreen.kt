@@ -12,13 +12,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.button.LargeButton
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
@@ -70,7 +71,7 @@ fun OnBoardingScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             LargeButton(
-                text = "시작하기",
+                text = stringResource(R.string.onboarding_start_text),
                 onClick = onSignUpButtonClick
             )
             Spacer(modifier = Modifier.height(8.dp))
@@ -83,11 +84,11 @@ fun OnBoardingScreen(
                 horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.Start),
             ) {
                 Text(
-                    text = "이미 계정이 있나요?",
+                    text = stringResource(R.string.onboarding_account_question),
                     style = typography.body02_SB.merge(color = colors.Grey400)
                 )
                 Text(
-                    text = "로그인",
+                    text = stringResource(R.string.onboarding_login_text),
                     style = typography.body02_SB.merge(color = colors.Purple600),
                     modifier = Modifier.noRippleClickable(onLoginButtonClick)
                 )

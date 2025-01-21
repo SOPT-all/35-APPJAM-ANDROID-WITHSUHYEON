@@ -168,4 +168,8 @@
     <string name="alert_modal_logout">로그아웃</string>
     <string name="alert_modal_leave">탈퇴하기</string>
 
+    <!-- 시작 온보딩 -->
+    <string name="onboarding_account_question">이미 계정이 있나요?</string>
+    <string name="onboarding_login_text">로그인</string>
+    <string name="onboarding_start_text">시작하기</string>
 </resources>
