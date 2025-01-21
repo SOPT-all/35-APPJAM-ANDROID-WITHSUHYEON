@@ -11,8 +11,8 @@ import com.sopt.withsuhyeon.feature.gallery.GalleryPostDetailRoute
 import com.sopt.withsuhyeon.feature.gallery.GalleryRoute
 import com.sopt.withsuhyeon.feature.gallery.GalleryUploadRoute
 
-fun NavController.navigateToGallery(navOptions: NavOptions) {
-    navigate(MainTabRoute.Gallery, navOptions)
+fun NavController.navigateToGallery(navOptions: NavOptions, category: String? = null) {
+    navigate(MainTabRoute.Gallery(category), navOptions)
 }
 
 fun NavController.navigateToGalleryUpload() {

@@ -33,7 +33,7 @@ class MainNavigator(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = MainTabRoute.FindSuhyeon
+    val startDestination = MainTabRoute.Home
 
     val currentTab: MainTab?
         @Composable get() = MainTab.entries.find { tab ->
@@ -82,6 +82,17 @@ class MainNavigator(
             }
         )
     }
+    fun navigateToGallery(navOptions: NavOptions? = null, category: String? = null) {
+        navController.navigateToGallery(
+            navOptions ?: navOptions {
+                popUpTo(navController.graph.findStartDestination().id) {
+                    inclusive = true
+                }
+                launchSingleTop = true
+            },
+            category
+        )
+    }
     fun navigateToGalleryUpload() {
         navController.navigateToGalleryUpload()
     }
@@ -109,8 +120,8 @@ class MainNavigator(
         navController.navigateToFindSuhyeonUploadDetail()
     }
 
-    fun navigateToFindSuhyeonPost() {
-        navController.navigateToFindSuhyeonPost()
+    fun navigateToFindSuhyeonPost(id: Long?) {
+        navController.navigateToFindSuhyeonPost(id)
     }
 
     fun popBackStack() {

@@ -14,6 +14,7 @@ sealed interface Route {
     data object OnBoarding : Route
     @Serializable
     data object GalleryUpload : Route
+
     @Serializable
     data object GalleryPostDetail : Route
 
@@ -24,7 +25,7 @@ sealed interface Route {
     data object FindSuhyeonUploadDetail : Route
 
     @Serializable
-    data object FindSuhyeonPost : Route
+    data class FindSuhyeonPost(val id: Long?) : Route
 }
 
 sealed interface MainTabRoute : Route {
@@ -34,7 +35,7 @@ sealed interface MainTabRoute : Route {
     data object FindSuhyeon : MainTabRoute
 
     @Serializable
-    data object Gallery : MainTabRoute
+    data class Gallery(val category: String?) : MainTabRoute
 
     @Serializable
     data object Chat : MainTabRoute

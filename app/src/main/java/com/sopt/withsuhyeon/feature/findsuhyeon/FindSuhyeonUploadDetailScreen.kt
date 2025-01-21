@@ -46,13 +46,13 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 fun FindSuhyeonUploadDetailRoute(
     padding: PaddingValues,
     navigateUp: () -> Unit,
-    navigateToMyPost: () -> Unit,
+    navigateToFindSuhyeon: () -> Unit,
     viewModel: FindSuhyeonViewModel = hiltViewModel()
 ) {
     FindSuhyeonUploadDetailScreen(
         padding = padding,
         onCloseBtnClick = navigateUp,
-        onCompleteBtnClick = navigateToMyPost
+        onCompleteBtnClick = navigateToFindSuhyeon
     )
 }
 @Composable
