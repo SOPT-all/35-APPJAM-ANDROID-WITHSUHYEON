@@ -25,19 +25,31 @@ import com.sopt.withsuhyeon.ui.theme.Purple100
 @Composable
 fun HomeRoute(
     padding: PaddingValues,
-    viewModel: HomeViewModel = hiltViewModel()
+    navigateToBlockUser: () -> Unit,
+    viewModel: HomeViewModel = hiltViewModel(),
 ) {
     HomeScreen(
-        padding = padding
+        padding = padding,
+        navigateToBlockUser = navigateToBlockUser,
     )
 }
+
 @Composable
 private fun HomeScreen(
-    padding: PaddingValues
+    padding: PaddingValues,
+    navigateToBlockUser: () -> Unit
 ) {
-    BlockBottomSheet(closeSheet = {})
+    var isBottomSheetVisible by remember { mutableStateOf(true) }
+    var isBlockBottomSheetVisible by remember { mutableStateOf(true) }
+    if (isBlockBottomSheetVisible) {
+        BlockBottomSheet(
+            closeSheet = { isBlockBottomSheetVisible = false },
+            navigateToBlockScreen = navigateToBlockUser
+        )
+    }
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .padding(padding),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
@@ -46,7 +58,6 @@ private fun HomeScreen(
             text = "Home Screen"
         )
 
-        var isBottomSheetVisible by remember { mutableStateOf(false) }
         var selectedCategories by remember { mutableStateOf(listOf<String>()) }
         val categories = listOf(
             "학교", "카페", "회식", "엠티", "자취방", "도서관",

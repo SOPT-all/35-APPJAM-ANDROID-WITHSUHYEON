@@ -23,6 +23,8 @@ sealed interface Route {
     data object SelectLocation : Route
     @Serializable
     data object OnboardingFinish : Route
+    @Serializable
+    data object BlockUser: Route
 }
 
 sealed interface MainTabRoute : Route {

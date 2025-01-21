@@ -16,6 +16,7 @@ import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.navigateToFindSuhyeon
 import com.sopt.withsuhyeon.feature.gallery.navigation.navigateToGallery
 import com.sopt.withsuhyeon.feature.gallery.navigation.navigateToGalleryPostDetail
 import com.sopt.withsuhyeon.feature.gallery.navigation.navigateToGalleryUpload
+import com.sopt.withsuhyeon.feature.home.navigation.navigateToBlockUser
 import com.sopt.withsuhyeon.feature.home.navigation.navigateToHome
 import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToMyPage
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToNickNameAuth
@@ -34,7 +35,7 @@ class MainNavigator(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = Route.SelectLocation
+    val startDestination = Route.OnboardingFinish
 
     val currentTab: MainTab?
         @SuppressLint("RestrictedApi") @Composable get() = MainTab.find { tab ->
@@ -43,7 +44,7 @@ class MainNavigator(
 
     fun navigate(tab: MainTab) {
         val navOptions = navOptions {
-            popUpTo(MainTab.HOME.route)  {
+            popUpTo(MainTab.HOME.route) {
                 saveState = true
             }
             launchSingleTop = true
@@ -58,6 +59,7 @@ class MainNavigator(
             MainTab.MYPAGE -> navController.navigateToMyPage(navOptions)
         }
     }
+
     fun navigateToPhoneNumberAuth() {
         navController.navigateToPhoneNumberAuth()
     }
@@ -69,17 +71,25 @@ class MainNavigator(
     fun navigateToSelectYearOfBirth() {
         navController.navigateToSelectYearOfBirth()
     }
+
     fun navigateToSelectGender() {
         navController.navigateToSelectGender()
     }
+
     fun navigateToPostProfileImage() {
         navController.navigateToPostProfileImage()
     }
+
     fun navigateToSelectLocation() {
         navController.navigateToSelectLocation()
     }
+
     fun navigateToOnboardingFinish() {
         navController.navigateToOnboardingFinish()
+    }
+
+    fun navigateToBlockUser() {
+        navController.navigateToBlockUser()
     }
 
     fun navigateToHome(navOptions: NavOptions? = null) {

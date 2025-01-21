@@ -32,7 +32,9 @@ fun MainNavHost(
             startDestination = navigator.startDestination,
         ) {
             homeNavGraph(
-                padding = padding
+                padding = padding,
+                onNavigateToBlockUser = navigator::navigateToBlockUser,
+                onNavigateToHome = navigator::navigateToHome,
             )
             findSuhyeonNavGraph(
                 padding = padding,

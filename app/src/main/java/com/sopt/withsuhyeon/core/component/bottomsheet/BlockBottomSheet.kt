@@ -36,11 +36,12 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 @Composable
 fun BlockBottomSheet(
     closeSheet: () -> Unit,
+    navigateToBlockScreen: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val sheetState = rememberModalBottomSheetState()
     ModalBottomSheet(
-        onDismissRequest = closeSheet,
+        onDismissRequest = {closeSheet()},
         sheetState = sheetState,
         shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
         containerColor = colors.Grey500,
@@ -60,7 +61,7 @@ fun BlockBottomSheet(
             ) {
                 Icon(
                     modifier = Modifier.noRippleClickable {
-                        // TODO : BottomSheet 닫기 연결
+                        closeSheet()
                     },
                     imageVector = ImageVector.vectorResource(R.drawable.ic_xclose),
                     contentDescription = stringResource(R.string.x_close_description),
@@ -107,7 +108,8 @@ fun BlockBottomSheet(
                         )
                         .padding(vertical = 14.dp)
                         .noRippleClickable {
-                            // TODO : 차단 하는 스크린 연결
+                            navigateToBlockScreen()
+                            closeSheet()
                         },
                     horizontalArrangement = Arrangement.Center
                 ) {
@@ -121,9 +123,7 @@ fun BlockBottomSheet(
                 Column(
                     modifier = modifier
                         .padding(8.dp, bottom = 20.dp)
-                        .noRippleClickable {
-                            // TODO : BottomSheet 닫기 연결
-                        }
+                        .noRippleClickable {}
                         .drawBehind {
                             val lineY = size.height
                             drawLine(
@@ -137,7 +137,9 @@ fun BlockBottomSheet(
 
                     Text(
                         modifier = Modifier
-                            .noRippleClickable {},
+                            .noRippleClickable {
+                                closeSheet()
+                            },
                         text = stringResource(R.string.block_bottomsheet_skip_text),
                         color = colors.Grey500,
                         style = typography.body03_SB
