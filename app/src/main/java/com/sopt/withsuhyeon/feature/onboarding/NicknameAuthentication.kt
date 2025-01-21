@@ -2,6 +2,7 @@ package com.sopt.withsuhyeon.feature.onboarding
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -34,82 +35,93 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 @Composable
 fun NickNameAuthenticationRoute(
     navigateToNext: () -> Unit,
+    padding: PaddingValues
 ) {
     NickNameAuthenticationScreen(
-        onButtonClick = navigateToNext
+        onButtonClick = navigateToNext,
+        padding = padding
     )
 }
 
 @Composable
 fun NickNameAuthenticationScreen(
     onButtonClick: () -> Unit,
+    padding: PaddingValues,
     modifier: Modifier = Modifier,
     viewModel: OnBoardingViewModel = hiltViewModel()
 ) {
-    var nicknameValue by remember { mutableStateOf(EMPTY_STRING) }
+    var nicknameValue by remember { mutableStateOf("") }
     var isNicknameValid by remember { mutableStateOf(false) }
     var nicknameErrorType by remember { mutableStateOf(LENGTH_ERROR) }
     var isNicknameTextFiledFocused by remember { mutableStateOf(false) }
-    var errorMessage by remember { mutableStateOf(EMPTY_STRING) }
+    var errorMessage by remember { mutableStateOf("") }
 
     fun updateErrorMessage(validationState: String) {
         errorMessage = when (validationState) {
             LENGTH_ERROR -> LENGTH_ERROR_MESSAGE
             SPECIAL_CHARACTER_ERROR -> SPECIAL_CHARACTER_ERROR_MESSAGE
-            else -> EMPTY_STRING
+            else -> ""
         }
     }
 
     Column(
         modifier = modifier
             .background(color = colors.White)
-            .padding(
-                vertical = 16.dp,
-                horizontal = 16.dp
-            )
+            .padding(padding)
             .fillMaxSize()
-
     ) {
-        MainTopNavBar(
-            text = EMPTY_STRING,
-            modifier = Modifier.padding(20.dp)
+        MainTopNavBar(text = EMPTY_STRING)
+        HorizontalDivider(
+            modifier = Modifier.height(1.dp),
+            color = colors.Grey100
         )
-        AnimatedProgressBar(progress = 0.5f)
-        Spacer(
-            modifier = Modifier.height(16.dp)
-        )
-        OnBoardingTitle(text = stringResource(R.string.onboarding_nickname_screen_title))
-        Spacer(
-            modifier = Modifier.height(32.dp)
-        )
-        BasicShortTextField(
-            value = nicknameValue,
-            title = stringResource(R.string.onboarding_nickname_input_title),
-            hint = stringResource(R.string.onboarding_nickname_input_hint),
-            isValid = isNicknameValid,
-            onFocusChange = {
-                isNicknameTextFiledFocused = it
-            },
-            onValueChange = { input ->
-                nicknameValue = input
-                nicknameErrorType = viewModel.isNicknameValid(input)
-                updateErrorMessage(nicknameErrorType)
-                isNicknameValid = nicknameErrorType == DEFAULT
-            },
-            maxLength = 12,
-            errorMessage = errorMessage
-        )
-        Spacer(modifier = Modifier.weight(1f))
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .padding(horizontal = 16.dp)
+        ) {
+            AnimatedProgressBar(
+                progress = 0.5f,
+                modifier = Modifier.padding(top = 16.dp)
+            )
+            Spacer(
+                modifier = Modifier.height(16.dp)
+            )
+            OnBoardingTitle(text = stringResource(R.string.onboarding_nickname_screen_title))
+            Spacer(
+                modifier = Modifier.height(32.dp)
+            )
+            BasicShortTextField(
+                value = nicknameValue,
+                title = stringResource(R.string.onboarding_nickname_input_title),
+                hint = stringResource(R.string.onboarding_nickname_input_hint),
+                isValid = isNicknameValid,
+                onFocusChange = {
+                    isNicknameTextFiledFocused = it
+                },
+                onValueChange = { input ->
+                    nicknameValue = input
+                    nicknameErrorType = viewModel.isNicknameValid(input)
+                    updateErrorMessage(nicknameErrorType)
+                    isNicknameValid = nicknameErrorType == DEFAULT
+                },
+                maxLength = 12,
+                errorMessage = errorMessage
+            )
+            Spacer(modifier = Modifier.weight(1f))
+
+        }
 
         HorizontalDivider(
-            modifier = Modifier.height(1.dp)
+            modifier = Modifier.height(1.dp),
+            color = colors.Grey100
         )
-
         Spacer(modifier = Modifier.height(16.dp))
 
         LargeButton(
             onClick = onButtonClick,
             text = NEXT_BUTTON_TEXT,
+            modifier = Modifier.padding(horizontal = 16.dp),
             isDisabled = nicknameErrorType != DEFAULT,
         )
     }

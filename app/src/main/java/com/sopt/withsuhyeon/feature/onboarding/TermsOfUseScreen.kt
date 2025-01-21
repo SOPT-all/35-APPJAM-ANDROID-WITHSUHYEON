@@ -5,6 +5,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -39,13 +40,15 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
 @Composable
 fun TermsOfUseRoute(
+    padding: PaddingValues,
     navigateToNext: () -> Unit,
     viewModel: OnBoardingViewModel = hiltViewModel()
 ) {
     TermsOfUseScreen(
         onButtonClick = {
             navigateToNext()
-        }
+        },
+        padding = padding
     )
 }
 
@@ -53,8 +56,8 @@ fun TermsOfUseRoute(
 fun TermsOfUseScreen(
     onButtonClick: () -> Unit,
     modifier: Modifier = Modifier,
-
-    ) {
+    padding: PaddingValues,
+) {
     var isAllTermsSelected by remember { mutableStateOf(false) }
     var isAgedSelected by remember { mutableStateOf(false) }
     var isTermsSelected by remember { mutableStateOf(false) }
@@ -63,31 +66,29 @@ fun TermsOfUseScreen(
     fun updateAllTermsSelectedState() {
         isAllTermsSelected = isAgedSelected && isTermsSelected && isPersonalInformationSelected
     }
+
     Column(
         modifier = modifier
             .background(color = colors.White)
-            .padding(
-                vertical = 16.dp,
-            )
+            .padding(padding)
             .fillMaxSize()
     ) {
-        MainTopNavBar(
-            text = EMPTY_STRING,
-        )
+        MainTopNavBar(text = EMPTY_STRING)
         HorizontalDivider(
             modifier = Modifier.height(1.dp),
             color = colors.Grey100
         )
         AnimatedProgressBar(
             progress = 0.1f,
-            modifier = Modifier.padding(
-                16.dp
-            )
+            modifier = Modifier.padding(16.dp)
         )
         Spacer(
             modifier = Modifier.height(16.dp)
         )
-        OnBoardingTitle(stringResource(R.string.onboarding_temrs_of_use_title))
+        OnBoardingTitle(
+            text = stringResource(R.string.onboarding_temrs_of_use_title),
+            modifier = Modifier.padding(start = 16.dp)
+        )
         Spacer(
             modifier = Modifier.height(32.dp)
         )
@@ -133,7 +134,9 @@ fun TermsOfUseScreen(
                     ),
 
                 verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Top),
-            ) {
+            )
+
+            {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
@@ -152,8 +155,7 @@ fun TermsOfUseScreen(
                     })
                 }
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
                 ) {
                     CheckBox(
@@ -189,24 +191,21 @@ fun TermsOfUseScreen(
                 }
             }
         }
-
         Spacer(modifier = Modifier.weight(1f))
 
         HorizontalDivider(
             modifier = Modifier.height(1.dp),
             color = colors.Grey100
         )
-
         Spacer(modifier = Modifier.height(16.dp))
-
         LargeButton(
-            modifier = Modifier.padding(horizontal = 16.dp),
             onClick = {
                 if (isAllTermsSelected) {
                     onButtonClick()
                 }
             },
             text = NEXT_BUTTON_TEXT,
+            modifier = Modifier.padding(horizontal = 16.dp),
             isDisabled = !isAllTermsSelected,
         )
     }

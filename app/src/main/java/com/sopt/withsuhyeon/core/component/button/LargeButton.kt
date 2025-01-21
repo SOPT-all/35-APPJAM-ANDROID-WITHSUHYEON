@@ -27,9 +27,9 @@ import com.sopt.withsuhyeon.ui.theme.defaultWithSuhyeonTypography
 fun LargeButton(
     onClick: () -> Unit,
     text: String,
+    modifier: Modifier = Modifier,
     isDisabled: Boolean = false,
     isDownloadBtn: Boolean = false,
-    modifier: Modifier = Modifier,
     font: TextStyle = defaultWithSuhyeonTypography.body01_B,
 ) {
     val backgroundColor: Color
@@ -53,7 +53,9 @@ fun LargeButton(
             .height(56.dp)
             .background(backgroundColor, shape = RoundedCornerShape(size = 16.dp))
             .padding(horizontal = 16.dp)
-            .noRippleClickable(onClick),
+            .let {
+                if (isDisabled) it else it.noRippleClickable(onClick)
+            },
         contentAlignment = Alignment.Center
     ) {
         Row(
