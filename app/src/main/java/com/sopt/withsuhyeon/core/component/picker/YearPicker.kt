@@ -37,9 +37,9 @@ fun YearPicker(
     startLocalDate: LocalDate = currentDate,
     yearItems: List<Int> = YEAR_RANGE.reversed(),
     visibleItemsCount: Int = 3,
-    itemPadding: PaddingValues = PaddingValues(top = 12.dp, bottom = 16.dp),
-    textStyle: TextStyle = typography.title02_SB.copy(color = colors.Grey400),
-    selectedTextStyle: TextStyle = typography.title02_SB.copy(color = colors.Black),
+    itemPadding: PaddingValues = PaddingValues(top = 11.dp, bottom = 15.dp),
+    textStyle: TextStyle = typography.title03_SB.copy(color = colors.Grey400),
+    selectedTextStyle: TextStyle = typography.title03_SB.copy(color = colors.Grey800),
     dividerColor: Color = Transparent,
     fadingEdgeGradient: Brush = Brush.verticalGradient(
         0f to Transparent,
