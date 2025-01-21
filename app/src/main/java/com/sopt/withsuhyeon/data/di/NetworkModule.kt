@@ -2,6 +2,7 @@ package com.sopt.withsuhyeon.data.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.sopt.withsuhyeon.BuildConfig
+import com.sopt.withsuhyeon.core.network.TokenManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,9 +26,12 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providesAuthorizationInterceptor(): okhttp3.Interceptor = okhttp3.Interceptor { chain ->
+    fun providesAuthorizationInterceptor(
+        tokenManager: TokenManager
+    ): okhttp3.Interceptor = okhttp3.Interceptor { chain ->
+        val token = tokenManager.getToken()
         val request = chain.request().newBuilder()
-            .addHeader("Authorization", "Bearer ${BuildConfig.TOKEN}")
+            .addHeader("Authorization", "Bearer $token")
             .build()
         chain.proceed(request)
     }
