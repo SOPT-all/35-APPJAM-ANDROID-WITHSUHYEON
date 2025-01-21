@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,7 +36,7 @@ fun BlockPhoneNumberItem(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .background(backgroundColor)
+            .background(color = backgroundColor, RoundedCornerShape(size = 12.dp))
             .padding(start = 16.dp, end = 4.dp, top = 15.dp, bottom = 15.dp),
 
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -70,13 +71,13 @@ fun PreviewBlockPhoneNumberList(
                 .fillMaxHeight()
         ) {
             BlockPhoneNumberItem(
-                phoneNumber = "01000000000"
+                phoneNumber = "01000000000",
             )
             BlockPhoneNumberItem(
-                phoneNumber = "01000000000"
+                phoneNumber = "01000000000",
             )
             BlockPhoneNumberItem(
-                phoneNumber = "01000000000"
+                phoneNumber = "01000000000",
             )
         }
     }

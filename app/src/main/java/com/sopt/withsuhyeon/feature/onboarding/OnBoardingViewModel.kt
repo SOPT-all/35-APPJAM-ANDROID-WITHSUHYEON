@@ -49,4 +49,5 @@ class OnBoardingViewModel @Inject constructor(
         val specialCharactersRegex = "[^a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ0-9\\s]".toRegex()
         return specialCharactersRegex.containsMatchIn(input)
     }
+
 }

@@ -10,6 +10,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import com.sopt.withsuhyeon.core.navigation.MainTabRoute
 import com.sopt.withsuhyeon.core.navigation.Route
 import com.sopt.withsuhyeon.feature.chat.navigation.navigateToChat
 import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.navigateToFindSuhyeon
@@ -35,7 +36,7 @@ class MainNavigator(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = Route.OnboardingFinish
+    val startDestination = MainTabRoute.Home
 
     val currentTab: MainTab?
         @SuppressLint("RestrictedApi") @Composable get() = MainTab.find { tab ->
