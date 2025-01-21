@@ -117,7 +117,6 @@ fun NewCategoryChip(
                         contentDescription = null,
                         modifier = Modifier
                             .size(boxSize)
-                            .background(colors.Grey200)
                     )
                 }
 
