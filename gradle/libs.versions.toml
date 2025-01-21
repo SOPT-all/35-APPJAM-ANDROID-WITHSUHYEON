@@ -1,4 +1,5 @@
 [versions]
+accompanistSwiperefresh = "0.30.1"
 agp = "8.7.0"
 kotlin = "2.0.0"
 coreKtx = "1.15.0"
@@ -24,8 +25,10 @@ ksp = "2.0.0-1.0.21"
 androidxComposeNavigation = "2.8.2"
 composeDateTimePicker = "0.0.3"
 kotlinxDatetime = "0.4.0"
+lottieCompose = "6.0.0"
 
 [libraries]
+accompanist-swiperefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanistSwiperefresh" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -60,7 +63,7 @@ hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-com
 hilt-manager = {group = "androidx.hilt" , name = "hilt-compiler", version.ref = "hiltManager"}
 compose-date-time-picker = { group = "io.github.kez-lab", name = "compose-date-time-picker", version.ref = "composeDateTimePicker" }
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
-
+lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
