@@ -40,4 +40,7 @@ object KeyStorage {
     const val SPECIAL_CHARACTER_ERROR_MESSAGE = "특수기호를 제거해주세요"
 
     const val EMPTY_STRING =""
+
+    const val LOGOUT_ALERT_TYPE = "logout"
+    const val LEAVE_ALERT_TYPE = "leave"
 }

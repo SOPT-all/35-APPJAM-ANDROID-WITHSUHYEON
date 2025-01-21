@@ -20,7 +20,10 @@ import androidx.compose.ui.window.Dialog
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.button.SmallButton
 import com.sopt.withsuhyeon.core.util.KeyStorage.ALERT_TYPE
+import com.sopt.withsuhyeon.core.util.KeyStorage.DEFAULT
 import com.sopt.withsuhyeon.core.util.KeyStorage.DISABLED_TYPE
+import com.sopt.withsuhyeon.core.util.KeyStorage.LEAVE_ALERT_TYPE
+import com.sopt.withsuhyeon.core.util.KeyStorage.LOGOUT_ALERT_TYPE
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
@@ -29,6 +32,7 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 fun AlertModal(
     onDeleteClick: () -> Unit,
     onCancelClick: () -> Unit,
+    alertModalType: String = DEFAULT,
     modifier: Modifier = Modifier
 ) {
     Dialog(
@@ -39,22 +43,58 @@ fun AlertModal(
             color = colors.White,
         ) {
             Column(
-                modifier = Modifier.fillMaxWidth().padding(20.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 20.dp, horizontal = 24.dp),
                 horizontalAlignment = Alignment.Start
             ) {
-                Text(
-                    text = stringResource(R.string.alert_modal_delete_post_question),
-                    style = typography.title03_B,
-                    color = colors.Black
-                )
+
+                when (alertModalType) {
+                    LOGOUT_ALERT_TYPE -> {
+                        Text(
+                            text = "정말 로그아웃하시겠습니까?",
+                            style = typography.title03_B,
+                            color = colors.Black
+                        )
+                    }
+
+                    LEAVE_ALERT_TYPE -> {
+                        Text(
+                            text = "정말 탈퇴하시겠습니까?",
+                            style = typography.title03_B,
+                            color = colors.Black
+                        )
+                    }
+
+                    else -> {
+                        Text(
+                            text = stringResource(R.string.alert_modal_delete_post_question),
+                            style = typography.title03_B,
+                            color = colors.Black
+                        )
+                    }
+                }
 
                 Spacer(modifier = Modifier.height(10.dp))
+                when (alertModalType) {
+                    LEAVE_ALERT_TYPE -> {
+                        Text(
+                            text = "작성한 내용이 저장되지 않고 모두 사라집니다.",
+                            style = typography.body03_SB,
+                            color = colors.Grey500
+                        )
+                    }
 
-                Text(
-                    text = stringResource(R.string.alert_modal_delete_post_description),
-                    style = typography.body03_SB,
-                    color = colors.Grey500
-                )
+                    DEFAULT -> {
+                        Text(
+                            text = stringResource(R.string.alert_modal_delete_post_description),
+                            style = typography.body03_SB,
+                            color = colors.Grey500
+                        )
+                    }
+
+                    else -> {}
+                }
 
                 Spacer(modifier = Modifier.height(24.dp))
 
@@ -72,12 +112,36 @@ fun AlertModal(
                         onCancelClick()
                     }
 
-                    SmallButton(
-                        text = stringResource(R.string.alert_modal_delete_btn),
-                        type = ALERT_TYPE,
-                        modifier = Modifier.weight(1f)
-                    ) {
-                        onDeleteClick()
+                    when (alertModalType) {
+                        LOGOUT_ALERT_TYPE -> {
+                            SmallButton(
+                                text = "로그아웃",
+                                type = DEFAULT,
+                                modifier = Modifier.weight(1f)
+                            ) {
+                                onDeleteClick()
+                            }
+                        }
+
+                        LEAVE_ALERT_TYPE -> {
+                            SmallButton(
+                                text = "탈퇴하기",
+                                type = ALERT_TYPE,
+                                modifier = Modifier.weight(1f)
+                            ) {
+                                onDeleteClick()
+                            }
+                        }
+
+                        else -> {
+                            SmallButton(
+                                text = stringResource(R.string.alert_modal_delete_btn),
+                                type = ALERT_TYPE,
+                                modifier = Modifier.weight(1f)
+                            ) {
+                                onDeleteClick()
+                            }
+                        }
                     }
                 }
             }
