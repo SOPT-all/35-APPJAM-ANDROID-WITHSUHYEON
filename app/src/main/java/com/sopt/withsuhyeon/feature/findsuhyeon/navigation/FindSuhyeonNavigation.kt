@@ -1,6 +1,9 @@
 package com.sopt.withsuhyeon.feature.findsuhyeon.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -12,6 +15,7 @@ import com.sopt.withsuhyeon.feature.findsuhyeon.FindSuhyeonUploadDetailRoute
 import com.sopt.withsuhyeon.feature.findsuhyeon.FindSuhyeonPostRoute
 import com.sopt.withsuhyeon.feature.findsuhyeon.FindSuhyeonRoute
 import com.sopt.withsuhyeon.feature.findsuhyeon.FindSuhyeonUploadRoute
+import com.sopt.withsuhyeon.feature.findsuhyeon.viewmodel.FindSuhyeonUploadViewModel
 
 fun NavController.navigateToFindSuhyeon(navOptions: NavOptions) {
     navigate(MainTabRoute.FindSuhyeon, navOptions)
@@ -29,14 +33,17 @@ fun NavController.navigateToFindSuhyeonPost(id: Long?) {
 fun NavGraphBuilder.findSuhyeonNavGraph(
     padding: PaddingValues,
     onNavigateToFindSuhyeon: () -> Unit,
+    onNavigateToFindSuhyeonPost: (Long) -> Unit,
     onNavigateToFindSuheyonUpload: () -> Unit,
     onNavigateToFindSuheyonUploadDetail: () -> Unit,
+    getBackStackUploadViewModel: @Composable (NavBackStackEntry) -> FindSuhyeonUploadViewModel
 ) {
     composable<MainTabRoute.FindSuhyeon> {
         FindSuhyeonRoute(
             padding,
             navigateToUpload = onNavigateToFindSuheyonUpload,
             navigateUp = onNavigateToFindSuhyeon,
+            navigateToPost = onNavigateToFindSuhyeonPost
         )
     }
     composable<Route.FindSuhyeonUpload> {
