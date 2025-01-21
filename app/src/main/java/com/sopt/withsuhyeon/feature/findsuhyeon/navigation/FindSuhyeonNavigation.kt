@@ -59,6 +59,7 @@ fun NavGraphBuilder.findSuhyeonNavGraph(
             padding = padding,
             navigateUp = onNavigateToFindSuhyeon,
             navigateToFindSuhyeon = onNavigateToFindSuhyeon,
+            viewModel = getBackStackUploadViewModel(it)
         )
     }
     composable<Route.FindSuhyeonPost> { navBackStackEntry ->
