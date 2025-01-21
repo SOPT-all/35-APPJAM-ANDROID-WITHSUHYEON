@@ -17,6 +17,10 @@ sealed interface Route {
     data object PostProfileImage : Route
     @Serializable
     data object SelectLocation : Route
+    @Serializable
+    data object GalleryUpload : Route
+    @Serializable
+    data object GalleryPostDetail : Route
 }
 
 sealed interface MainTabRoute : Route {
