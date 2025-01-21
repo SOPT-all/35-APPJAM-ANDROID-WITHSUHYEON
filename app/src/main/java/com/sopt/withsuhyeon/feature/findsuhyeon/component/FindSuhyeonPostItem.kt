@@ -49,7 +49,7 @@ fun FindSuhyeonPostItem(
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
         ) {
             Text(
@@ -82,7 +82,7 @@ fun FindSuhyeonPostItem(
         }
         Column(
             verticalArrangement = Arrangement.spacedBy(12.dp),
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
         ) {
             HorizontalDivider(
