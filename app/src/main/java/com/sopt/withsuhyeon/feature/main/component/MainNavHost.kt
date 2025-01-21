@@ -3,9 +3,13 @@ package com.sopt.withsuhyeon.feature.main.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import com.sopt.withsuhyeon.feature.chat.navigation.chatNavGraph
 import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.findSuhyeonNavGraph
@@ -32,13 +36,20 @@ fun MainNavHost(
             startDestination = navigator.startDestination,
         ) {
             homeNavGraph(
-                padding = padding
+                padding = PaddingValues(
+                    start = padding.calculateStartPadding(layoutDirection = LayoutDirection.Ltr),
+                    end = padding.calculateEndPadding(layoutDirection = LayoutDirection.Ltr),
+                    bottom = padding.calculateBottomPadding(),
+                    top = 0.dp
+                ),
+                navigateToGallery = { navigator.navigateToGallery() },
+                navigateToGalleryWithCategory = { navigator.navigateToGallery(category = it) },
+                navigateToPost = { navigator.navigateToFindSuhyeonPost(it) }
             )
             findSuhyeonNavGraph(
                 padding = padding,
                 onNavigateToFindSuheyonUpload = navigator::navigateToFindSuhyeonUpload,
                 onNavigateToFindSuhyeon = { navigator.navigateToFindSuhyeon() },
-                onNavigateToFindSuhyeonPost = navigator::navigateToFindSuhyeonPost,
                 onNavigateToFindSuheyonUploadDetail = navigator::navigateToFindSuhyeonUploadDetail,
             )
 
