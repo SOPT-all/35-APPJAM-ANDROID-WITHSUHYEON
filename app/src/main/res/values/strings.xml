@@ -144,4 +144,15 @@
     <string name="my_page_right_arrow_description">My Page Right Arrow</string>
     <string name="my_page_block_icon_description">My Page Block Icon</string>
     <string name="my_page_info_icon_description">My Page Info Icon</string>
+
+    <!--  차단스크린  -->
+    <string name="block_screen_title">차단 계정 관리</string>
+    <string name="block_screen_sub_title">차단할 번호를 입력해주세요</string>
+    <string name="block_screen_description">차단한 사용자는 xx님의 게시글과 xx님이 다운로드한 사진들을\n볼 수 없습니다.</string>
+    <string name="block_screen_phone_number">휴대폰 번호</string>
+    <string name="block_screen_phone_number_hint">-를 제외한 휴대폰 번호를 입력해주세요</string>
+    <string name="block_screen_block_text">차단하기</string>
+    <string name="block_screen_empty_text">아직 차단된 번호가 없어요</string>
+    <string name="block_screen_block_number_text">차단된 연락처</string>
+    <string name="block_screen_empty_image">차단번호가 등록되지 않은 스크린을 설명하기 위한 이미지입니다.</string>
 </resources>
