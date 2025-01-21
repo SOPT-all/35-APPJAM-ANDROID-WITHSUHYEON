@@ -171,6 +171,8 @@ private fun MyPageScreen(
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Row(
+                    modifier = Modifier
+                        .noRippleClickable(navigateToBlockUser),
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
                     Icon(
@@ -185,7 +187,6 @@ private fun MyPageScreen(
                         style = typography.body02_B,
                         modifier = Modifier
                             .padding(vertical = 14.dp)
-                            .noRippleClickable(navigateToBlockUser)
                     )
                 }
 

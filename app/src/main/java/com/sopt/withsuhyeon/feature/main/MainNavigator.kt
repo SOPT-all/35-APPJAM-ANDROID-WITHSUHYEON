@@ -21,6 +21,7 @@ import com.sopt.withsuhyeon.feature.home.navigation.navigateToBlockUser
 import com.sopt.withsuhyeon.feature.home.navigation.navigateToHome
 import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToBlockUserFromMyPage
 import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToMyPage
+import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToLogin
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToNickNameAuth
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToOnboardingFinish
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToPhoneNumberAuth
@@ -28,6 +29,7 @@ import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToPostProfileI
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToSelectGender
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToSelectLocation
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToSelectYearOfBirth
+import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToSignUp
 
 
 class MainNavigator(
@@ -37,7 +39,7 @@ class MainNavigator(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = MainTabRoute.Home
+    val startDestination = Route.OnBoarding
 
     val currentTab: MainTab?
         @SuppressLint("RestrictedApi") @Composable get() = MainTab.find { tab ->
@@ -60,6 +62,14 @@ class MainNavigator(
             MainTab.CHAT -> navController.navigateToChat(navOptions)
             MainTab.MYPAGE -> navController.navigateToMyPage(navOptions)
         }
+    }
+
+    fun navigateToLogin() {
+        navController.navigateToLogin()
+    }
+
+    fun navigateToSignUp() {
+        navController.navigateToSignUp()
     }
 
     fun navigateToPhoneNumberAuth() {
@@ -92,10 +102,6 @@ class MainNavigator(
 
     fun navigateToBlockUser() {
         navController.navigateToBlockUser()
-    }
-
-    fun navigateToLogin() {
-        navController.navigateToOnboardingFinish()
     }
 
     fun navigateToBlockUserFromMyPage() {

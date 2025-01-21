@@ -8,11 +8,13 @@ import com.sopt.withsuhyeon.feature.onboarding.FinishRoute
 import com.sopt.withsuhyeon.feature.onboarding.GenderSelectRoute
 import com.sopt.withsuhyeon.feature.onboarding.LoginRoute
 import com.sopt.withsuhyeon.feature.onboarding.NickNameAuthenticationRoute
+import com.sopt.withsuhyeon.feature.onboarding.OnBoardingRoute
 import com.sopt.withsuhyeon.feature.onboarding.PhoneNumberAuthenticationRoute
 import com.sopt.withsuhyeon.feature.onboarding.SelectLocationRoute
 import com.sopt.withsuhyeon.feature.onboarding.SelectProfileRoute
 import com.sopt.withsuhyeon.feature.onboarding.TermsOfUseRoute
 import com.sopt.withsuhyeon.feature.onboarding.YearOfBirthRoute
+import com.sopt.withsuhyeon.core.navigation.Route.OnBoarding as OnBoardingRoute
 import com.sopt.withsuhyeon.core.navigation.Route.TermsOfUse as TermsOfUseRoute
 import com.sopt.withsuhyeon.core.navigation.Route.PhoneNumberAuth as PhoneNumberAuthRoute
 import com.sopt.withsuhyeon.core.navigation.Route.NickNameAuth as NickNameAuthRoute
@@ -24,7 +26,13 @@ import com.sopt.withsuhyeon.core.navigation.Route.OnboardingFinish as Onboarding
 import com.sopt.withsuhyeon.core.navigation.MainTabRoute.Home as HomeRoute
 import com.sopt.withsuhyeon.core.navigation.Route.Login as LoginRoute
 
+fun NavController.navigateToSignUp() {
+    navigate(TermsOfUseRoute)
+}
 
+fun NavController.navigateToLogin() {
+    navigate(LoginRoute)
+}
 
 fun NavController.navigateToPhoneNumberAuth() {
     navigate(PhoneNumberAuthRoute)
@@ -60,6 +68,8 @@ fun NavController.navigateToHome() {
 
 fun NavGraphBuilder.onBoardingNavGraph(
     padding: PaddingValues,
+    onNavigateToLogin: () -> Unit,
+    onNavigateToSignUp: () -> Unit,
     onNavigateToPhoneNumberAuth: () -> Unit,
     onNavigateToNickNameAuth: () -> Unit,
     onNavigateToSelectYearOfBirth: () -> Unit,
@@ -69,6 +79,14 @@ fun NavGraphBuilder.onBoardingNavGraph(
     onNavigateToFinish: () -> Unit,
     onNavigateToHome: () -> Unit
 ) {
+    composable<OnBoardingRoute> {
+        OnBoardingRoute(
+            padding = padding,
+            navigateToSignUp = onNavigateToSignUp,
+            navigateToLogin = onNavigateToLogin,
+        )
+    }
+
     composable<TermsOfUseRoute> {
         TermsOfUseRoute(
             navigateToNext = onNavigateToPhoneNumberAuth,

@@ -55,6 +55,8 @@ fun MainNavHost(
             )
             onBoardingNavGraph(
                 padding = padding,
+                onNavigateToLogin =  navigator::navigateToLogin,
+                onNavigateToSignUp = navigator::navigateToSignUp,
                 onNavigateToPhoneNumberAuth = navigator::navigateToPhoneNumberAuth,
                 onNavigateToNickNameAuth = navigator::navigateToNicknameAuth,
                 onNavigateToSelectYearOfBirth = navigator::navigateToSelectYearOfBirth,
