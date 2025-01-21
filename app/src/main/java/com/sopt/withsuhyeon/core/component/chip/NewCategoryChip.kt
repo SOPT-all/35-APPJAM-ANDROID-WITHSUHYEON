@@ -2,13 +2,16 @@ package com.sopt.withsuhyeon.core.component.chip
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
@@ -42,99 +45,95 @@ fun NewCategoryChip(
     isSelected: Boolean,
     onClick: () -> Unit
 ) {
-    val nospace = category.replace(" ", "")
-    val afterTextWidth = remember { (nospace.length * 15).toFloat() }
+    // 스크롤 진행도 계산
+    val progress = (-scrollOffset / 100f).coerceIn(0f, 1f)
 
-    var iconSize by remember { mutableStateOf(36f) }
-    var circleWidth by remember { mutableStateOf(60f) }
-    var circleHeight by remember { mutableStateOf(60f) }
-    var insideTextOpacity by remember { mutableStateOf(-5f) }
-    var outsideTextOpacity by remember { mutableStateOf(1f) }
-    var textWidth by remember { mutableStateOf(0f) }
-    var textHeight by remember { mutableStateOf(26f) }
-    var allTextWidth by remember { mutableStateOf(40f) }
-    var allTextOpacity by remember { mutableStateOf(1f) }
+    // 애니메이션되는 값들
+    val iconSize by animateDpAsState(
+        targetValue = if (scrollOffset > 0) 30.dp else 36.dp,
+        animationSpec = tween(durationMillis = 300)
+    )
+    val chipBackgroundColor by animateColorAsState(
+        targetValue = if (isSelected) colors.Purple500 else colors.Grey50,
+        animationSpec = tween(durationMillis = 300)
+    )
+    val textWidth by animateDpAsState(
+        targetValue = if (progress > 0) 30.dp else 0.dp,
+        animationSpec = tween(durationMillis = 300)
+    )
+    val textOpacity by animateFloatAsState(
+        targetValue = if (progress > 0) 1f else 0f,
+        animationSpec = tween(durationMillis = 300)
+    )
+    val columnTextOpacity by animateFloatAsState(
+        targetValue = if (progress > 0) 0f else 1f,
+        animationSpec = tween(durationMillis = 300)
+    )
 
-    // 스크롤 변경 감지 시 애니메이션 적용
-    LaunchedEffect(scrollOffset) {
-        val progress = (-scrollOffset / 100f).coerceIn(0f, 1f)
-        insideTextOpacity = -5f + (progress * 6)
-        outsideTextOpacity = 1f - (progress * 1.17f)
-        allTextOpacity = 1f - (progress * 3)
-        allTextWidth = 40f - (progress * 40f)
-        textWidth = (afterTextWidth * progress)
-        circleHeight = 60f - (23 * progress)
-        iconSize = 36f - (18 * progress)
-        textHeight = 26f - (progress * 26)
-
-        circleWidth = if (category == "전체") {
-            60f + ((afterTextWidth - 31) * progress)
-        } else {
-            60f + ((afterTextWidth - 18) * progress)
-        }
-    }
-
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Box(
+    if (progress > 0) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
             modifier = Modifier
-                .size(width = circleWidth.dp, height = circleHeight.dp)
                 .background(
                     color = if (isSelected) colors.Purple500 else colors.Grey50,
                     shape = CircleShape
-                ),
-            contentAlignment = Alignment.Center
+                )
+                .padding(start = 12.dp, end = 16.dp, top = 8.dp, bottom = 8.dp)
+                .noRippleClickable { onClick() }
         ) {
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
+            Icon(
+                painter = painterResource(id = R.drawable.ic_gallery),
+                contentDescription = null,
+                tint = colors.Grey300,
+                modifier = Modifier.size(iconSize)
+            )
+            Spacer(modifier = Modifier.width(4.dp))
+            Text(
+                text = category,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = if (isSelected) Color.White else Color(0xFF757575),
+                maxLines = 1,
+                modifier = Modifier
+                    .width(textWidth)
+                    .alpha(textOpacity)
+            )
+        }
+    } else {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.noRippleClickable { onClick() }
+        ) {
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .size(60.dp)
+                    .background(
+                        color = if (isSelected) colors.Purple500 else colors.Grey50,
+                        shape = CircleShape
+                    )
             ) {
-                if (category == "전체") {
-                    Text(
-                        text = "ALL",
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = if (isSelected) colors.White else colors.Grey200,
-                        modifier = Modifier
-                            .width(allTextWidth.dp)
-                            .alpha(allTextOpacity)
-                    )
-                } else {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_gallery),
-                        contentDescription = null,
-                        tint = colors.Grey300,
-                        modifier = Modifier
-                            .size(iconSize.dp)
-                    )
-                }
-
-                Text(
-                    text = category,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = if (isSelected) Color.White else Color(0xFF757575),
-                    maxLines = 1,
-                    modifier = Modifier
-                        .width(textWidth.dp)
-                        .alpha(insideTextOpacity)
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_gallery),
+                    contentDescription = null,
+                    tint = colors.Grey300,
+                    modifier = Modifier.size(iconSize)
                 )
             }
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = category,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Bold,
+                color = if (isSelected) colors.Purple600 else colors.Grey400,
+                modifier = Modifier.alpha(columnTextOpacity)
+            )
         }
-
-        Text(
-            text = category,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Bold,
-            color = if (isSelected) colors.Purple600 else colors.Grey400,
-            modifier = Modifier
-                .height(textHeight.dp)
-                .alpha(outsideTextOpacity)
-        )
     }
-
 }
+
+
 
 @Preview
 @Composable
