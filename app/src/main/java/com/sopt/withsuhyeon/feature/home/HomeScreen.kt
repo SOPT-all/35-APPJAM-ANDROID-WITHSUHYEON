@@ -81,8 +81,8 @@ fun HomeScreen(
     onCategoryCardClick: (String) -> Unit,
     onViewAllButtonClick: () -> Unit
 ) {
-    var count by remember { mutableStateOf(1000) }
-    val countTarget = 4737
+    var count by remember { mutableStateOf(0) }
+    val countTarget = 4500
 
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.test))
 
@@ -137,11 +137,6 @@ fun HomeScreen(
                 } else {
                     count += 37
                 }
-            }
-            if (count > countTarget - 38) {
-                count = countTarget
-            } else {
-                count += 37
             }
         }
     }
