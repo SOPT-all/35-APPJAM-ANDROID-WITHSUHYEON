@@ -52,7 +52,7 @@ fun AlertModal(
                 when (alertModalType) {
                     LOGOUT_ALERT_TYPE -> {
                         Text(
-                            text = "정말 로그아웃하시겠습니까?",
+                            text = stringResource(R.string.alert_modal_logout_title),
                             style = typography.title03_B,
                             color = colors.Black
                         )
@@ -60,7 +60,7 @@ fun AlertModal(
 
                     LEAVE_ALERT_TYPE -> {
                         Text(
-                            text = "정말 탈퇴하시겠습니까?",
+                            text = stringResource(R.string.alert_modal_leave_title),
                             style = typography.title03_B,
                             color = colors.Black
                         )
@@ -79,7 +79,7 @@ fun AlertModal(
                 when (alertModalType) {
                     LEAVE_ALERT_TYPE -> {
                         Text(
-                            text = "작성한 내용이 저장되지 않고 모두 사라집니다.",
+                            text = stringResource(R.string.alert_modal_leave_sub_title),
                             style = typography.body03_SB,
                             color = colors.Grey500
                         )
@@ -115,7 +115,7 @@ fun AlertModal(
                     when (alertModalType) {
                         LOGOUT_ALERT_TYPE -> {
                             SmallButton(
-                                text = "로그아웃",
+                                text = stringResource(R.string.alert_modal_logout),
                                 type = DEFAULT,
                                 modifier = Modifier.weight(1f)
                             ) {
@@ -125,7 +125,7 @@ fun AlertModal(
 
                         LEAVE_ALERT_TYPE -> {
                             SmallButton(
-                                text = "탈퇴하기",
+                                text = stringResource(R.string.alert_modal_leave),
                                 type = ALERT_TYPE,
                                 modifier = Modifier.weight(1f)
                             ) {

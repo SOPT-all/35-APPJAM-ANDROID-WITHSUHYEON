@@ -160,4 +160,12 @@
     <string name="login_title">휴대폰 번호 인증으로\n로그인해주세요</string>
     <string name="login_input_hint"> - 를 제외한 휴대폰 번호를 입력해주세요</string>
     <string name="login_input_title">휴대폰 번호</string>
+
+    <!-- AlertModal -->
+    <string name="alert_modal_logout_title">정말 로그아웃하시겠습니까?</string>
+    <string name="alert_modal_leave_title">정말 탈퇴하시겠습니까?</string>
+    <string name="alert_modal_leave_sub_title">작성한 내용이 저장되지 않고 모두 사라집니다.</string>
+    <string name="alert_modal_logout">로그아웃</string>
+    <string name="alert_modal_leave">탈퇴하기</string>
+
 </resources>
