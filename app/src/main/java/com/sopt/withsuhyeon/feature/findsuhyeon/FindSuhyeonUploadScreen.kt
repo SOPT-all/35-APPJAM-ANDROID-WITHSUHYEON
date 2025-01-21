@@ -50,7 +50,6 @@ import com.sopt.withsuhyeon.feature.findsuhyeon.component.SingleSelectGender
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 import com.sopt.withsuhyeon.core.component.dropdown.chip.MediumChipDropDown
-import com.sopt.withsuhyeon.core.component.modal.AlertModal
 import com.sopt.withsuhyeon.core.component.progressbar.AnimatedProgressBar
 import com.sopt.withsuhyeon.core.component.textfield.BasicShortTextFieldForPrice
 import com.sopt.withsuhyeon.core.component.topbar.SubTopNavBar
@@ -118,8 +117,6 @@ fun FindSuhyeonUploadScreen(
     var isLocationBottomSheetVisible by remember { mutableStateOf(false) }
     var isDateTimePickerBottomSheetVisible by remember { mutableStateOf(false) }
 
-    var isDeleteAlertModalVisible by remember { mutableStateOf(false) }
-
     val isComplete =
         isSelectedGender && isSelectedAge && isSelectedRequirements && isSelectedLocation && isSelectedPrice
 
@@ -159,7 +156,7 @@ fun FindSuhyeonUploadScreen(
                 isTextVisible = false,
                 isBtnVisible = true,
                 onCloseBtnClicked = {
-                    isDeleteAlertModalVisible = !isDeleteAlertModalVisible
+                    onCloseButtonClick()
                 },
                 modifier = Modifier.drawBehind {
                     val borderThickness = 1.dp.toPx()
@@ -321,14 +318,14 @@ fun FindSuhyeonUploadScreen(
                         isSelectedDate = !selectedDateString.isNullOrEmpty()
                     },
                     onDismiss = {
-                        isRequirementsBottomSheetVisible = false
+                        isDateTimePickerBottomSheetVisible = false
                     },
                     modifier = Modifier.padding(bottom = navigationBarsPadding),
                     selectedDateString = selectedDateString,
                     selectedDate = selectedDate
                 )
             }
-            //BottomSheet
+
             if (isLocationBottomSheetVisible) {
                 val mainLocationList = remember {
                     mutableListOf(
@@ -444,17 +441,6 @@ fun FindSuhyeonUploadScreen(
                     selectedAge = selectedAge
                 )
             }
-        }
-        if (isDeleteAlertModalVisible) {
-            AlertModal(
-                onDeleteClick = {
-                    isDeleteAlertModalVisible = false
-                },
-                onCancelClick = {
-                    onCloseButtonClick()
-                    isDeleteAlertModalVisible = false
-                }
-            )
         }
         if (imeIsShown) {
             LargeButton(
