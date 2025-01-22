@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyRow
@@ -27,6 +28,7 @@ import androidx.compose.material3.pulltorefresh.pullToRefresh
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -81,7 +83,7 @@ fun HomeScreen(
     onCategoryCardClick: (String) -> Unit,
     onViewAllButtonClick: () -> Unit
 ) {
-    var count by remember { mutableStateOf(0) }
+    var count by remember { mutableIntStateOf(0) }
     val countTarget = 4500
 
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.home))
@@ -141,217 +143,228 @@ fun HomeScreen(
         }
     }
     val offset = with(LocalDensity.current) {
-        if((state.distanceFraction * 100.dp.toPx()).toDp() >= 80.dp)
-            80.dp
+        if((state.distanceFraction * 60.dp.toPx()).toDp() >= 60.dp)
+            60.dp
         else
-            (state.distanceFraction * 100.dp.toPx()).toDp()
+            (state.distanceFraction * 60.dp.toPx()).toDp()
     }
-
-    Box(
+    Column (
         modifier = modifier
             .fillMaxSize()
-            .pullToRefresh(
-                isRefreshing = isRefreshing,
-                state = state,
-                onRefresh = onRefresh
+            .background(
+                Brush.verticalGradient(
+                    colors = listOf(
+                        Color(0xFF4703B5),
+                        Color(0xFF207AFC),
+                        Color.White
+                    )
+                )
             )
+            .statusBarsPadding()
     ) {
-        Column(
+        Icon(
+            imageVector = ImageVector.vectorResource(R.drawable.logo),
+            contentDescription = stringResource(R.string.app_logo),
+            tint = Color.Unspecified,
+            modifier = Modifier.padding(top = 10.dp, start = 16.dp, bottom = 18.dp)
+        )
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-                .padding(padding)
-                .background(
-                    Brush.verticalGradient(
-                        colors = listOf(
-                            Color(0xFF4703B5),
-                            Color(0xFF207AFC),
-                            Color.White
-                        )
-                    )
+                .pullToRefresh(
+                    isRefreshing = isRefreshing,
+                    state = state,
+                    onRefresh = onRefresh
                 )
-
         ) {
-            Spacer(Modifier.height(offset))
-            Box {
-                LottieAnimation(
-                    modifier = Modifier
-                        .width(180.dp)
-                        .height(200.dp)
-                        .align(Alignment.BottomEnd),
-                    composition = composition,
-                    iterations = Int.MAX_VALUE,
-                    contentScale = ContentScale.Fit
-                )
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 24.dp, vertical = 20.dp)
-                        .background(color = Color.Transparent)
-                ) {
-                    Spacer(modifier = Modifier.height(61.dp))
-                    Text(
-                        stringResource(R.string.home_title_count),
-                        style = typography.body03_SB.merge(colors.Grey25),
-                    )
-                    Row(modifier = Modifier
-                        .padding(vertical = 16.dp)
-                    ) {
-                        Text(
-                            count.toString(),
-                            style = typography.heading01_B.merge(colors.White),
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(
-                            stringResource(R.string.home_count),
-                            style = typography.heading01_SB.merge(colors.White),
-                        )
-                    }
-                }
-            }
             Column(
                 modifier = Modifier
-                    .background(color = colors.White)
-                    .padding(top = 24.dp, bottom = 24.dp)
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+                    .padding(padding)
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 16.dp, end = 16.dp)
-                ) {
-                    Text(
-                        text = stringResource(R.string.home_title_now),
-                        style = typography.title03_B.merge(colors.Black)
-                    )
-
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.padding(vertical = 13.dp)
-                            .noRippleClickable(onViewAllButtonClick)
-                    ) {
-                        Text(
-                            text = stringResource(R.string.home_view_all),
-                            style = typography.caption01_SB.merge(colors.Grey800)
-                        )
-                        Icon(
-                            imageVector = ImageVector.vectorResource(R.drawable.ic_right_arrow),
-                            tint = colors.Grey800,
-                            modifier = Modifier.size(16.dp),
-                            contentDescription = stringResource(R.string.home_view_all)
-                        )
-                    }
-                }
-                Spacer(Modifier.height(8.dp))
-                LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    item {
-                        Spacer(Modifier.width(8.dp))
-                    }
-                    item {
-                        HomeCardItem(
-                            "쉿! 여행 중엔\n" +
-                                    "방해 금지 모드",
-                            imageResource = R.drawable.img_do_not_disturb,
-                            textColor = colors.Black,
-                            modifier = Modifier.noRippleClickable {
-                                onCategoryCardClick("공항")
-                            }
-                        )
-                    }
-                    item {
-                        HomeCardItem(
-                            "꼭꼭 숨어라\n" +
-                                    "나 오늘 집에 안간다",
-                            imageResource = R.drawable.img_seek_and_hide,
-                            textColor = colors.White,
-                            modifier = Modifier.noRippleClickable {
-                                onCategoryCardClick("캠핑/글램핑")
-                            }
-                        )
-                    }
-                    item {
-                        HomeCardItem(
-                            "쉿! 여행 중엔\n" +
-                                    "방해 금지 모드",
-                            imageResource = R.drawable.img_study_cafe,
-                            textColor = colors.White,
-                            modifier = Modifier.noRippleClickable {
-                                onCategoryCardClick("스터디카페")
-                            }
-                        )
-                    }
-                }
-            }
-            HorizontalDivider(
-                thickness = 2.dp,
-                color = colors.Grey50
-            )
-            Box(
-                modifier = Modifier
-                    .background(color = colors.White)
-                    .fillMaxWidth()
-                    .padding(start = 16.dp, end = 16.dp, top = 24.dp)
-            ) {
-                Icon(
-                    imageVector = ImageVector.vectorResource(R.drawable.img_megaphone),
-                    contentDescription = null,
-                    tint = Color.Unspecified,
-                    modifier = Modifier
-                        .alpha(0.3f)
-                        .align(Alignment.TopEnd)
-                )
-                Column(
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Row(
+                Spacer(Modifier.height(offset))
+                Box {
+                    LottieAnimation(
                         modifier = Modifier
-                            .fillMaxWidth()
-                    ) {
-                        Text(
-                            text = stringResource(R.string.home_text_around),
-                            style = typography.title03_B.merge(colors.Purple500)
-                        )
-                        Spacer(Modifier.width(4.dp))
-                        Text(
-                            text = stringResource(R.string.home_title_post),
-                            style = typography.title03_B.merge(colors.Black)
-                        )
-                    }
-                    Spacer(modifier = Modifier.height(17.dp))
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            imageVector = ImageVector.vectorResource(R.drawable.ic_location),
-                            tint = colors.Grey400,
-                            modifier = Modifier.size(16.dp),
-                            contentDescription = stringResource(R.string.home_view_all)
-                        )
-                        Spacer(Modifier.width(3.dp))
-                        Text(
-                            text = "강남/역삼/삼성",
-                            style = typography.body03_SB.merge(colors.Grey400)
-                        )
-                    }
+                            .width(180.dp)
+                            .height(200.dp)
+                            .align(Alignment.BottomEnd),
+                        composition = composition,
+                        iterations = Int.MAX_VALUE,
+                        contentScale = ContentScale.Fit
+                    )
                     Column(
                         modifier = Modifier
-                            .wrapContentHeight()
-                            .padding(vertical = 16.dp),
-                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                            .fillMaxWidth()
+                            .padding(horizontal = 24.dp, vertical = 20.dp)
+                            .background(color = Color.Transparent)
                     ) {
-                        postList.forEachIndexed { index, post ->
-                            val isLastItem = index == postList.size - 1
-                            FindSuhyeonPostItem(
-                                postItemModel = post,
-                                modifier = Modifier
-                                    .padding(bottom = if (isLastItem) 32.dp else 0.dp)
-                                    .noRippleClickable {
-                                        onPostClick(post.postId)
-                                    }
+                        Spacer(modifier = Modifier.height(61.dp))
+                        Text(
+                            stringResource(R.string.home_title_count),
+                            style = typography.body03_SB.merge(colors.Grey25),
+                        )
+                        Row(
+                            modifier = Modifier
+                                .padding(vertical = 16.dp)
+                        ) {
+                            Text(
+                                count.toString(),
+                                style = typography.heading01_B.merge(colors.White),
                             )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                stringResource(R.string.home_count),
+                                style = typography.heading01_SB.merge(colors.White),
+                            )
+                        }
+                    }
+                }
+                Column(
+                    modifier = Modifier
+                        .background(color = colors.White)
+                        .padding(top = 24.dp, bottom = 24.dp)
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 16.dp, end = 16.dp)
+                    ) {
+                        Text(
+                            text = stringResource(R.string.home_title_now),
+                            style = typography.title03_B.merge(colors.Black)
+                        )
+
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.padding(vertical = 13.dp)
+                                .noRippleClickable(onViewAllButtonClick)
+                        ) {
+                            Text(
+                                text = stringResource(R.string.home_view_all),
+                                style = typography.caption01_SB.merge(colors.Grey800)
+                            )
+                            Icon(
+                                imageVector = ImageVector.vectorResource(R.drawable.ic_right_arrow),
+                                tint = colors.Grey800,
+                                modifier = Modifier.size(16.dp),
+                                contentDescription = stringResource(R.string.home_view_all)
+                            )
+                        }
+                    }
+                    Spacer(Modifier.height(8.dp))
+                    LazyRow(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        item {
+                            Spacer(Modifier.width(8.dp))
+                        }
+                        item {
+                            HomeCardItem(
+                                "쉿! 여행 중엔\n" +
+                                        "방해 금지 모드",
+                                imageResource = R.drawable.img_do_not_disturb,
+                                textColor = colors.Black,
+                                modifier = Modifier.noRippleClickable {
+                                    onCategoryCardClick("공항")
+                                }
+                            )
+                        }
+                        item {
+                            HomeCardItem(
+                                "꼭꼭 숨어라\n" +
+                                        "나 오늘 집에 안간다",
+                                imageResource = R.drawable.img_seek_and_hide,
+                                textColor = colors.White,
+                                modifier = Modifier.noRippleClickable {
+                                    onCategoryCardClick("캠핑/글램핑")
+                                }
+                            )
+                        }
+                        item {
+                            HomeCardItem(
+                                "쉿! 여행 중엔\n" +
+                                        "방해 금지 모드",
+                                imageResource = R.drawable.img_study_cafe,
+                                textColor = colors.White,
+                                modifier = Modifier.noRippleClickable {
+                                    onCategoryCardClick("스터디카페")
+                                }
+                            )
+                        }
+                    }
+                }
+                HorizontalDivider(
+                    thickness = 2.dp,
+                    color = colors.Grey50
+                )
+                Box(
+                    modifier = Modifier
+                        .background(color = colors.White)
+                        .fillMaxWidth()
+                        .padding(start = 16.dp, end = 16.dp, top = 24.dp)
+                ) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(R.drawable.img_megaphone),
+                        contentDescription = null,
+                        tint = Color.Unspecified,
+                        modifier = Modifier
+                            .alpha(0.3f)
+                            .align(Alignment.TopEnd)
+                    )
+                    Column(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                        ) {
+                            Text(
+                                text = stringResource(R.string.home_text_around),
+                                style = typography.title03_B.merge(colors.Purple500)
+                            )
+                            Spacer(Modifier.width(4.dp))
+                            Text(
+                                text = stringResource(R.string.home_title_post),
+                                style = typography.title03_B.merge(colors.Black)
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(17.dp))
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                imageVector = ImageVector.vectorResource(R.drawable.ic_location),
+                                tint = colors.Grey400,
+                                modifier = Modifier.size(16.dp),
+                                contentDescription = stringResource(R.string.home_view_all)
+                            )
+                            Spacer(Modifier.width(3.dp))
+                            Text(
+                                text = "강남/역삼/삼성",
+                                style = typography.body03_SB.merge(colors.Grey400)
+                            )
+                        }
+                        Column(
+                            modifier = Modifier
+                                .wrapContentHeight()
+                                .padding(vertical = 16.dp),
+                            verticalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
+                            postList.forEachIndexed { index, post ->
+                                val isLastItem = index == postList.size - 1
+                                FindSuhyeonPostItem(
+                                    postItemModel = post,
+                                    modifier = Modifier
+                                        .padding(bottom = if (isLastItem) 32.dp else 0.dp)
+                                        .noRippleClickable {
+                                            onPostClick(post.postId)
+                                        }
+                                )
+                            }
                         }
                     }
                 }
