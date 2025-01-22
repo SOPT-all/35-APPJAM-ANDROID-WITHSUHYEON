@@ -38,6 +38,8 @@ fun MainNavHost(
             startDestination = navigator.startDestination,
         ) {
             homeNavGraph(
+                onNavigateToBlockUser = navigator::navigateToBlockUser,
+                popBackStack = navigator::popBackStack,
                 padding = PaddingValues(
                     start = padding.calculateStartPadding(layoutDirection = LayoutDirection.Ltr),
                     end = padding.calculateEndPadding(layoutDirection = LayoutDirection.Ltr),
@@ -73,15 +75,27 @@ fun MainNavHost(
             )
             myPageNavGraph(
                 padding = padding,
+                onNavigateToBlockUser = navigator::navigateToBlockUserFromMyPage,
+                onNavigateToOnboarding = navigator::navigateToOnboarding,
             )
             onBoardingNavGraph(
                 padding = padding,
+                onBoardingPadding = PaddingValues(
+                    start = padding.calculateStartPadding(layoutDirection = LayoutDirection.Ltr),
+                    end = padding.calculateEndPadding(layoutDirection = LayoutDirection.Ltr),
+                    bottom = padding.calculateBottomPadding(),
+                    top = 0.dp
+                ),
+                onNavigateToLogin =  navigator::navigateToLogin,
+                onNavigateToSignUp = navigator::navigateToSignUp,
                 onNavigateToPhoneNumberAuth = navigator::navigateToPhoneNumberAuth,
                 onNavigateToNickNameAuth = navigator::navigateToNicknameAuth,
                 onNavigateToSelectYearOfBirth = navigator::navigateToSelectYearOfBirth,
                 onNavigateToSelectGender = navigator::navigateToSelectGender,
                 onNavigateToPostProfileImage = navigator::navigateToPostProfileImage,
-                onNavigateToSelectLocation = navigator::navigateToSelectLocation
+                onNavigateToSelectLocation = navigator::navigateToSelectLocation,
+                onNavigateToFinish = navigator::navigateToOnboardingFinish,
+                onNavigateToHome = navigator::navigateToHome,
             )
         }
     }

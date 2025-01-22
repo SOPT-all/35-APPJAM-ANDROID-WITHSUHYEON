@@ -18,6 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.core.util.KeyStorage.ALERT_TYPE
+import com.sopt.withsuhyeon.core.util.KeyStorage.DEFAULT
 import com.sopt.withsuhyeon.core.util.KeyStorage.DISABLED_TYPE
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.ui.theme.Grey100
@@ -31,7 +32,7 @@ import com.sopt.withsuhyeon.ui.theme.defaultWithSuhyeonTypography
 @Composable
 fun SmallButton(
     text: String,
-    type: String? = null,
+    type: String = DEFAULT,
     modifier: Modifier = Modifier,
     font: TextStyle = defaultWithSuhyeonTypography.body01_B,
     onClick: () -> Unit

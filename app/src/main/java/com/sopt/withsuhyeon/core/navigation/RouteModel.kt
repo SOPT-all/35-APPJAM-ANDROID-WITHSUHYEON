@@ -4,6 +4,8 @@ import kotlinx.serialization.Serializable
 
 sealed interface Route {
     @Serializable
+    data object OnBoarding : Route
+    @Serializable
     data object TermsOfUse : Route
     @Serializable
     data object PhoneNumberAuth : Route
@@ -12,13 +14,11 @@ sealed interface Route {
     @Serializable
     data object SelectYearOfBirth : Route
     @Serializable
-    data object SelectGender : Route
-    @Serializable
-    data object OnBoarding : Route
-    @Serializable
     data object GalleryUpload : Route
     @Serializable
     data object GalleryPostDetail : Route
+    @Serializable
+    data object SelectGender : Route
     @Serializable
     data object FindSuhyeonUpload : Route
     @Serializable
@@ -29,6 +29,12 @@ sealed interface Route {
     data object PostProfileImage : Route
     @Serializable
     data object SelectLocation : Route
+    @Serializable
+    data object OnboardingFinish : Route
+    @Serializable
+    data object BlockUser: Route
+    @Serializable
+    data object Login: Route
     @Serializable
     data object ChatRoom : Route
 }

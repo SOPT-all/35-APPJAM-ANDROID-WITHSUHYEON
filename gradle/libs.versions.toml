@@ -64,6 +64,7 @@ hilt-manager = {group = "androidx.hilt" , name = "hilt-compiler", version.ref = 
 compose-date-time-picker = { group = "io.github.kez-lab", name = "compose-date-time-picker", version.ref = "composeDateTimePicker" }
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

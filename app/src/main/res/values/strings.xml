@@ -159,6 +159,8 @@
     <string name="onboarding_gender_select_title">성별을\n선택해주세요</string>
     <string name="onboarding_profile_select_title">프로필 이미지를\n등록해주세요</string>
     <string name="profile_image">프로필 이미지</string>
+    <string name="onboarding_location_select_title">자주 활동하는\n지역을 선택해주세요</string>
+    <string name="onboarding_finish_title">회원가입이\n완료되었습니다</string>
 
     <!-- ShowButton -->
     <string name="show_button_title">보기</string>
@@ -184,4 +186,32 @@
     <string name="home_title_post">수현이가 되어줘</string>
     <string name="home_count">건</string>
     <string name="home_text_around">내주변</string>
+
+    <!--  차단스크린  -->
+    <string name="block_screen_title">차단 계정 관리</string>
+    <string name="block_screen_sub_title">차단할 번호를 입력해주세요</string>
+    <string name="block_screen_description">차단한 사용자는 xx님의 게시글과 xx님이 다운로드한 사진들을\n볼 수 없습니다.</string>
+    <string name="block_screen_phone_number">휴대폰 번호</string>
+    <string name="block_screen_phone_number_hint">-를 제외한 휴대폰 번호를 입력해주세요</string>
+    <string name="block_screen_block_text">차단하기</string>
+    <string name="block_screen_empty_text">아직 차단된 번호가 없어요</string>
+    <string name="block_screen_block_number_text">차단된 연락처</string>
+    <string name="block_screen_empty_image">차단번호가 등록되지 않은 스크린을 설명하기 위한 이미지입니다.</string>
+
+    <!-- 로그인 화면   -->
+    <string name="login_title">휴대폰 번호 인증으로\n로그인해주세요</string>
+    <string name="login_input_hint"> - 를 제외한 휴대폰 번호를 입력해주세요</string>
+    <string name="login_input_title">휴대폰 번호</string>
+
+    <!-- AlertModal -->
+    <string name="alert_modal_logout_title">정말 로그아웃하시겠습니까?</string>
+    <string name="alert_modal_leave_title">정말 탈퇴하시겠습니까?</string>
+    <string name="alert_modal_leave_sub_title">작성한 내용이 저장되지 않고 모두 사라집니다.</string>
+    <string name="alert_modal_logout">로그아웃</string>
+    <string name="alert_modal_leave">탈퇴하기</string>
+
+    <!-- 시작 온보딩 -->
+    <string name="onboarding_account_question">이미 계정이 있나요?</string>
+    <string name="onboarding_login_text">로그인</string>
+    <string name="onboarding_start_text">시작하기</string>
 </resources>

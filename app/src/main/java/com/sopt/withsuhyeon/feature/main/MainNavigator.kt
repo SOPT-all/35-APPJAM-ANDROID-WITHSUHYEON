@@ -20,14 +20,20 @@ import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.navigateToFindSuhyeon
 import com.sopt.withsuhyeon.feature.gallery.navigation.navigateToGallery
 import com.sopt.withsuhyeon.feature.gallery.navigation.navigateToGalleryPostDetail
 import com.sopt.withsuhyeon.feature.gallery.navigation.navigateToGalleryUpload
+import com.sopt.withsuhyeon.feature.home.navigation.navigateToBlockUser
 import com.sopt.withsuhyeon.feature.home.navigation.navigateToHome
+import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToBlockUserFromMyPage
 import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToMyPage
+import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToOnBoarding
+import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToLogin
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToNickNameAuth
+import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToOnboardingFinish
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToPhoneNumberAuth
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToPostProfileImage
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToSelectGender
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToSelectLocation
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToSelectYearOfBirth
+import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToSignUp
 
 
 class MainNavigator(
@@ -37,7 +43,7 @@ class MainNavigator(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = MainTabRoute.FindSuhyeon
+    val startDestination = Route.OnBoarding
 
     val currentTab: MainTab?
         @Composable get() = MainTab.entries.find { tab ->
@@ -49,7 +55,7 @@ class MainNavigator(
 
     fun navigate(tab: MainTab) {
         val navOptions = navOptions {
-            popUpTo(MainTab.HOME.route)  {
+            popUpTo(MainTab.HOME.route) {
                 saveState = true
             }
             launchSingleTop = true
@@ -64,6 +70,15 @@ class MainNavigator(
             MainTab.MYPAGE -> navController.navigateToMyPage(navOptions)
         }
     }
+
+    fun navigateToLogin() {
+        navController.navigateToLogin()
+    }
+
+    fun navigateToSignUp() {
+        navController.navigateToSignUp()
+    }
+
     fun navigateToPhoneNumberAuth() {
         navController.navigateToPhoneNumberAuth()
     }
@@ -75,14 +90,33 @@ class MainNavigator(
     fun navigateToSelectYearOfBirth() {
         navController.navigateToSelectYearOfBirth()
     }
+
     fun navigateToSelectGender() {
         navController.navigateToSelectGender()
     }
+
     fun navigateToPostProfileImage() {
         navController.navigateToPostProfileImage()
     }
+
     fun navigateToSelectLocation() {
         navController.navigateToSelectLocation()
+    }
+
+    fun navigateToOnboardingFinish() {
+        navController.navigateToOnboardingFinish()
+    }
+
+    fun navigateToBlockUser() {
+        navController.navigateToBlockUser()
+    }
+
+    fun navigateToBlockUserFromMyPage() {
+        navController.navigateToBlockUserFromMyPage()
+    }
+
+    fun navigateToOnboarding() {
+        navController.navigateToOnBoarding()
     }
 
     fun navigateToHome(navOptions: NavOptions? = null) {

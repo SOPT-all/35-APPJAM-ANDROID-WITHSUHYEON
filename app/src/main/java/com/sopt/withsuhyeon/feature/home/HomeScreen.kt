@@ -28,6 +28,9 @@ import androidx.compose.material3.pulltorefresh.pullToRefresh
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -40,6 +43,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.sopt.withsuhyeon.core.component.bottomsheet.BlockBottomSheet
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -56,16 +60,20 @@ fun HomeRoute(
     padding: PaddingValues,
     navigateToGallery: () -> Unit,
     navigateToGalleryWithCategory: (String) -> Unit,
-    navigateToPost: (Long) -> Unit
+    navigateToPost: (Long) -> Unit,
+    navigateToBlockUser: () -> Unit,
+    viewModel: HomeViewModel = hiltViewModel(),
 ) {
     HomeScreen(
         padding = padding,
         onCategoryCardClick = navigateToGalleryWithCategory,
         onViewAllButtonClick = navigateToGallery,
-        onPostClick = navigateToPost
+        onPostClick = navigateToPost,
+        navigateToBlockUser = navigateToBlockUser,
     )
 }
 @OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun HomeScreen(
     padding: PaddingValues,
@@ -73,8 +81,18 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
     onPostClick: (Long) -> Unit,
     onCategoryCardClick: (String) -> Unit,
-    onViewAllButtonClick: () -> Unit
+    onViewAllButtonClick: () -> Unit,
+    navigateToBlockUser: () -> Unit
 ) {
+    var isBottomSheetVisible by remember { mutableStateOf(true) }
+    var isBlockBottomSheetVisible by remember { mutableStateOf(true) }
+    if (isBlockBottomSheetVisible) {
+        BlockBottomSheet(
+            closeSheet = { isBlockBottomSheetVisible = false },
+            navigateToBlockScreen = navigateToBlockUser
+        )
+    }
+
     val homeState by viewModel.state.collectAsStateWithLifecycle()
 
     val composition by rememberLottieComposition(
@@ -326,13 +344,13 @@ fun HomeScreen(
     }
 }
 
-@Preview
-@Composable
-fun PreviewHome() {
-    HomeScreen(
-        padding = PaddingValues(0.dp),
-        onPostClick = { },
-        onCategoryCardClick = { },
-        onViewAllButtonClick = { },
-    )
-}
+//@Preview
+//@Composable
+//fun PreviewHome() {
+//    HomeScreen(
+//        padding = PaddingValues(0.dp),
+//        onPostClick = { },
+//        onCategoryCardClick = { },
+//        onViewAllButtonClick = { },
+//    )
+//}

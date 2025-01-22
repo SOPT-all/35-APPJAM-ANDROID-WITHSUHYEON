@@ -4,13 +4,17 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.sopt.withsuhyeon.feature.onboarding.FinishRoute
 import com.sopt.withsuhyeon.feature.onboarding.GenderSelectRoute
+import com.sopt.withsuhyeon.feature.onboarding.LoginRoute
 import com.sopt.withsuhyeon.feature.onboarding.NickNameAuthenticationRoute
+import com.sopt.withsuhyeon.feature.onboarding.OnBoardingRoute
 import com.sopt.withsuhyeon.feature.onboarding.PhoneNumberAuthenticationRoute
 import com.sopt.withsuhyeon.feature.onboarding.SelectLocationRoute
 import com.sopt.withsuhyeon.feature.onboarding.SelectProfileRoute
 import com.sopt.withsuhyeon.feature.onboarding.TermsOfUseRoute
 import com.sopt.withsuhyeon.feature.onboarding.YearOfBirthRoute
+import com.sopt.withsuhyeon.core.navigation.Route.OnBoarding as OnBoardingRoute
 import com.sopt.withsuhyeon.core.navigation.Route.TermsOfUse as TermsOfUseRoute
 import com.sopt.withsuhyeon.core.navigation.Route.PhoneNumberAuth as PhoneNumberAuthRoute
 import com.sopt.withsuhyeon.core.navigation.Route.NickNameAuth as NickNameAuthRoute
@@ -18,9 +22,16 @@ import com.sopt.withsuhyeon.core.navigation.Route.SelectYearOfBirth as YearOfBir
 import com.sopt.withsuhyeon.core.navigation.Route.SelectGender as SelectGenderRoute
 import com.sopt.withsuhyeon.core.navigation.Route.PostProfileImage as PostProfileImageRoute
 import com.sopt.withsuhyeon.core.navigation.Route.SelectLocation as SelectLocationRoute
+import com.sopt.withsuhyeon.core.navigation.Route.OnboardingFinish as OnboardingFinishRoute
+import com.sopt.withsuhyeon.core.navigation.MainTabRoute.Home as HomeRoute
+import com.sopt.withsuhyeon.core.navigation.Route.Login as LoginRoute
 
-fun NavController.navigateToTermsOfUse() {
+fun NavController.navigateToSignUp() {
     navigate(TermsOfUseRoute)
+}
+
+fun NavController.navigateToLogin() {
+    navigate(LoginRoute)
 }
 
 fun NavController.navigateToPhoneNumberAuth() {
@@ -47,15 +58,36 @@ fun NavController.navigateToSelectLocation() {
     navigate(SelectLocationRoute)
 }
 
+fun NavController.navigateToOnboardingFinish() {
+    navigate(OnboardingFinishRoute)
+}
+
+fun NavController.navigateToHome() {
+    navigate(HomeRoute)
+}
+
 fun NavGraphBuilder.onBoardingNavGraph(
+    onBoardingPadding: PaddingValues,
     padding: PaddingValues,
+    onNavigateToLogin: () -> Unit,
+    onNavigateToSignUp: () -> Unit,
     onNavigateToPhoneNumberAuth: () -> Unit,
     onNavigateToNickNameAuth: () -> Unit,
     onNavigateToSelectYearOfBirth: () -> Unit,
     onNavigateToSelectGender: () -> Unit,
     onNavigateToPostProfileImage: () -> Unit,
-    onNavigateToSelectLocation: () -> Unit
+    onNavigateToSelectLocation: () -> Unit,
+    onNavigateToFinish: () -> Unit,
+    onNavigateToHome: () -> Unit
 ) {
+    composable<OnBoardingRoute> {
+        OnBoardingRoute(
+            padding = onBoardingPadding,
+            navigateToSignUp = onNavigateToSignUp,
+            navigateToLogin = onNavigateToLogin,
+        )
+    }
+
     composable<TermsOfUseRoute> {
         TermsOfUseRoute(
             navigateToNext = onNavigateToPhoneNumberAuth,
@@ -94,7 +126,19 @@ fun NavGraphBuilder.onBoardingNavGraph(
     }
     composable<SelectLocationRoute> {
         SelectLocationRoute(
-            navigateToNext = {},
+            navigateToNext = onNavigateToFinish,
+            padding = padding
+        )
+    }
+    composable<OnboardingFinishRoute> {
+        FinishRoute(
+            navigateToNext = onNavigateToHome,
+            padding = padding
+        )
+    }
+    composable<LoginRoute> {
+        LoginRoute(
+            navigateToLoginFinish = onNavigateToFinish,
             padding = padding
         )
     }
