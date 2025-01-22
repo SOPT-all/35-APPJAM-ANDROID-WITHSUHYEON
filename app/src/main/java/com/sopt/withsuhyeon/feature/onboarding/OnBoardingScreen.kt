@@ -7,18 +7,27 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PageSize
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.button.LargeButton
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
@@ -46,20 +55,50 @@ fun OnBoardingScreen(
     onLoginButtonClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+
+    val lottieFiles = listOf(
+        R.raw.function_1,
+        R.raw.function_2,
+        R.raw.function_3
+    )
+    val pagerState = rememberPagerState(initialPage = 0) {
+        lottieFiles.size
+    }
     Column(
         modifier = modifier
             .background(color = colors.White)
             .padding(padding)
             .fillMaxSize(),
-        verticalArrangement = Arrangement.Center
     ) {
-        Box(
+        HorizontalPager(
+            state = pagerState,
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(0.8f)
-                .aspectRatio(0.8f)
-                .background(color = colors.Grey400)
-        )
+                .weight(1f),
+            pageSize = PageSize.Fill,
+
+            ) { page ->
+            Box(
+                modifier
+                    .fillMaxSize()
+            ) {
+                val composition by rememberLottieComposition(
+                    LottieCompositionSpec.RawRes(
+                        lottieFiles[page]
+                    )
+                )
+
+                LottieAnimation(
+                    composition = composition,
+                    iterations = LottieConstants.IterateForever,
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    contentScale = ContentScale.Crop
+                )
+                Spacer(modifier.height(28.dp))
+
+            }
+        }
         Column(
             modifier = Modifier
                 .padding(
@@ -95,4 +134,14 @@ fun OnBoardingScreen(
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun PreviewOnBoardungScreen() {
+    OnBoardingScreen(
+        padding = PaddingValues(0.dp),
+        onSignUpButtonClick = {},
+        onLoginButtonClick = { },
+    )
 }

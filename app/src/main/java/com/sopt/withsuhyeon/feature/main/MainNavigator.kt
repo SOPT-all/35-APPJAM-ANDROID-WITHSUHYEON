@@ -38,7 +38,7 @@ class MainNavigator(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = Route.OnboardingFinish
+    val startDestination = Route.OnBoarding 
 
     val currentTab: MainTab?
         @SuppressLint("RestrictedApi") @Composable get() = MainTab.find { tab ->

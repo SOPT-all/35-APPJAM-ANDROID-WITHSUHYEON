@@ -67,6 +67,7 @@ fun NavController.navigateToHome() {
 }
 
 fun NavGraphBuilder.onBoardingNavGraph(
+    onBoardingPadding: PaddingValues,
     padding: PaddingValues,
     onNavigateToLogin: () -> Unit,
     onNavigateToSignUp: () -> Unit,
@@ -81,7 +82,7 @@ fun NavGraphBuilder.onBoardingNavGraph(
 ) {
     composable<OnBoardingRoute> {
         OnBoardingRoute(
-            padding = padding,
+            padding = onBoardingPadding,
             navigateToSignUp = onNavigateToSignUp,
             navigateToLogin = onNavigateToLogin,
         )
