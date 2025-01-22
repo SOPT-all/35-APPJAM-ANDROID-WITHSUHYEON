@@ -15,7 +15,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -56,18 +55,13 @@ fun GalleryPostDetailRoute(
 fun GalleryPostDetailScreen(
     padding: PaddingValues,
     onDownloadBtnClick: () -> Unit,
-    viewModel: GalleryViewModel = hiltViewModel(),
+    viewModel: GalleryPostDetailViewModel = hiltViewModel(),
     modifier: Modifier = Modifier
 ) {
     var isDeleteBottomSheetVisible by remember { mutableStateOf(false) }
     var isDeleteAlertModalVisible by remember { mutableStateOf (false) }
 
     val galleryPostDetail by viewModel.galleryPostDetail.collectAsState()
-//    val galleryId by viewModel.galleries.
-//
-//    LaunchedEffect(galleryId) {
-//        viewModel.getGalleryPostDetail(galleryId)
-//    }
 
     if (isDeleteBottomSheetVisible) {
         DeletePostBottomSheet(
