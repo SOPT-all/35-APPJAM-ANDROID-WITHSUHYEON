@@ -2,8 +2,15 @@ package com.sopt.withsuhyeon.data.service
 
 import com.sopt.withsuhyeon.data.dto.base.BaseResponse
 import com.sopt.withsuhyeon.data.dto.response.ResponseGalleryCategoriesDto
+import com.sopt.withsuhyeon.data.dto.response.ResponseGalleryPostDetailDto
 import com.sopt.withsuhyeon.data.dto.response.ResponseGalleryTotalDto
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.GET
+import retrofit2.http.Multipart
+import retrofit2.http.POST
+import retrofit2.http.Part
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface GalleryService {
@@ -15,11 +22,15 @@ interface GalleryService {
         @Query("category") category: String
     ) : BaseResponse<ResponseGalleryTotalDto>
 
-//    @Multipart
-//    @POST("/api/v1/galleries")
-//    suspend fun uploadGallery(
-//        @Header("Authorization") header: String,
-//        @Part image: MultipartBody.Part,
-//        @Body request: RequestUploadGalleryDto
-//    ) : BaseResponse<Unit>
+    @Multipart
+    @POST("/api/v1/galleries")
+    suspend fun uploadGallery(
+        @Part image: MultipartBody.Part,
+        @Part("createGalleryRequest") request: RequestBody
+    ) : BaseResponse<Unit>
+
+    @GET("/api/v1/galleries")
+    suspend fun getGalleryPostDetail(
+        @Path("galleryId") galleryId: Long
+    ) : BaseResponse<ResponseGalleryPostDetailDto>
 }

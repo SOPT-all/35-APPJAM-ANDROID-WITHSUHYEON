@@ -1,7 +1,6 @@
 package com.sopt.withsuhyeon.feature.gallery
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
@@ -86,7 +85,7 @@ private fun GalleryScreen(
     }
 
     LaunchedEffect(selectedCategory) {
-        selectedCategory?.let {
+        selectedCategory.let {
             viewModel.getGalleryTotal(it)
         }
     }
@@ -121,11 +120,11 @@ private fun GalleryScreen(
                     item {
                         NewCategoryChip(
                             imageUrl = "https://example.com/default-image.jpg",
-                            category = "전체", // 기본 카테고리 이름 (예: "전체")
+                            category = "전체",
                             scrollOffset = lazyGridState.firstVisibleItemScrollOffset.toFloat(),
                             isSelected = selectedCategory == "전체",
                             onClick = {
-                                selectedCategory = "전체" // 기본 카테고리를 선택했을 때 처리
+                                selectedCategory = "전체"
                             }
                         )
                     }
