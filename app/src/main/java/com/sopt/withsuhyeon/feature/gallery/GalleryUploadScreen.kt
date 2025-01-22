@@ -1,5 +1,7 @@
 package com.sopt.withsuhyeon.feature.gallery
 
+import android.net.Uri
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,12 +17,14 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -32,6 +36,8 @@ import com.sopt.withsuhyeon.core.component.dropdown.text.TextDropDown
 import com.sopt.withsuhyeon.core.component.textfield.BasicShortTextField
 import com.sopt.withsuhyeon.core.component.textfield.LongTextField
 import com.sopt.withsuhyeon.core.component.topbar.SubTopNavBar
+import com.sopt.withsuhyeon.core.util.image.createImagePart
+import com.sopt.withsuhyeon.data.dto.request.RequestUploadGalleryDto
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
@@ -57,8 +63,12 @@ private fun GalleryUploadScreen(
     modifier: Modifier = Modifier,
     onCompleteBtnClick: () -> Unit,
     onCloseBtnClick: () -> Unit,
-    viewModel: GalleryViewModel = hiltViewModel()
+    galleryViewModel: GalleryViewModel = hiltViewModel(),
+    galleryUploadViewModel: GalleryUploadViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
+    val contentResolver = context.contentResolver
+
     var titleValue by remember { mutableStateOf("") }
     var isTitleValid by remember { mutableStateOf(true) }
     val titleErrorMessage = if (!isTitleValid) "필수로 입력해줘" else ""
@@ -70,6 +80,7 @@ private fun GalleryUploadScreen(
 
     var galleryUploadDescription by remember { mutableStateOf("") }
     var isBottomSheetVisible by remember { mutableStateOf(false) }
+    var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
 
     Box(
         modifier = modifier
@@ -104,11 +115,7 @@ private fun GalleryUploadScreen(
                 .padding(horizontal = 8.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            val categories = listOf(
-                "학교", "카페", "회식", "엠티", "자취방", "도서관",
-                "수영장/빠지", "바다/계곡", "스키장", "찜질방", "캠핑/글램핑",
-                "파티룸", "절/교회 수련회", "해외여행", "공항", "기타"
-            )
+            val categories by galleryViewModel.categories.collectAsState()
 
             if (isBottomSheetVisible) {
                 GalleryCategoryBottomSheet(
@@ -129,7 +136,11 @@ private fun GalleryUploadScreen(
                 )
             }
 
-            GalleryUploadWithPicker({})
+            GalleryUploadWithPicker(
+                onImageSelected = { uri ->
+                    selectedImageUri = uri
+                }
+            )
 
             HorizontalDivider(
                 thickness = 4.dp,
@@ -221,8 +232,35 @@ private fun GalleryUploadScreen(
                     isTitleValid = isTitleInputValid
                     isCategoryValid = isCategoryInputValid
 
-                    if (isTitleInputValid && isCategoryInputValid) {
+                    if (isTitleInputValid && isCategoryInputValid && selectedImageUri != null) {
                         onCompleteBtnClick()
+                        val request = RequestUploadGalleryDto(
+                            category = selectedCategory,
+                            title = titleValue,
+                            content = galleryUploadDescription
+                        )
+
+                        val imageUri = selectedImageUri
+
+                        if (imageUri != null) {
+                            val imagePart = createImagePart(contentResolver, imageUri.toString())
+
+                            if (imagePart != null) {
+                                try {
+                                    galleryUploadViewModel.uploadGallery(
+                                        imageUri = imageUri,
+                                        request = request,
+                                        contentResolver = contentResolver
+                                    )
+                                } catch (e: Exception) {
+                                    Log.e("GalleryUpload", "Error uploading gallery", e)
+                                }
+                            } else {
+                                Log.e("GalleryUpload", "Invalid image part")
+                            }
+                        } else {
+                            Log.e("GalleryUpload", "Image URI is null")
+                        }
                     }
                 }
             )

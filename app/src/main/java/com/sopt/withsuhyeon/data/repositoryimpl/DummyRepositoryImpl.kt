@@ -14,13 +14,13 @@ class DummyRepositoryImpl @Inject constructor(
     override suspend fun getProductReviews(productId: Number): Result<List<DummyModel>> =
         runCatching {
             val response = dummyDataSource.getProductReviews(productId)
-            response.data?.toDummyListModel() ?: emptyList()
+            response.result?.toDummyListModel() ?: emptyList()
         }
 
     override suspend fun postProductsLike(productId: Int, memberId: Int): Result<String?> =
         runCatching {
             val response = dummyDataSource.postProductsLike(productId, memberId)
-            response.data
+            response.result
         }
 
     override suspend fun getUserDetails(userId: Int): Result<UserModel> =

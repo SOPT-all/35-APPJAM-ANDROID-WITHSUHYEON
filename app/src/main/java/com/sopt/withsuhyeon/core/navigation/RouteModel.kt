@@ -16,7 +16,7 @@ sealed interface Route {
     @Serializable
     data object GalleryUpload : Route
     @Serializable
-    data object GalleryPostDetail : Route
+    data class GalleryPostDetail(val galleryId: Long) : Route
     @Serializable
     data object SelectGender : Route
     @Serializable
