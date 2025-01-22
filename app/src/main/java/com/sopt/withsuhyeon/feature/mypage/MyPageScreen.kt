@@ -43,25 +43,31 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 fun MyPageRoute(
     padding: PaddingValues,
     navigateToBlockUser: () -> Unit,
+    navigateToOnboarding: () -> Unit,
     viewModel: MyPageViewModel = hiltViewModel()
 ) {
     MyPageScreen(
         padding = padding,
-        navigateToBlockUser = navigateToBlockUser
+        navigateToBlockUser,
+        navigateToOnboarding
     )
 }
 
 @Composable
 private fun MyPageScreen(
     padding: PaddingValues,
-    navigateToBlockUser: () -> Unit
+    navigateToBlockUser: () -> Unit,
+    navigateToOnboarding: () -> Unit
 ) {
     val nickname by remember { mutableStateOf("") }
     var alertState by remember { mutableStateOf<String>(DISABLED_TYPE) }
     when (alertState) {
         LOGOUT_ALERT_TYPE -> {
             AlertModal(
-                onDeleteClick = {},
+                onDeleteClick = {
+                    alertState = DISABLED_TYPE
+                    navigateToOnboarding()
+                },
                 onCancelClick = {
                     alertState = DISABLED_TYPE
                 },
@@ -302,6 +308,6 @@ private fun MyPageScreen(
 @Composable
 private fun MyPageScreenPreview() {
     WithSuhyeonTheme {
-        MyPageScreen(padding = PaddingValues(), navigateToBlockUser = {})
+        MyPageScreen(padding = PaddingValues(), navigateToBlockUser = {}, navigateToOnboarding = {})
     }
 }

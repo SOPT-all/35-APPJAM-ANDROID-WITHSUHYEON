@@ -20,6 +20,7 @@ import com.sopt.withsuhyeon.feature.home.navigation.navigateToBlockUser
 import com.sopt.withsuhyeon.feature.home.navigation.navigateToHome
 import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToBlockUserFromMyPage
 import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToMyPage
+import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToOnBoarding
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToLogin
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToNickNameAuth
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToOnboardingFinish
@@ -105,6 +106,10 @@ class MainNavigator(
 
     fun navigateToBlockUserFromMyPage() {
         navController.navigateToBlockUserFromMyPage()
+    }
+
+    fun navigateToOnboarding() {
+        navController.navigateToOnBoarding()
     }
 
     fun navigateToHome(navOptions: NavOptions? = null) {

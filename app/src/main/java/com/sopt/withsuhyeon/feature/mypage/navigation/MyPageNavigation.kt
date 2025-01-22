@@ -17,11 +17,20 @@ fun NavController.navigateToBlockUserFromMyPage() {
     navigate(Route.BlockUser)
 }
 
+fun NavController.navigateToOnBoarding() {
+    navigate(Route.OnBoarding)
+}
+
 fun NavGraphBuilder.myPageNavGraph(
     padding: PaddingValues,
-    onNavigateToBlockUser: () -> Unit
+    onNavigateToBlockUser: () -> Unit,
+    onNavigateToOnboarding: () -> Unit
 ) {
     composable<MainTabRoute.MyPage> {
-        MyPageRoute(padding, navigateToBlockUser = onNavigateToBlockUser)
+        MyPageRoute(
+            padding,
+            navigateToBlockUser = onNavigateToBlockUser,
+            navigateToOnboarding = onNavigateToOnboarding
+        )
     }
 }

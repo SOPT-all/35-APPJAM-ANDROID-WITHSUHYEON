@@ -58,7 +58,8 @@ fun MainNavHost(
             )
             myPageNavGraph(
                 padding = padding,
-                onNavigateToBlockUser = navigator::navigateToBlockUserFromMyPage
+                onNavigateToBlockUser = navigator::navigateToBlockUserFromMyPage,
+                onNavigateToOnboarding = navigator::navigateToOnboarding,
             )
             onBoardingNavGraph(
                 padding = padding,
