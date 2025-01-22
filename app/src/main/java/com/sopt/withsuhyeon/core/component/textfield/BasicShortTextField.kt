@@ -8,11 +8,11 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -27,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.VisualTransformation
@@ -52,6 +53,7 @@ fun BasicShortTextField(
     enabled: Boolean = true,
     visibleLength: Boolean = false,
     maxLength: Int = -1,
+    textFieldBorderColor: Color? = null,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
@@ -61,18 +63,21 @@ fun BasicShortTextField(
     var isFocused by remember { mutableStateOf(false) }
     var isMaxLengthExceeded by remember { mutableStateOf(false) }
     val borderColor =
-        when {
-            value.isNotEmpty() && !isValid -> colors.Red01
-            isMaxLengthExceeded -> colors.Red01
-            isFocused -> colors.Purple300
-            !isValid -> colors.Red01
-            else -> colors.Grey100
-        }
+        textFieldBorderColor
+            ?: when {
+                value.isNotEmpty() && !isValid -> colors.Red01
+                isMaxLengthExceeded -> colors.Red01
+                isFocused -> colors.Purple300
+                !isValid -> colors.Red01
+                else -> colors.Grey100
+            }
     val textColor = if (enabled) colors.Grey900 else colors.Grey300
     val backgroundColor = if (enabled) colors.White else colors.Grey100
 
     Column(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth()
+            .wrapContentHeight()
+        ,
         verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically)
     ) {
         if (title.isNotEmpty()) {
@@ -127,7 +132,7 @@ fun BasicShortTextField(
             keyboardActions = keyboardActions,
             visualTransformation = visualTransformation,
             singleLine = true,
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .background(
                     color = backgroundColor,
@@ -153,8 +158,8 @@ fun BasicShortTextField(
                     style = typography.body03_R.merge(color = colors.Red01),
                     modifier = Modifier.weight(1f)
                 )
-            } else if (value.isNotEmpty()
-                && !isValid
+            } else if (
+                !isValid
                 && enabled
                 && errorMessage.isNotEmpty()
             ) {
@@ -164,7 +169,11 @@ fun BasicShortTextField(
                     modifier = Modifier.weight(1f)
                 )
             } else {
-                Spacer(modifier = Modifier.weight(1f))
+                Text(
+                    text = "",
+                    style = typography.body03_R.merge(color = colors.Red01),
+                    modifier = Modifier.weight(1f)
+                )
             }
             if (visibleLength && maxLength != -1) {
                 Text(

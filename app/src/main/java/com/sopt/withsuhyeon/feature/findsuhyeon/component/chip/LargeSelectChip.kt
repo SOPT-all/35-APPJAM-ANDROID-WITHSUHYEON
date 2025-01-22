@@ -41,7 +41,7 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 @Composable
 fun LargeSelectChip(
     modifier: Modifier = Modifier,
-    text: String = TAKE_A_PHOTO,
+    text: String,
     isSelected: Boolean = false,
     enabled: Boolean = true,
     onClick: () -> Unit = {},
@@ -86,8 +86,8 @@ fun LargeSelectChip(
                 shape = RoundedCornerShape(20.dp),
             )
             .border(1.dp, borderColor, RoundedCornerShape(20.dp))
-            .padding(vertical = verticalPadding, horizontal = 8.dp)
             .noRippleClickable(onClick)
+            .padding(vertical = verticalPadding, horizontal = 8.dp)
     ) {
         if(image != null) {
             Image(

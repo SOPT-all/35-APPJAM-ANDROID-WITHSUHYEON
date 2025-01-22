@@ -23,9 +23,17 @@ fun NavGraphBuilder.homeNavGraph(
     padding: PaddingValues,
     onNavigateToBlockUser: () -> Unit,
     popBackStack: () -> Unit,
+    navigateToGallery: () -> Unit,
+    navigateToGalleryWithCategory: (String) -> Unit,
+    navigateToPost: (Long) -> Unit
 ) {
     composable<MainTabRoute.Home> {
-        HomeRoute(padding, onNavigateToBlockUser)
+        HomeRoute(
+            padding = padding,
+            navigateToGallery = navigateToGallery,
+            navigateToGalleryWithCategory = navigateToGalleryWithCategory,
+            navigateToPost = navigateToPost
+        )
     }
     composable<Route.BlockUser> {
         BlockUserRoute(padding, navigateToPreviousScreen = popBackStack)

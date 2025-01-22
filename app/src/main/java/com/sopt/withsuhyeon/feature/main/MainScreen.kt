@@ -4,6 +4,9 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.isImeVisible
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -30,12 +33,15 @@ fun MainScreen(
     )
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun MainScreenContent(
     modifier: Modifier = Modifier,
     navigator: MainNavigator,
     snackBarHostState: SnackbarHostState,
 ) {
+    val imeIsShown = WindowInsets.isImeVisible
+
     Scaffold(
         modifier = modifier,
         content = { padding ->
@@ -44,9 +50,10 @@ private fun MainScreenContent(
                 padding = PaddingValues(
                     start = padding.calculateStartPadding(layoutDirection = LayoutDirection.Ltr),
                     end = padding.calculateEndPadding(layoutDirection = LayoutDirection.Ltr),
-                    bottom = padding.calculateBottomPadding(),
+                    bottom = if(imeIsShown) 0.dp else padding.calculateBottomPadding(),
                     top = 16.dp
                 )
+
             )
         },
         bottomBar = {

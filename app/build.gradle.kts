@@ -102,5 +102,8 @@ dependencies {
     implementation(libs.kotlinx.datetime)
 
     // Lottie
-    implementation(libs.lottie.compose)
+    implementation (libs.lottie.compose)
+
+    // SwipeRefresh
+    implementation (libs.accompanist.swiperefresh)
 }

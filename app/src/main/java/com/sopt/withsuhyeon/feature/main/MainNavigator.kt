@@ -1,6 +1,5 @@
 package com.sopt.withsuhyeon.feature.main
 
-import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavDestination
@@ -10,9 +9,14 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import com.sopt.withsuhyeon.core.navigation.MainTabRoute
 import com.sopt.withsuhyeon.core.navigation.Route
 import com.sopt.withsuhyeon.feature.chat.navigation.navigateToChat
+import com.sopt.withsuhyeon.feature.chat.navigation.navigateToChatRoom
 import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.navigateToFindSuhyeon
+import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.navigateToFindSuhyeonPost
+import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.navigateToFindSuhyeonUpload
+import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.navigateToFindSuhyeonUploadDetail
 import com.sopt.withsuhyeon.feature.gallery.navigation.navigateToGallery
 import com.sopt.withsuhyeon.feature.gallery.navigation.navigateToGalleryPostDetail
 import com.sopt.withsuhyeon.feature.gallery.navigation.navigateToGalleryUpload
@@ -39,11 +43,14 @@ class MainNavigator(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = Route.OnBoarding 
+    val startDestination = Route.OnBoarding
 
     val currentTab: MainTab?
-        @SuppressLint("RestrictedApi") @Composable get() = MainTab.find { tab ->
-            currentDestination?.route == tab::class.qualifiedName
+        @Composable get() = MainTab.entries.find { tab ->
+            when (tab.route) {
+                is MainTabRoute.Gallery -> currentDestination?.route?.startsWith(MainTabRoute.Gallery::class.qualifiedName!!) == true
+                else -> currentDestination?.route == tab.route::class.qualifiedName
+            }
         }
 
     fun navigate(tab: MainTab) {
@@ -122,13 +129,50 @@ class MainNavigator(
             }
         )
     }
-
+    fun navigateToGallery(navOptions: NavOptions? = null, category: String? = null) {
+        navController.navigateToGallery(
+            navOptions ?: navOptions {
+                popUpTo(navController.graph.findStartDestination().id) {
+                    inclusive = true
+                }
+                launchSingleTop = true
+            },
+            category
+        )
+    }
     fun navigateToGalleryUpload() {
         navController.navigateToGalleryUpload()
     }
 
     fun navigateToGalleryPostDetail() {
         navController.navigateToGalleryPostDetail()
+    }
+
+    fun navigateToChatRoom() {
+        navController.navigateToChatRoom()
+    }
+
+    fun navigateToFindSuhyeon(navOptions: NavOptions? = null) {
+        navController.navigateToFindSuhyeon(
+            navOptions ?: navOptions {
+                popUpTo(navController.graph.findStartDestination().id) {
+                    inclusive = true
+                }
+                launchSingleTop = true
+            }
+        )
+    }
+
+    fun navigateToFindSuhyeonUpload() {
+        navController.navigateToFindSuhyeonUpload()
+    }
+
+    fun navigateToFindSuhyeonUploadDetail() {
+        navController.navigateToFindSuhyeonUploadDetail()
+    }
+
+    fun navigateToFindSuhyeonPost(id: Long?) {
+        navController.navigateToFindSuhyeonPost(id)
     }
 
     fun popBackStack() {
@@ -139,8 +183,18 @@ class MainNavigator(
         navController.currentDestination?.route == T::class.qualifiedName
 
     @Composable
-    fun shouldShowBottomBar() = MainTab.contains {
-        currentDestination?.route == it::class.qualifiedName
+    fun shouldShowBottomBar(): Boolean {
+        return currentDestination?.route?.let { currentRoute ->
+            MainTab.entries.any { tab ->
+                when (tab.route) {
+                    is MainTabRoute.Home -> currentRoute.startsWith(MainTabRoute.Home::class.qualifiedName!!)
+                    is MainTabRoute.FindSuhyeon -> currentRoute.startsWith(MainTabRoute.FindSuhyeon::class.qualifiedName!!)
+                    is MainTabRoute.Gallery -> currentRoute.startsWith(MainTabRoute.Gallery::class.qualifiedName!!)
+                    is MainTabRoute.Chat -> currentRoute.startsWith(MainTabRoute.Chat::class.qualifiedName!!)
+                    is MainTabRoute.MyPage -> currentRoute.startsWith(MainTabRoute.MyPage::class.qualifiedName!!)
+                }
+            }
+        } ?: false
     }
 }
 

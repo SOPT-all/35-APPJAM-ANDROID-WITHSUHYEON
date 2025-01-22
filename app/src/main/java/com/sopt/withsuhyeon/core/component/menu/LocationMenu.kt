@@ -26,23 +26,31 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 fun LocationMenu(
     mainLocationList: List<String> = emptyList(),
     subLocationList: List<List<String>> =  emptyList(),
-    modifier: Modifier = Modifier
+    selectedMainLocation: String?,
+    selectedSubLocation: String?,
+    modifier: Modifier = Modifier,
+    onMainLocationSelect: (String?) -> Unit = {},
+    onSubLocationSelect: (String?) -> Unit = {},
 ) {
     var selectedMainLocationIndex by remember { mutableIntStateOf(0) }
-    var selectedMainLocation by remember { mutableStateOf("전국") }
-    var selectedSubLocation by remember { mutableStateOf("") }
+    var tempSelectedMainLocation by remember { mutableStateOf(selectedMainLocation) }
+    var tempSelectedSubLocation by remember { mutableStateOf(selectedSubLocation) }
+    
     Row(
-    ) {
+        modifier = modifier
+    )
+    {
         LazyColumn(
-            modifier = modifier.weight(0.33f)
+            modifier = Modifier.weight(0.33f)
         ) {
             items(mainLocationList.size) { index ->
                 MainLocationChip(
                     locationName = mainLocationList[index],
                     modifier = Modifier.fillMaxWidth(),
-                    isSelected = selectedMainLocation == mainLocationList[index],
+                    isSelected = tempSelectedMainLocation == mainLocationList[index],
                     onClick = {
-                        selectedMainLocation = mainLocationList[index]
+                        tempSelectedMainLocation = mainLocationList[index]
+                        onMainLocationSelect(mainLocationList[index])
                         selectedMainLocationIndex = index
                     }
                 )
@@ -56,13 +64,14 @@ fun LocationMenu(
             modifier = modifier.weight(1f)
         ) {
             items(subLocationList[selectedMainLocationIndex].size) { index ->
-                if (selectedMainLocation.isNotEmpty()) {
+                if (!tempSelectedMainLocation.isNullOrEmpty()) {
                     SubLocationChip(
                         locationName = subLocationList[selectedMainLocationIndex][index],
                         modifier = Modifier.fillMaxWidth(),
-                        isSelected = selectedSubLocation == subLocationList[selectedMainLocationIndex][index],
+                        isSelected = tempSelectedSubLocation == subLocationList[selectedMainLocationIndex][index],
                         onClick = {
-                            selectedSubLocation = subLocationList[selectedMainLocationIndex][index]
+                            tempSelectedSubLocation = subLocationList[selectedMainLocationIndex][index]
+                            onSubLocationSelect(subLocationList[selectedMainLocationIndex][index])
                         }
                     )
                 }
@@ -74,6 +83,8 @@ fun LocationMenu(
 @Preview
 @Composable
 fun PreviewLocationMenu() {
+    val selectedMainLocation by remember { mutableStateOf<String?>(null) }
+    val selectedSubLocation by remember { mutableStateOf<String?>(null) }
     val mainLocationList = remember {
         mutableListOf(
             "전국",
@@ -130,7 +141,9 @@ fun PreviewLocationMenu() {
         )
         LocationMenu(
             mainLocationList = mainLocationList,
-            subLocationList = subLocationList
+            subLocationList = subLocationList,
+            selectedMainLocation = selectedMainLocation,
+            selectedSubLocation = selectedSubLocation,
         )
     }
 }

@@ -11,6 +11,7 @@ import com.sopt.withsuhyeon.domain.entity.ChatRoomModel
 @Composable
 fun TotalChatRoomList(
     chatRooms: List<ChatRoomModel>,
+    onChatRoomListItemClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -22,7 +23,8 @@ fun TotalChatRoomList(
                 partnerName = chatRoom.partnerName,
                 recentChat = chatRoom.recentChat,
                 recentChatDateTime = chatRoom.recentChatDateTime,
-                unreadChatCount = chatRoom.unreadChatCount
+                unreadChatCount = chatRoom.unreadChatCount,
+                onChatRoomListItemClick = onChatRoomListItemClick
             )
         }
     }

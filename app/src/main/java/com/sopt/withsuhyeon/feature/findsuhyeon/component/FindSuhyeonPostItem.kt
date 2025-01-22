@@ -25,19 +25,18 @@ import com.sopt.withsuhyeon.core.component.chip.MediumChip
 import com.sopt.withsuhyeon.core.type.MediumChipType
 import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_20_TO_24
 import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_FEMALE
+import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_MALE
+import com.sopt.withsuhyeon.domain.entity.PostItemModel
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
 @Composable
 fun FindSuhyeonPostItem(
-    title: String,
-    price: Int,
-    gender: String,
-    age: String,
-    date: String,
+    postItemModel: PostItemModel,
     mediumChipType: MediumChipType? = null,
     modifier: Modifier = Modifier
 ) {
+    val genderString = if(postItemModel.gender) SHORT_FEMALE else SHORT_MALE
     Column(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         modifier = modifier
@@ -50,11 +49,11 @@ fun FindSuhyeonPostItem(
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
         ) {
             Text(
-                text = title,
+                text = postItemModel.title,
                 style = typography.body02_SB.merge(color = colors.Grey900)
             )
             Row(
@@ -71,7 +70,7 @@ fun FindSuhyeonPostItem(
                     horizontalArrangement = Arrangement.spacedBy(2.dp),
                 ) {
                     Text(
-                        text = price.toDecimalFormat(),
+                        text = postItemModel.price.toDecimalFormat(),
                         style = typography.body01_B.merge(color = colors.Grey900)
                     )
                     Text(
@@ -83,7 +82,7 @@ fun FindSuhyeonPostItem(
         }
         Column(
             verticalArrangement = Arrangement.spacedBy(12.dp),
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
         ) {
             HorizontalDivider(
@@ -106,7 +105,7 @@ fun FindSuhyeonPostItem(
                         modifier = Modifier.size(18.dp)
                     )
                     Text(
-                        text = gender,
+                        text = genderString,
                         style = typography.caption01_SB.merge(color = colors.Grey400)
                     )
                     Text(
@@ -114,7 +113,7 @@ fun FindSuhyeonPostItem(
                         style = typography.caption01_SB.merge(color = colors.Grey400)
                     )
                     Text(
-                        text = age,
+                        text = postItemModel.age,
                         style = typography.caption01_SB.merge(color = colors.Grey400)
                     )
                 }
@@ -129,7 +128,7 @@ fun FindSuhyeonPostItem(
                         modifier = Modifier.size(18.dp)
                     )
                     Text(
-                        text = date,
+                        text = postItemModel.date,
                         style = typography.caption01_SB.merge(color = colors.Grey400)
                     )
                 }
@@ -142,11 +141,15 @@ fun FindSuhyeonPostItem(
 @Composable
 fun PreviewFindSuhyeonPost() {
     FindSuhyeonPostItem(
-        title = "서울역 수현이 구해요ㅠㅠ",
-        price = 5000,
-        gender = SHORT_FEMALE,
-        age = AGE_20_TO_24,
-        date = "1월 25일 (토) 오후 2:30",
+        PostItemModel(
+            postId = 0,
+            title = "서울역 수현이 구해요ㅠㅠ",
+            price = 5000,
+            gender = true,
+            age = AGE_20_TO_24,
+            date = "1월 25일 (토) 오후 2:30",
+            matching = true
+        ),
         mediumChipType = MediumChipType.DURATION_FINISHED
     )
 }

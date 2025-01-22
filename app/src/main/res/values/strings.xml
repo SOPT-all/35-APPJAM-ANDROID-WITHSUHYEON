@@ -10,6 +10,7 @@
     <string name="bottom_navigation_bar_item_chat">채팅</string>
     <string name="bottom_navigation_bar_item_my">MY</string>
     <string name="checkbox_image_name">체크박스</string>
+    <string name="app_logo">수현이랑</string>
 
     <!-- Component -->
     <string name="add_find_suhyeon_post_button_description">Add Find Suhyeon Post Floating Button</string>
@@ -25,9 +26,11 @@
     <!-- 공통 컴포넌트 short_text_field -->
     <string name="short_text_field_text_won">원</string>
     <string name="short_text_field_character_length">%1$s/%2$s</string>
-    <string name="short_text_field_text_max_length_message">최대 %1$s글자 이하로 입력해주세요</string>
+    <string name="short_text_field_text_max_length_message">최대 %1$s글자까지 입력할 수 있어</string>
 
     <!-- 공통 컴포넌트 chip -->
+    <string name="type_all">전체</string>
+    <string name="type_date">%1$s</string>
     <string name="type_category">%1$s</string>
     <string name="type_category_photo">사진 촬영</string>
     <string name="type_category_video_call">영상 통화</string>
@@ -40,8 +43,6 @@
     <string name="type_d_day">D-%1$s</string>
 
     <!-- 수현이 찾기 -->
-    <string name="type_all">전체</string>
-    <string name="type_date">%1$s/%2$s (%3$s)</string>
     <string name="find_suhyeon_detail_meeting_information">상세 만남 정보</string>
     <string name="find_suhyeon_detail_meeting_location">위치</string>
     <string name="find_suhyeon_detail_meeting_wanted">원하는 수현이</string>
@@ -52,6 +53,27 @@
     <string name="find_suhyeon_no_message"></string>
     <string name="find_suhyeon_location">위치</string>
     <string name="find_suhyeon_multi_select_chip">MultiSelectChip</string>
+    <string name="find_suhyeon_upload_title_price">주고싶은 금액을 입력해줘</string>
+    <string name="find_suhyeon_upload_title_error_message">99,999원까지 입력할 수 있어요</string>
+    <string name="find_suhyeon_upload_hint_price">금액 입력하기</string>
+    <string name="find_suhyeon_upload_title_date">언제 만날지 선택해줘</string>
+    <string name="find_suhyeon_upload_fint_date">날짜 및 시간 선택하기</string>
+    <string name="find_suhyeon_upload_title_location">수현이 만날 곳을 선택해줘</string>
+    <string name="find_suhyeon_upload_hint_location">만날 장소 선택하기</string>
+    <string name="find_suhyeon_upload_hint_requirements">요청사항 선택하기 (중복 선택 가능)</string>
+    <string name="find_suhyeon_upload_title_reqirements">요청사항을 선택해줘</string>
+    <string name="find_suhyeon_upload_title_age">수현이의 나이를 선택해줘</string>
+    <string name="find_suhyeon_upload_hint_age">눌러서 나이 선택하기</string>
+    <string name="find_suhyeon_upload_title_gender">수현이의 성별을 선택해줘</string>
+    <string name="find_suhyeon_upload_text_input_done">입력 완료</string>
+    <string name="smallselectchip">SmallSelectChip</string>
+    <string name="find_suhyeon">수현이 찾기</string>
+    <string name="find_suhyeon_title">제목</string>
+    <string name="find_suhyeon_title_hint">제목 입력하기</string>
+    <string name="find_suhyeon_content_hint">내용 입력하기</string>
+    <string name="find_suhyeon_detail_title_error_message">필수로 입력해줘</string>
+    <string name="find_suhyeon_content">내용</string>
+    <string name="find_suhyeon_detail_done">작성 완료</string>
 
     <!-- 공통 컴포넌트 PostBottomBar -->
     <string name="post_bottom_bar_start_chating">채팅하기</string>
@@ -104,6 +126,20 @@
     <string name="alert_modal_delete_btn">삭제하기</string>
     <string name="alert_modal_cancel_btn">취소하기</string>
 
+    <!-- 수현이 찾기 바텀 시트 -->
+    <string name="bottom_sheet_title_age">나이대 선택</string>
+    <string name="bottom_sheet_title_date">날짜와 시간을 선택해줘</string>
+    <string name="bottom_sheet_title_location">만날 위치 선택</string>
+    <string name="bottom_sheet_title_main_title">요청사항 선택</string>
+    <string name="bottom_sheet_title_sub_title">중복선택 가능</string>
+    <string name="bottom_sheet_btn_select_done">선택 완료</string>
+
+    <!-- 채팅 -->
+    <string name="total_chatroom_top_nav_bar_title">채팅</string>
+    <string name="chatroom_textfield_hint">메시지를 입력해주세요</string>
+    <string name="navigate_to_post_button_title">게시물 보기</string>
+    <string name="message_textfield_send_button_description">Send Button</string>
+
     <!-- 수현이랑 온보딩 플로우 String 모음-->
     <string name="onboarding_temrs_of_use_title">수현이랑\n서비스 이용약관</string>
     <string name="onboarding_temrs_of_use_all_agree">모두 동의</string>
@@ -144,6 +180,14 @@
     <string name="my_page_right_arrow_description">My Page Right Arrow</string>
     <string name="my_page_block_icon_description">My Page Block Icon</string>
     <string name="my_page_info_icon_description">My Page Info Icon</string>
+
+    <!-- 홈 -->
+    <string name="home_title_count">지금까지 이만큼의\n수현이들의 여행이 이뤄졌어요!</string>
+    <string name="home_title_now">수현이는 지금</string>
+    <string name="home_view_all">전체보기</string>
+    <string name="home_title_post">수현이가 되어줘</string>
+    <string name="home_count">건</string>
+    <string name="home_text_around">내주변</string>
 
     <!--  차단스크린  -->
     <string name="block_screen_title">차단 계정 관리</string>
