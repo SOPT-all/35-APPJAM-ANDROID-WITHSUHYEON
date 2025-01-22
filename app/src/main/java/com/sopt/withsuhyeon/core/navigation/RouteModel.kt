@@ -14,24 +14,23 @@ sealed interface Route {
     @Serializable
     data object SelectGender : Route
     @Serializable
-    data object PostProfileImage : Route
-    @Serializable
-    data object SelectLocation : Route
+    data object OnBoarding : Route
     @Serializable
     data object GalleryUpload : Route
     @Serializable
     data object GalleryPostDetail : Route
     @Serializable
-    data object ChatRoom : Route
-
-    @Serializable
     data object FindSuhyeonUpload : Route
-
     @Serializable
     data object FindSuhyeonUploadDetail : Route
-
     @Serializable
-    data object FindSuhyeonPost : Route
+    data class FindSuhyeonPost(val id: Long?) : Route
+    @Serializable
+    data object PostProfileImage : Route
+    @Serializable
+    data object SelectLocation : Route
+    @Serializable
+    data object ChatRoom : Route
 }
 
 sealed interface MainTabRoute : Route {
@@ -39,13 +38,10 @@ sealed interface MainTabRoute : Route {
     data object Home : MainTabRoute
     @Serializable
     data object FindSuhyeon : MainTabRoute
-
     @Serializable
-    data object Gallery : MainTabRoute
-
+    data class Gallery(val category: String?) : MainTabRoute
     @Serializable
     data object Chat : MainTabRoute
-
     @Serializable
     data object MyPage : MainTabRoute
 }
