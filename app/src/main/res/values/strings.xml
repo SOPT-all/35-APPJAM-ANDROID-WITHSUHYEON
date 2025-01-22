@@ -10,6 +10,7 @@
     <string name="bottom_navigation_bar_item_chat">채팅</string>
     <string name="bottom_navigation_bar_item_my">MY</string>
     <string name="checkbox_image_name">체크박스</string>
+    <string name="app_logo">수현이랑</string>
 
     <!-- Component -->
     <string name="add_find_suhyeon_post_button_description">Add Find Suhyeon Post Floating Button</string>
