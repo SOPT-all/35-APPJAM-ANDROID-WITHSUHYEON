@@ -10,9 +10,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import com.sopt.withsuhyeon.feature.chat.navigation.chatNavGraph
 import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.findSuhyeonNavGraph
+import com.sopt.withsuhyeon.feature.findsuhyeon.viewmodel.FindSuhyeonUploadViewModel
 import com.sopt.withsuhyeon.feature.gallery.navigation.galleryNavGraph
 import com.sopt.withsuhyeon.feature.home.navigation.homeNavGraph
 import com.sopt.withsuhyeon.feature.main.MainNavigator
@@ -51,6 +53,12 @@ fun MainNavHost(
                 onNavigateToFindSuheyonUpload = navigator::navigateToFindSuhyeonUpload,
                 onNavigateToFindSuhyeon = { navigator.navigateToFindSuhyeon() },
                 onNavigateToFindSuheyonUploadDetail = navigator::navigateToFindSuhyeonUploadDetail,
+                onNavigateToFindSuhyeonPost = { navigator.navigateToFindSuhyeonPost(it) },
+                getBackStackUploadViewModel = { navBackStackEntry ->
+                    navigator.navController.previousBackStackEntry?.let { previousEntry ->
+                        hiltViewModel<FindSuhyeonUploadViewModel>(previousEntry)
+                    } ?: hiltViewModel(navBackStackEntry)
+                }
             )
 
             galleryNavGraph(

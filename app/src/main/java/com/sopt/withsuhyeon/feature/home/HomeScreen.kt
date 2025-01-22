@@ -85,7 +85,7 @@ fun HomeScreen(
     var count by remember { mutableStateOf(0) }
     val countTarget = 4500
 
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.test))
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.home))
 
     var isRefreshing by remember { mutableStateOf(false) }
     val state = rememberPullToRefreshState()

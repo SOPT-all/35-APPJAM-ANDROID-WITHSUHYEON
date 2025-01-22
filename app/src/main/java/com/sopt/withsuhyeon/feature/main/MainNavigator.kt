@@ -119,7 +119,7 @@ class MainNavigator(
     }
 
     fun navigateToFindSuhyeon(navOptions: NavOptions? = null) {
-        navController.navigateToHome(
+        navController.navigateToFindSuhyeon(
             navOptions ?: navOptions {
                 popUpTo(navController.graph.findStartDestination().id) {
                     inclusive = true
