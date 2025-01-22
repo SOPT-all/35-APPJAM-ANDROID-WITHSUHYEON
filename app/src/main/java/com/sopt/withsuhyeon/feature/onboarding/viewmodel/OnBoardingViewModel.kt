@@ -1,4 +1,4 @@
-package com.sopt.withsuhyeon.feature.onboarding
+package com.sopt.withsuhyeon.feature.onboarding.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

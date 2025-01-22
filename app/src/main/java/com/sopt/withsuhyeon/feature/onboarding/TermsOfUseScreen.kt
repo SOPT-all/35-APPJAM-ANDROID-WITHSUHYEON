@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,6 +26,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.button.LargeButton
 import com.sopt.withsuhyeon.core.component.button.ShowButton
@@ -36,19 +40,22 @@ import com.sopt.withsuhyeon.core.util.KeyStorage.EMPTY_STRING
 import com.sopt.withsuhyeon.core.util.KeyStorage.NEXT_BUTTON_TEXT
 import com.sopt.withsuhyeon.core.util.KeyStorage.SECONDARY_TYPE
 import com.sopt.withsuhyeon.feature.onboarding.components.OnBoardingTitle
+import com.sopt.withsuhyeon.feature.onboarding.viewmodel.OnBoardingViewModel
+import com.sopt.withsuhyeon.feature.onboarding.viewmodel.SignUpViewModel
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
 @Composable
 fun TermsOfUseRoute(
     padding: PaddingValues,
     navigateToNext: () -> Unit,
-    viewModel: OnBoardingViewModel = hiltViewModel()
+    viewModel: SignUpViewModel = hiltViewModel()
 ) {
     TermsOfUseScreen(
         onButtonClick = {
             navigateToNext()
         },
-        padding = padding
+        padding = padding,
+        viewModel = viewModel
     )
 }
 
@@ -57,11 +64,17 @@ fun TermsOfUseScreen(
     onButtonClick: () -> Unit,
     modifier: Modifier = Modifier,
     padding: PaddingValues,
+    viewModel: SignUpViewModel
 ) {
     var isAllTermsSelected by remember { mutableStateOf(false) }
     var isAgedSelected by remember { mutableStateOf(false) }
     var isTermsSelected by remember { mutableStateOf(false) }
     var isPersonalInformationSelected by remember { mutableStateOf(false) }
+    val state by viewModel.signUpState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.updateProgress(state.progress + 1f / 7)
+    }
 
     fun updateAllTermsSelectedState() {
         isAllTermsSelected = isAgedSelected && isTermsSelected && isPersonalInformationSelected
@@ -79,7 +92,7 @@ fun TermsOfUseScreen(
             color = colors.Grey100
         )
         AnimatedProgressBar(
-            progress = 0.1f,
+            progress = state.progress,
             modifier = Modifier.padding(16.dp)
         )
         Spacer(
