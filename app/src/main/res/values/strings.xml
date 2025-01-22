@@ -135,6 +135,9 @@
 
     <!-- 채팅 -->
     <string name="total_chatroom_top_nav_bar_title">채팅</string>
+    <string name="chatroom_textfield_hint">메시지를 입력해주세요</string>
+    <string name="navigate_to_post_button_title">게시물 보기</string>
+    <string name="message_textfield_send_button_description">Send Button</string>
 
     <!-- 수현이랑 온보딩 플로우 String 모음-->
     <string name="onboarding_temrs_of_use_title">수현이랑\n서비스 이용약관</string>

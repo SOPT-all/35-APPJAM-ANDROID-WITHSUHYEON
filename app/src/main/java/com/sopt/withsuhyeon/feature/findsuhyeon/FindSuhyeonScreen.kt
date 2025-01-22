@@ -134,7 +134,6 @@ fun FindSuhyeonScreen(
     }
 }
 
-
 @Preview
 @Composable
 fun PreviewFindSuhyeonScreen() {

@@ -48,6 +48,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_20_TO_24
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.domain.entity.PostItemModel
 import com.sopt.withsuhyeon.feature.findsuhyeon.component.FindSuhyeonPostItem
