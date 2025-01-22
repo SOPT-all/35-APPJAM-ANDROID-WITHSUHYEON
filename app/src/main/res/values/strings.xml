@@ -214,4 +214,9 @@
     <string name="onboarding_account_question">이미 계정이 있나요?</string>
     <string name="onboarding_login_text">로그인</string>
     <string name="onboarding_start_text">시작하기</string>
+
+    <!-- 카테고리 칩 -->
+    <string name="category_chip_all">ALL</string>
+    <string name="category_chip_mt">MT</string>
+    <string name="category_chip_etc"> etc.</string>
 </resources>
