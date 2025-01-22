@@ -55,4 +55,16 @@ class GalleryPostDetailViewModel @Inject constructor(
                 }
         }
     }
+
+    fun deleteGalleryPost(galleryId: Long) {
+        viewModelScope.launch {
+            galleryRepository.deleteGalleryPost(galleryId)
+                .onSuccess {
+                    Log.d("갤러리 삭제", "성공")
+                }
+                .onFailure {
+                    Log.d("갤러리 삭제", "실패")
+                }
+        }
+    }
 }

@@ -53,6 +53,9 @@ fun GalleryPostDetailRoute(
         onDownloadBtnClick = {
             popBackStackToGallery()
         },
+        onModalDeleteBtnClick = {
+            popBackStackToGallery()
+        },
         viewModel = viewModel
     )
 }
@@ -61,6 +64,7 @@ fun GalleryPostDetailRoute(
 fun GalleryPostDetailScreen(
     padding: PaddingValues,
     onDownloadBtnClick: () -> Unit,
+    onModalDeleteBtnClick: () -> Unit,
     galleryId: Long,
     viewModel: GalleryPostDetailViewModel = hiltViewModel(),
     modifier: Modifier = Modifier
@@ -95,7 +99,8 @@ fun GalleryPostDetailScreen(
         AlertModal(
             onDeleteClick = {
                 isDeleteAlertModalVisible = false
-                onDownloadBtnClick()
+                viewModel.deleteGalleryPost(galleryId)
+                onModalDeleteBtnClick()
             },
             onCancelClick = {
                 isDeleteAlertModalVisible = false

@@ -24,4 +24,7 @@ class GalleryDataSourceImpl @Inject constructor(
 
     override suspend fun getGalleryPostDetail(galleryId: Long): BaseResponse<ResponseGalleryPostDetailDto> =
        galleryService.getGalleryPostDetail(galleryId)
+
+    override suspend fun deleteGalleryPost(galleryId: Long): BaseResponse<Unit> =
+        galleryService.deleteGalleryPost(galleryId)
 }
