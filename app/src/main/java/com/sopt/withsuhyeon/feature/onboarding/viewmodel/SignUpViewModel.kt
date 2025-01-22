@@ -62,7 +62,7 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-    fun updateRegion(region: String?) {
+    fun updateRegion(region: String) {
         _signUpState.update {
             it.copy(
                 region = region,
@@ -130,4 +130,33 @@ class SignUpViewModel @Inject constructor(
             }
         }
     }
+
+    fun postSignUp(
+        phoneNumber: String = _signUpState.value.phoneNumber,
+        nickname: String = _signUpState.value.nickname,
+        birthYear: Int = _signUpState.value.birthYear,
+        gender: Boolean = _signUpState.value.gender,
+        profileImage: String = _signUpState.value.profileImage,
+        region: String = _signUpState.value.region
+    ) {
+        viewModelScope.launch {
+            Log.d(
+                "test",
+                "${phoneNumber} ${nickname} ${birthYear} ${gender} ${profileImage} ${region}"
+            )
+            signUpRepository.postSignUp(
+                phoneNumber = phoneNumber,
+                nickname = nickname,
+                birthYear = birthYear,
+                gender = gender,
+                profileImage = profileImage,
+                region = region
+            ).onSuccess {
+                Log.d("result", "성공")
+            }.onFailure { error ->
+                Log.d("result", error.message.toString())
+            }
+        }
+    }
+
 }

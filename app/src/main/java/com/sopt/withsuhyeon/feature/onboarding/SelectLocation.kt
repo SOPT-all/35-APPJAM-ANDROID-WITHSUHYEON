@@ -88,7 +88,7 @@ fun SelectLocationScreen(
                 selectedMainLocation = selectedMainLocation,
                 selectedSubLocation = selectedSubLocation,
                 onSubLocationSelect = { region ->
-                    viewModel.updateRegion(region)
+                    viewModel.updateRegion(region ?: EMPTY_STRING)
                 }
             )
         }

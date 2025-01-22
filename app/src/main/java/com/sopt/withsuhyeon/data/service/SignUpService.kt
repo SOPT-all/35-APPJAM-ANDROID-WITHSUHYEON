@@ -3,6 +3,7 @@ package com.sopt.withsuhyeon.data.service
 import com.sopt.withsuhyeon.data.dto.base.BaseResponse
 import com.sopt.withsuhyeon.data.dto.request.RequestAuthNumberDto
 import com.sopt.withsuhyeon.data.dto.request.RequestPhoneNumberAuthDto
+import com.sopt.withsuhyeon.data.dto.request.RequestSignUpDto
 import com.sopt.withsuhyeon.data.dto.response.ResponseRegionListDto
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -25,4 +26,9 @@ interface SignUpService {
     @GET("/api/v1/enums/regions")
     suspend fun getRegionList(
     ) : BaseResponse<ResponseRegionListDto>
+
+    @POST("/api/v1/auth/signup")
+    suspend fun postSignUp(
+        @Body requestSignUpDto: RequestSignUpDto
+    ) : BaseResponse<Unit>
 }

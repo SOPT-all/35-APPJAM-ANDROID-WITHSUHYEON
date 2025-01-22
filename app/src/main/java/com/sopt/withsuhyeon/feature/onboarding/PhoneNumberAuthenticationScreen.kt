@@ -151,7 +151,7 @@ fun PhoneNumberAuthenticationScreen(
                     phoneNumber = state.phoneNumber,
                     verifyNumber = authNumberValue
                 )
-//                onButtonClick()
+                onButtonClick()
             },
             text = NEXT_BUTTON_TEXT,
             modifier = Modifier.padding(horizontal = 16.dp),
