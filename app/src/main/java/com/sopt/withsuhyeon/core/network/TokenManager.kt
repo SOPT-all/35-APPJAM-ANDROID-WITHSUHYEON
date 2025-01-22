@@ -10,7 +10,7 @@ class TokenManager @Inject constructor(
     private val sharedPreferences: SharedPreferences
 ) {
     fun getToken(): String {
-        return sharedPreferences.getString("token", TOKEN) ?: ""
+        return sharedPreferences.getString("token", TOKEN) ?: TOKEN
     }
 
     fun saveToken(token: String) {
