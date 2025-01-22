@@ -28,14 +28,13 @@ fun PostProfileInfoRow(
     profileImage: String,
     userName: String,
     date: String,
-    views: String,
     modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically
+            .padding(vertical = 11.dp),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
 
         AsyncImage(
@@ -49,39 +48,20 @@ fun PostProfileInfoRow(
 
         Column(
             modifier = Modifier
-                .padding(start = 8.dp)
-                .weight(1f)
+                .padding(start = 12.dp)
+                .weight(1f),
+            verticalArrangement = Arrangement.Center
         ) {
             Text(
                 text = userName,
                 style = typography.body03_SB
             )
-            Spacer(modifier = Modifier.height(4.dp))
-            Row(
-                modifier = modifier,
-                horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.Start)
-            ) {
-                Text(
-                    text = date,
-                    style = typography.caption01_R,
-                    color = colors.Grey500
-                )
-                Text(
-                    text = stringResource(R.string.post_description_dot),
-                    style = typography.caption01_R,
-                    color = colors.Grey500
-                )
-                Text(
-                    text = stringResource(R.string.post_views_number),
-                    style = typography.caption01_R,
-                    color = colors.Grey500
-                )
-                Text(
-                    text = views,
-                    style = typography.caption01_R,
-                    color = colors.Grey500
-                )
-            }
+            Spacer(modifier.height(4.dp))
+            Text(
+                text = date,
+                style = typography.caption01_R,
+                color = colors.Grey500
+            )
         }
     }
 }
@@ -89,5 +69,9 @@ fun PostProfileInfoRow(
 @Preview (showBackground = true)
 @Composable
 private fun Preview() {
-    PostProfileInfoRow("https://via.placeholder.com/150", "작심이", "1월 12일", "00")
+    PostProfileInfoRow(
+        "https://via.placeholder.com/150",
+        "작심이",
+        "1월 12일"
+    )
 }
