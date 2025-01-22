@@ -25,7 +25,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -119,9 +118,9 @@ fun OnBoardingScreen(
                     .pointerInput(Unit) {
                         detectHorizontalDragGestures(
                             onHorizontalDrag = { _, dragAmount ->
-                                if (dragAmount > 0) { // 오른쪽으로 드래그
+                                if (dragAmount > 0) {
                                     dragDirection = 1
-                                } else if (dragAmount < -0) { // 왼쪽으로 드래그
+                                } else if (dragAmount < -0) {
                                     dragDirection = -1
                                 }
                             },
@@ -217,14 +216,4 @@ fun OnBoardingScreen(
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun PreviewOnBoardungScreen() {
-    OnBoardingScreen(
-        padding = PaddingValues(0.dp),
-        onSignUpButtonClick = {},
-        onLoginButtonClick = {},
-    )
 }
