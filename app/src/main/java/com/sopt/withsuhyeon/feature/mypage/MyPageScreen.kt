@@ -115,7 +115,7 @@ private fun MyPageScreen(
                 .fillMaxWidth()
                 .padding(16.dp)
                 .background(
-                    color = colors.White,
+                    color = colors.Purple500,
                     shape = RoundedCornerShape(16.dp)
                 )
         ) {
@@ -125,8 +125,16 @@ private fun MyPageScreen(
                     .padding(horizontal = 20.dp, vertical = 20.dp),
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
             ) {
+                val profileImageResId = when (myPageInfo.profileImage) {
+                    "img_purple_suma" -> R.drawable.img_purple_suma
+                    "img_red_suma" -> R.drawable.img_red_suma
+                    "img_green_suma" -> R.drawable.img_green_suma
+                    "img_blue_suma" -> R.drawable.img_blue_suma
+                    else -> ""
+                }
+
                 AsyncImage(
-                    model = myPageInfo.profileImage,
+                    model = profileImageResId,
                     contentDescription = stringResource(R.string.my_page_profile_description),
                     modifier = Modifier.size(44.dp)
                         .clip(CircleShape)
