@@ -161,8 +161,6 @@
     <string name="profile_image">프로필 이미지</string>
     <string name="onboarding_location_select_title">자주 활동하는\n지역을 선택해주세요</string>
     <string name="onboarding_finish_title">회원가입이\n완료되었습니다</string>
-    <!-- 채팅 -->
-    <string name="total_chatroom_top_nav_bar_title">채팅</string>
 
     <!-- ShowButton -->
     <string name="show_button_title">보기</string>

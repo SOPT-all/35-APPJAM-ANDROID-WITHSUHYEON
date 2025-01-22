@@ -32,7 +32,8 @@ fun NavGraphBuilder.homeNavGraph(
             padding = padding,
             navigateToGallery = navigateToGallery,
             navigateToGalleryWithCategory = navigateToGalleryWithCategory,
-            navigateToPost = navigateToPost
+            navigateToPost = navigateToPost,
+            navigateToBlockUser = onNavigateToBlockUser
         )
     }
     composable<Route.BlockUser> {

@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -41,6 +43,8 @@ fun SelectLocationScreen(
     onButtonClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val selectedMainLocation by remember { mutableStateOf("") }
+    val selectedSubLocation by remember { mutableStateOf("") }
     val mainLocationList = remember {
         mutableListOf(
             "전국",
@@ -110,7 +114,9 @@ fun SelectLocationScreen(
             OnBoardingTitle(text = stringResource(R.string.onboarding_location_select_title))
             LocationMenu(
                 mainLocationList = mainLocationList,
-                subLocationList = subLocationList
+                subLocationList = subLocationList,
+                selectedMainLocation = selectedMainLocation,
+                selectedSubLocation = selectedSubLocation,
             )
         }
         HorizontalDivider(modifier = Modifier.height(1.dp))

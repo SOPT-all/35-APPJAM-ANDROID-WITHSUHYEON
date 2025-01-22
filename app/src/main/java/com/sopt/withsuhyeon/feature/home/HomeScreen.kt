@@ -344,13 +344,13 @@ fun HomeScreen(
     }
 }
 
-@Preview
-@Composable
-fun PreviewHome() {
-    HomeScreen(
-        padding = PaddingValues(0.dp),
-        onPostClick = { },
-        onCategoryCardClick = { },
-        onViewAllButtonClick = { },
-    )
-}
+//@Preview
+//@Composable
+//fun PreviewHome() {
+//    HomeScreen(
+//        padding = PaddingValues(0.dp),
+//        onPostClick = { },
+//        onCategoryCardClick = { },
+//        onViewAllButtonClick = { },
+//    )
+//}
