@@ -63,7 +63,8 @@ private fun GalleryUploadScreen(
     modifier: Modifier = Modifier,
     onCompleteBtnClick: () -> Unit,
     onCloseBtnClick: () -> Unit,
-    viewModel: GalleryViewModel = hiltViewModel()
+    galleryViewModel: GalleryViewModel = hiltViewModel(),
+    galleryUploadViewModel: GalleryUploadViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     val contentResolver = context.contentResolver
@@ -114,7 +115,7 @@ private fun GalleryUploadScreen(
                 .padding(horizontal = 8.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            val categories by viewModel.categories.collectAsState()
+            val categories by galleryViewModel.categories.collectAsState()
 
             if (isBottomSheetVisible) {
                 GalleryCategoryBottomSheet(
@@ -232,6 +233,7 @@ private fun GalleryUploadScreen(
                     isCategoryValid = isCategoryInputValid
 
                     if (isTitleInputValid && isCategoryInputValid && selectedImageUri != null) {
+                        onCompleteBtnClick()
                         val request = RequestUploadGalleryDto(
                             category = selectedCategory,
                             title = titleValue,
@@ -245,7 +247,7 @@ private fun GalleryUploadScreen(
 
                             if (imagePart != null) {
                                 try {
-                                    viewModel.uploadGallery(
+                                    galleryUploadViewModel.uploadGallery(
                                         imageUri = imageUri,
                                         request = request,
                                         contentResolver = contentResolver
