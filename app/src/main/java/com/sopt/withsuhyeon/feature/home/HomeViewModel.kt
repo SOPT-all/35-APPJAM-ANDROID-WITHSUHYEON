@@ -1,6 +1,5 @@
 package com.sopt.withsuhyeon.feature.home
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.withsuhyeon.domain.repository.HomeRepository
@@ -63,6 +62,9 @@ class HomeViewModel @Inject constructor(
         val target = _state.value.homeData.count
 
         animationJob = viewModelScope.launch {
+            _state.update { state ->
+                state.copy(count = 0)
+            }
             while (_state.value.count < target) {
                 val current = _state.value.count
                 val difference = target - current
