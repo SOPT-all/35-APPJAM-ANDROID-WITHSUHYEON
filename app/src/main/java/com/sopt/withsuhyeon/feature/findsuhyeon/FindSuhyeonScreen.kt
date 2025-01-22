@@ -240,7 +240,9 @@ private fun FindSuhyeonScreen(
                 selectedDate = selectedDate,
                 onSelect = { date ->
                     selectedDate = date
-                }
+                },
+                modifier = Modifier.background(colors.White).padding(start = 8.dp)
+
             )
             LazyColumn(
                 modifier = Modifier

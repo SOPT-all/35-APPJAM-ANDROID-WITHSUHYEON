@@ -163,7 +163,7 @@ fun DateTimePicker(
             Picker(
                 state = amPmPickerState,
                 items = amPmItems,
-                startIndex = amPmItems.indexOf(amPmPickerState.selectedItem),
+                startIndex = amPmItems.indexOf(amPmPickerState.selectedItem) -1,
                 visibleItemsCount = visibleItemsCount,
                 modifier = Modifier.width(amPmPickerWidth),
                 textStyle = textStyle,

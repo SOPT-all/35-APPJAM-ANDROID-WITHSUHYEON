@@ -61,6 +61,7 @@ fun MainNavHost(
             )
             chatNavGraph(
                 padding = padding,
+                onNavigateToChatRoom = navigator::navigateToChatRoom
             )
             myPageNavGraph(
                 padding = padding,
