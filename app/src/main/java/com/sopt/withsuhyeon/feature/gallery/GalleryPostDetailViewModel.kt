@@ -1,5 +1,6 @@
 package com.sopt.withsuhyeon.feature.gallery
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.withsuhyeon.domain.entity.GalleryPostDetailModel
@@ -25,7 +26,8 @@ class GalleryPostDetailViewModel @Inject constructor(
             profileImage = "",
             nickname = "",
             createdAt = "",
-            content = ""
+            content = "",
+            owner = true
         )
     )
     val galleryPostDetail: StateFlow<GalleryPostDetailModel> = _galleryPostDetail.asStateFlow()
@@ -44,7 +46,8 @@ class GalleryPostDetailViewModel @Inject constructor(
                         profileImage = data.profileImage,
                         nickname = data.nickname,
                         createdAt = data.createdAt,
-                        content = data.content
+                        content = data.content,
+                        owner = data.owner
                     )
                 }
                 .onFailure { error ->

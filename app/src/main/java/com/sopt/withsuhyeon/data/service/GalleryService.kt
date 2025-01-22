@@ -29,7 +29,7 @@ interface GalleryService {
         @Part("createGalleryRequest") request: RequestBody
     ) : BaseResponse<Unit>
 
-    @GET("/api/v1/galleries")
+    @GET("/api/v1/galleries/{galleryId}")
     suspend fun getGalleryPostDetail(
         @Path("galleryId") galleryId: Long
     ) : BaseResponse<ResponseGalleryPostDetailDto>

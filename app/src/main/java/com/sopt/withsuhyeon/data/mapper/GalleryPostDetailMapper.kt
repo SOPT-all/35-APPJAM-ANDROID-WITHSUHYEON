@@ -11,6 +11,7 @@ fun ResponseGalleryPostDetailDto.toGalleryPostDetailModel(): GalleryPostDetailMo
         profileImage = this.profileImage,
         nickname = this.nickname,
         createdAt = this.createdAt,
-        content = this.content
+        content = this.content,
+        owner = this.owner
     )
 }
