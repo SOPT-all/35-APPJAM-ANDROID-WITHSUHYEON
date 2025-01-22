@@ -77,17 +77,14 @@ private fun GalleryScreen(
 
     val categories by viewModel.categories.collectAsState()
     val galleries by viewModel.galleries.collectAsState()
-    var selectedCategory by remember { mutableStateOf("전체") }
+    val selectedCategory by viewModel.selectedCategory.collectAsState()
 
     LaunchedEffect(Unit) {
         viewModel.getGalleryCategories()
-        viewModel.getGalleryTotal("전체")
     }
 
     LaunchedEffect(selectedCategory) {
-        selectedCategory.let {
-            viewModel.getGalleryTotal(it)
-        }
+        viewModel.getGalleryTotal(selectedCategory)
     }
 
     Box(
@@ -124,7 +121,7 @@ private fun GalleryScreen(
                             scrollOffset = lazyGridState.firstVisibleItemScrollOffset.toFloat(),
                             isSelected = selectedCategory == "전체",
                             onClick = {
-                                selectedCategory = "전체"
+                                viewModel.setSelectedCategory("전체")
                             }
                         )
                     }
@@ -135,7 +132,7 @@ private fun GalleryScreen(
                             scrollOffset = lazyGridState.firstVisibleItemScrollOffset.toFloat(),
                             isSelected = selectedCategory == category.category,
                             onClick = {
-                                selectedCategory = category.category
+                                viewModel.setSelectedCategory(category.category)
                             }
                         )
                     }

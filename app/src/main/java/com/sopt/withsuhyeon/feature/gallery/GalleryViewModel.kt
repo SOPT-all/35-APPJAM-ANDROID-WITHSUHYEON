@@ -31,6 +31,9 @@ class GalleryViewModel @Inject constructor(
     private val _galleryPostDetail = MutableStateFlow<GalleryPostDetailModel?>(null)
     val galleryPostDetail: StateFlow<GalleryPostDetailModel?> = _galleryPostDetail.asStateFlow()
 
+    private val _selectedCategory = MutableStateFlow("전체")
+    val selectedCategory: StateFlow<String> = _selectedCategory.asStateFlow()
+
     init {
         getGalleryCategories()
     }
@@ -57,5 +60,9 @@ class GalleryViewModel @Inject constructor(
                     _errorMessage.update { error.message }
                 }
         }
+    }
+
+    fun setSelectedCategory(category: String) {
+        _selectedCategory.value = category
     }
 }
