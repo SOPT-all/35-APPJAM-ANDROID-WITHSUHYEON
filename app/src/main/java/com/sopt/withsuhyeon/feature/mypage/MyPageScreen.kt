@@ -115,7 +115,7 @@ private fun MyPageScreen(
                 .fillMaxWidth()
                 .padding(16.dp)
                 .background(
-                    color = colors.Purple500,
+                    color = colors.White,
                     shape = RoundedCornerShape(16.dp)
                 )
         ) {
@@ -126,10 +126,10 @@ private fun MyPageScreen(
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 val profileImageResId = when (myPageInfo.profileImage) {
-                    "img_purple_suma" -> R.drawable.img_purple_suma
-                    "img_red_suma" -> R.drawable.img_red_suma
-                    "img_green_suma" -> R.drawable.img_green_suma
-                    "img_blue_suma" -> R.drawable.img_blue_suma
+                    stringResource(R.string.suma_img_purple) -> R.drawable.img_purple_suma
+                    stringResource(R.string.suma_img_red) -> R.drawable.img_red_suma
+                    stringResource(R.string.suma_img_green) -> R.drawable.img_green_suma
+                    stringResource(R.string.suma_img_blue) -> R.drawable.img_blue_suma
                     else -> ""
                 }
 
