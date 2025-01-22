@@ -24,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -37,6 +38,7 @@ import com.sopt.withsuhyeon.core.component.modal.AlertModal
 import com.sopt.withsuhyeon.core.component.profile.PostProfileInfoRow
 import com.sopt.withsuhyeon.core.component.topbar.SubTopNavBar
 import com.sopt.withsuhyeon.core.type.MediumChipType
+import com.sopt.withsuhyeon.core.util.image.downloadImage
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
@@ -69,10 +71,10 @@ fun GalleryPostDetailScreen(
     viewModel: GalleryPostDetailViewModel = hiltViewModel(),
     modifier: Modifier = Modifier
 ) {
-
     LaunchedEffect(galleryId) {
         viewModel.getGalleryPostDetail(galleryId)
     }
+    val context = LocalContext.current
 
     var isDeleteBottomSheetVisible by remember { mutableStateOf(false) }
     var isDeleteAlertModalVisible by remember { mutableStateOf (false) }
@@ -198,7 +200,16 @@ fun GalleryPostDetailScreen(
         ) {
             LargeButton(
                 text = stringResource(R.string.gallery_download_btn),
-                onClick = onDownloadBtnClick,
+                onClick = {
+                    val fileName = "image_${System.currentTimeMillis()}.jpg"
+                    downloadImage(
+                        context = context,
+                        imageUrl = galleryPostDetail.imageUrl,
+                        fileName = fileName
+                    ) {
+                        onDownloadBtnClick()
+                    }
+                },
                 isDownloadBtn = true,
                 modifier = Modifier.fillMaxWidth()
             )
