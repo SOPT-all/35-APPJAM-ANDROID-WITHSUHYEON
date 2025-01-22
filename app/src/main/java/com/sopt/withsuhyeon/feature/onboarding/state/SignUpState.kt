@@ -8,7 +8,7 @@ data class SignUpState(
     val birthYear: Int? = null,
     val gender: Boolean? = null,
     val profileImage: String = EMPTY_STRING,
-    val region: String = EMPTY_STRING,
+    val region: String? = EMPTY_STRING,
     val progress: Float = 0f,
 
 //    완료 제약조건

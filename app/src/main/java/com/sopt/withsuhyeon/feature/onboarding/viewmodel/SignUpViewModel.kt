@@ -1,11 +1,9 @@
 package com.sopt.withsuhyeon.feature.onboarding.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.sopt.withsuhyeon.core.util.KeyStorage.DEFAULT
 import com.sopt.withsuhyeon.core.util.KeyStorage.LENGTH_ERROR
 import com.sopt.withsuhyeon.core.util.KeyStorage.SPECIAL_CHARACTER_ERROR
-import com.sopt.withsuhyeon.feature.findsuhyeon.state.FindSuhyeonState
 import com.sopt.withsuhyeon.feature.onboarding.state.SignUpState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -60,7 +58,7 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-    fun updateRegion(region: String) {
+    fun updateRegion(region: String?) {
         _signUpState.update {
             it.copy(
                 region = region,
@@ -86,15 +84,4 @@ class SignUpViewModel @Inject constructor(
         val specialCharactersRegex = "[^a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ0-9\\s]".toRegex()
         return specialCharactersRegex.containsMatchIn(input)
     }
-
-//    TODO - 얘네를 우선 완성해야함.
-//    {
-//        "phoneNumber" : "01099768776",
-//        "nickname" : "짱규",
-//        "birthYear" : 1999,
-//        "gender" : true,
-//        "profileImage" : "image1",
-//        "region" : "강남/역삼/삼성"
-//    }
-
 }

@@ -48,11 +48,13 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 @Composable
 fun SelectProfileRoute(
     padding: PaddingValues,
-    navigateToNext: () -> Unit
+    navigateToNext: () -> Unit,
+    viewModel: SignUpViewModel
 ) {
     SelectProfileScreen(
         padding = padding,
-        onButtonClick = navigateToNext
+        onButtonClick = navigateToNext,
+        viewModel
     )
 }
 
@@ -61,15 +63,15 @@ fun SelectProfileRoute(
 fun SelectProfileScreen(
     padding: PaddingValues,
     onButtonClick: () -> Unit,
+    viewModel: SignUpViewModel,
     modifier: Modifier = Modifier,
-    viewModel: SignUpViewModel = hiltViewModel()
 ) {
     val profileTypes = ProfileType.entries
     var profileImage by remember { mutableIntStateOf(R.drawable.img_grey_suma) }
     val state by viewModel.signUpState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
-        viewModel.updateProgress(state.progress + 6f / 7)
+        viewModel.updateProgress(state.progress + 1f / 8)
     }
 
     Column(
@@ -113,7 +115,7 @@ fun SelectProfileScreen(
                         .padding(horizontal = 17.dp),
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    profileTypes.forEach { profileType ->
+                    profileTypes.forEachIndexed { index, profileType ->
                         Box(
                             modifier = Modifier
                                 .size(80.dp)
@@ -131,7 +133,7 @@ fun SelectProfileScreen(
                                         Modifier
                                     }
                                 ),
-                            contentAlignment = Alignment.Center // Box 내부 자식 요소를 중앙 정렬
+                            contentAlignment = Alignment.Center
                         ) {
                             Image(
                                 modifier = Modifier
@@ -140,6 +142,7 @@ fun SelectProfileScreen(
                                     .alpha(if (profileImage == profileType.titleResId) 1f else 0.3f)
                                     .noRippleClickable {
                                         profileImage = profileType.titleResId
+                                        viewModel.updateProfileImage("image${index+1}")
                                     },
                                 imageVector = ImageVector.vectorResource(profileType.titleResId),
                                 contentDescription = stringResource(R.string.profile_image),

@@ -17,7 +17,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.button.LargeButton
@@ -32,7 +31,6 @@ import com.sopt.withsuhyeon.core.util.KeyStorage.NEXT_BUTTON_TEXT
 import com.sopt.withsuhyeon.core.util.KeyStorage.SPECIAL_CHARACTER_ERROR
 import com.sopt.withsuhyeon.core.util.KeyStorage.SPECIAL_CHARACTER_ERROR_MESSAGE
 import com.sopt.withsuhyeon.feature.onboarding.components.OnBoardingTitle
-import com.sopt.withsuhyeon.feature.onboarding.viewmodel.OnBoardingViewModel
 import com.sopt.withsuhyeon.feature.onboarding.viewmodel.SignUpViewModel
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
@@ -40,7 +38,7 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 fun NickNameAuthenticationRoute(
     navigateToNext: () -> Unit,
     padding: PaddingValues,
-    viewModel: SignUpViewModel = hiltViewModel()
+    viewModel: SignUpViewModel
 ) {
     NickNameAuthenticationScreen(
         onButtonClick = navigateToNext,
@@ -53,19 +51,17 @@ fun NickNameAuthenticationRoute(
 fun NickNameAuthenticationScreen(
     onButtonClick: () -> Unit,
     padding: PaddingValues,
+    viewModel: SignUpViewModel,
     modifier: Modifier = Modifier,
-    viewModel: SignUpViewModel
 ) {
-    var nicknameValue by remember { mutableStateOf("") }
     var isNicknameValid by remember { mutableStateOf(false) }
     var nicknameErrorType by remember { mutableStateOf(LENGTH_ERROR) }
     var isNicknameTextFiledFocused by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf("") }
 
     val state by viewModel.signUpState.collectAsStateWithLifecycle()
-
     LaunchedEffect(Unit) {
-        viewModel.updateProgress(state.progress + 3f / 7,)
+        viewModel.updateProgress(state.progress + 1f / 8,)
     }
 
 
@@ -105,7 +101,7 @@ fun NickNameAuthenticationScreen(
                 modifier = Modifier.height(32.dp)
             )
             BasicShortTextField(
-                value = nicknameValue,
+                value = state.nickname,
                 title = stringResource(R.string.onboarding_nickname_input_title),
                 hint = stringResource(R.string.onboarding_nickname_input_hint),
                 isValid = isNicknameValid,
@@ -113,7 +109,7 @@ fun NickNameAuthenticationScreen(
                     isNicknameTextFiledFocused = it
                 },
                 onValueChange = { input ->
-                    nicknameValue = input
+                    viewModel.updateNickname(input)
                     nicknameErrorType = viewModel.isNicknameValid(input)
                     updateErrorMessage(nicknameErrorType)
                     isNicknameValid = nicknameErrorType == DEFAULT

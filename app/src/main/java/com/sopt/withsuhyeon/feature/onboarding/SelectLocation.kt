@@ -33,11 +33,13 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 @Composable
 fun SelectLocationRoute(
     padding: PaddingValues,
-    navigateToNext: () -> Unit
+    navigateToNext: () -> Unit,
+    viewModel: SignUpViewModel
 ) {
     SelectLocationScreen(
         padding = padding,
-        onButtonClick = navigateToNext
+        onButtonClick = navigateToNext,
+        viewModel
     )
 }
 
@@ -45,8 +47,8 @@ fun SelectLocationRoute(
 fun SelectLocationScreen(
     padding: PaddingValues,
     onButtonClick: () -> Unit,
+    viewModel: SignUpViewModel,
     modifier: Modifier = Modifier,
-    viewModel: SignUpViewModel = hiltViewModel()
 ) {
     val selectedMainLocation by remember { mutableStateOf("") }
     val selectedSubLocation by remember { mutableStateOf("") }
@@ -100,7 +102,7 @@ fun SelectLocationScreen(
     val state by viewModel.signUpState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
-        viewModel.updateProgress(state.progress + 1)
+        viewModel.updateProgress(state.progress + 1f / 8)
     }
 
     Column(
@@ -130,12 +132,17 @@ fun SelectLocationScreen(
                 subLocationList = subLocationList,
                 selectedMainLocation = selectedMainLocation,
                 selectedSubLocation = selectedSubLocation,
+                onSubLocationSelect = { region ->
+                    viewModel.updateRegion(region)
+                }
             )
         }
         HorizontalDivider(modifier = Modifier.height(1.dp))
         Spacer(modifier = Modifier.height(16.dp))
         LargeButton(
-            onClick = onButtonClick,
+            onClick = {
+                onButtonClick()
+            },
             text = NEXT_BUTTON_TEXT,
             modifier = Modifier.padding(horizontal = 16.dp),
         )

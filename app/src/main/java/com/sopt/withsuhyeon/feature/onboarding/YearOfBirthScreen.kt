@@ -24,6 +24,7 @@ import com.sopt.withsuhyeon.core.component.progressbar.AnimatedProgressBar
 import com.sopt.withsuhyeon.core.component.topbar.MainTopNavBar
 import com.sopt.withsuhyeon.core.util.KeyStorage.EMPTY_STRING
 import com.sopt.withsuhyeon.core.util.KeyStorage.NEXT_BUTTON_TEXT
+import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.core.util.time.currentDate
 import com.sopt.withsuhyeon.feature.onboarding.components.OnBoardingTitle
 import com.sopt.withsuhyeon.feature.onboarding.viewmodel.OnBoardingViewModel
@@ -33,11 +34,13 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 @Composable
 fun YearOfBirthRoute(
     navigateToNext: () -> Unit,
-    padding: PaddingValues
+    padding: PaddingValues,
+    viewModel: SignUpViewModel
 ) {
     YearOfBirthScreen(
         onButtonClick = navigateToNext,
-        padding = padding
+        padding = padding,
+        viewModel
     )
 }
 
@@ -45,15 +48,15 @@ fun YearOfBirthRoute(
 fun YearOfBirthScreen(
     onButtonClick: () -> Unit,
     padding: PaddingValues,
+    viewModel: SignUpViewModel,
     modifier: Modifier = Modifier,
-    viewModel: SignUpViewModel = hiltViewModel()
 ) {
     val yearPickerState = rememberPickerState(currentDate.year)
-    val selectedYear = yearPickerState.selectedItem - 1
+    val selectedYear = yearPickerState.selectedItem
     val state by viewModel.signUpState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
-        viewModel.updateProgress(state.progress + 4f / 7,)
+        viewModel.updateProgress(state.progress + 1f / 8)
     }
 
     Column(
@@ -79,7 +82,9 @@ fun YearOfBirthScreen(
             Spacer(modifier = Modifier.height(16.dp))
             OnBoardingTitle(text = stringResource(R.string.onboarding_year_of_birth_title))
             Spacer(modifier = Modifier.height(100.dp))
-            YearPicker()
+            YearPicker(
+                yearPickerState = yearPickerState
+            )
         }
         HorizontalDivider(
             modifier = Modifier.height(1.dp),

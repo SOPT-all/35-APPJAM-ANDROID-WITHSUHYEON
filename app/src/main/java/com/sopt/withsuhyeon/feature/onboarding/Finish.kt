@@ -30,17 +30,20 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.button.LargeButton
 import com.sopt.withsuhyeon.core.util.KeyStorage.NEXT_BUTTON_TEXT
+import com.sopt.withsuhyeon.feature.onboarding.viewmodel.SignUpViewModel
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
 @Composable
 fun FinishRoute(
     padding: PaddingValues,
-    navigateToNext: () -> Unit
+    navigateToNext: () -> Unit,
+    viewModel: SignUpViewModel
 ) {
     OnBoardingFinishScreen(
         padding = padding,
-        onButtonClick = navigateToNext
+        onButtonClick = navigateToNext,
+        viewModel = viewModel
     )
 }
 
@@ -48,6 +51,7 @@ fun FinishRoute(
 fun OnBoardingFinishScreen(
     padding: PaddingValues,
     onButtonClick: () -> Unit,
+    viewModel: SignUpViewModel,
     modifier: Modifier = Modifier
 ) {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.signup))
@@ -57,6 +61,7 @@ fun OnBoardingFinishScreen(
         isPlaying = isAnimationPlaying,
         iterations = 1,
     )
+
     Box(
         modifier = modifier
             .background(color = colors.White)

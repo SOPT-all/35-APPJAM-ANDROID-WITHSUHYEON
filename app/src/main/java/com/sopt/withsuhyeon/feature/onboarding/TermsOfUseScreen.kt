@@ -48,7 +48,7 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 fun TermsOfUseRoute(
     padding: PaddingValues,
     navigateToNext: () -> Unit,
-    viewModel: SignUpViewModel = hiltViewModel()
+    viewModel: SignUpViewModel
 ) {
     TermsOfUseScreen(
         onButtonClick = {
@@ -73,7 +73,7 @@ fun TermsOfUseScreen(
     val state by viewModel.signUpState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
-        viewModel.updateProgress(state.progress + 1f / 7)
+        viewModel.updateProgress(state.progress + 1f / 8)
     }
 
     fun updateAllTermsSelectedState() {

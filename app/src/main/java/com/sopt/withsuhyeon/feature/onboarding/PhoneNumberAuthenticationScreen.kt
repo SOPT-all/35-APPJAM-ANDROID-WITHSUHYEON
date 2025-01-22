@@ -38,12 +38,12 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 fun PhoneNumberAuthenticationRoute(
     navigateToNext: () -> Unit,
     padding: PaddingValues,
-    viewModel: SignUpViewModel = hiltViewModel()
+    viewModel: SignUpViewModel
 ) {
     PhoneNumberAuthenticationScreen(
         onButtonClick = navigateToNext,
         padding = padding,
-        viewModel,
+        viewModel = viewModel,
     )
 }
 
@@ -54,7 +54,6 @@ fun PhoneNumberAuthenticationScreen(
     viewModel: SignUpViewModel,
     modifier: Modifier = Modifier
 ) {
-    var phoneNumberValue by remember { mutableStateOf("") }
     var isPhoneNumberInputValid by remember { mutableStateOf(false) }
     var isPhoneNumberInputFocused by remember { mutableStateOf(false) }
     var isPhoneNumberAuthVisible by remember { mutableStateOf(false) }
@@ -66,7 +65,7 @@ fun PhoneNumberAuthenticationScreen(
     val state by viewModel.signUpState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
-        viewModel.updateProgress(state.progress + 2f / 7,)
+        viewModel.updateProgress(state.progress + 1f / 8)
     }
 
     Column(
@@ -91,7 +90,7 @@ fun PhoneNumberAuthenticationScreen(
             OnBoardingTitle(text = stringResource(R.string.onboarding_phone_number_title))
             Spacer(modifier = Modifier.height(32.dp))
             BasicShortTextField(
-                value = phoneNumberValue,
+                value = state.phoneNumber,
                 title = stringResource(R.string.onboarding_phone_number_input_title),
                 hint = stringResource(R.string.onboarding_phone_number_input_hint),
                 isValid = isPhoneNumberInputValid,
@@ -101,7 +100,7 @@ fun PhoneNumberAuthenticationScreen(
                 onValueChange = { input ->
                     isPhoneNumberInputValid = input.length == 11
                     isPhoneNumberAuthButtonEnabled = input.length == 11
-                    phoneNumberValue = input
+                    viewModel.updatePhoneNumber(input)
                 },
                 maxLength = 11,
                 trailingContent = {
