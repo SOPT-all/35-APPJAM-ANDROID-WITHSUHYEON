@@ -52,7 +52,13 @@ class GalleryViewModel @Inject constructor(
 
     fun getGalleryTotal(category: String) {
         viewModelScope.launch {
-            galleryRepository.getGalleryTotal(category)
+            val result = if (category == "전체") {
+                galleryRepository.getAllGalleries()
+            } else {
+                galleryRepository.getGalleryTotal(category)
+            }
+
+            result
                 .onSuccess { galleries ->
                     _galleries.update { galleries }
                 }

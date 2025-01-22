@@ -25,6 +25,12 @@ class GalleryRepositoryImpl @Inject constructor(
             response.result?.galleries ?: throw Exception("Response data is null")
         }
 
+    override suspend fun getAllGalleries(): Result<List<Gallery>> =
+        runCatching {
+            val response = galleryService.getGalleryTotal("")
+            response.result?.galleries ?: throw Exception("Response data is null")
+        }
+
     override suspend fun uploadGallery(image: MultipartBody.Part, request: RequestBody): Result<Unit> =
         runCatching {
             val response = galleryService.uploadGallery(image, request)
