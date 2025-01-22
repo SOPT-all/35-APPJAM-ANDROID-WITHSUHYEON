@@ -158,7 +158,9 @@ private fun GalleryScreen(
                     GalleryMainCardItem(
                         text = gallery.title,
                         image = gallery.imageUrl,
-                        onClick = onGalleryCardItemClick,
+                        onClick = {
+                            onGalleryCardItemClick()
+                        },
                         modifier = Modifier
                     )
                 }

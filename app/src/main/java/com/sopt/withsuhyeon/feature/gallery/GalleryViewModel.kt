@@ -8,6 +8,7 @@ import com.sopt.withsuhyeon.core.util.image.ContentUriRequestBody
 import com.sopt.withsuhyeon.data.dto.request.RequestUploadGalleryDto
 import com.sopt.withsuhyeon.domain.entity.Category
 import com.sopt.withsuhyeon.domain.entity.Gallery
+import com.sopt.withsuhyeon.domain.entity.GalleryPostDetailModel
 import com.sopt.withsuhyeon.domain.repository.GalleryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -40,6 +41,19 @@ class GalleryViewModel @Inject constructor(
 
     private val _uploadState = MutableStateFlow<Result<Unit>?>(null)
     val uploadState: StateFlow<Result<Unit>?> = _uploadState.asStateFlow()
+
+    private val _galleryPostDetail = MutableStateFlow(
+        GalleryPostDetailModel(
+            imageUrl = "",
+            category = "",
+            title = "",
+            profileImage = "",
+            nickname = "",
+            createdAt = "",
+            content = ""
+        )
+    )
+    val galleryPostDetail: StateFlow<GalleryPostDetailModel> = _galleryPostDetail.asStateFlow()
 
     init {
         getGalleryCategories()
@@ -95,5 +109,23 @@ class GalleryViewModel @Inject constructor(
         }
     }
 
-
+    fun getGalleryPostDetail(galleryId: Long) {
+        viewModelScope.launch {
+            galleryRepository.getGalleryPostDetail(galleryId)
+                .onSuccess { data ->
+                    _galleryPostDetail.value = GalleryPostDetailModel(
+                        imageUrl = data.imageUrl,
+                        category = data.category,
+                        title = data.title,
+                        profileImage = data.profileImage,
+                        nickname = data.nickname,
+                        createdAt = data.createdAt,
+                        content = data.content
+                    )
+                }
+                .onFailure { error ->
+                    _errorMessage.update { error.message }
+                }
+        }
+    }
 }
