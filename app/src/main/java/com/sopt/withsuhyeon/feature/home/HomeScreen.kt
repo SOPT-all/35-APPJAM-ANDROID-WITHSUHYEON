@@ -28,11 +28,6 @@ import androidx.compose.material3.pulltorefresh.pullToRefresh
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -45,20 +40,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.sopt.withsuhyeon.R
-import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_20_TO_24
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
-import com.sopt.withsuhyeon.domain.entity.PostItemModel
 import com.sopt.withsuhyeon.feature.findsuhyeon.component.FindSuhyeonPostItem
 import com.sopt.withsuhyeon.feature.home.component.HomeCardItem
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @Composable
 fun HomeRoute(
@@ -84,71 +75,28 @@ fun HomeScreen(
     onCategoryCardClick: (String) -> Unit,
     onViewAllButtonClick: () -> Unit
 ) {
-    var count by remember { mutableIntStateOf(0) }
-    val countTarget = 4500
+    val homeState by viewModel.state.collectAsStateWithLifecycle()
 
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.home))
-
-    var isRefreshing by remember { mutableStateOf(false) }
-    val state = rememberPullToRefreshState()
-    val coroutineScope = rememberCoroutineScope()
-    val onRefresh: () -> Unit = {
-        isRefreshing = true
-        coroutineScope.launch {
-            delay(100)
-            isRefreshing = false
-        }
-    }
-
-    val postList = listOf(
-        PostItemModel(
-            postId = 0,
-            title = "서울역 수현이 구해요ㅠㅠ",
-            price = 5000,
-            gender = true,
-            age = AGE_20_TO_24,
-            date = "1월 25일 (토) 오후 2:30",
-            matching = true
-        ),
-        PostItemModel(
-            postId = 0,
-            title = "서울역 수현이 구해요ㅠㅠ",
-            price = 5000,
-            gender = true,
-            age = AGE_20_TO_24,
-            date = "1월 25일 (토) 오후 2:30",
-            matching = true
-        ),
-        PostItemModel(
-            postId = 0,
-            title = "서울역 수현이 구해요ㅠㅠ",
-            price = 5000,
-            gender = true,
-            age = AGE_20_TO_24,
-            date = "1월 25일 (토) 오후 2:30",
-            matching = true
+    val composition by rememberLottieComposition(
+        LottieCompositionSpec.RawRes(
+            homeState.lottieResId
         )
     )
 
-    LaunchedEffect(Unit) {
-        while (count < countTarget) {
-            delay(1)
-            while (count < countTarget) {
-                delay(1)
-                if (count > countTarget - 38) {
-                    count = countTarget
-                } else {
-                    count += 37
-                }
-            }
-        }
-    }
+    val pullToRefreshState = rememberPullToRefreshState()
+
+    val maxOffset = 60.dp
     val offset = with(LocalDensity.current) {
-        if((state.distanceFraction * 60.dp.toPx()).toDp() >= 60.dp)
-            60.dp
+        if ((pullToRefreshState.distanceFraction * maxOffset.toPx()).toDp() >= maxOffset)
+            maxOffset
         else
-            (state.distanceFraction * 60.dp.toPx()).toDp()
+            (pullToRefreshState.distanceFraction * maxOffset.toPx()).toDp()
     }
+
+    LaunchedEffect(Unit){
+        viewModel.startCountAnimation()
+    }
+
     Column (
         modifier = modifier
             .fillMaxSize()
@@ -162,6 +110,8 @@ fun HomeScreen(
                 )
             )
             .statusBarsPadding()
+
+
     ) {
         Icon(
             imageVector = ImageVector.vectorResource(R.drawable.logo),
@@ -173,9 +123,11 @@ fun HomeScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .pullToRefresh(
-                    isRefreshing = isRefreshing,
-                    state = state,
-                    onRefresh = onRefresh
+                    isRefreshing = homeState.isRefreshing,
+                    state = pullToRefreshState,
+                    onRefresh = {
+                        viewModel.onRefresh()
+                    }
                 )
         ) {
             Column(
@@ -211,7 +163,7 @@ fun HomeScreen(
                                 .padding(vertical = 16.dp)
                         ) {
                             Text(
-                                count.toString(),
+                                homeState.count.toString(),
                                 style = typography.heading01_B.merge(colors.White),
                             )
                             Spacer(modifier = Modifier.width(8.dp))
@@ -355,8 +307,8 @@ fun HomeScreen(
                                 .padding(vertical = 16.dp),
                             verticalArrangement = Arrangement.spacedBy(16.dp)
                         ) {
-                            postList.forEachIndexed { index, post ->
-                                val isLastItem = index == postList.size - 1
+                            homeState.postList.forEachIndexed { index, post ->
+                                val isLastItem = index == homeState.postList.size - 1
                                 FindSuhyeonPostItem(
                                     postItemModel = post,
                                     modifier = Modifier
