@@ -14,16 +14,16 @@ fun TextDropDown(
     hint: String,
     isError: Boolean,
     modifier: Modifier = Modifier,
-    value: String = "",
+    value: String?,
     errorMessage: String = "",
-    onClick: () -> Unit,
+    onClick: (String?) -> Unit = {},
     startContent: @Composable () -> Unit = {},
 ) {
     BasicSelectDropDown(
-        isError =  isError,
+        isError = isError,
         errorMessage = errorMessage,
         modifier = modifier,
-        onClick = onClick,
+        onClick = { onClick(value) },
         mainContent = {
             TextDropDownItem(
                 modifier = Modifier.weight(1f),
@@ -38,7 +38,7 @@ fun TextDropDown(
 @Preview
 @Composable
 fun PreviewTextDropDown() {
-    val value by remember { mutableStateOf("") }
+    val value by remember { mutableStateOf<String?>(null) }
     var isError by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf("") }
 
@@ -49,7 +49,7 @@ fun PreviewTextDropDown() {
         errorMessage = errorMessage,
         onClick = {
             isError = !isError
-            if(isError)
+            if (isError)
                 errorMessage = "필수로 입력해줘"
         }
     )

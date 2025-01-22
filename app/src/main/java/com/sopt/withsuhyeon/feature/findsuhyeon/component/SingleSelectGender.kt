@@ -4,11 +4,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
@@ -18,29 +20,32 @@ import com.sopt.withsuhyeon.feature.findsuhyeon.component.chip.SmallSelectChip
 
 @Composable
 fun SingleSelectGender(
-    selectElement: MutableState<String?>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onSelect: (String?) -> Unit = {}
 ) {
+    var selectElement by remember { mutableStateOf<String?>(null) }
     Row(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier.fillMaxWidth()
     ) {
         SmallSelectChip(
             text = MALE,
-            isSelected = selectElement.value == MALE,
-            image = painterResource(R.drawable.dummy_ellipse),
+            isSelected = selectElement == MALE,
+            image = ImageVector.vectorResource(R.drawable.img_boy_suma),
             onClick = {
-                selectElement.value = MALE
+                selectElement = MALE
+                onSelect(MALE)
             },
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
 
         SmallSelectChip(
             text = FEMALE,
-            isSelected = selectElement.value == FEMALE,
-            image = painterResource(R.drawable.dummy_ellipse),
+            isSelected = selectElement == FEMALE,
+            image = ImageVector.vectorResource(R.drawable.img_girl_suma),
             onClick = {
-                selectElement.value = FEMALE
+                selectElement = FEMALE
+                onSelect(FEMALE)
             },
             modifier = Modifier.weight(1f)
         )
@@ -51,8 +56,5 @@ fun SingleSelectGender(
 @Composable
 @Preview
 fun PreviewSingleSelectGender() {
-    val selectedGender = remember { mutableStateOf<String?>(null) }
-    SingleSelectGender(
-        selectElement = selectedGender
-    )
+    SingleSelectGender()
 }

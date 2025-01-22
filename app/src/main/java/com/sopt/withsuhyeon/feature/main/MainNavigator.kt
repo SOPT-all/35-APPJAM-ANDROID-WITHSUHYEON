@@ -10,9 +10,14 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import com.sopt.withsuhyeon.core.navigation.MainTabRoute
 import com.sopt.withsuhyeon.core.navigation.Route
 import com.sopt.withsuhyeon.feature.chat.navigation.navigateToChat
+import com.sopt.withsuhyeon.feature.chat.navigation.navigateToChatRoom
 import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.navigateToFindSuhyeon
+import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.navigateToFindSuhyeonPost
+import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.navigateToFindSuhyeonUpload
+import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.navigateToFindSuhyeonUploadDetail
 import com.sopt.withsuhyeon.feature.gallery.navigation.navigateToGallery
 import com.sopt.withsuhyeon.feature.gallery.navigation.navigateToGalleryPostDetail
 import com.sopt.withsuhyeon.feature.gallery.navigation.navigateToGalleryUpload
@@ -95,6 +100,33 @@ class MainNavigator(
 
     fun navigateToGalleryPostDetail() {
         navController.navigateToGalleryPostDetail()
+    }
+
+    fun navigateToChatRoom() {
+        navController.navigateToChatRoom()
+    }
+
+    fun navigateToFindSuhyeon(navOptions: NavOptions? = null) {
+        navController.navigateToHome(
+            navOptions ?: navOptions {
+                popUpTo(navController.graph.findStartDestination().id) {
+                    inclusive = true
+                }
+                launchSingleTop = true
+            }
+        )
+    }
+
+    fun navigateToFindSuhyeonUpload() {
+        navController.navigateToFindSuhyeonUpload()
+    }
+
+    fun navigateToFindSuhyeonUploadDetail() {
+        navController.navigateToFindSuhyeonUploadDetail()
+    }
+
+    fun navigateToFindSuhyeonPost() {
+        navController.navigateToFindSuhyeonPost()
     }
 
     fun popBackStack() {

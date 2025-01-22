@@ -19,13 +19,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.chip.SmallChip
 import com.sopt.withsuhyeon.core.type.SmallChipType
-import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
+import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
@@ -36,12 +35,14 @@ fun ChatRoomListItem(
     recentChat: String,
     recentChatDateTime: String,
     unreadChatCount: String,
+    onChatRoomListItemClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .background(colors.White)
+            .noRippleClickable { onChatRoomListItemClick() }
     ) {
         Row(
             modifier = Modifier
@@ -102,13 +103,5 @@ fun ChatRoomListItem(
             thickness = 1.dp,
             color = colors.Grey100
         )
-    }
-}
-
-@Preview (showBackground = true)
-@Composable
-private fun ChatRoomListItemPreview() {
-    WithSuhyeonTheme {
-        ChatRoomListItem("https://via.placeholder.com/150", "작심이", "나는야 작심이 작심이 작심이 작심이 작심이 작심이", "1월 1일", "+99")
     }
 }

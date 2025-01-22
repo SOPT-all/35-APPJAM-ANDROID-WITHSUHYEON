@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,19 +27,22 @@ import com.sopt.withsuhyeon.core.util.size.calculateWidth
 import com.sopt.withsuhyeon.core.util.time.HOUR12_RANGE
 import com.sopt.withsuhyeon.core.util.time.currentDate
 import com.sopt.withsuhyeon.core.util.time.currentDateTime
-import com.sopt.withsuhyeon.core.util.time.currentHour
+import com.sopt.withsuhyeon.core.util.time.toDate
 import com.sopt.withsuhyeon.core.util.time.toKoreanDay
+import com.sopt.withsuhyeon.core.util.time.toTime
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.LocalTime
 import kotlinx.datetime.plus
 
 @Composable
 fun DateTimePicker(
     modifier: Modifier = Modifier,
     startDateTime: LocalDateTime = currentDateTime,
+    onDateTimeSelected: (LocalDateTime?) -> Unit = {},
     datePickerState: PickerState<String> = remember {
         PickerState(
             "${startDateTime.monthNumber}월 ${startDateTime.dayOfMonth}일 ${startDateTime.dayOfWeek.name.toKoreanDay()}"
@@ -56,6 +60,9 @@ fun DateTimePicker(
         val minute = ((startDateTime.minute + 4) / 5) * 5
         PickerState(if (minute == 60) "00" else minute.toString().padStart(2, '0'))
     },
+    amPmPickerState: PickerState<String> = remember {
+        PickerState(if (startDateTime.hour in 0..11) "오전" else "오후")
+    },
     dateItems: List<String> = remember {
         val endDate = LocalDate(2025, 12, 31)
         if (currentDate > endDate) emptyList()
@@ -71,7 +78,7 @@ fun DateTimePicker(
     hourItems: List<Int> = HOUR12_RANGE,
     minuteItems: List<String> = (0..55 step 5).map { it.toString().padStart(2, '0') },
     visibleItemsCount: Int = 3,
-    itemPadding: PaddingValues = PaddingValues(top = 12.dp, bottom = 16.dp, start = 6.dp, end = 6.dp),
+    itemPadding: PaddingValues = PaddingValues(top = 11.dp, bottom = 15.dp, start = 5.dp, end = 5.dp),
     textStyle: TextStyle = typography.title02_SB.copy(color = colors.Grey400),
     selectedTextStyle: TextStyle = typography.title02_SB.copy(color = colors.Black),
     fadingEdgeGradient: Brush = Brush.verticalGradient(
@@ -87,20 +94,26 @@ fun DateTimePicker(
     val hourPickerWidth = calculateWidth(hourItems.map { it.toString() }, textStyle)
     val minutePickerWidth = calculateWidth(minuteItems, textStyle)
 
-    val am = stringResource(R.string.am)
-    val pm = stringResource(R.string.pm)
-
-    val amPmPickerState: PickerState<String> = remember {
-        PickerState(if (currentHour in 0..11) am else pm)
-    }
-
     val density = LocalDensity.current
     val itemHeight = with(density) {
         selectedTextStyle.fontSize.toDp() +
                 itemPadding.calculateTopPadding() +
                 itemPadding.calculateBottomPadding()
     }
-
+    LaunchedEffect(datePickerState.selectedItem, amPmPickerState.selectedItem, hourPickerState.selectedItem, minutePickerState.selectedItem) {
+        try {
+            val selectedDate = datePickerState.selectedItem.toDate()
+            val selectedTime = LocalTime(
+                hourPickerState.selectedItem.toTime(amPmPickerState.selectedItem),
+                minutePickerState.selectedItem.toInt()
+            )
+            val selectedDateTime = LocalDateTime(selectedDate, selectedTime)
+            onDateTimeSelected(selectedDateTime)
+        } catch (e: Exception) {
+            println("Error parsing date: ${e.message}")
+            onDateTimeSelected(null)
+        }
+    }
     Row(
         modifier = modifier.background(colors.White),
         horizontalArrangement = Arrangement.Center,
@@ -126,7 +139,6 @@ fun DateTimePicker(
                 modifier = Modifier.width(datePickerWidth),
                 textStyle = textStyle,
                 selectedTextStyle = selectedTextStyle,
-                textModifier = modifier.padding(1.dp),
                 dividerColor = Transparent,
                 itemPadding = itemPadding,
                 fadingEdgeGradient = fadingEdgeGradient,
@@ -151,18 +163,17 @@ fun DateTimePicker(
             Picker(
                 state = amPmPickerState,
                 items = amPmItems,
-                startIndex = amPmItems.indexOf(amPmPickerState.selectedItem),
+                startIndex = amPmItems.indexOf(amPmPickerState.selectedItem) -1,
                 visibleItemsCount = visibleItemsCount,
                 modifier = Modifier.width(amPmPickerWidth),
                 textStyle = textStyle,
                 selectedTextStyle = selectedTextStyle,
-                textModifier = Modifier.padding(itemPadding),
                 dividerColor = Transparent,
                 itemPadding = itemPadding,
                 fadingEdgeGradient = fadingEdgeGradient,
                 horizontalAlignment = horizontalAlignment,
                 itemTextAlignment = verticalAlignment,
-                isInfinity = true
+                isInfinity = false
             )
         }
 
@@ -190,7 +201,6 @@ fun DateTimePicker(
                     modifier = Modifier.width(hourPickerWidth),
                     textStyle = textStyle,
                     selectedTextStyle = selectedTextStyle,
-                    textModifier = Modifier.padding(itemPadding),
                     dividerColor = Transparent,
                     itemPadding = itemPadding,
                     fadingEdgeGradient = fadingEdgeGradient,
@@ -206,7 +216,6 @@ fun DateTimePicker(
                     modifier = Modifier.width(minutePickerWidth),
                     textStyle = textStyle,
                     selectedTextStyle = selectedTextStyle,
-                    textModifier = Modifier.padding(itemPadding),
                     dividerColor = Transparent,
                     itemPadding = itemPadding,
                     fadingEdgeGradient = fadingEdgeGradient,

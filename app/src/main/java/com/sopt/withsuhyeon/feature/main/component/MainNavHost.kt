@@ -36,6 +36,10 @@ fun MainNavHost(
             )
             findSuhyeonNavGraph(
                 padding = padding,
+                onNavigateToFindSuheyonUpload = navigator::navigateToFindSuhyeonUpload,
+                onNavigateToFindSuhyeon = { navigator.navigateToFindSuhyeon() },
+                onNavigateToFindSuhyeonPost = navigator::navigateToFindSuhyeonPost,
+                onNavigateToFindSuheyonUploadDetail = navigator::navigateToFindSuhyeonUploadDetail,
             )
 
             galleryNavGraph(
@@ -46,6 +50,7 @@ fun MainNavHost(
             )
             chatNavGraph(
                 padding = padding,
+                onNavigateToChatRoom = navigator::navigateToChatRoom
             )
             myPageNavGraph(
                 padding = padding,
