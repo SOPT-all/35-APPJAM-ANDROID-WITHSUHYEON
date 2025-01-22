@@ -43,7 +43,7 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 fun GalleryRoute(
     padding: PaddingValues,
     navigateToGalleryUpload: () -> Unit,
-    navigateToGalleryPostDetail: () -> Unit,
+    navigateToGalleryPostDetail: (Long) -> Unit,
     viewModel: GalleryViewModel = hiltViewModel()
 ) {
     GalleryScreen(
@@ -51,8 +51,8 @@ fun GalleryRoute(
         onFloatingButtonClick = {
             navigateToGalleryUpload()
         },
-        onGalleryCardItemClick = {
-            navigateToGalleryPostDetail()
+        onGalleryCardItemClick = { galleryId ->
+            navigateToGalleryPostDetail(galleryId)
         }
     )
 }
@@ -61,7 +61,7 @@ fun GalleryRoute(
 private fun GalleryScreen(
     padding: PaddingValues,
     onFloatingButtonClick: () -> Unit,
-    onGalleryCardItemClick: () -> Unit,
+    onGalleryCardItemClick: (Long) -> Unit,
     viewModel: GalleryViewModel = hiltViewModel()
 ) {
     val lazyGridState = rememberLazyGridState()
@@ -159,7 +159,7 @@ private fun GalleryScreen(
                         text = gallery.title,
                         image = gallery.imageUrl,
                         onClick = {
-                            onGalleryCardItemClick()
+                            onGalleryCardItemClick(gallery.galleryId)
                         },
                         modifier = Modifier
                     )
