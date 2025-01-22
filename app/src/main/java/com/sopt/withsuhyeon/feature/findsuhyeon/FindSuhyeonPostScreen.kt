@@ -37,14 +37,17 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 @Composable
 fun FindSuhyeonPostRoute(
     padding: PaddingValues,
+    id: Long?,
     viewModel: FindSuhyeonViewModel = hiltViewModel()
 ) {
     FindSuhyeonPostScreen(
+        id = id,
         padding = padding
     )
 }
 @Composable
 fun FindSuhyeonPostScreen(
+    id: Long?,
     modifier: Modifier = Modifier,
     padding: PaddingValues
 ) {
@@ -167,6 +170,7 @@ fun FindSuhyeonPostScreen(
 @Composable
 fun PreviewFindSuhyeonPostScreen() {
     FindSuhyeonPostScreen(
+        id = 0,
         padding = PaddingValues(0.dp)
     )
 }

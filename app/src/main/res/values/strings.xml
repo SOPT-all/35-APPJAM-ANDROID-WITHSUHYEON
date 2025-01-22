@@ -71,6 +71,8 @@
     <string name="find_suhyeon_title_hint">제목 입력하기</string>
     <string name="find_suhyeon_content_hint">내용 입력하기</string>
     <string name="find_suhyeon_detail_title_error_message">필수로 입력해줘</string>
+    <string name="find_suhyeon_content">내용</string>
+    <string name="find_suhyeon_detail_done">작성 완료</string>
 
     <!-- 공통 컴포넌트 PostBottomBar -->
     <string name="post_bottom_bar_start_chating">채팅하기</string>
@@ -173,6 +175,12 @@
     <string name="my_page_right_arrow_description">My Page Right Arrow</string>
     <string name="my_page_block_icon_description">My Page Block Icon</string>
     <string name="my_page_info_icon_description">My Page Info Icon</string>
-    <string name="find_suhyeon_content">내용</string>
-    <string name="find_suhyeon_detail_done">작성 완료</string>
+
+    <!-- 홈 -->
+    <string name="home_title_count">지금까지 이만큼의\n수현이들의 여행이 이뤄졌어요!</string>
+    <string name="home_title_now">수현이는 지금</string>
+    <string name="home_view_all">전체보기</string>
+    <string name="home_title_post">수현이가 되어줘</string>
+    <string name="home_count">건</string>
+    <string name="home_text_around">내주변</string>
 </resources>

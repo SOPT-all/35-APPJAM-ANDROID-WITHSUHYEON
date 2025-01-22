@@ -25,7 +25,7 @@ enum class MainTab(
     GALLERY(
         iconResId = R.drawable.ic_gallery,
         descriptionResId = R.string.bottom_navigation_bar_item_gallery,
-        MainTabRoute.Gallery,
+        MainTabRoute.Gallery(null),
     ),
     CHAT(
         iconResId = R.drawable.ic_message,

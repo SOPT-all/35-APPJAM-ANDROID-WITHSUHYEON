@@ -13,9 +13,17 @@ fun NavController.navigateToHome(navOptions: NavOptions) {
 }
 
 fun NavGraphBuilder.homeNavGraph(
-    padding: PaddingValues
+    padding: PaddingValues,
+    navigateToGallery: () -> Unit,
+    navigateToGalleryWithCategory: (String) -> Unit,
+    navigateToPost: (Long) -> Unit
 ) {
     composable<MainTabRoute.Home> {
-        HomeRoute(padding)
+        HomeRoute(
+            padding = padding,
+            navigateToGallery = navigateToGallery,
+            navigateToGalleryWithCategory = navigateToGalleryWithCategory,
+            navigateToPost = navigateToPost
+        )
     }
 }
