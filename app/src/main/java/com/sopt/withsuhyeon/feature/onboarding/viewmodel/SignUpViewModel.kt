@@ -1,19 +1,23 @@
 package com.sopt.withsuhyeon.feature.onboarding.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.sopt.withsuhyeon.core.util.KeyStorage.DEFAULT
 import com.sopt.withsuhyeon.core.util.KeyStorage.LENGTH_ERROR
 import com.sopt.withsuhyeon.core.util.KeyStorage.SPECIAL_CHARACTER_ERROR
+import com.sopt.withsuhyeon.domain.repository.SignUpRepository
 import com.sopt.withsuhyeon.feature.onboarding.state.SignUpState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-
+    private val signUpRepository: SignUpRepository
 ) : ViewModel() {
     private val _signUpState = MutableStateFlow(SignUpState())
     val signUpState: StateFlow<SignUpState> = _signUpState
@@ -84,4 +88,15 @@ class SignUpViewModel @Inject constructor(
         val specialCharactersRegex = "[^a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ0-9\\s]".toRegex()
         return specialCharactersRegex.containsMatchIn(input)
     }
+
+    fun postPhoneNumberAuth(phoneNumber: String) {
+        viewModelScope.launch {
+            signUpRepository.postPhoneNumber(phoneNumber = phoneNumber).onSuccess {
+                Log.d("phone", "성공")
+            }.onFailure { error ->
+                Log.d("phone", error.message.toString())
+            }
+        }
+    }
+
 }

@@ -79,7 +79,9 @@ fun PhoneNumberAuthenticationScreen(
             color = colors.Grey100
         )
         Column(
-            modifier = Modifier.weight(1f).padding(horizontal = 16.dp)
+            modifier = Modifier
+                .weight(1f)
+                .padding(horizontal = 16.dp)
         ) {
             AnimatedProgressBar(
                 progress = state.progress,
@@ -103,10 +105,11 @@ fun PhoneNumberAuthenticationScreen(
                 },
                 maxLength = 11,
                 trailingContent = {
-                    BasicButtonForTextField (
+                    BasicButtonForTextField(
                         text = phoneNumberAuthButtonText,
                         onClick = {
                             isPhoneNumberAuthVisible = true
+                            viewModel.postPhoneNumberAuth(state.phoneNumber)
                             isPhoneNumberAuthButtonEnabled = false
                             phoneNumberAuthButtonText = AFTER_SEND_BUTTON_TEXT
                         },

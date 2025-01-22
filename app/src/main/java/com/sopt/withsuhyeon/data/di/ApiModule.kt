@@ -2,6 +2,7 @@ package com.sopt.withsuhyeon.data.di
 
 import com.sopt.withsuhyeon.data.service.DummyService
 import com.sopt.withsuhyeon.data.service.GalleryService
+import com.sopt.withsuhyeon.data.service.SignUpService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,4 +22,9 @@ object ApiModule {
     @Singleton
     fun providesGalleryService(retrofit: Retrofit): GalleryService =
         retrofit.create(GalleryService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideSignUpService(retrofit: Retrofit): SignUpService =
+        retrofit.create(SignUpService::class.java)
 }
