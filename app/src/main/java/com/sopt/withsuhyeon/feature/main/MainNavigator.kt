@@ -1,6 +1,5 @@
 package com.sopt.withsuhyeon.feature.main
 
-import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavDestination
@@ -21,14 +20,20 @@ import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.navigateToFindSuhyeon
 import com.sopt.withsuhyeon.feature.gallery.navigation.navigateToGallery
 import com.sopt.withsuhyeon.feature.gallery.navigation.navigateToGalleryPostDetail
 import com.sopt.withsuhyeon.feature.gallery.navigation.navigateToGalleryUpload
+import com.sopt.withsuhyeon.feature.home.navigation.navigateToBlockUser
 import com.sopt.withsuhyeon.feature.home.navigation.navigateToHome
+import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToBlockUserFromMyPage
 import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToMyPage
+import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToOnBoarding
+import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToLogin
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToNickNameAuth
+import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToOnboardingFinish
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToPhoneNumberAuth
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToPostProfileImage
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToSelectGender
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToSelectLocation
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToSelectYearOfBirth
+import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToSignUp
 
 
 class MainNavigator(
@@ -38,16 +43,19 @@ class MainNavigator(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = Route.TermsOfUse
+    val startDestination = Route.OnBoarding
 
     val currentTab: MainTab?
-        @SuppressLint("RestrictedApi") @Composable get() = MainTab.find { tab ->
-            currentDestination?.route == tab::class.qualifiedName
+        @Composable get() = MainTab.entries.find { tab ->
+            when (tab.route) {
+                is MainTabRoute.Gallery -> currentDestination?.route?.startsWith(MainTabRoute.Gallery::class.qualifiedName!!) == true
+                else -> currentDestination?.route == tab.route::class.qualifiedName
+            }
         }
 
     fun navigate(tab: MainTab) {
         val navOptions = navOptions {
-            popUpTo(MainTab.HOME.route)  {
+            popUpTo(MainTab.HOME.route) {
                 saveState = true
             }
             launchSingleTop = true
@@ -62,6 +70,15 @@ class MainNavigator(
             MainTab.MYPAGE -> navController.navigateToMyPage(navOptions)
         }
     }
+
+    fun navigateToLogin() {
+        navController.navigateToLogin()
+    }
+
+    fun navigateToSignUp() {
+        navController.navigateToSignUp()
+    }
+
     fun navigateToPhoneNumberAuth() {
         navController.navigateToPhoneNumberAuth()
     }
@@ -73,14 +90,33 @@ class MainNavigator(
     fun navigateToSelectYearOfBirth() {
         navController.navigateToSelectYearOfBirth()
     }
+
     fun navigateToSelectGender() {
         navController.navigateToSelectGender()
     }
+
     fun navigateToPostProfileImage() {
         navController.navigateToPostProfileImage()
     }
+
     fun navigateToSelectLocation() {
         navController.navigateToSelectLocation()
+    }
+
+    fun navigateToOnboardingFinish() {
+        navController.navigateToOnboardingFinish()
+    }
+
+    fun navigateToBlockUser() {
+        navController.navigateToBlockUser()
+    }
+
+    fun navigateToBlockUserFromMyPage() {
+        navController.navigateToBlockUserFromMyPage()
+    }
+
+    fun navigateToOnboarding() {
+        navController.navigateToOnBoarding()
     }
 
     fun navigateToHome(navOptions: NavOptions? = null) {
@@ -93,7 +129,17 @@ class MainNavigator(
             }
         )
     }
-
+    fun navigateToGallery(navOptions: NavOptions? = null, category: String? = null) {
+        navController.navigateToGallery(
+            navOptions ?: navOptions {
+                popUpTo(navController.graph.findStartDestination().id) {
+                    inclusive = true
+                }
+                launchSingleTop = true
+            },
+            category
+        )
+    }
     fun navigateToGalleryUpload() {
         navController.navigateToGalleryUpload()
     }
@@ -107,7 +153,7 @@ class MainNavigator(
     }
 
     fun navigateToFindSuhyeon(navOptions: NavOptions? = null) {
-        navController.navigateToHome(
+        navController.navigateToFindSuhyeon(
             navOptions ?: navOptions {
                 popUpTo(navController.graph.findStartDestination().id) {
                     inclusive = true
@@ -125,8 +171,8 @@ class MainNavigator(
         navController.navigateToFindSuhyeonUploadDetail()
     }
 
-    fun navigateToFindSuhyeonPost() {
-        navController.navigateToFindSuhyeonPost()
+    fun navigateToFindSuhyeonPost(id: Long?) {
+        navController.navigateToFindSuhyeonPost(id)
     }
 
     fun popBackStack() {
@@ -137,8 +183,18 @@ class MainNavigator(
         navController.currentDestination?.route == T::class.qualifiedName
 
     @Composable
-    fun shouldShowBottomBar() = MainTab.contains {
-        currentDestination?.route == it::class.qualifiedName
+    fun shouldShowBottomBar(): Boolean {
+        return currentDestination?.route?.let { currentRoute ->
+            MainTab.entries.any { tab ->
+                when (tab.route) {
+                    is MainTabRoute.Home -> currentRoute.startsWith(MainTabRoute.Home::class.qualifiedName!!)
+                    is MainTabRoute.FindSuhyeon -> currentRoute.startsWith(MainTabRoute.FindSuhyeon::class.qualifiedName!!)
+                    is MainTabRoute.Gallery -> currentRoute.startsWith(MainTabRoute.Gallery::class.qualifiedName!!)
+                    is MainTabRoute.Chat -> currentRoute.startsWith(MainTabRoute.Chat::class.qualifiedName!!)
+                    is MainTabRoute.MyPage -> currentRoute.startsWith(MainTabRoute.MyPage::class.qualifiedName!!)
+                }
+            }
+        } ?: false
     }
 }
 

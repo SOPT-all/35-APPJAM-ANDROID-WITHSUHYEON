@@ -138,7 +138,11 @@ fun SelectProfileScreen(
                 }
             }
         }
-        HorizontalDivider(modifier = Modifier.height(1.dp))
+        HorizontalDivider(
+            modifier = Modifier.height(1.dp),
+            color = colors.Grey100
+
+        )
         Spacer(modifier = Modifier.height(16.dp))
         LargeButton(
             onClick = onButtonClick,

@@ -35,9 +35,11 @@ import com.sopt.withsuhyeon.core.component.chip.MediumChip
 import com.sopt.withsuhyeon.core.type.MediumChipType
 import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_20_TO_24
 import com.sopt.withsuhyeon.core.util.KeyStorage.FIND_SUHYEON_DETAIL_MEETING_INFORMATION_EXPAND
+import com.sopt.withsuhyeon.core.util.KeyStorage.PHONE_CALL
 import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_FEMALE
+import com.sopt.withsuhyeon.core.util.KeyStorage.TAKE_A_PHOTO
+import com.sopt.withsuhyeon.core.util.KeyStorage.VIDEO_CALL
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
-import com.sopt.withsuhyeon.domain.entity.PostDetailInfoModel
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
@@ -47,7 +49,7 @@ fun DetailMeetingInformationDropDown(
     gender: String,
     age: String,
     date: String,
-    mediumChipTypeList: List<MediumChipType>,
+    mediumChipTypeList: List<String>,
     itemId: String,
     modifier: Modifier = Modifier,
 ) {
@@ -138,7 +140,7 @@ fun DetailMeetingInformationDropDownContent(
     gender: String,
     age: String,
     date: String,
-    mediumChipTypeList: List<MediumChipType>,
+    mediumChipTypeList: List<String>,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -217,8 +219,14 @@ fun DetailMeetingInformationDropDownContent(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 mediumChipTypeList.forEach { chipType ->
+                    val chipTypeMapping = when(chipType) {
+                        TAKE_A_PHOTO -> MediumChipType.CATEGORY_PHOTO
+                        PHONE_CALL -> MediumChipType.CATEGORY_PHONE_CALL
+                        VIDEO_CALL -> MediumChipType.CATEGORY_VIDEO_CALL
+                        else -> MediumChipType.CATEGORY_VIDEO_CALL
+                }
                     MediumChip(
-                        mediumChipType = chipType
+                        mediumChipType = chipTypeMapping
                     )
                 }
             }
@@ -239,9 +247,7 @@ fun PreviewDetailMeetingInformationExpandButton() {
             age = AGE_20_TO_24,
             date = "1월 25일 (토) 오후 2:00",
             mediumChipTypeList = listOf(
-                MediumChipType.CATEGORY_PHOTO,
-                MediumChipType.CATEGORY_VIDEO_CALL,
-                MediumChipType.CATEGORY_PHONE_CALL,
+                TAKE_A_PHOTO
             ),
             itemId = FIND_SUHYEON_DETAIL_MEETING_INFORMATION_EXPAND
         )

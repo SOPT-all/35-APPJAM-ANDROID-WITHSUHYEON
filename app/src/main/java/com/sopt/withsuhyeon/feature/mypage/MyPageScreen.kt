@@ -29,7 +29,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.sopt.withsuhyeon.R
+import com.sopt.withsuhyeon.core.component.modal.AlertModal
 import com.sopt.withsuhyeon.core.component.topbar.MainTopNavBar
+import com.sopt.withsuhyeon.core.util.KeyStorage.DISABLED_TYPE
+import com.sopt.withsuhyeon.core.util.KeyStorage.LEAVE_ALERT_TYPE
+import com.sopt.withsuhyeon.core.util.KeyStorage.LOGOUT_ALERT_TYPE
+import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
@@ -37,25 +42,59 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 @Composable
 fun MyPageRoute(
     padding: PaddingValues,
+    navigateToBlockUser: () -> Unit,
+    navigateToOnboarding: () -> Unit,
     viewModel: MyPageViewModel = hiltViewModel()
 ) {
     MyPageScreen(
-        padding = padding
+        padding = padding,
+        navigateToBlockUser,
+        navigateToOnboarding
     )
 }
+
 @Composable
 private fun MyPageScreen(
-    padding: PaddingValues
+    padding: PaddingValues,
+    navigateToBlockUser: () -> Unit,
+    navigateToOnboarding: () -> Unit
 ) {
+    val nickname by remember { mutableStateOf("") }
+    var alertState by remember { mutableStateOf<String>(DISABLED_TYPE) }
+    when (alertState) {
+        LOGOUT_ALERT_TYPE -> {
+            AlertModal(
+                onDeleteClick = {
+                    alertState = DISABLED_TYPE
+                    navigateToOnboarding()
+                },
+                onCancelClick = {
+                    alertState = DISABLED_TYPE
+                },
+                alertModalType = LOGOUT_ALERT_TYPE
+            )
+        }
+
+        LEAVE_ALERT_TYPE -> {
+            AlertModal(
+                onDeleteClick = {},
+                onCancelClick = {
+                    alertState = DISABLED_TYPE
+                },
+                alertModalType = LEAVE_ALERT_TYPE
+            )
+        }
+
+        else -> {}
+    }
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .padding(padding)
             .background(colors.Grey50),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        val nickname by remember { mutableStateOf("") }
-
         MainTopNavBar(
             text = stringResource(R.string.my_page_title)
         )
@@ -70,9 +109,9 @@ private fun MyPageScreen(
                 )
         ) {
             Row(
-               modifier = Modifier
-                   .fillMaxWidth()
-                   .padding(horizontal = 20.dp, vertical = 20.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp, vertical = 20.dp),
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 Image(
@@ -134,7 +173,8 @@ private fun MyPageScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 8.dp, vertical = 8.dp),
+                    .padding(horizontal = 8.dp, vertical = 8.dp)
+                    .noRippleClickable(navigateToBlockUser),
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Row(
@@ -212,7 +252,10 @@ private fun MyPageScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 20.dp, end = 20.dp, top = 8.dp),
+                    .padding(start = 20.dp, end = 20.dp, top = 8.dp)
+                    .noRippleClickable {
+                        alertState = LOGOUT_ALERT_TYPE
+                    },
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
@@ -236,7 +279,10 @@ private fun MyPageScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 20.dp, end = 20.dp, bottom = 8.dp),
+                    .padding(start = 20.dp, end = 20.dp, bottom = 8.dp)
+                    .noRippleClickable {
+                        alertState = LEAVE_ALERT_TYPE
+                    },
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
@@ -262,6 +308,6 @@ private fun MyPageScreen(
 @Composable
 private fun MyPageScreenPreview() {
     WithSuhyeonTheme {
-        MyPageScreen(padding = PaddingValues())
+        MyPageScreen(padding = PaddingValues(), navigateToBlockUser = {}, navigateToOnboarding = {})
     }
 }

@@ -32,6 +32,7 @@ object KeyStorage {
     const val FIND_SUHYEON_DETAIL_MEETING_INFORMATION_EXPAND = "expand_item"
 
     const val NEXT_BUTTON_TEXT = "다음"
+    const val SAVE_BUTTON_TEXT = "저장하기"
     const val BEFORE_SEND_BUTTON_TEXT = "인증요청"
     const val AFTER_SEND_BUTTON_TEXT = "전송완료"
 
@@ -41,4 +42,7 @@ object KeyStorage {
     const val SPECIAL_CHARACTER_ERROR_MESSAGE = "특수기호를 제거해주세요"
 
     const val EMPTY_STRING =""
+
+    const val LOGOUT_ALERT_TYPE = "logout"
+    const val LEAVE_ALERT_TYPE = "leave"
 }

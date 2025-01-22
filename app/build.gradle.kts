@@ -75,7 +75,7 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    implementation (libs.kotlinx.collections.immutable)
+    implementation(libs.kotlinx.collections.immutable)
 
     // Network
     implementation(platform(libs.okhttp.bom))
@@ -106,4 +106,10 @@ dependencies {
     // Date Time Picker
     implementation(libs.compose.date.time.picker)
     implementation(libs.kotlinx.datetime)
+
+    // Lottie
+    implementation (libs.lottie.compose)
+
+    // SwipeRefresh
+    implementation (libs.accompanist.swiperefresh)
 }

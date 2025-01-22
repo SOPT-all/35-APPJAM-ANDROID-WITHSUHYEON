@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -65,12 +66,13 @@ fun SubTopNavBar(
         modifier = modifier
             .fillMaxWidth()
             .background(colors.White)
-            .padding(top = 8.dp, bottom = 16.dp)
+            .padding(bottom = 16.dp)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .align(Alignment.Center),
+                .align(Alignment.Center)
+                .padding(),
             verticalAlignment = Alignment.CenterVertically
         ) {
             if (isTextVisible) {
@@ -95,8 +97,13 @@ fun SubTopNavBar(
                 tint = colors.Black,
                 modifier = Modifier
                     .align(CenterEnd)
-                    .padding(top = 2.dp, bottom = 2.dp, end = 10.dp)
+                    .padding(10.dp)
                     .noRippleClickable { onCloseBtnClicked() }
+            )
+        }
+        else {
+            Box(
+                modifier = Modifier.size(44.dp)
             )
         }
     }

@@ -10,6 +10,7 @@
     <string name="bottom_navigation_bar_item_chat">채팅</string>
     <string name="bottom_navigation_bar_item_my">MY</string>
     <string name="checkbox_image_name">체크박스</string>
+    <string name="app_logo">수현이랑</string>
 
     <!-- Component -->
     <string name="add_find_suhyeon_post_button_description">Add Find Suhyeon Post Floating Button</string>
@@ -71,6 +72,8 @@
     <string name="find_suhyeon_title_hint">제목 입력하기</string>
     <string name="find_suhyeon_content_hint">내용 입력하기</string>
     <string name="find_suhyeon_detail_title_error_message">필수로 입력해줘</string>
+    <string name="find_suhyeon_content">내용</string>
+    <string name="find_suhyeon_detail_done">작성 완료</string>
 
     <!-- 공통 컴포넌트 PostBottomBar -->
     <string name="post_bottom_bar_start_chating">채팅하기</string>
@@ -156,6 +159,8 @@
     <string name="onboarding_gender_select_title">성별을\n선택해주세요</string>
     <string name="onboarding_profile_select_title">프로필 이미지를\n등록해주세요</string>
     <string name="profile_image">프로필 이미지</string>
+    <string name="onboarding_location_select_title">자주 활동하는\n지역을 선택해주세요</string>
+    <string name="onboarding_finish_title">회원가입이\n완료되었습니다</string>
 
     <!-- ShowButton -->
     <string name="show_button_title">보기</string>
@@ -173,6 +178,40 @@
     <string name="my_page_right_arrow_description">My Page Right Arrow</string>
     <string name="my_page_block_icon_description">My Page Block Icon</string>
     <string name="my_page_info_icon_description">My Page Info Icon</string>
-    <string name="find_suhyeon_content">내용</string>
-    <string name="find_suhyeon_detail_done">작성 완료</string>
+
+    <!-- 홈 -->
+    <string name="home_title_count">지금까지 이만큼의\n수현이들의 여행이 이뤄졌어요!</string>
+    <string name="home_title_now">수현이는 지금</string>
+    <string name="home_view_all">전체보기</string>
+    <string name="home_title_post">수현이가 되어줘</string>
+    <string name="home_count">건</string>
+    <string name="home_text_around">내주변</string>
+
+    <!--  차단스크린  -->
+    <string name="block_screen_title">차단 계정 관리</string>
+    <string name="block_screen_sub_title">차단할 번호를 입력해주세요</string>
+    <string name="block_screen_description">차단한 사용자는 xx님의 게시글과 xx님이 다운로드한 사진들을\n볼 수 없습니다.</string>
+    <string name="block_screen_phone_number">휴대폰 번호</string>
+    <string name="block_screen_phone_number_hint">-를 제외한 휴대폰 번호를 입력해주세요</string>
+    <string name="block_screen_block_text">차단하기</string>
+    <string name="block_screen_empty_text">아직 차단된 번호가 없어요</string>
+    <string name="block_screen_block_number_text">차단된 연락처</string>
+    <string name="block_screen_empty_image">차단번호가 등록되지 않은 스크린을 설명하기 위한 이미지입니다.</string>
+
+    <!-- 로그인 화면   -->
+    <string name="login_title">휴대폰 번호 인증으로\n로그인해주세요</string>
+    <string name="login_input_hint"> - 를 제외한 휴대폰 번호를 입력해주세요</string>
+    <string name="login_input_title">휴대폰 번호</string>
+
+    <!-- AlertModal -->
+    <string name="alert_modal_logout_title">정말 로그아웃하시겠습니까?</string>
+    <string name="alert_modal_leave_title">정말 탈퇴하시겠습니까?</string>
+    <string name="alert_modal_leave_sub_title">작성한 내용이 저장되지 않고 모두 사라집니다.</string>
+    <string name="alert_modal_logout">로그아웃</string>
+    <string name="alert_modal_leave">탈퇴하기</string>
+
+    <!-- 시작 온보딩 -->
+    <string name="onboarding_account_question">이미 계정이 있나요?</string>
+    <string name="onboarding_login_text">로그인</string>
+    <string name="onboarding_start_text">시작하기</string>
 </resources>
