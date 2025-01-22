@@ -27,7 +27,6 @@ import com.sopt.withsuhyeon.core.util.KeyStorage.NEXT_BUTTON_TEXT
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.core.util.time.currentDate
 import com.sopt.withsuhyeon.feature.onboarding.components.OnBoardingTitle
-import com.sopt.withsuhyeon.feature.onboarding.viewmodel.OnBoardingViewModel
 import com.sopt.withsuhyeon.feature.onboarding.viewmodel.SignUpViewModel
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
@@ -56,7 +55,7 @@ fun YearOfBirthScreen(
     val state by viewModel.signUpState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
-        viewModel.updateProgress(state.progress + 1f / 8)
+        viewModel.updateProgress(state.progress + 1f / 7)
     }
 
     Column(

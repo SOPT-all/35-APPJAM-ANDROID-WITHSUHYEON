@@ -32,7 +32,6 @@ import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.button.LargeButton
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.feature.onboarding.components.PageIndicator
-import com.sopt.withsuhyeon.feature.onboarding.viewmodel.OnBoardingViewModel
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
@@ -41,7 +40,6 @@ fun OnBoardingRoute(
     padding: PaddingValues,
     navigateToSignUp: () -> Unit,
     navigateToLogin: () -> Unit,
-    viewModel: OnBoardingViewModel = hiltViewModel()
 ) {
     OnBoardingScreen(
         padding = padding,

@@ -30,7 +30,6 @@ import com.sopt.withsuhyeon.core.util.KeyStorage.BEFORE_SEND_BUTTON_TEXT
 import com.sopt.withsuhyeon.core.util.KeyStorage.EMPTY_STRING
 import com.sopt.withsuhyeon.core.util.KeyStorage.NEXT_BUTTON_TEXT
 import com.sopt.withsuhyeon.feature.onboarding.components.OnBoardingTitle
-import com.sopt.withsuhyeon.feature.onboarding.viewmodel.OnBoardingViewModel
 import com.sopt.withsuhyeon.feature.onboarding.viewmodel.SignUpViewModel
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
@@ -65,7 +64,7 @@ fun PhoneNumberAuthenticationScreen(
     val state by viewModel.signUpState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
-        viewModel.updateProgress(state.progress + 1f / 8)
+        viewModel.updateProgress(state.progress + 1f / 7)
     }
 
     Column(

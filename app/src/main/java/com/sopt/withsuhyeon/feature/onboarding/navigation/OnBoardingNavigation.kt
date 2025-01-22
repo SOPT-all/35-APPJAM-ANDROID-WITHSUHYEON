@@ -97,7 +97,7 @@ fun NavGraphBuilder.onBoardingNavGraph(
         TermsOfUseRoute(
             navigateToNext = onNavigateToPhoneNumberAuth,
             padding = padding,
-            viewModel = hiltViewModel()
+            viewModel = getBackStackUploadViewModel(it)
         )
     }
     composable<PhoneNumberAuthRoute> {

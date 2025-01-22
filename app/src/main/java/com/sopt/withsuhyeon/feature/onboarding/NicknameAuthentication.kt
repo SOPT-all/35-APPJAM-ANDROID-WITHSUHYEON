@@ -61,7 +61,7 @@ fun NickNameAuthenticationScreen(
 
     val state by viewModel.signUpState.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) {
-        viewModel.updateProgress(state.progress + 1f / 8,)
+        viewModel.updateProgress(state.progress + 1f / 7)
     }
 
 
