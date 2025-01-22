@@ -38,7 +38,6 @@ class HomeViewModel @Inject constructor(
             }
             .onFailure { error ->
                 _errorMessage.update { error.message }
-                Log.d("88", error.message.toString())
             }
     }
     fun refreshHomeData() {
@@ -52,29 +51,29 @@ class HomeViewModel @Inject constructor(
                         )
                     }
                     _state.update { it.copy(isRefreshing = false) }
+                    startCountAnimation()
                 }
                 .onFailure { error ->
                     _errorMessage.update { error.message }
                     _state.update { it.copy(isRefreshing = false) }
-                    Log.d("88", error.message.toString())
                 }
         }
     }
     fun startCountAnimation() {
-        _state.value.run {
-            if (count < homeData.count) {
-                animationJob = viewModelScope.launch {
-                    while (count < homeData.count) {
-                        delay(1)
-                        _state.update { state ->
-                            state.copy(
-                                count = minOf(count + 37, homeData.count)
-                            )
-                        }
-                    }
-                    cancelAnimation()
+        val target = _state.value.homeData.count
+
+        animationJob = viewModelScope.launch {
+            while (_state.value.count < target) {
+                val current = _state.value.count
+                val difference = target - current
+
+                val step = (difference * 0.1).coerceAtLeast(1.0).toInt()
+                _state.update { state ->
+                    state.copy(count = minOf(current + step, target))
                 }
+                delay(30)
             }
+            cancelAnimation()
         }
     }
 
@@ -82,11 +81,4 @@ class HomeViewModel @Inject constructor(
         animationJob?.cancel()
     }
 
-    fun onRefresh() {
-        _state.update { it.copy(isRefreshing = true) }
-        viewModelScope.launch {
-            delay(500)
-            _state.update { it.copy(isRefreshing = false) }
-        }
-    }
 }
