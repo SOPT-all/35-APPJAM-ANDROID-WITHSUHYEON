@@ -10,15 +10,23 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.button.LargeButton
 import com.sopt.withsuhyeon.core.util.KeyStorage.NEXT_BUTTON_TEXT
@@ -42,6 +50,13 @@ fun FinishScreen(
     onButtonClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.signup))
+    var isAnimationPlaying by remember { mutableStateOf(true) }
+    val progress by animateLottieCompositionAsState(
+        composition = composition,
+        isPlaying = isAnimationPlaying,
+        iterations = 1,
+    )
     Box(
         modifier = modifier
             .background(color = colors.White)
@@ -65,10 +80,13 @@ fun FinishScreen(
             )
             Box(
                 modifier = Modifier
-                    .width(200.dp)
-                    .height(200.dp)
-                    .background(color = colors.Grey300)
-            )
+                    .size(328.dp)
+            ) {
+                LottieAnimation(
+                    composition = composition,
+                    progress = { progress }
+                )
+            }
         }
 
         Column(
