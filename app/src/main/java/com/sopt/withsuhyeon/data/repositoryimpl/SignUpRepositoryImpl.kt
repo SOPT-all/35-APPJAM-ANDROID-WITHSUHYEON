@@ -2,7 +2,9 @@ package com.sopt.withsuhyeon.data.repositoryimpl
 
 import com.sopt.withsuhyeon.data.dto.request.RequestAuthNumberDto
 import com.sopt.withsuhyeon.data.dto.request.RequestPhoneNumberAuthDto
+import com.sopt.withsuhyeon.data.mapper.toRegionListModel
 import com.sopt.withsuhyeon.data.service.SignUpService
+import com.sopt.withsuhyeon.domain.entity.RegionListModel
 import com.sopt.withsuhyeon.domain.repository.SignUpRepository
 import javax.inject.Inject
 
@@ -28,5 +30,10 @@ class SignUpRepositoryImpl @Inject constructor(
                 )
             )
             response.message
+        }
+    override suspend fun getRegionList(): Result<RegionListModel> =
+        runCatching {
+            val response = signUpService.getRegionList()
+            response.result?.toRegionListModel() ?: throw Exception("Response data is null")
         }
 }

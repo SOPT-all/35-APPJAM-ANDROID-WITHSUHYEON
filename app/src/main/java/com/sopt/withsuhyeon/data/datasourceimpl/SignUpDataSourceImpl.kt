@@ -4,6 +4,7 @@ import com.sopt.withsuhyeon.data.datasource.SignUpDataSource
 import com.sopt.withsuhyeon.data.dto.base.BaseResponse
 import com.sopt.withsuhyeon.data.dto.request.RequestAuthNumberDto
 import com.sopt.withsuhyeon.data.dto.request.RequestPhoneNumberAuthDto
+import com.sopt.withsuhyeon.data.dto.response.ResponseRegionListDto
 import com.sopt.withsuhyeon.data.service.SignUpService
 import javax.inject.Inject
 
@@ -27,4 +28,7 @@ class SignUpDataSourceImpl @Inject constructor(
                 verifyNumber = verifyNumber
             )
         )
+
+    override suspend fun getRegionList(): BaseResponse<ResponseRegionListDto> =
+        signUpService.getRegionList()
 }

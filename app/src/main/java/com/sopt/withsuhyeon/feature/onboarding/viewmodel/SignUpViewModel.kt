@@ -110,6 +110,24 @@ class SignUpViewModel @Inject constructor(
                 Log.d("phone", error.message.toString())
             }
         }
-    // TODO - 성공 / 실패 분기처리 -> 버튼 색상 등등
+        // TODO - 성공 / 실패 분기처리 -> 버튼 색상 등등
+    }
+
+    fun getRegionInfo() {
+        viewModelScope.launch {
+            if (_signUpState.value.regionList.regions.isEmpty()) {
+                signUpRepository.getRegionList().onSuccess { regionList ->
+                    _signUpState.update { current ->
+                        current.copy(
+                            regionList = regionList,
+                            mainLocationList = regionList.regions.map { it.location },
+                            subLocationList = regionList.regions.map { it.subLocations }
+                        )
+                    }
+                }.onFailure { error ->
+                    Log.d("phone", error.message.toString())
+                }
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.sopt.withsuhyeon.data.di
 
 import com.sopt.withsuhyeon.data.repositoryimpl.DummyRepositoryImpl
+import com.sopt.withsuhyeon.data.repositoryimpl.FindSuhyeonRepositoryImpl
 import com.sopt.withsuhyeon.data.repositoryimpl.GalleryRepositoryImpl
 import com.sopt.withsuhyeon.data.repositoryimpl.SignUpRepositoryImpl
 import com.sopt.withsuhyeon.data.repositoryimpl.HomeRepositoryImpl
