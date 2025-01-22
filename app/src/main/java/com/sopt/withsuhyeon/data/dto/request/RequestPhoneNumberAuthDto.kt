@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class RequestDummyDto(
-    @SerialName("userId")
-    val userId: Int
+data class RequestPhoneNumberAuthDto(
+    @SerialName("phoneNumber")
+    val phoneNumber: String
 )
