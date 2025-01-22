@@ -69,17 +69,22 @@ import kotlinx.datetime.LocalDateTime
 @Composable
 fun FindSuhyeonUploadRoute(
     padding: PaddingValues,
+    navigateUp: () -> Unit,
+    navigateToUploadDetail: () -> Unit,
 ) {
     FindSuhyeonUploadScreen(
-        padding = padding
+        padding = padding,
+        onCloseButtonClick = navigateUp,
+        onCompleteButtonClick = navigateToUploadDetail
     )
 }
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun FindSuhyeonUploadScreen(
-    // TODO: navigateToUploadDetail: () -> Unit, 추가하기
     modifier: Modifier = Modifier,
     padding: PaddingValues,
+    onCloseButtonClick: () -> Unit,
+    onCompleteButtonClick: () -> Unit,
     // TODO: viewModel: FindSuhyeonViewMdel = hiltViewModel()
 ) {
     val step = 7
@@ -89,8 +94,6 @@ fun FindSuhyeonUploadScreen(
 
     val density = LocalDensity.current
     val navigationBarsPadding = WindowInsets.navigationBars.getBottom(density).dp
-
-    var isPriceTextFieldFocused by remember { mutableStateOf(false) }
 
     val selectedGender = remember { mutableStateOf<String?>(null) }
     var selectedAge by remember { mutableStateOf<String?>(null) }
@@ -118,15 +121,22 @@ fun FindSuhyeonUploadScreen(
         isSelectedGender && isSelectedAge && isSelectedRequirements && isSelectedLocation && isSelectedPrice
 
     var priceTextValue by remember { mutableStateOf("") }
+    var isPriceTextFieldFocused by remember { mutableStateOf(false) }
     var isPriceValid by remember { mutableStateOf(false) }
-    var priceButtonEnabled by remember { mutableStateOf(true) }
+    var priceButtonEnabled by remember { mutableStateOf(false) }
     var priceErrorMessage by remember { mutableStateOf("") }
 
 
     var progress by remember { mutableFloatStateOf(oneStep) }
 
     val imeIsShown = WindowInsets.isImeVisible
-    val bolderColor = colors.Grey100
+    val dividerBorderColor = colors.Grey100
+    val textFieldBorderColor = when {
+        priceTextValue.isEmpty() && !isPriceTextFieldFocused-> colors.Grey100
+        priceTextValue.isNotEmpty() && !isPriceValid -> colors.Red01
+        isPriceTextFieldFocused -> colors.Purple300
+        else -> colors.Grey100
+    }
     val priceErrorMessageResource = stringResource(R.string.find_suhyeon_upload_title_error_message)
     Column(
         modifier = modifier
@@ -145,11 +155,13 @@ fun FindSuhyeonUploadScreen(
                 btnIcon = painterResource(R.drawable.ic_close),
                 isTextVisible = false,
                 isBtnVisible = true,
-                onCloseBtnClicked = { },
+                onCloseBtnClicked = {
+                    onCloseButtonClick()
+                },
                 modifier = Modifier.drawBehind {
                     val borderThickness = 1.dp.toPx()
                     drawLine(
-                        color = bolderColor,
+                        color = dividerBorderColor,
                         start = Offset(0f, size.height),
                         end = Offset(size.width, size.height),
                         strokeWidth = borderThickness
@@ -202,6 +214,7 @@ fun FindSuhyeonUploadScreen(
                             onFocusChange = { isFocused ->
                                 isPriceTextFieldFocused = isFocused
                             },
+                            textFieldBorderColor = textFieldBorderColor,
                             keyboardActions = KeyboardActions(onDone = {
                                 focusManager.moveFocus(FocusDirection.Next)
                             }),
@@ -305,14 +318,14 @@ fun FindSuhyeonUploadScreen(
                         isSelectedDate = !selectedDateString.isNullOrEmpty()
                     },
                     onDismiss = {
-                        isRequirementsBottomSheetVisible = false
+                        isDateTimePickerBottomSheetVisible = false
                     },
                     modifier = Modifier.padding(bottom = navigationBarsPadding),
                     selectedDateString = selectedDateString,
                     selectedDate = selectedDate
                 )
             }
-            //BottomSheet
+
             if (isLocationBottomSheetVisible) {
                 val mainLocationList = remember {
                     mutableListOf(
@@ -438,7 +451,7 @@ fun FindSuhyeonUploadScreen(
                     .drawBehind {
                         val borderThickness = 1.dp.toPx()
                         drawLine(
-                            color = bolderColor,
+                            color = dividerBorderColor,
                             start = Offset(0f, 0f),
                             end = Offset(size.width, 0f),
                             strokeWidth = borderThickness
@@ -446,9 +459,7 @@ fun FindSuhyeonUploadScreen(
                     }
                     .padding(16.dp)
                     .imePadding(),
-                onClick = {
-                    // TODO: navigateToUploadDetail()
-                },
+                onClick = onCompleteButtonClick,
                 isDownloadBtn = false
             )
         }
@@ -531,7 +542,8 @@ private fun FindSuhyeonTitle(
 @Composable
 fun PreviewFindSuhyeon2() {
     FindSuhyeonUploadScreen(
-        padding = PaddingValues()
-        // TODO: navigateToUploadDetail = {}
+        padding = PaddingValues(),
+        onCloseButtonClick = { },
+        onCompleteButtonClick = { },
     )
 }
