@@ -89,7 +89,7 @@ fun BlockBottomSheet(
             }
             Image(
                 modifier = Modifier.size(216.dp),
-                imageVector = ImageVector.vectorResource(R.drawable.img_block),
+                imageVector = ImageVector.vectorResource(R.drawable.img_fuckoff),
                 contentDescription = ""
             )
             Column(
