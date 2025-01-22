@@ -135,7 +135,6 @@ fun PhoneNumberAuthenticationScreen(
                         authNumberValue = input
                     },
                     maxLength = 6,
-                    errorMessage = stringResource(R.string.onboarding_phone_number_duplication_error_message),
                 )
             }
             Spacer(modifier = Modifier.weight(1f))
@@ -147,7 +146,13 @@ fun PhoneNumberAuthenticationScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         LargeButton(
-            onClick = onButtonClick,
+            onClick = {
+                viewModel.postVerifyNumberAuth(
+                    phoneNumber = state.phoneNumber,
+                    verifyNumber = authNumberValue
+                )
+//                onButtonClick()
+            },
             text = NEXT_BUTTON_TEXT,
             modifier = Modifier.padding(horizontal = 16.dp),
             isDisabled = !isAuthNumberInputValid

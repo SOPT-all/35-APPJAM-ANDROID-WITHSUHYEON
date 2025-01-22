@@ -1,5 +1,6 @@
 package com.sopt.withsuhyeon.data.repositoryimpl
 
+import com.sopt.withsuhyeon.data.dto.request.RequestAuthNumberDto
 import com.sopt.withsuhyeon.data.dto.request.RequestPhoneNumberAuthDto
 import com.sopt.withsuhyeon.data.service.SignUpService
 import com.sopt.withsuhyeon.domain.repository.SignUpRepository
@@ -13,6 +14,18 @@ class SignUpRepositoryImpl @Inject constructor(
             val response = signUpService.postPhoneNumberAuth(
                 flow = "signup",
                 request = RequestPhoneNumberAuthDto(phoneNumber = phoneNumber)
+            )
+            response.message
+        }
+
+    override suspend fun postVerifyNumber(phoneNumber: String, verifyNumber: String): Result<Unit> =
+        runCatching {
+            val response = signUpService.verifyAuthNumber(
+                flow = "signup",
+                request = RequestAuthNumberDto(
+                    phoneNumber = phoneNumber,
+                    verifyNumber = verifyNumber
+                )
             )
             response.message
         }

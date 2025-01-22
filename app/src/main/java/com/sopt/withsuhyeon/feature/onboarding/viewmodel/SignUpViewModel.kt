@@ -99,4 +99,17 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
+    fun postVerifyNumberAuth(phoneNumber: String, verifyNumber: String) {
+        viewModelScope.launch {
+            signUpRepository.postVerifyNumber(
+                phoneNumber = phoneNumber,
+                verifyNumber = verifyNumber
+            ).onSuccess {
+                Log.d("phone", "성공")
+            }.onFailure { error ->
+                Log.d("phone", error.message.toString())
+            }
+        }
+    // TODO - 성공 / 실패 분기처리 -> 버튼 색상 등등
+    }
 }
