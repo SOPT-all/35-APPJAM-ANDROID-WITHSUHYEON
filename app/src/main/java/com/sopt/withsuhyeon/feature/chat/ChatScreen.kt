@@ -24,15 +24,20 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 @Composable
 fun ChatRoute(
     padding: PaddingValues,
+    navigateToChatRoom: () -> Unit,
     viewModel: ChatViewModel = hiltViewModel()
 ) {
     ChatScreen(
-        padding = padding
+        padding = padding,
+        onChatRoomListItemClick = {
+            navigateToChatRoom()
+        }
     )
 }
 @Composable
 private fun ChatScreen(
     padding: PaddingValues,
+    onChatRoomListItemClick: () -> Unit,
     viewModel: ChatViewModel = hiltViewModel()
 ) {
     val sampleChatRooms by viewModel.chatRooms.collectAsState()
@@ -53,7 +58,10 @@ private fun ChatScreen(
                 .fillMaxWidth()
                 .fillMaxHeight()
         ) {
-            TotalChatRoomList(chatRooms = sampleChatRooms)
+            TotalChatRoomList(
+                chatRooms = sampleChatRooms,
+                onChatRoomListItemClick = onChatRoomListItemClick
+            )
         }
     }
 }
