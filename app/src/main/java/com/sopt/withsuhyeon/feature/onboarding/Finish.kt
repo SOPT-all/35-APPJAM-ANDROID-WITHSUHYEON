@@ -38,14 +38,14 @@ fun FinishRoute(
     padding: PaddingValues,
     navigateToNext: () -> Unit
 ) {
-    FinishScreen(
+    OnBoardingFinishScreen(
         padding = padding,
         onButtonClick = navigateToNext
     )
 }
 
 @Composable
-fun FinishScreen(
+fun OnBoardingFinishScreen(
     padding: PaddingValues,
     onButtonClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -94,7 +94,11 @@ fun FinishScreen(
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)
         ) {
-            HorizontalDivider(modifier = Modifier.height(1.dp))
+            HorizontalDivider(
+                modifier = Modifier.height(1.dp),
+                color = colors.Grey100
+
+            )
             Spacer(modifier = Modifier.height(16.dp))
             LargeButton(
                 onClick = onButtonClick,

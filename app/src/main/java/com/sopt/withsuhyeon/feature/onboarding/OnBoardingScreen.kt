@@ -11,9 +11,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.airbnb.lottie.compose.LottieAnimation
@@ -35,6 +31,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.button.LargeButton
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
+import com.sopt.withsuhyeon.feature.onboarding.components.PageIndicator
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
@@ -51,36 +48,6 @@ fun OnBoardingRoute(
         onLoginButtonClick = navigateToLogin
     )
 }
-
-
-@Composable
-fun PageIndicator(
-    modifier: Modifier = Modifier,
-    pageCount: Int,
-    currentPage: Int,
-    activeColor: androidx.compose.ui.graphics.Color = colors.Black,
-    inactiveColor: androidx.compose.ui.graphics.Color = colors.Grey400,
-    indicatorSize: Dp = 8.dp,
-) {
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        for (i in 0 until pageCount) {
-            Box(
-                modifier = Modifier
-                    .size(indicatorSize)
-                    .background(
-                        color = if (i == currentPage) activeColor else inactiveColor,
-                        shape = CircleShape
-                    )
-            )
-            Spacer(Modifier.width(12.dp))
-        }
-    }
-}
-
 
 @Composable
 fun OnBoardingScreen(
@@ -143,19 +110,19 @@ fun OnBoardingScreen(
                         )
                     }
             ) {
-                val composition1 by rememberLottieComposition(
+                val firstLottie by rememberLottieComposition(
                     LottieCompositionSpec.RawRes(
                         lottieFiles[0]
                     )
                 )
 
-                val composition2 by rememberLottieComposition(
+                val secondLottie by rememberLottieComposition(
                     LottieCompositionSpec.RawRes(
                         lottieFiles[1]
                     )
                 )
 
-                val composition3 by rememberLottieComposition(
+                val thirdLottie by rememberLottieComposition(
                     LottieCompositionSpec.RawRes(
                         lottieFiles[2]
                     )
@@ -163,9 +130,9 @@ fun OnBoardingScreen(
 
                 LottieAnimation(
                     composition = when (selectedIndex) {
-                        0 -> composition1
-                        1 -> composition2
-                        else -> composition3
+                        0 -> firstLottie
+                        1 -> secondLottie
+                        else -> thirdLottie
                     },
                     iterations = LottieConstants.IterateForever,
                     modifier = Modifier

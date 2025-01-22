@@ -123,7 +123,6 @@ fun BlockBottomSheet(
                 Column(
                     modifier = modifier
                         .padding(8.dp, bottom = 20.dp)
-                        .noRippleClickable {}
                         .drawBehind {
                             val lineY = size.height
                             drawLine(
