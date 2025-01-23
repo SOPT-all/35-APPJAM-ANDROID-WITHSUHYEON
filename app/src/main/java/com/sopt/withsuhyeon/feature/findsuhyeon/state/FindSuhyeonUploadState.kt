@@ -1,5 +1,6 @@
 package com.sopt.withsuhyeon.feature.findsuhyeon.state
 
+import com.sopt.withsuhyeon.domain.entity.RegionListModel
 import kotlinx.datetime.LocalDateTime
 
 data class FindSuhyeonUploadState(
@@ -39,5 +40,9 @@ data class FindSuhyeonUploadState(
 
     val progress: Float = 1f / 7,
 
-    val isComplete: Boolean = isSelectedGender && isSelectedAge && isSelectedRequirements && isSelectedLocation && isSelectedPrice
+    val isComplete: Boolean = isSelectedGender && isSelectedAge && isSelectedRequirements && isSelectedLocation && isSelectedPrice,
+
+    val regionList: RegionListModel = RegionListModel(
+        regions = emptyList()
+    )
 )
