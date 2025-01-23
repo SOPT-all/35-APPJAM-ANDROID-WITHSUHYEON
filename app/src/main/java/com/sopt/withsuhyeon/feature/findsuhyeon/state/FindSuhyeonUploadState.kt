@@ -14,7 +14,7 @@ data class FindSuhyeonUploadState(
     val selectedSubLocation: String? = null,
     val selectedDate: LocalDateTime? = null,
     val selectedDateString: String? = null,
-    val selectedPrice: Long? = null,
+    val selectedPrice: Int? = null,
 
     val isSelectedGender: Boolean = false,
     val isSelectedAge: Boolean = false,

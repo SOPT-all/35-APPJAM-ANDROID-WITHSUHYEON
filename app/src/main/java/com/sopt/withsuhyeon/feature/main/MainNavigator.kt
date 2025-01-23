@@ -171,7 +171,7 @@ class MainNavigator(
         navController.navigateToFindSuhyeonUploadDetail()
     }
 
-    fun navigateToFindSuhyeonPost(id: Long?) {
+    fun navigateToFindSuhyeonPost(id: Long) {
         navController.navigateToFindSuhyeonPost(id)
     }
 

@@ -1,8 +1,14 @@
 package com.sopt.withsuhyeon.feature.findsuhyeon.viewmodel
 
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.sopt.withsuhyeon.core.util.KeyStorage.MALE
 import com.sopt.withsuhyeon.core.util.KeyStorage.MAX_PRICE_STRING
 import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_TEXTFIELD_MAX_LENGTH
+import com.sopt.withsuhyeon.core.util.time.currentDateTime
+import com.sopt.withsuhyeon.domain.entity.FindSuhyeonPostUploadModel
+import com.sopt.withsuhyeon.domain.repository.FindSuhyeonRepository
 import com.sopt.withsuhyeon.feature.findsuhyeon.state.FindSuhyeonDetailState
 import com.sopt.withsuhyeon.feature.findsuhyeon.state.FindSuhyeonUploadState
 import com.sopt.withsuhyeon.feature.findsuhyeon.type.BottomSheetType
@@ -10,11 +16,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
-class FindSuhyeonUploadViewModel @Inject constructor() : ViewModel() {
+class FindSuhyeonUploadViewModel @Inject constructor(
+    val findSuhyeonRepository: FindSuhyeonRepository
+) : ViewModel() {
     val subLocationList = mutableListOf(
         listOf(
             "강남/역삼/삼성",
@@ -67,6 +76,24 @@ class FindSuhyeonUploadViewModel @Inject constructor() : ViewModel() {
     private val _detailState = MutableStateFlow(FindSuhyeonDetailState())
     val detailState: StateFlow<FindSuhyeonDetailState> = _detailState
 
+    fun postFindSuhyeonUpload(){
+        viewModelScope.launch {
+            _uploadState.value.run {
+                findSuhyeonRepository.postFindSuhyeonUpload(
+                    request = FindSuhyeonPostUploadModel(
+                        region = selectedSubLocation.orEmpty(),
+                        gender = selectedGender == MALE,
+                        age = selectedAge.orEmpty(),
+                        date = selectedDate ?: currentDateTime,
+                        price = selectedPrice ?: 0,
+                        requests = selectedRequirementsList,
+                        title = _detailState.value.titleValue,
+                        content = _detailState.value.findSuhyeonContentValue
+                    )
+                )
+            }
+        }
+    }
     fun updateGender(selectedGender: String) {
         _uploadState.update {
             it.copy(
@@ -131,7 +158,7 @@ class FindSuhyeonUploadViewModel @Inject constructor() : ViewModel() {
                 priceTextValue = input,
                 isPriceValid = isPriceValid,
                 priceErrorMessage = if (!isEmpty && !isBelowMax) errorMessage.orEmpty() else "",
-                selectedPrice = if (isPriceValid) input.toLong() else it.selectedPrice,
+                selectedPrice = if (isPriceValid) input.toInt() else _uploadState.value.selectedPrice,
                 isSelectedPrice = isPriceValid,
                 priceButtonEnabled = isPriceValid
             )

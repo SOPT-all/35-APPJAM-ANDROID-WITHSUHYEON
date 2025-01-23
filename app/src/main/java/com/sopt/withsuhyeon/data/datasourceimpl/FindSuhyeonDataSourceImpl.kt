@@ -2,6 +2,7 @@ package com.sopt.withsuhyeon.data.datasourceimpl
 
 import com.sopt.withsuhyeon.data.datasource.FindSuhyeonDataSource
 import com.sopt.withsuhyeon.data.dto.base.BaseResponse
+import com.sopt.withsuhyeon.data.dto.request.RequestFindSuhyeonPostUploadDto
 import com.sopt.withsuhyeon.data.dto.response.ResponseFindSuhyeonAllPostDto
 import com.sopt.withsuhyeon.data.dto.response.ResponseRegionListDto
 import com.sopt.withsuhyeon.data.service.FindSuhyeonService
@@ -16,4 +17,10 @@ class FindSuhyeonDataSourceImpl @Inject constructor(
 
     override suspend fun getRegionList(): BaseResponse<ResponseRegionListDto> =
         findSuhyeonService.getRegionList()
+
+    override suspend fun postFindSuhyeonUpload(request: RequestFindSuhyeonPostUploadDto): BaseResponse<Unit> =
+        findSuhyeonService.postFindSuhyeonUpload(
+            request = request
+        )
+
 }
