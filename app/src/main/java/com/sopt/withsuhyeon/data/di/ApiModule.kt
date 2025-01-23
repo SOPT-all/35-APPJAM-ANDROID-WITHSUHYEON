@@ -1,6 +1,7 @@
 package com.sopt.withsuhyeon.data.di
 
 import com.sopt.withsuhyeon.data.service.DummyService
+import com.sopt.withsuhyeon.data.service.FindSuhyeonService
 import com.sopt.withsuhyeon.data.service.GalleryService
 import com.sopt.withsuhyeon.data.service.MyPageService
 import com.sopt.withsuhyeon.data.service.HomeService
@@ -39,4 +40,9 @@ object ApiModule {
     @Singleton
     fun providesUserService(retrofit: Retrofit): UserService =
         retrofit.create(UserService::class.java)
+
+    @Provides
+    @Singleton
+    fun providesFidnSuhyeonService(retrofit: Retrofit): FindSuhyeonService =
+        retrofit.create(FindSuhyeonService::class.java)
 }

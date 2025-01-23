@@ -204,7 +204,7 @@ fun FindSuhyeonUploadScreen(
                             value = uploadState.selectedSubLocation,
                             isError = false,
                             onClick = {
-                                viewModel.toggleBottomSheet(BottomSheetType.LOCATION)
+                                viewModel.showLocationBottomSheet()
                             }
                         )
                     }
@@ -281,9 +281,6 @@ fun FindSuhyeonUploadScreen(
                     isVisible = true,
                     subLocationList = uploadState.subLocationList,
                     onConfirmClick = { location ->
-                        viewModel.hideBottomSheet(BottomSheetType.LOCATION)
-                        if (!uploadState.isSelectedLocation)
-                            viewModel.updateProgress(5, step)
                         viewModel.updateLocation(location)
                     },
                     onDismiss = {

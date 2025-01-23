@@ -1,11 +1,13 @@
 package com.sopt.withsuhyeon.data.di
 
 import com.sopt.withsuhyeon.data.repositoryimpl.DummyRepositoryImpl
+import com.sopt.withsuhyeon.data.repositoryimpl.FindSuhyeonRepositoryImpl
 import com.sopt.withsuhyeon.data.repositoryimpl.GalleryRepositoryImpl
 import com.sopt.withsuhyeon.data.repositoryimpl.MyPageRepositoryImpl
 import com.sopt.withsuhyeon.data.repositoryimpl.HomeRepositoryImpl
 import com.sopt.withsuhyeon.data.repositoryimpl.UserRepositoryImpl
 import com.sopt.withsuhyeon.domain.repository.DummyRepository
+import com.sopt.withsuhyeon.domain.repository.FindSuhyeonRepository
 import com.sopt.withsuhyeon.domain.repository.GalleryRepository
 import com.sopt.withsuhyeon.domain.repository.MyPageRepository
 import com.sopt.withsuhyeon.domain.repository.HomeRepository
@@ -38,4 +40,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindsUserRepository(userRepositoryImpl: UserRepositoryImpl): UserRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindsFindSuhyeonRepository(findSuhyeonRepositoryImpl: FindSuhyeonRepositoryImpl): FindSuhyeonRepository
 }

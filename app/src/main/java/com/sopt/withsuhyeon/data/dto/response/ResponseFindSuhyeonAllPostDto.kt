@@ -4,8 +4,8 @@ import com.sopt.withsuhyeon.domain.entity.PostItemModel
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ResponseHomeDto(
-    val count: Int,
+data class ResponseFindSuhyeonAllPostDto(
     val region: String,
-    val homePosts: List<PostItemModel>
+    val days: List<String>,
+    val posts: List<PostItemModel>
 )
