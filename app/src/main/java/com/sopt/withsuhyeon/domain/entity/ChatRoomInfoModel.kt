@@ -4,9 +4,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ChatRoomInfoModel(
-    val postId: Int,
-    val ownerId: Int,
-    val writerId: Int,
+    val postId: Long,
+    val ownerId: Long,
+    val writerId: Long,
     val ownerChatRoomId: String,
     val peerChatRoomId: String
 )

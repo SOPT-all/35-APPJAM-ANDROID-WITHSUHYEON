@@ -1,6 +1,6 @@
 package com.sopt.withsuhyeon.domain.entity
 
-data class ChatRoomModel(
+data class ChatRoomListInfoModel(
     val profileImage: String,
     val partnerName: String,
     val recentChat: String,
