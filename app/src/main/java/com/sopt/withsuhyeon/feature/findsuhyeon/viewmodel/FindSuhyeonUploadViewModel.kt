@@ -1,6 +1,5 @@
 package com.sopt.withsuhyeon.feature.findsuhyeon.viewmodel
 
-import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.withsuhyeon.core.util.KeyStorage.MALE
@@ -198,34 +197,6 @@ class FindSuhyeonUploadViewModel @Inject constructor(
         _detailState.update { it.copy(progress = progress) }
     }
 
-    fun checkIsComplete(): Boolean {
-        _uploadState.value.run {
-            if (isSelectedGender
-                && isSelectedAge
-                && isSelectedRequirements
-                && isSelectedLocation
-                && isSelectedDate
-                && isSelectedPrice
-            )
-                _uploadState.update {
-                    it.copy(
-                        isComplete = true
-                    )
-                }
-            else
-                _uploadState.update {
-                    it.copy(
-                        isComplete = false
-                    )
-                }
-            return _uploadState.value.isComplete
-        }
-    }
-
-    fun toggleDeleteAlertModalVisibility() {
-        _uploadState.update { it.copy(isDeleteAlertModalVisible = !it.isDeleteAlertModalVisible) }
-    }
-
     fun toggleBottomSheet(type: BottomSheetType) {
         _uploadState.update {
             when (type) {
@@ -233,17 +204,6 @@ class FindSuhyeonUploadViewModel @Inject constructor(
                 BottomSheetType.REQUIREMENTS -> it.copy(isRequirementsBottomSheetVisible = !it.isRequirementsBottomSheetVisible)
                 BottomSheetType.LOCATION -> it.copy(isLocationBottomSheetVisible = !it.isLocationBottomSheetVisible)
                 BottomSheetType.DATE -> it.copy(isDateTimePickerBottomSheetVisible = !it.isDateTimePickerBottomSheetVisible)
-            }
-        }
-    }
-
-    fun showBottomSheet(type: BottomSheetType) {
-        _uploadState.update {
-            when (type) {
-                BottomSheetType.AGE -> it.copy(isAgeBottomSheetVisible = true)
-                BottomSheetType.REQUIREMENTS -> it.copy(isRequirementsBottomSheetVisible = true)
-                BottomSheetType.LOCATION -> it.copy(isLocationBottomSheetVisible = true)
-                BottomSheetType.DATE -> it.copy(isDateTimePickerBottomSheetVisible = true)
             }
         }
     }

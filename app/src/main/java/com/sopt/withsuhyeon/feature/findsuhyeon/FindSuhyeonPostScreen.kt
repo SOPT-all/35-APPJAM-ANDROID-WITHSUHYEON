@@ -56,7 +56,7 @@ fun FindSuhyeonPostScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(id) {
-        viewModel.getFindSuhyeonPostDetail(id ?: 0)
+        viewModel.getFindSuhyeonPostDetail(id)
     }
 
     val borderColor = colors.Grey100
