@@ -140,10 +140,6 @@ class SignUpViewModel @Inject constructor(
         region: String = _signUpState.value.region
     ) {
         viewModelScope.launch {
-            Log.d(
-                "test",
-                "${phoneNumber} ${nickname} ${birthYear} ${gender} ${profileImage} ${region}"
-            )
             signUpRepository.postSignUp(
                 phoneNumber = phoneNumber,
                 nickname = nickname,
@@ -158,5 +154,6 @@ class SignUpViewModel @Inject constructor(
             }
         }
     }
-
 }
+
+// TODO - 실패 케이스에서 상태관리
