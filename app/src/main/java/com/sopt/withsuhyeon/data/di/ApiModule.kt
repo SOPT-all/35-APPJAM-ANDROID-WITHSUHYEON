@@ -5,6 +5,7 @@ import com.sopt.withsuhyeon.data.service.FindSuhyeonService
 import com.sopt.withsuhyeon.data.service.GalleryService
 import com.sopt.withsuhyeon.data.service.SignUpService
 import com.sopt.withsuhyeon.data.service.HomeService
+import com.sopt.withsuhyeon.data.service.LoginService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -39,4 +40,9 @@ object ApiModule {
     @Singleton
     fun providesFidnSuhyeonService(retrofit: Retrofit): FindSuhyeonService =
         retrofit.create(FindSuhyeonService::class.java)
+
+    @Provides
+    @Singleton
+    fun providesLoginService(retrofit: Retrofit): LoginService =
+        retrofit.create(LoginService::class.java)
 }

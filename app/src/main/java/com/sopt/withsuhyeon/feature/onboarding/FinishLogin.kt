@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -31,31 +32,32 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.button.LargeButton
 import com.sopt.withsuhyeon.core.util.KeyStorage.NEXT_BUTTON_TEXT
+import com.sopt.withsuhyeon.feature.onboarding.viewmodel.LoginViewModel
 import com.sopt.withsuhyeon.feature.onboarding.viewmodel.SignUpViewModel
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
 @Composable
-fun FinishRoute(
+fun FinishLoginRoute(
     padding: PaddingValues,
     navigateToNext: () -> Unit,
-    viewModel: SignUpViewModel
+    viewModel: LoginViewModel,
 ) {
-    OnBoardingFinishScreen(
+    FinishLoginScreen(
         padding = padding,
         onButtonClick = navigateToNext,
-        viewModel = viewModel
+        viewModel = viewModel,
     )
 }
 
 @Composable
-fun OnBoardingFinishScreen(
+fun FinishLoginScreen(
     padding: PaddingValues,
     onButtonClick: () -> Unit,
-    viewModel: SignUpViewModel,
+    viewModel: LoginViewModel,
     modifier: Modifier = Modifier
 ) {
-    val state by viewModel.signUpState.collectAsStateWithLifecycle()
+    val state by viewModel.loginState.collectAsStateWithLifecycle()
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.signup))
     var isAnimationPlaying by remember { mutableStateOf(true) }
     val progress by animateLottieCompositionAsState(
@@ -78,7 +80,7 @@ fun OnBoardingFinishScreen(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Text(
-                text = stringResource(R.string.onboarding_finish_title),
+                text = stringResource(R.string.login_finish_title),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 24.dp),
@@ -109,7 +111,7 @@ fun OnBoardingFinishScreen(
             Spacer(modifier = Modifier.height(16.dp))
             LargeButton(
                 onClick = {
-                    viewModel.postSignUp()
+                    viewModel.postLogin()
                     onButtonClick()
                 },
                 text = NEXT_BUTTON_TEXT,

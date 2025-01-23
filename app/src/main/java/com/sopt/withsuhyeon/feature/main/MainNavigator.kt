@@ -26,6 +26,7 @@ import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToBlockUserFromMyP
 import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToMyPage
 import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToOnBoarding
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToLogin
+import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToLoginFinish
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToNickNameAuth
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToOnboardingFinish
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToPhoneNumberAuth
@@ -117,6 +118,10 @@ class MainNavigator(
 
     fun navigateToOnboarding() {
         navController.navigateToOnBoarding()
+    }
+
+    fun navigateToLoginFinish() {
+        navController.navigateToLoginFinish()
     }
 
     fun navigateToHome(navOptions: NavOptions? = null) {
