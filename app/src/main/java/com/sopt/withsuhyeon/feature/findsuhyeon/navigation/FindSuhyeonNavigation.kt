@@ -11,9 +11,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.sopt.withsuhyeon.core.navigation.MainTabRoute
 import com.sopt.withsuhyeon.core.navigation.Route
-import com.sopt.withsuhyeon.feature.findsuhyeon.FindSuhyeonUploadDetailRoute
+import com.sopt.withsuhyeon.domain.entity.ChatRoomInfoModel
 import com.sopt.withsuhyeon.feature.findsuhyeon.FindSuhyeonPostRoute
 import com.sopt.withsuhyeon.feature.findsuhyeon.FindSuhyeonRoute
+import com.sopt.withsuhyeon.feature.findsuhyeon.FindSuhyeonUploadDetailRoute
 import com.sopt.withsuhyeon.feature.findsuhyeon.FindSuhyeonUploadRoute
 import com.sopt.withsuhyeon.feature.findsuhyeon.viewmodel.FindSuhyeonUploadViewModel
 
@@ -36,6 +37,7 @@ fun NavGraphBuilder.findSuhyeonNavGraph(
     onNavigateToFindSuhyeonPost: (Long) -> Unit,
     onNavigateToFindSuheyonUpload: () -> Unit,
     onNavigateToFindSuheyonUploadDetail: () -> Unit,
+    onNavigateToChatRoom: (ChatRoomInfoModel) -> Unit,
     getBackStackUploadViewModel: @Composable (NavBackStackEntry) -> FindSuhyeonUploadViewModel
 ) {
     composable<MainTabRoute.FindSuhyeon> {
@@ -67,7 +69,8 @@ fun NavGraphBuilder.findSuhyeonNavGraph(
         FindSuhyeonPostRoute(
             padding = padding,
             id = id,
-            navigateToFindSuhyeon = onNavigateToFindSuhyeon
+            navigateToFindSuhyeon = onNavigateToFindSuhyeon,
+            navigateToChatRoom = onNavigateToChatRoom
         )
     }
 }

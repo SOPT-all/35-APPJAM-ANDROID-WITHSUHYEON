@@ -56,6 +56,9 @@ fun MainNavHost(
                 onNavigateToFindSuhyeon = { navigator.navigateToFindSuhyeon() },
                 onNavigateToFindSuheyonUploadDetail = navigator::navigateToFindSuhyeonUploadDetail,
                 onNavigateToFindSuhyeonPost = { navigator.navigateToFindSuhyeonPost(it) },
+                onNavigateToChatRoom = { navigator.navigateToChatRoom(
+                    postId = it.postId, ownerId = it.ownerId, writerId = it.writerId, ownerChatRoomId = it.ownerChatRoomId, peerChatRoomId = it.peerChatRoomId)
+                },
                 getBackStackUploadViewModel = { navBackStackEntry ->
                     navigator.navController.previousBackStackEntry?.let { previousEntry ->
                         hiltViewModel<FindSuhyeonUploadViewModel>(previousEntry)
@@ -71,7 +74,11 @@ fun MainNavHost(
             )
             chatNavGraph(
                 padding = padding,
-                onNavigateToChatRoom = navigator::navigateToChatRoom
+                onNavigateToChatRoom = {
+                    navigator.navigateToChatRoom(
+
+                    )
+                }
             )
             myPageNavGraph(
                 padding = padding,

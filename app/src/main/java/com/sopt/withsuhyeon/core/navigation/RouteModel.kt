@@ -1,5 +1,6 @@
 package com.sopt.withsuhyeon.core.navigation
 
+import com.sopt.withsuhyeon.domain.entity.ChatRoomInfoModel
 import kotlinx.serialization.Serializable
 
 sealed interface Route {
@@ -36,7 +37,13 @@ sealed interface Route {
     @Serializable
     data object Login: Route
     @Serializable
-    data object ChatRoom : Route
+    data class ChatRoom(
+        val postId: Long?,
+        val ownerId: Long?,
+        val writerId: Long?,
+        val ownerChatRoomId: String?,
+        val peerChatRoomId: String?
+    ) : Route
 }
 
 sealed interface MainTabRoute : Route {

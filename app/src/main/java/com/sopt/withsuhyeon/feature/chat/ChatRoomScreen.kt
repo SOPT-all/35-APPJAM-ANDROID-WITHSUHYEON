@@ -1,5 +1,6 @@
     package com.sopt.withsuhyeon.feature.chat
 
+    import android.util.Log
     import androidx.compose.foundation.background
     import androidx.compose.foundation.layout.Box
     import androidx.compose.foundation.layout.Column
@@ -27,6 +28,7 @@
     import com.sopt.withsuhyeon.core.component.chat.ChatBubble
     import com.sopt.withsuhyeon.core.component.textfield.ChatRoomTextFieldRow
     import com.sopt.withsuhyeon.core.component.topbar.SubTopNavBar
+    import com.sopt.withsuhyeon.domain.entity.ChatRoomInfoModel
     import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
     import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
     import java.time.LocalTime
@@ -35,16 +37,19 @@
 
     @Composable
     fun ChatRoomRoute(
-        padding: PaddingValues
+        padding: PaddingValues,
+        chatRoomInfoModel: ChatRoomInfoModel?
     ) {
         ChatRoomScreen(
-            padding = padding
+            padding = padding,
+            chatRoomInfoModel = chatRoomInfoModel
         )
     }
 
     @Composable
     private fun ChatRoomScreen(
         padding: PaddingValues,
+        chatRoomInfoModel: ChatRoomInfoModel?,
         modifier: Modifier = Modifier,
         viewModel: ChatViewModel = hiltViewModel()
     ) {
@@ -55,6 +60,9 @@
                 Triple("안녕히계세요", true, "오후 12:02")
             )
         }
+
+        Log.e("chatRoomInfoModel", "${chatRoomInfoModel?.ownerChatRoomId}, ${chatRoomInfoModel?.postId}")
+
         val (inputText, setInputText) = remember { mutableStateOf("") }
 
         val lazyListState = rememberLazyListState()
