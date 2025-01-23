@@ -31,6 +31,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "BASE_URL", properties["base.url"].toString())
+        buildConfigField("String", "WEB_SOCKET_URL", properties["web.socket.url"].toString())
         buildConfigField("String", "TOKEN", properties["token"].toString())
     }
 

@@ -4,6 +4,7 @@ import com.sopt.withsuhyeon.data.service.DummyService
 import com.sopt.withsuhyeon.data.service.GalleryService
 import com.sopt.withsuhyeon.data.service.MyPageService
 import com.sopt.withsuhyeon.data.service.HomeService
+import com.sopt.withsuhyeon.data.service.UserService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,4 +34,9 @@ object ApiModule {
     @Singleton
     fun providesHomeService(retrofit: Retrofit): HomeService =
         retrofit.create(HomeService::class.java)
+
+    @Provides
+    @Singleton
+    fun providesUserService(retrofit: Retrofit): UserService =
+        retrofit.create(UserService::class.java)
 }
