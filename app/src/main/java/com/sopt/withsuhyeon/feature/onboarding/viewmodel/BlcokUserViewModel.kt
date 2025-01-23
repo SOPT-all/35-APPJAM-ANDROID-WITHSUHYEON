@@ -1,5 +1,6 @@
 package com.sopt.withsuhyeon.feature.onboarding.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.withsuhyeon.data.dto.request.RequestBlockUserDto
@@ -44,14 +45,28 @@ class BlcokUserViewModel @Inject constructor(
         viewModelScope.launch {
             blockUserRepository.postBlockUser(blockNumber).onSuccess {
                 getBlockUser()
+                Log.d("onSuccess", "")
             }
+                .onFailure { error ->
+                    Log.d("error", error.message.toString())
+
+                }
         }
     }
 
     fun deleteBlockUser(blockNumber: String) {
         viewModelScope.launch {
             blockUserRepository.deleteBlockUser(number = blockNumber)
+                .onSuccess {
+                    Log.d("onSuccess", "")
+                }
+                .onFailure { error ->
+                    Log.d("error", error.message.toString())
+
+                }
             getBlockUser()
         }
+
+
     }
 }
