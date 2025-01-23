@@ -15,6 +15,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.bottomsheet.DeletePostBottomSheet
 import com.sopt.withsuhyeon.core.component.button.LargeButton
@@ -38,7 +40,8 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 @Composable
 fun GalleryPostDetailRoute(
     padding: PaddingValues,
-    popBackStackToGallery: () -> Unit
+    popBackStackToGallery: () -> Unit,
+    viewModel: GalleryViewModel = hiltViewModel()
 ) {
     GalleryPostDetailScreen(
         padding = padding,
@@ -52,17 +55,13 @@ fun GalleryPostDetailRoute(
 fun GalleryPostDetailScreen(
     padding: PaddingValues,
     onDownloadBtnClick: () -> Unit,
+    viewModel: GalleryPostDetailViewModel = hiltViewModel(),
     modifier: Modifier = Modifier
 ) {
-    val category by remember { mutableStateOf("") }
-    val galleryPostTitle by remember { mutableStateOf("") }
-    val profileImage by remember { mutableStateOf("") }
-    val userName by remember { mutableStateOf("") }
-    val date by remember { mutableStateOf("") }
-    val galleryPostContent by remember { mutableStateOf("") }
-
     var isDeleteBottomSheetVisible by remember { mutableStateOf(false) }
     var isDeleteAlertModalVisible by remember { mutableStateOf (false) }
+
+    val galleryPostDetail by viewModel.galleryPostDetail.collectAsState()
 
     if (isDeleteBottomSheetVisible) {
         DeletePostBottomSheet(
@@ -130,14 +129,14 @@ fun GalleryPostDetailScreen(
 
             MediumChip(
                 mediumChipType = MediumChipType.CATEGORY,
-                dynamicString = category,
+                dynamicString = galleryPostDetail.category,
                 modifier = Modifier.padding(start = 16.dp)
             )
 
             Spacer(modifier = Modifier.height(12.dp))
 
             Text(
-                text = galleryPostTitle,
+                text = galleryPostDetail.title,
                 style = typography.body01_SB,
                 color = colors.Black,
                 modifier = Modifier.padding(horizontal = 16.dp)
@@ -146,9 +145,9 @@ fun GalleryPostDetailScreen(
             Spacer(modifier = Modifier.height(12.dp))
 
             PostProfileInfoRow(
-                profileImage = profileImage,
-                userName = userName,
-                date = date,
+                profileImage = galleryPostDetail.profileImage,
+                userName = galleryPostDetail.nickname,
+                date = galleryPostDetail.createdAt,
             )
 
             HorizontalDivider(
@@ -162,7 +161,7 @@ fun GalleryPostDetailScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = galleryPostContent,
+                text = galleryPostDetail.content,
                 style = typography.body03_R,
                 color = colors.Black,
                 modifier = Modifier.padding(horizontal = 16.dp)

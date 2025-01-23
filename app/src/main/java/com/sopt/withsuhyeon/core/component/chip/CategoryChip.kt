@@ -13,12 +13,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
 @Composable
 fun CategoryChip(
+    imageUrl: String,
     text: String,
     isSelected: Boolean,
     onClick: () -> Unit,
@@ -41,10 +43,11 @@ fun CategoryChip(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Box(
+        AsyncImage(
+            model = imageUrl,
+            contentDescription = null,
             modifier = Modifier
                 .size(18.dp)
-                .background(color = colors.Grey200)
         )
 
         Text(

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -73,7 +74,6 @@ fun HomeRoute(
     )
 }
 @OptIn(ExperimentalMaterial3Api::class)
-
 @Composable
 fun HomeScreen(
     padding: PaddingValues,
@@ -84,7 +84,6 @@ fun HomeScreen(
     onViewAllButtonClick: () -> Unit,
     navigateToBlockUser: () -> Unit
 ) {
-    var isBottomSheetVisible by remember { mutableStateOf(true) }
     var isBlockBottomSheetVisible by remember { mutableStateOf(true) }
     if (isBlockBottomSheetVisible) {
         BlockBottomSheet(
@@ -112,6 +111,7 @@ fun HomeScreen(
     }
 
     LaunchedEffect(Unit){
+        viewModel.getHomeData()
         viewModel.startCountAnimation()
     }
 
@@ -144,7 +144,7 @@ fun HomeScreen(
                     isRefreshing = homeState.isRefreshing,
                     state = pullToRefreshState,
                     onRefresh = {
-                        viewModel.onRefresh()
+                        viewModel.refreshHomeData()
                     }
                 )
         ) {
@@ -196,6 +196,7 @@ fun HomeScreen(
                     modifier = Modifier
                         .background(color = colors.White)
                         .padding(top = 24.dp, bottom = 24.dp)
+                        .fillMaxHeight()
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
@@ -276,6 +277,7 @@ fun HomeScreen(
                     modifier = Modifier
                         .background(color = colors.White)
                         .fillMaxWidth()
+                        .weight(1f)
                         .padding(start = 16.dp, end = 16.dp, top = 24.dp)
                 ) {
                     Icon(
@@ -315,7 +317,7 @@ fun HomeScreen(
                             )
                             Spacer(Modifier.width(3.dp))
                             Text(
-                                text = "강남/역삼/삼성",
+                                text = homeState.homeData.region,
                                 style = typography.body03_SB.merge(colors.Grey400)
                             )
                         }
@@ -325,8 +327,8 @@ fun HomeScreen(
                                 .padding(vertical = 16.dp),
                             verticalArrangement = Arrangement.spacedBy(16.dp)
                         ) {
-                            homeState.postList.forEachIndexed { index, post ->
-                                val isLastItem = index == homeState.postList.size - 1
+                            homeState.homeData.homePosts.forEachIndexed { index, post ->
+                                val isLastItem = index == homeState.homeData.homePosts.size - 1
                                 FindSuhyeonPostItem(
                                     postItemModel = post,
                                     modifier = Modifier
@@ -344,13 +346,14 @@ fun HomeScreen(
     }
 }
 
-//@Preview
-//@Composable
-//fun PreviewHome() {
-//    HomeScreen(
-//        padding = PaddingValues(0.dp),
-//        onPostClick = { },
-//        onCategoryCardClick = { },
-//        onViewAllButtonClick = { },
-//    )
-//}
+@Preview
+@Composable
+fun PreviewHome() {
+    HomeScreen(
+        padding = PaddingValues(0.dp),
+        onPostClick = { },
+        onCategoryCardClick = { },
+        onViewAllButtonClick = { },
+        navigateToBlockUser = { },
+    )
+}
