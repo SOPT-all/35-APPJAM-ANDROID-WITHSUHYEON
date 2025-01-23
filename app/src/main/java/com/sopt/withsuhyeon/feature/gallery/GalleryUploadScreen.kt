@@ -247,7 +247,8 @@ private fun GalleryUploadScreen(
                             val imageUri = selectedImageUri
 
                             if (imageUri != null) {
-                                val imagePart = createImagePart(contentResolver, imageUri.toString())
+                                val imagePart =
+                                    createImagePart(contentResolver, imageUri.toString())
 
                                 if (imagePart != null) {
                                     try {

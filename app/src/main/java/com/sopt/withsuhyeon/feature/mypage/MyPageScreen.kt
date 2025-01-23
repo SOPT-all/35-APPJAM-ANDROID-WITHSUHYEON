@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -97,6 +98,11 @@ private fun MyPageScreen(
     ) {
         MainTopNavBar(
             text = stringResource(R.string.my_page_title)
+        )
+
+        HorizontalDivider(
+            thickness = 1.dp,
+            color = colors.Grey100
         )
 
         Column(
