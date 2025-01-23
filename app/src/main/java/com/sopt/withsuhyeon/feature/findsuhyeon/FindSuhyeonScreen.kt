@@ -107,7 +107,7 @@ fun FindSuhyeonScreen(
             )
             LazyColumn(
                 modifier = Modifier
-                    .wrapContentHeight()
+                    .weight(1f)
                     .background(colors.Grey50)
                     .padding(top = 16.dp, start = 16.dp, end = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -128,9 +128,7 @@ fun FindSuhyeonScreen(
             LocationBottomSheet(
                 isVisible = true,
                 subLocationList = state.subLocationList,
-                onConfirmClick = {
-                    viewModel.selectLocation(it)
-                    },
+                onConfirmClick = { viewModel.selectLocation(it) },
                 onDismiss = { viewModel.toggleLocationBottomSheet() },
                 selectedMainLocation = state.selectedMainLocation,
                 mainLocationList = state.mainLocationList,
