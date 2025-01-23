@@ -21,8 +21,11 @@ import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.chip.MediumChip
 import com.sopt.withsuhyeon.core.type.MediumChipType
 import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_20_TO_24
+import com.sopt.withsuhyeon.core.util.KeyStorage.PHONE_CALL
 import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_FEMALE
 import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_MALE
+import com.sopt.withsuhyeon.core.util.KeyStorage.TAKE_A_PHOTO
+import com.sopt.withsuhyeon.core.util.KeyStorage.VIDEO_CALL
 import com.sopt.withsuhyeon.domain.entity.PostDetailInfoModel
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
@@ -125,25 +128,17 @@ fun DetailMeetingInformation (
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 postDetailInfoModel.requests.forEach { chipType ->
+                    val chipTypeMapping = when (chipType) {
+                        TAKE_A_PHOTO -> MediumChipType.CATEGORY_PHOTO
+                        PHONE_CALL -> MediumChipType.CATEGORY_PHONE_CALL
+                        VIDEO_CALL -> MediumChipType.CATEGORY_VIDEO_CALL
+                        else -> MediumChipType.CATEGORY_VIDEO_CALL
+                    }
                     MediumChip(
-                        mediumChipType = chipType
+                        mediumChipType = chipTypeMapping
                     )
                 }
             }
-        }
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(
-                text = stringResource(R.string.find_suhyeon_price),
-                style = typography.body03_R.merge(color = colors.Grey500)
-            )
-            Text(
-                text = postDetailInfoModel.price.toDecimalFormat(),
-                style = typography.body03_B.merge(color = colors.Grey700)
-            )
         }
     }
 }
@@ -157,11 +152,10 @@ fun PreviewDetailMeetingInformation() {
             gender = false,
             age = AGE_20_TO_24,
             date = "1월 25일 (토) 오후 2:00",
-            price = 5000,
             requests = listOf(
-                MediumChipType.CATEGORY_PHOTO,
-                MediumChipType.CATEGORY_VIDEO_CALL,
-                MediumChipType.CATEGORY_PHONE_CALL,
+                stringResource(MediumChipType.CATEGORY_PHOTO.titleResId),
+                stringResource(MediumChipType.CATEGORY_VIDEO_CALL.titleResId),
+                stringResource(MediumChipType.CATEGORY_PHONE_CALL.titleResId),
             )
         )
     )

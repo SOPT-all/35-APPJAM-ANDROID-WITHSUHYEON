@@ -3,6 +3,7 @@ package com.sopt.withsuhyeon.data.service
 import com.sopt.withsuhyeon.data.dto.base.BaseResponse
 import com.sopt.withsuhyeon.data.dto.request.RequestFindSuhyeonPostUploadDto
 import com.sopt.withsuhyeon.data.dto.response.ResponseFindSuhyeonAllPostDto
+import com.sopt.withsuhyeon.data.dto.response.ResponseFindSuhyeonPostDetailDto
 import com.sopt.withsuhyeon.data.dto.response.ResponseRegionListDto
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -27,4 +28,13 @@ interface FindSuhyeonService {
         @Body request: RequestFindSuhyeonPostUploadDto
     ) : BaseResponse<Unit>
 
+    @GET("/api/v1/posts/{postId}")
+    suspend fun getFindSuhyeonPostDetail(
+        @Path("postId") postId: Long
+    ) : BaseResponse<ResponseFindSuhyeonPostDetailDto>
+
+    @DELETE("/api/v1/posts/{postId}")
+    suspend fun deleteFindSuhyeonPost(
+        @Path("postId") postId: Long
+    ) : BaseResponse<Unit>
 }

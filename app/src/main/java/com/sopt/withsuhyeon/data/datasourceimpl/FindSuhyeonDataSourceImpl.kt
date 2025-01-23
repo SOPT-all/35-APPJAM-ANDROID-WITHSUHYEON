@@ -4,6 +4,7 @@ import com.sopt.withsuhyeon.data.datasource.FindSuhyeonDataSource
 import com.sopt.withsuhyeon.data.dto.base.BaseResponse
 import com.sopt.withsuhyeon.data.dto.request.RequestFindSuhyeonPostUploadDto
 import com.sopt.withsuhyeon.data.dto.response.ResponseFindSuhyeonAllPostDto
+import com.sopt.withsuhyeon.data.dto.response.ResponseFindSuhyeonPostDetailDto
 import com.sopt.withsuhyeon.data.dto.response.ResponseRegionListDto
 import com.sopt.withsuhyeon.data.service.FindSuhyeonService
 import javax.inject.Inject
@@ -23,4 +24,12 @@ class FindSuhyeonDataSourceImpl @Inject constructor(
             request = request
         )
 
+    override suspend fun getFindSuhyeonPostDetail(postId: Long): BaseResponse<ResponseFindSuhyeonPostDetailDto> =
+        findSuhyeonService.getFindSuhyeonPostDetail(
+            postId = postId
+        )
+    override suspend fun deleteFindSuhyeonPost(postId: Long): BaseResponse<Unit> =
+        findSuhyeonService.deleteFindSuhyeonPost(
+            postId = postId
+        )
 }

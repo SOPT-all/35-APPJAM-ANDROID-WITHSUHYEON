@@ -2,6 +2,7 @@ package com.sopt.withsuhyeon.feature.findsuhyeon.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sopt.withsuhyeon.domain.entity.LocationListModel
 import com.sopt.withsuhyeon.domain.repository.FindSuhyeonRepository
 import com.sopt.withsuhyeon.feature.findsuhyeon.state.FindSuhyeonState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -39,13 +40,28 @@ class FindSuhyeonViewModel @Inject constructor(
         }
     }
 
+    private fun findLocationBySubLocation(
+        subLocation: String,
+        regions: List<LocationListModel>
+    ): String? {
+        for (region in regions) {
+            if (subLocation in region.subLocations) {
+                return region.location
+            }
+        }
+        return null
+    }
+
     fun showLocationBottomSheet() {
         viewModelScope.launch {
-            if (_state.value.regionList.regions.isEmpty()) {
                 findSuhyeonRepository.getRegionList().onSuccess { regionList ->
                     _state.update { current ->
                         current.copy(
                             regionList = regionList,
+                            selectedMainLocation = findLocationBySubLocation(
+                                _state.value.selectedSubLocation.orEmpty(),
+                                regionList.regions
+                            ),
                             mainLocationList = regionList.regions.map { it.location },
                             subLocationList = regionList.regions.map { it.subLocations }
                         )
@@ -53,7 +69,6 @@ class FindSuhyeonViewModel @Inject constructor(
                 }.onFailure { error ->
                     _errorMessage.update { error.message }
                 }
-            }
 
             _state.update { current ->
                 current.copy(isLocationBottomSheetVisible = true)

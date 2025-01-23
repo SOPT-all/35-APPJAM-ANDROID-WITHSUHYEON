@@ -1,10 +1,12 @@
 package com.sopt.withsuhyeon.data.repositoryimpl
 
 import com.sopt.withsuhyeon.data.mapper.toFindSuhyeonAllPostModel
+import com.sopt.withsuhyeon.data.mapper.toFindSuhyeonPostDetailModel
 import com.sopt.withsuhyeon.data.mapper.toRegionListModel
 import com.sopt.withsuhyeon.data.mapper.toRequestFindSuhyeonPostUploadDto
 import com.sopt.withsuhyeon.data.service.FindSuhyeonService
 import com.sopt.withsuhyeon.domain.entity.FindSuhyeonAllPostModel
+import com.sopt.withsuhyeon.domain.entity.FindSuhyeonPostDetailModel
 import com.sopt.withsuhyeon.domain.entity.FindSuhyeonPostUploadModel
 import com.sopt.withsuhyeon.domain.entity.RegionListModel
 import com.sopt.withsuhyeon.domain.repository.FindSuhyeonRepository
@@ -28,6 +30,18 @@ class FindSuhyeonRepositoryImpl @Inject constructor(
     override suspend fun postFindSuhyeonUpload(request: FindSuhyeonPostUploadModel): Result<Unit> =
         runCatching {
             val response = findSuhyeonService.postFindSuhyeonUpload(request.toRequestFindSuhyeonPostUploadDto())
+            response.result ?: throw Exception("Response data is null")
+        }
+
+    override suspend fun getFindSuhyeonPostDetail(postId: Long): Result<FindSuhyeonPostDetailModel> =
+        runCatching {
+            val response = findSuhyeonService.getFindSuhyeonPostDetail(postId)
+            response.result?.toFindSuhyeonPostDetailModel() ?: throw Exception("Response data is null")
+        }
+
+    override suspend fun deleteFindSuhyeonPost(postId: Long): Result<Unit> =
+        runCatching {
+            val response = findSuhyeonService.deleteFindSuhyeonPost(postId)
             response.result ?: throw Exception("Response data is null")
         }
 
