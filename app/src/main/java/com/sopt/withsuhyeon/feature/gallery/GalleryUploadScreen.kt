@@ -71,6 +71,8 @@ private fun GalleryUploadScreen(
     var galleryUploadDescription by remember { mutableStateOf("") }
     var isBottomSheetVisible by remember { mutableStateOf(false) }
 
+    var isCompleteBtnEnabled by remember { mutableStateOf(true) }
+
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -215,14 +217,17 @@ private fun GalleryUploadScreen(
             LargeButton(
                 text = "완료",
                 onClick = {
-                    val isTitleInputValid = titleValue.isNotEmpty()
-                    val isCategoryInputValid = selectedCategory.isNotEmpty()
+                    if (isCompleteBtnEnabled) {
+                        val isTitleInputValid = titleValue.isNotEmpty()
+                        val isCategoryInputValid = selectedCategory.isNotEmpty()
 
-                    isTitleValid = isTitleInputValid
-                    isCategoryValid = isCategoryInputValid
+                        isTitleValid = isTitleInputValid
+                        isCategoryValid = isCategoryInputValid
 
-                    if (isTitleInputValid && isCategoryInputValid) {
-                        onCompleteBtnClick()
+                        if (isTitleInputValid && isCategoryInputValid) {
+                            isCompleteBtnEnabled = false
+                            onCompleteBtnClick()
+                        }
                     }
                 }
             )
