@@ -3,6 +3,7 @@ package com.sopt.withsuhyeon.data.service
 import com.sopt.withsuhyeon.data.dto.base.BaseResponse
 import com.sopt.withsuhyeon.data.dto.request.RequestLoginDto
 import com.sopt.withsuhyeon.data.dto.request.RequestVerifyDto
+import com.sopt.withsuhyeon.data.dto.response.ResponseLoginDto
 import retrofit2.http.Body
 import retrofit2.http.POST
 
@@ -22,5 +23,5 @@ interface LoginService {
     @POST("/api/v1/auth/signin")
     suspend fun postLogin(
         @Body request: RequestLoginDto
-    ): BaseResponse<Unit>
+    ): BaseResponse<ResponseLoginDto>
 }

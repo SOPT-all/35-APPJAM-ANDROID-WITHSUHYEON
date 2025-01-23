@@ -71,8 +71,14 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch {
             loginRepository.postLogin(
                 _loginState.value.phoneNumber
-            ).onSuccess {
-                Log.d("log", "성공")
+            ).onSuccess { loginToken ->
+                _loginState.update { current ->
+                    current.copy(
+                        accessToken = loginToken.accessToken,
+                        refreshToken = loginToken.refreshToken
+                    )
+                }
+                Log.d("log", "${_loginState.value.accessToken} ${_loginState.value.refreshToken}")
             }.onFailure { error ->
                 Log.d("log", error.message.toString())
             }
