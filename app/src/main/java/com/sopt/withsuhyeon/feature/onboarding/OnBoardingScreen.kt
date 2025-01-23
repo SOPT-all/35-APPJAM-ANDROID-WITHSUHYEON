@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -22,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.airbnb.lottie.compose.LottieAnimation
@@ -64,122 +66,180 @@ fun OnBoardingScreen(
     var selectedIndex by remember { mutableIntStateOf(0) }
     var dragDirection by remember { mutableIntStateOf(0) }
 
-
-    Column(
-        modifier = modifier
-            .background(color = colors.White)
-            .padding(padding)
-            .fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(42.dp)
+    Box(
+        modifier = modifier.fillMaxSize(),
     ) {
+        Column {
+            Text(
+                text = "수현이랑 함께라면 \n" +
+                        "연인과 여행 걱정없어요"
+            )
+            Text(
+                text = "어쩌고 저쩌수현이랑 함께라면 \n" +
+                        "연인과 여행 걱정없어요"
+            )
+        }
         Column(
-            modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.spacedBy(28.dp)
-
+            modifier = modifier
+                .background(color = colors.White)
+                .padding(padding)
+                .fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(42.dp)
         ) {
-            Box(
-                modifier = modifier
-                    .fillMaxWidth()
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(28.dp)
 
-                    .pointerInput(Unit) {
-                        detectHorizontalDragGestures(
-                            onHorizontalDrag = { _, dragAmount ->
-                                if (dragAmount > 0) {
-                                    dragDirection = 1
-                                } else if (dragAmount < -0) {
-                                    dragDirection = -1
+            ) {
+                Box(
+                    modifier = modifier
+                        .fillMaxWidth()
+
+                        .pointerInput(Unit) {
+                            detectHorizontalDragGestures(
+                                onHorizontalDrag = { _, dragAmount ->
+                                    if (dragAmount > 0) {
+                                        dragDirection = 1
+                                    } else if (dragAmount < -0) {
+                                        dragDirection = -1
+                                    }
+                                },
+                                onDragEnd = {
+                                    when (dragDirection) {
+                                        1 -> {
+                                            if (selectedIndex > 0) {
+                                                selectedIndex -= 1
+                                            }
+                                        }
+
+                                        -1 -> {
+                                            if (selectedIndex < 2) {
+                                                selectedIndex += 1
+                                            }
+                                        }
+                                    }
+                                    dragDirection = 0
                                 }
+                            )
+                        }
+                ) {
+                    val firstLottie by rememberLottieComposition(
+                        LottieCompositionSpec.RawRes(
+                            lottieFiles[0]
+                        )
+                    )
+
+                    val secondLottie by rememberLottieComposition(
+                        LottieCompositionSpec.RawRes(
+                            lottieFiles[1]
+                        )
+                    )
+
+                    val thirdLottie by rememberLottieComposition(
+                        LottieCompositionSpec.RawRes(
+                            lottieFiles[2]
+                        )
+                    )
+
+                    LottieAnimation(
+                        composition = when (selectedIndex) {
+                            0 -> firstLottie
+                            1 -> secondLottie
+                            else -> thirdLottie
+                        },
+                        iterations = LottieConstants.IterateForever,
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        contentScale = ContentScale.Crop,
+                        speed = 1.2f
+                    )
+
+
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(
+                                top = 100.dp,
+                                start = 16.dp,
+                                end = 16.dp
+                            )
+                    ) {
+                        Text(
+                            text = when (selectedIndex) {
+                                0 -> "수현이랑 함께라면 \n" +
+                                        "연인과 여행 걱정없어요"
+
+                                1 -> "로티 애니메이션 2"
+                                else -> "로티 애니메이션 3"
                             },
-                            onDragEnd = {
-                                when (dragDirection) {
-                                    1 -> {
-                                        if (selectedIndex > 0) {
-                                            selectedIndex -= 1
-                                        }
-                                    }
+                            style = typography.title01_B,
+                        )
+                        Spacer(Modifier.height(16.dp))
+                        Text(
+                            text = when (selectedIndex) {
+                                0 -> "어쩌고 저쩌수현이랑 함께라면 \n" +
+                                        "연인과 여행 걱정없어요"
 
-                                    -1 -> {
-                                        if (selectedIndex < 2) {
-                                            selectedIndex += 1
-                                        }
-                                    }
-                                }
-                                dragDirection = 0
-                            }
+                                1 -> "2"
+                                else -> "3"
+                            },
+                            style = typography.body02_B.merge(color = colors.Grey500)
                         )
                     }
-            ) {
-                val firstLottie by rememberLottieComposition(
-                    LottieCompositionSpec.RawRes(
-                        lottieFiles[0]
-                    )
-                )
 
-                val secondLottie by rememberLottieComposition(
-                    LottieCompositionSpec.RawRes(
-                        lottieFiles[1]
-                    )
-                )
 
-                val thirdLottie by rememberLottieComposition(
-                    LottieCompositionSpec.RawRes(
-                        lottieFiles[2]
-                    )
-                )
-
-                LottieAnimation(
-                    composition = when (selectedIndex) {
-                        0 -> firstLottie
-                        1 -> secondLottie
-                        else -> thirdLottie
-                    },
-                    iterations = LottieConstants.IterateForever,
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    contentScale = ContentScale.Crop,
-                    speed = 1.2f
-                )
+                }
             }
-        }
-        PageIndicator(
-            pageCount = 3,
-            currentPage = selectedIndex,
-            indicatorSize = 8.dp,
-        )
-
-        Column(
-            modifier = Modifier
-                .padding(
-                    start = 16.dp,
-                    end = 16.dp,
-                    bottom = 46.dp
-                )
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            LargeButton(
-                text = stringResource(R.string.onboarding_start_text),
-                onClick = onSignUpButtonClick
+            PageIndicator(
+                pageCount = 3,
+                currentPage = selectedIndex,
+                indicatorSize = 8.dp,
             )
-            Spacer(modifier = Modifier.height(8.dp))
-            Row(
+
+            Column(
                 modifier = Modifier
                     .padding(
-                        vertical = 10.dp
-                    ),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.Start),
+                        start = 16.dp,
+                        end = 16.dp,
+                        bottom = 46.dp
+                    )
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(
-                    text = stringResource(R.string.onboarding_account_question),
-                    style = typography.body02_SB.merge(color = colors.Grey400)
+                LargeButton(
+                    text = stringResource(R.string.onboarding_start_text),
+                    onClick = onSignUpButtonClick
                 )
-                Text(
-                    text = stringResource(R.string.onboarding_login_text),
-                    style = typography.body02_SB.merge(color = colors.Purple600),
-                    modifier = Modifier.noRippleClickable(onLoginButtonClick)
-                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Row(
+                    modifier = Modifier
+                        .padding(
+                            vertical = 10.dp
+                        ),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.Start),
+                ) {
+                    Text(
+                        text = stringResource(R.string.onboarding_account_question),
+                        style = typography.body02_SB.merge(color = colors.Grey400)
+                    )
+                    Text(
+                        text = stringResource(R.string.onboarding_login_text),
+                        style = typography.body02_SB.merge(color = colors.Purple600),
+                        modifier = Modifier.noRippleClickable(onLoginButtonClick)
+                    )
+                }
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun PreviewOnBoardingScreen() {
+    OnBoardingScreen(
+        padding = PaddingValues(0.dp),
+        onSignUpButtonClick = { },
+        onLoginButtonClick = { }
+    )
 }
