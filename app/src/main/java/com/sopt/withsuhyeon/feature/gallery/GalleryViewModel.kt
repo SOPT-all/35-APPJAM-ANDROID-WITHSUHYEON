@@ -25,24 +25,14 @@ class GalleryViewModel @Inject constructor(
     private val _galleries = MutableStateFlow<List<Gallery>>(emptyList())
     val galleries: StateFlow<List<Gallery>> = _galleries.asStateFlow()
 
-//    private val _selectedCategory = MutableStateFlow<String?>(null)
-//    val selectedCategory: StateFlow<String?> = _selectedCategory.asStateFlow()
-
     private val _errorMessage = MutableStateFlow<String?>(null)
     val errorMessage: StateFlow<String?> = _errorMessage.asStateFlow()
 
-    private val _galleryPostDetail = MutableStateFlow(
-        GalleryPostDetailModel(
-            imageUrl = "",
-            category = "",
-            title = "",
-            profileImage = "",
-            nickname = "",
-            createdAt = "",
-            content = ""
-        )
-    )
-    val galleryPostDetail: StateFlow<GalleryPostDetailModel> = _galleryPostDetail.asStateFlow()
+    private val _galleryPostDetail = MutableStateFlow<GalleryPostDetailModel?>(null)
+    val galleryPostDetail: StateFlow<GalleryPostDetailModel?> = _galleryPostDetail.asStateFlow()
+
+    private val _selectedCategory = MutableStateFlow("전체")
+    val selectedCategory: StateFlow<String> = _selectedCategory.asStateFlow()
 
     init {
         getGalleryCategories()
@@ -70,5 +60,9 @@ class GalleryViewModel @Inject constructor(
                     _errorMessage.update { error.message }
                 }
         }
+    }
+
+    fun setSelectedCategory(category: String) {
+        _selectedCategory.value = category
     }
 }

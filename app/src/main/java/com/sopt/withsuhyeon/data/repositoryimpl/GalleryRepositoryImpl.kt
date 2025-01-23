@@ -36,4 +36,10 @@ class GalleryRepositoryImpl @Inject constructor(
             val response = galleryService.getGalleryPostDetail(galleryId)
             response.result?.toGalleryPostDetailModel() ?: throw Exception("Response data is null")
         }
+
+    override suspend fun deleteGalleryPost(galleryId: Long): Result<Unit> =
+        runCatching {
+            val response = galleryService.deleteGalleryPost(galleryId)
+            response.result
+        }
 }

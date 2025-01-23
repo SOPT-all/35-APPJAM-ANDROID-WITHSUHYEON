@@ -15,6 +15,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -22,10 +23,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.bottomsheet.DeletePostBottomSheet
 import com.sopt.withsuhyeon.core.component.button.LargeButton
@@ -34,6 +38,7 @@ import com.sopt.withsuhyeon.core.component.modal.AlertModal
 import com.sopt.withsuhyeon.core.component.profile.PostProfileInfoRow
 import com.sopt.withsuhyeon.core.component.topbar.SubTopNavBar
 import com.sopt.withsuhyeon.core.type.MediumChipType
+import com.sopt.withsuhyeon.core.util.image.downloadImage
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
@@ -41,13 +46,19 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 fun GalleryPostDetailRoute(
     padding: PaddingValues,
     popBackStackToGallery: () -> Unit,
-    viewModel: GalleryViewModel = hiltViewModel()
+    galleryId: Long,
+    viewModel: GalleryPostDetailViewModel = hiltViewModel()
 ) {
     GalleryPostDetailScreen(
         padding = padding,
+        galleryId = galleryId,
         onDownloadBtnClick = {
             popBackStackToGallery()
-        }
+        },
+        onModalDeleteBtnClick = {
+            popBackStackToGallery()
+        },
+        viewModel = viewModel
     )
 }
 
@@ -55,9 +66,16 @@ fun GalleryPostDetailRoute(
 fun GalleryPostDetailScreen(
     padding: PaddingValues,
     onDownloadBtnClick: () -> Unit,
+    onModalDeleteBtnClick: () -> Unit,
+    galleryId: Long,
     viewModel: GalleryPostDetailViewModel = hiltViewModel(),
     modifier: Modifier = Modifier
 ) {
+    LaunchedEffect(galleryId) {
+        viewModel.getGalleryPostDetail(galleryId)
+    }
+    val context = LocalContext.current
+
     var isDeleteBottomSheetVisible by remember { mutableStateOf(false) }
     var isDeleteAlertModalVisible by remember { mutableStateOf (false) }
 
@@ -83,7 +101,8 @@ fun GalleryPostDetailScreen(
         AlertModal(
             onDeleteClick = {
                 isDeleteAlertModalVisible = false
-                onDownloadBtnClick()
+                viewModel.deleteGalleryPost(galleryId)
+                onModalDeleteBtnClick()
             },
             onCancelClick = {
                 isDeleteAlertModalVisible = false
@@ -118,11 +137,14 @@ fun GalleryPostDetailScreen(
                 .verticalScroll(rememberScrollState())
                 .background(colors.White)
         ) {
-            Box(
+            AsyncImage(
+                model = galleryPostDetail.imageUrl,
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
                     .aspectRatio(1f)
-                    .background(colors.Grey500)
+                    .background(colors.Grey50)
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -178,7 +200,16 @@ fun GalleryPostDetailScreen(
         ) {
             LargeButton(
                 text = stringResource(R.string.gallery_download_btn),
-                onClick = onDownloadBtnClick,
+                onClick = {
+                    val fileName = "image_${System.currentTimeMillis()}.jpg"
+                    downloadImage(
+                        context = context,
+                        imageUrl = galleryPostDetail.imageUrl,
+                        fileName = fileName
+                    ) {
+                        onDownloadBtnClick()
+                    }
+                },
                 isDownloadBtn = true,
                 modifier = Modifier.fillMaxWidth()
             )

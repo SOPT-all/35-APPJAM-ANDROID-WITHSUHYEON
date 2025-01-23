@@ -5,6 +5,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
 import com.sopt.withsuhyeon.core.navigation.MainTabRoute
 import com.sopt.withsuhyeon.core.navigation.Route
 import com.sopt.withsuhyeon.feature.gallery.GalleryPostDetailRoute
@@ -19,21 +20,23 @@ fun NavController.navigateToGalleryUpload() {
     navigate(Route.GalleryUpload)
 }
 
-fun NavController.navigateToGalleryPostDetail() {
-    navigate(Route.GalleryPostDetail)
+fun NavController.navigateToGalleryPostDetail(galleryId: Long) {
+    navigate(Route.GalleryPostDetail(galleryId))
 }
 
 fun NavGraphBuilder.galleryNavGraph(
     padding: PaddingValues,
     onNavigateToGalleryUpload: () -> Unit,
-    onNavigateToGalleryPostDetail: () -> Unit,
+    onNavigateToGalleryPostDetail: (Long) -> Unit,
     onPopBackStackToGallery: () -> Unit
 ) {
     composable<MainTabRoute.Gallery> {
         GalleryRoute(
             padding = padding,
             navigateToGalleryUpload = onNavigateToGalleryUpload,
-            navigateToGalleryPostDetail = onNavigateToGalleryPostDetail
+            navigateToGalleryPostDetail = { galleryId ->
+                onNavigateToGalleryPostDetail(galleryId)
+            }
         )
     }
     composable<Route.GalleryUpload> {
@@ -42,9 +45,11 @@ fun NavGraphBuilder.galleryNavGraph(
             popBackStackToGallery = onPopBackStackToGallery
         )
     }
-    composable<Route.GalleryPostDetail> {
+    composable<Route.GalleryPostDetail> { navBackStackEntry ->
+        val galleryId = navBackStackEntry.toRoute<Route.GalleryPostDetail>().galleryId
         GalleryPostDetailRoute(
             padding = padding,
+            galleryId = galleryId,
             popBackStackToGallery = onPopBackStackToGallery
         )
     }
