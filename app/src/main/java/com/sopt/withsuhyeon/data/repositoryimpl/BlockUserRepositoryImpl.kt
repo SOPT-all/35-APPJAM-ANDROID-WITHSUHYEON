@@ -19,7 +19,9 @@ class BlockUserRepositoryImpl @Inject constructor(
     override suspend fun postBlockUser(phoneNumber: String): Result<Unit> =
         runCatching {
             val response = blockUserService.postBlockUser(
-                request = RequestBlockUserDto(phoneNumber)
+                request = RequestBlockUserDto(
+                    phoneNumber
+                )
             )
             response.message
         }
