@@ -6,7 +6,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ResponseHomeDto(
-    @SerialName("count")
     val count: Int,
     val region: String,
     val homePosts: List<PostItemModel>
