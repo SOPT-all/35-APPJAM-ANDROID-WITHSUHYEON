@@ -2,8 +2,10 @@ package com.sopt.withsuhyeon.data.di
 
 import com.sopt.withsuhyeon.data.datasource.DummyDataSource
 import com.sopt.withsuhyeon.data.datasource.GalleryDataSource
+import com.sopt.withsuhyeon.data.datasource.MyPageDataSource
 import com.sopt.withsuhyeon.data.datasourceimpl.DummyDataSourceImpl
 import com.sopt.withsuhyeon.data.datasourceimpl.GalleryDataSourceImpl
+import com.sopt.withsuhyeon.data.datasourceimpl.MyPageDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -20,4 +22,8 @@ abstract class DataSourceModule {
     @Binds
     @Singleton
     abstract fun bindsGalleryDataSource(galleryDataSourceImpl: GalleryDataSourceImpl): GalleryDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindsMyPageDataSource(myPageDataSourceImpl: MyPageDataSourceImpl): MyPageDataSource
 }

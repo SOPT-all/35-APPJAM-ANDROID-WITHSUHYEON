@@ -92,8 +92,8 @@
     <string name="my_tab_bar_item_gallery">갤러리</string>
 
     <!-- 차단 바텀시트 -->
-    <string name="block_bottomsheet_title">차단하실 계정이 있을까요?</string>
-    <string name="block_bottomsheet_sub_title">차단하고자하는 전화번호를 입력해주시면,\n앱내에서 숨기기 처리됩니다.</string>
+    <string name="block_bottomsheet_title">차단하고 싶은 번호가 있나요?</string>
+    <string name="block_bottomsheet_sub_title">차단한 사용자는 [닉네임]님의 게시글을 볼 수 없어요</string>
     <string name="block_bottomsheet_button_text">차단하러 가기</string>
     <string name="block_bottomsheet_skip_text">괜찮아요</string>
 
@@ -220,4 +220,10 @@
     <string name="category_chip_all">ALL</string>
     <string name="category_chip_mt">MT</string>
     <string name="category_chip_etc"> etc.</string>
+
+    <!-- 수마 -->
+    <string name="suma_img_purple">img_purple_suma</string>
+    <string name="suma_img_red">img_red_suma</string>
+    <string name="suma_img_green">img_green_suma</string>
+    <string name="suma_img_blue">img_blue_suma</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.sopt.withsuhyeon.feature.mypage
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,11 +11,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,11 +26,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.modal.AlertModal
 import com.sopt.withsuhyeon.core.component.topbar.MainTopNavBar
@@ -58,10 +62,17 @@ fun MyPageRoute(
 private fun MyPageScreen(
     padding: PaddingValues,
     navigateToBlockUser: () -> Unit,
-    navigateToOnboarding: () -> Unit
+    navigateToOnboarding: () -> Unit,
+    viewModel: MyPageViewModel = hiltViewModel()
 ) {
+    LaunchedEffect(Unit) {
+        viewModel.getMyPageInfo()
+    }
+
     val nickname by remember { mutableStateOf("") }
     var alertState by remember { mutableStateOf<String>(DISABLED_TYPE) }
+    val myPageInfo by viewModel.myPageInfo.collectAsState()
+
     when (alertState) {
         LOGOUT_ALERT_TYPE -> {
             AlertModal(
@@ -120,13 +131,22 @@ private fun MyPageScreen(
                     .padding(horizontal = 20.dp, vertical = 20.dp),
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
             ) {
-                Image(
-                    painter = painterResource(R.drawable.ic_profile),
+                val profileImageResId = when (myPageInfo.profileImage) {
+                    stringResource(R.string.suma_img_purple) -> R.drawable.img_purple_suma
+                    stringResource(R.string.suma_img_red) -> R.drawable.img_red_suma
+                    stringResource(R.string.suma_img_green) -> R.drawable.img_green_suma
+                    stringResource(R.string.suma_img_blue) -> R.drawable.img_blue_suma
+                    else -> ""
+                }
+
+                AsyncImage(
+                    model = profileImageResId,
                     contentDescription = stringResource(R.string.my_page_profile_description),
                     modifier = Modifier.size(44.dp)
+                        .clip(CircleShape)
                 )
                 Text(
-                    text = nickname,
+                    text = myPageInfo.nickname,
                     style = typography.body02_B,
                     modifier = Modifier
                         .align(CenterVertically)
