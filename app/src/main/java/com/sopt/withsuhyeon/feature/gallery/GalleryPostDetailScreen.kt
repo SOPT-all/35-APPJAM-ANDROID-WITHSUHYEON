@@ -170,6 +170,7 @@ fun GalleryPostDetailScreen(
                 profileImage = galleryPostDetail.profileImage,
                 userName = galleryPostDetail.nickname,
                 date = galleryPostDetail.createdAt,
+                modifier = Modifier.padding(start = 16.dp)
             )
 
             HorizontalDivider(

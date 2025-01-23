@@ -215,6 +215,11 @@
     <string name="onboarding_login_text">로그인</string>
     <string name="onboarding_start_text">시작하기</string>
 
+    <!-- 카테고리 칩 -->
+    <string name="category_chip_all">ALL</string>
+    <string name="category_chip_mt">MT</string>
+    <string name="category_chip_etc"> etc.</string>
+
     <!-- 수마 -->
     <string name="suma_img_purple">img_purple_suma</string>
     <string name="suma_img_red">img_red_suma</string>
