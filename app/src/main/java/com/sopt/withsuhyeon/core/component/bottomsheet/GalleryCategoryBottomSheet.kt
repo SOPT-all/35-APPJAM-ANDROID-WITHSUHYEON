@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.button.LargeButton
 import com.sopt.withsuhyeon.core.component.chip.CategoryChip
+import com.sopt.withsuhyeon.domain.entity.Category
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
@@ -26,7 +27,7 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 @Composable
 fun GalleryCategoryBottomSheet(
     isVisible: Boolean,
-    categories: List<String>,
+    categories: List<Category>,
     selectedCategory: String,
     onCategoryChipClick: (String) -> Unit,
     onConfirmClick: () -> Unit,
@@ -56,9 +57,10 @@ fun GalleryCategoryBottomSheet(
                 ) {
                     categories.forEach { category ->
                         CategoryChip(
-                            text = category,
-                            isSelected = selectedCategory.contains(category),
-                            onClick = { onCategoryChipClick(category) }
+                            imageUrl = category.imageUrl,
+                            text = category.category,
+                            isSelected = selectedCategory == category.category,
+                            onClick = { onCategoryChipClick(category.category) }
                         )
                     }
                 }
