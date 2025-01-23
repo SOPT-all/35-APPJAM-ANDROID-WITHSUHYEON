@@ -58,7 +58,7 @@ fun FinishLoginScreen(
     modifier: Modifier = Modifier
 ) {
     val state by viewModel.loginState.collectAsStateWithLifecycle()
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.signup))
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.login))
     var isAnimationPlaying by remember { mutableStateOf(true) }
     val progress by animateLottieCompositionAsState(
         composition = composition,
