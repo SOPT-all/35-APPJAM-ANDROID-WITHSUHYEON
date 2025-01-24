@@ -178,22 +178,18 @@ fun OnBoardingScreen(
                     ) {
                         Text(
                             text = when (selectedIndex) {
-                                0 -> "수현이랑 함께라면 \n" +
-                                        "연인과 여행 걱정없어요"
-
-                                1 -> "로티 애니메이션 2"
-                                else -> "로티 애니메이션 3"
+                                0 -> stringResource(R.string.onboarding_lottie_main_title_1)
+                                1 -> stringResource(R.string.onboarding_lottie_main_title_2)
+                                else -> stringResource(R.string.onboarding_lottie_main_title_3)
                             },
                             style = typography.title01_B,
                         )
                         Spacer(Modifier.height(16.dp))
                         Text(
                             text = when (selectedIndex) {
-                                0 -> "어쩌고 저쩌수현이랑 함께라면 \n" +
-                                        "연인과 여행 걱정없어요"
-
-                                1 -> "2"
-                                else -> "3"
+                                0 -> stringResource(R.string.onboarding_lottie_sub_title_1)
+                                1 -> stringResource(R.string.onboarding_lottie_sub_title_2)
+                                else -> stringResource(R.string.onboarding_lottie_sub_title_3)
                             },
                             style = typography.body02_B.merge(color = colors.Grey500)
                         )

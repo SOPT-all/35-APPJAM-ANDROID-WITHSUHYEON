@@ -227,4 +227,13 @@
     <string name="suma_img_red">img_red_suma</string>
     <string name="suma_img_green">img_green_suma</string>
     <string name="suma_img_blue">img_blue_suma</string>
+
+    <!-- 온보딩 안내-->
+    <string name="onboarding_lottie_main_title_1">수현이랑 함께라면\n연인과 여행 걱정없어요</string>
+    <string name="onboarding_lottie_main_title_2">가짜 여행 친구 수현이를\n쉽고 빠르게 찾아봐요</string>
+    <string name="onboarding_lottie_main_title_3">내 여행상황에 맞는 사진 찾아\n바로 다운로드해요</string>
+    <string name="onboarding_lottie_sub_title_1">완벽하게 엄빠 몰래 가는 여행\n수현이랑 함께해요</string>
+    <string name="onboarding_lottie_sub_title_2">연인과의 여행을 숨기기 위해 가짜친구\n역할을 해줄 수 있는 다른 사용자와 매칭해줘요</string>
+    <string name="onboarding_lottie_sub_title_3">지금 당장 사진이 필요하다면\n수현이들이 올려둔 공유 앨범에서 찾아봐요</string>
+
 </resources>
