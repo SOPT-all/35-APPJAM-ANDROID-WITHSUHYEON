@@ -2,6 +2,7 @@ package com.sopt.withsuhyeon.feature.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sopt.withsuhyeon.core.network.TokenManager
 import com.sopt.withsuhyeon.domain.repository.HomeRepository
 import com.sopt.withsuhyeon.feature.home.state.HomeState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,6 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
+    private val tokenManager: TokenManager,
     private val homeRepository: HomeRepository
 ) : ViewModel() {
     private val _state = MutableStateFlow(HomeState())
@@ -81,6 +83,20 @@ class HomeViewModel @Inject constructor(
 
     private fun cancelAnimation() {
         animationJob?.cancel()
+    }
+
+    fun getIsFirstLogin() {
+        viewModelScope.launch {
+            _state.update {
+                it.copy(
+                    isFirstLogin = tokenManager.getIsFirstLogin()
+                )
+            }
+        }
+    }
+
+    fun setIsFirstLogin() {
+            tokenManager.saveIsFirstLogin(false)
     }
 
 }
