@@ -49,7 +49,6 @@ class MainNavigator(
             .currentBackStackEntryAsState().value?.destination
 
     val startDestination = Route.Splash
-//    val startDestination = Route.BlockUser
 
     val currentTab: MainTab?
         @Composable get() = MainTab.entries.find { tab ->
@@ -62,7 +61,7 @@ class MainNavigator(
     fun navigate(tab: MainTab) {
         val navOptions = navOptions {
             popUpTo(MainTab.HOME.route) {
-                saveState = true
+                inclusive = false
             }
             launchSingleTop = true
             restoreState = true
@@ -76,6 +75,7 @@ class MainNavigator(
             MainTab.MYPAGE -> navController.navigateToMyPage(navOptions)
         }
     }
+
 
     fun navigateToLogin() {
         navController.navigateToLogin()

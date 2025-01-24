@@ -41,7 +41,9 @@ fun LocationBottomSheet(
     selectedSubLocation: String?,
     onConfirmClick: (Pair<String?, String?>) -> Unit,
     onDismiss: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onMainLocationSelect: (String?) -> Unit = {},
+    onSubLocationSelect: (String?) -> Unit = {},
 ) {
     var tempSelectedMainLocation by remember { mutableStateOf(selectedMainLocation) }
     var tempSelectedSubLocation by remember { mutableStateOf(selectedSubLocation) }
@@ -80,9 +82,11 @@ fun LocationBottomSheet(
                             onMainLocationSelect = { mainLocation ->
                                 tempSelectedMainLocation = mainLocation
                                 tempSelectedSubLocation = null
+                                onMainLocationSelect(mainLocation)
                             },
                             onSubLocationSelect = { subLocation ->
                                 tempSelectedSubLocation = subLocation
+                                onSubLocationSelect(subLocation)
                             }
                         )
                     }

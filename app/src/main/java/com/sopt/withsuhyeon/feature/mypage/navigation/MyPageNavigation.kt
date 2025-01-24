@@ -11,6 +11,7 @@ import com.sopt.withsuhyeon.feature.mypage.MyPageFavoriteLocationRoute
 import com.sopt.withsuhyeon.feature.mypage.MyPagePostRoute
 import com.sopt.withsuhyeon.feature.mypage.MyPageRoute
 import com.sopt.withsuhyeon.feature.mypage.MyPageWithDrawRoute
+import com.sopt.withsuhyeon.feature.onboarding.BlockUserRoute
 
 fun NavController.navigateToMyPage(navOptions: NavOptions) {
     navigate(MainTabRoute.MyPage, navOptions)
@@ -35,6 +36,7 @@ fun NavController.navigateToWithdraw() {
 
 fun NavGraphBuilder.myPageNavGraph(
     padding: PaddingValues,
+    popBackStack: () -> Unit,
     onNavigateToBlockUser: () -> Unit,
     onNavigateToOnboarding: () -> Unit,
     onNavigateToMyPagePost: () -> Unit,
@@ -69,5 +71,8 @@ fun NavGraphBuilder.myPageNavGraph(
             padding,
             onNavigateUp
         )
+    }
+    composable<Route.BlockUser> {
+        BlockUserRoute(padding = padding, navigateToPreviousScreen = popBackStack)
     }
 }

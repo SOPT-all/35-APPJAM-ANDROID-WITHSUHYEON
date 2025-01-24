@@ -68,7 +68,7 @@
 
 #### 채팅
 <img src="https://github.com/user-attachments/assets/09995982-f396-4fc7-95db-e2e1c25dd143" width="150">
-<img src="https://github.com/user-attachments/assets/e70a3708-2f24-4ffe-960e-31fff9ca158e" width="150">
+<img src="https://github.com/user-attachments/assets/b6fa3390-8a6e-484c-9205-43ce3422789b" width="150">
 
 #### 마이페이지
 <img src="https://github.com/user-attachments/assets/77c723bf-e470-4efd-a82d-0d81d75949d6" width="150">
