@@ -79,7 +79,7 @@ fun FindSuhyeonPostScreen(
             SubTopNavBar(
                 btnIcon = painterResource(R.drawable.ic_menu),
                 isTextVisible = false,
-                isBtnVisible = true,
+                isBtnVisible = state.postDetailData.owner,
                 onCloseBtnClicked = { viewModel.toggleDeleteBottomSheet() },
                 modifier = Modifier.drawBehind {
                     val borderThickness = 1.dp.toPx()

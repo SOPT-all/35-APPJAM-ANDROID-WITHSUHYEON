@@ -13,6 +13,7 @@ data class HomeState(
     ),
     val count: Int = 0,
     val isRefreshing: Boolean = false,
+    val isFirstLogin: Boolean = true,
     val lottieResId: Int = R.raw.home,
     val nickname: String = EMPTY_STRING
 )
