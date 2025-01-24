@@ -115,7 +115,7 @@ fun SelectProfileScreen(
                         .padding(horizontal = 17.dp),
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    profileTypes.forEachIndexed { index, profileType ->
+                    profileTypes.forEach { profileType ->
                         Box(
                             modifier = Modifier
                                 .size(80.dp)
@@ -142,7 +142,7 @@ fun SelectProfileScreen(
                                     .alpha(if (profileImage == profileType.titleResId) 1f else 0.3f)
                                     .noRippleClickable {
                                         profileImage = profileType.titleResId
-                                        viewModel.updateProfileImage("image${index+1}")
+                                        viewModel.updateProfileImage(profileType.title)
                                     },
                                 imageVector = ImageVector.vectorResource(profileType.titleResId),
                                 contentDescription = stringResource(R.string.profile_image),

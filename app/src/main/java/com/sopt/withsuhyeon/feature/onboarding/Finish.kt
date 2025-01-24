@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
@@ -54,6 +55,7 @@ fun OnBoardingFinishScreen(
     viewModel: SignUpViewModel,
     modifier: Modifier = Modifier
 ) {
+    val state by viewModel.signUpState.collectAsStateWithLifecycle()
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.signup))
     var isAnimationPlaying by remember { mutableStateOf(true) }
     val progress by animateLottieCompositionAsState(
@@ -106,7 +108,10 @@ fun OnBoardingFinishScreen(
             )
             Spacer(modifier = Modifier.height(16.dp))
             LargeButton(
-                onClick = onButtonClick,
+                onClick = {
+                    viewModel.postSignUp()
+                    onButtonClick()
+                },
                 text = NEXT_BUTTON_TEXT,
                 modifier = Modifier.padding(horizontal = 16.dp),
                 isDisabled = false
