@@ -47,7 +47,8 @@ class MainNavigator(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = Route.Splash
+    //    val startDestination = Route.Splash
+    val startDestination = Route.NickNameAuth
 
     val currentTab: MainTab?
         @Composable get() = MainTab.entries.find { tab ->
@@ -114,12 +115,15 @@ class MainNavigator(
     fun navigateToBlockUser() {
         navController.navigateToBlockUser()
     }
+
     fun navigateToMyPageFavoriteLocation() {
         navController.navigateToFavoriteLocation()
     }
+
     fun navigateToMyPageWithdraw() {
         navController.navigateToWithdraw()
     }
+
     fun navigateToMyPagePost() {
         navController.navigateToMyPagePost()
     }
@@ -146,6 +150,7 @@ class MainNavigator(
             }
         )
     }
+
     fun navigateToGallery(navOptions: NavOptions? = null, category: String? = null) {
         navController.navigateToGallery(
             navOptions ?: navOptions {
@@ -157,6 +162,7 @@ class MainNavigator(
             category
         )
     }
+
     fun navigateToGalleryUpload() {
         navController.navigateToGalleryUpload()
     }

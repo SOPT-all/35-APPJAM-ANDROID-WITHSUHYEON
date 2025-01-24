@@ -17,6 +17,8 @@ data class SignUpState(
     val mainLocationList: List<String> = emptyList(),
     val subLocationList: List<List<String>> = listOf(emptyList()),
     val isSuccessRequestPhoneNumber: Boolean = false,
-    val authNumberErrorMessage: String = EMPTY_STRING
+    val isAuthNumberError: Boolean = false,
+    val authNumberErrorMessage: String = EMPTY_STRING,
+    val nicknameErrorState: String = EMPTY_STRING
 )
 

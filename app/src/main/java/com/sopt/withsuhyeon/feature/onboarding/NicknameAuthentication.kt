@@ -27,10 +27,7 @@ import com.sopt.withsuhyeon.core.component.topbar.MainTopNavBar
 import com.sopt.withsuhyeon.core.util.KeyStorage.DEFAULT
 import com.sopt.withsuhyeon.core.util.KeyStorage.EMPTY_STRING
 import com.sopt.withsuhyeon.core.util.KeyStorage.LENGTH_ERROR
-import com.sopt.withsuhyeon.core.util.KeyStorage.LENGTH_ERROR_MESSAGE
 import com.sopt.withsuhyeon.core.util.KeyStorage.NEXT_BUTTON_TEXT
-import com.sopt.withsuhyeon.core.util.KeyStorage.SPECIAL_CHARACTER_ERROR
-import com.sopt.withsuhyeon.core.util.KeyStorage.SPECIAL_CHARACTER_ERROR_MESSAGE
 import com.sopt.withsuhyeon.feature.onboarding.components.OnBoardingTitle
 import com.sopt.withsuhyeon.feature.onboarding.viewmodel.SignUpViewModel
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
@@ -55,23 +52,12 @@ fun NickNameAuthenticationScreen(
     viewModel: SignUpViewModel,
     modifier: Modifier = Modifier,
 ) {
-    var isNicknameValid by remember { mutableStateOf(false) }
     var nicknameErrorType by remember { mutableStateOf(LENGTH_ERROR) }
     var isNicknameTextFiledFocused by remember { mutableStateOf(false) }
-    var errorMessage by remember { mutableStateOf("") }
 
     val state by viewModel.signUpState.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) {
         viewModel.updateProgress(3f / 7)
-    }
-
-
-    fun updateErrorMessage(validationState: String) {
-        errorMessage = when (validationState) {
-            LENGTH_ERROR -> LENGTH_ERROR_MESSAGE
-            SPECIAL_CHARACTER_ERROR -> SPECIAL_CHARACTER_ERROR_MESSAGE
-            else -> ""
-        }
     }
 
     Column(
@@ -106,18 +92,15 @@ fun NickNameAuthenticationScreen(
                 value = state.nickname,
                 title = stringResource(R.string.onboarding_nickname_input_title),
                 hint = stringResource(R.string.onboarding_nickname_input_hint),
-                isValid = isNicknameValid,
+                isValid = state.nicknameErrorState == EMPTY_STRING,
                 onFocusChange = {
                     isNicknameTextFiledFocused = it
                 },
                 onValueChange = { input ->
                     viewModel.updateNickname(input)
-                    nicknameErrorType = viewModel.isNicknameValid(input)
-                    updateErrorMessage(nicknameErrorType)
-                    isNicknameValid = nicknameErrorType == DEFAULT
                 },
                 maxLength = 12,
-                errorMessage = errorMessage
+                errorMessage = state.nicknameErrorState
             )
             Spacer(modifier = Modifier.weight(1f))
 
@@ -133,7 +116,7 @@ fun NickNameAuthenticationScreen(
             onClick = onButtonClick,
             text = NEXT_BUTTON_TEXT,
             modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
-            isDisabled = nicknameErrorType != DEFAULT,
+            isDisabled = state.nicknameErrorState != EMPTY_STRING || state.nickname.length !in 2..12
         )
     }
 }

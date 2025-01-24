@@ -35,6 +35,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.button.BasicButtonForTextField
+import com.sopt.withsuhyeon.core.util.KeyStorage.EMPTY_STRING
 import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_TEXTFIELD_MAX_LENGTH
 import com.sopt.withsuhyeon.core.util.modifier.addFocusCleaner
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
@@ -161,7 +162,8 @@ fun BasicShortTextField(
             } else if (
                 !isValid
                 && enabled
-                && errorMessage.isNotEmpty()
+                && errorMessage != EMPTY_STRING
+                && value != EMPTY_STRING
             ) {
                 Text(
                     text = errorMessage,

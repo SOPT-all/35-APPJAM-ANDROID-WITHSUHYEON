@@ -1,5 +1,6 @@
 package com.sopt.withsuhyeon.feature.onboarding
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -66,7 +67,8 @@ fun PhoneNumberAuthenticationScreen(
     var authNumberValue by remember { mutableStateOf("") }
     var isAuthNumberInputValid by remember { mutableStateOf(false) }
     var isAuthNumberInputFocused by remember { mutableStateOf(false) }
-    var isAuthNumberError by remember { mutableStateOf(false) }
+//    var isAuthNumberError by remember { mutableStateOf(false) }
+//    var authErrorMessage by remember { mutableStateOf(EMPTY_STRING) }
     val state by viewModel.signUpState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
@@ -102,7 +104,7 @@ fun PhoneNumberAuthenticationScreen(
                 value = state.phoneNumber,
                 title = stringResource(R.string.onboarding_phone_number_input_title),
                 hint = stringResource(R.string.onboarding_phone_number_input_hint),
-                isValid = isPhoneNumberInputValid,
+                isValid = true,
                 onFocusChange = {
                     isPhoneNumberInputFocused = it
                 },
@@ -110,7 +112,8 @@ fun PhoneNumberAuthenticationScreen(
                     keyboardType = KeyboardType.Number
                 ),
                 onValueChange = { input ->
-                    isPhoneNumberInputValid = input.checkValidPhoneNumber()
+                    isPhoneNumberInputValid =
+                        if (input.length == 11) input.checkValidPhoneNumber() else false
                     isPhoneNumberAuthButtonEnabled = isPhoneNumberInputValid
                     viewModel.updatePhoneNumber(input)
                 },
@@ -138,7 +141,7 @@ fun PhoneNumberAuthenticationScreen(
                     value = authNumberValue,
                     title = stringResource(R.string.onboarding_phone_number_auth_input_title),
                     hint = stringResource(R.string.onboarding_phone_number_auth_input_hint),
-                    isValid = isAuthNumberInputValid && !isAuthNumberError,
+                    isValid = !state.isAuthNumberError,
                     keyboardOptions = KeyboardOptions.Default.copy(
                         keyboardType = KeyboardType.Number
                     ),
@@ -171,10 +174,7 @@ fun PhoneNumberAuthenticationScreen(
                         onSuccess = {
                             onButtonClick()
                         },
-                        onError = {
-                            isAuthNumberError = true
-                            isAuthNumberInputValid = false
-                        }
+                        onError = { isAuthNumberInputValid = false }
                     )
                 },
                 text = NEXT_BUTTON_TEXT,

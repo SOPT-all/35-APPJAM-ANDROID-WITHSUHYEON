@@ -4,8 +4,12 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.withsuhyeon.core.util.KeyStorage.DEFAULT
+import com.sopt.withsuhyeon.core.util.KeyStorage.EMPTY_STRING
 import com.sopt.withsuhyeon.core.util.KeyStorage.LENGTH_ERROR
+import com.sopt.withsuhyeon.core.util.KeyStorage.LENGTH_ERROR_MESSAGE
 import com.sopt.withsuhyeon.core.util.KeyStorage.SPECIAL_CHARACTER_ERROR
+import com.sopt.withsuhyeon.core.util.KeyStorage.SPECIAL_CHARACTER_ERROR_MESSAGE
+import com.sopt.withsuhyeon.core.util.regex.containsSpecialCharacters
 import com.sopt.withsuhyeon.data.dto.base.BaseResponse
 import com.sopt.withsuhyeon.domain.repository.SignUpRepository
 import com.sopt.withsuhyeon.feature.onboarding.state.SignUpState
@@ -33,9 +37,16 @@ class SignUpViewModel @Inject constructor(
     }
 
     fun updateNickname(nickname: String) {
+        val errorState = when {
+            nickname.containsSpecialCharacters() -> SPECIAL_CHARACTER_ERROR_MESSAGE
+            nickname.length !in 2..12 -> LENGTH_ERROR_MESSAGE
+            else -> EMPTY_STRING
+        }
+
         _signUpState.update {
             it.copy(
                 nickname = nickname,
+                nicknameErrorState = errorState
             )
         }
     }
@@ -80,17 +91,6 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-    fun isNicknameValid(nickname: String): String {
-        if (nickname.length !in 2..12) return LENGTH_ERROR
-        if (containsSpecialCharacters(nickname)) return SPECIAL_CHARACTER_ERROR
-        return DEFAULT
-    }
-
-    private fun containsSpecialCharacters(input: String): Boolean {
-        val specialCharactersRegex = "[^a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ0-9\\s]".toRegex()
-        return specialCharactersRegex.containsMatchIn(input)
-    }
-
     fun postPhoneNumberAuth(phoneNumber: String) {
         viewModelScope.launch {
             signUpRepository.postPhoneNumber(phoneNumber = phoneNumber).onSuccess {
@@ -109,7 +109,7 @@ class SignUpViewModel @Inject constructor(
         phoneNumber: String,
         verifyNumber: String,
         onSuccess: () -> Unit,
-        onError: () -> Unit,
+        onError: (String) -> Unit,
     ) {
         viewModelScope.launch {
             signUpRepository.postVerifyNumber(
@@ -122,7 +122,8 @@ class SignUpViewModel @Inject constructor(
                     is retrofit2.HttpException -> {
                         val errorBody = error.response()?.errorBody()?.string()
                         try {
-                            val baseResponse = decodeFromString<BaseResponse<Unit>>(errorBody ?: "")
+                            val baseResponse =
+                                decodeFromString<BaseResponse<Unit>>(errorBody ?: "")
                             baseResponse.message ?: "알 수 없는 에러가 발생했습니다."
                         } catch (e: Exception) {
                             "에러 응답 파싱 실패: ${e.message}"
@@ -135,11 +136,11 @@ class SignUpViewModel @Inject constructor(
                 }
                 _signUpState.update {
                     it.copy(
-                        authNumberErrorMessage = errorMessage
+                        authNumberErrorMessage = errorMessage,
+                        isAuthNumberError = true
                     )
                 }
-                onError()
-                Log.d("errorCase", errorMessage)
+                onError(errorMessage)
             }
         }
         // TODO - 성공 / 실패 분기처리 -> 버튼 색상 등등
