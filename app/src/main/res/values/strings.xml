@@ -75,6 +75,7 @@
     <string name="find_suhyeon_detail_title_error_message">필수로 입력해줘</string>
     <string name="find_suhyeon_content">내용</string>
     <string name="find_suhyeon_detail_done">작성 완료</string>
+    <string name="find_suhyeon_upload_floating_button">글쓰기</string>
 
     <!-- 공통 컴포넌트 PostBottomBar -->
     <string name="post_bottom_bar_start_chating">채팅하기</string>

@@ -9,12 +9,14 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.list.TotalChatRoomList
@@ -51,6 +53,11 @@ private fun ChatScreen(
     ) {
         MainTopNavBar(
             text = stringResource(R.string.total_chatroom_top_nav_bar_title)
+        )
+
+        HorizontalDivider(
+            thickness = 1.dp,
+            color = colors.Grey100
         )
 
         Box(
