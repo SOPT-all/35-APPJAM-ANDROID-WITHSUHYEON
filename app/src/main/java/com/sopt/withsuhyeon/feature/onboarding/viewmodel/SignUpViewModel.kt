@@ -161,6 +161,8 @@ class SignUpViewModel @Inject constructor(
         // TODO - 성공 / 실패 분기처리 -> 버튼 색상 등등
     }
 
+
+
     fun getRegionInfo() {
         viewModelScope.launch {
             if (_signUpState.value.regionList.regions.isEmpty()) {
@@ -176,6 +178,14 @@ class SignUpViewModel @Inject constructor(
                     Log.d("phone", error.message.toString())
                 }
             }
+        }
+    }
+
+    fun refreshErrorMessage() {
+        _signUpState.update {
+            it.copy(
+                authNumberErrorMessage = EMPTY_STRING,
+            )
         }
     }
 
