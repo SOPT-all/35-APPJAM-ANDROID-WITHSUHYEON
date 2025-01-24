@@ -40,7 +40,6 @@ fun OnBoardingRoute(
     padding: PaddingValues,
     navigateToSignUp: () -> Unit,
     navigateToLogin: () -> Unit,
-    viewModel: OnBoardingViewModel = hiltViewModel()
 ) {
     OnBoardingScreen(
         padding = padding,

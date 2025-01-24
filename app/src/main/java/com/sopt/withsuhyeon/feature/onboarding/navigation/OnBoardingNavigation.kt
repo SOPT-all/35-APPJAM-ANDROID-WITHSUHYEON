@@ -1,6 +1,9 @@
 package com.sopt.withsuhyeon.feature.onboarding.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -14,6 +17,7 @@ import com.sopt.withsuhyeon.feature.onboarding.SelectLocationRoute
 import com.sopt.withsuhyeon.feature.onboarding.SelectProfileRoute
 import com.sopt.withsuhyeon.feature.onboarding.TermsOfUseRoute
 import com.sopt.withsuhyeon.feature.onboarding.YearOfBirthRoute
+import com.sopt.withsuhyeon.feature.onboarding.viewmodel.SignUpViewModel
 import com.sopt.withsuhyeon.core.navigation.Route.OnBoarding as OnBoardingRoute
 import com.sopt.withsuhyeon.core.navigation.Route.TermsOfUse as TermsOfUseRoute
 import com.sopt.withsuhyeon.core.navigation.Route.PhoneNumberAuth as PhoneNumberAuthRoute
@@ -78,7 +82,8 @@ fun NavGraphBuilder.onBoardingNavGraph(
     onNavigateToPostProfileImage: () -> Unit,
     onNavigateToSelectLocation: () -> Unit,
     onNavigateToFinish: () -> Unit,
-    onNavigateToHome: () -> Unit
+    onNavigateToHome: () -> Unit,
+    getBackStackUploadViewModel: @Composable (NavBackStackEntry) -> SignUpViewModel
 ) {
     composable<OnBoardingRoute> {
         OnBoardingRoute(
@@ -91,49 +96,57 @@ fun NavGraphBuilder.onBoardingNavGraph(
     composable<TermsOfUseRoute> {
         TermsOfUseRoute(
             navigateToNext = onNavigateToPhoneNumberAuth,
-            padding = padding
+            padding = padding,
+            viewModel = getBackStackUploadViewModel(it)
         )
     }
     composable<PhoneNumberAuthRoute> {
         PhoneNumberAuthenticationRoute(
             navigateToNext = onNavigateToNickNameAuth,
-            padding = padding
+            padding = padding,
+            viewModel = getBackStackUploadViewModel(it)
         )
     }
     composable<NickNameAuthRoute> {
         NickNameAuthenticationRoute(
             navigateToNext = onNavigateToSelectYearOfBirth,
-            padding = padding
+            padding = padding,
+            viewModel = getBackStackUploadViewModel(it)
         )
     }
     composable<YearOfBirthRoute> {
         YearOfBirthRoute(
             navigateToNext = onNavigateToSelectGender,
-            padding = padding
+            padding = padding,
+            viewModel = getBackStackUploadViewModel(it)
         )
     }
     composable<SelectGenderRoute> {
         GenderSelectRoute(
             navigateToNext = onNavigateToPostProfileImage,
-            padding = padding
+            padding = padding,
+            viewModel = getBackStackUploadViewModel(it)
         )
     }
     composable<PostProfileImageRoute> {
         SelectProfileRoute(
             navigateToNext = onNavigateToSelectLocation,
-            padding = padding
+            padding = padding,
+            viewModel = getBackStackUploadViewModel(it)
         )
     }
     composable<SelectLocationRoute> {
         SelectLocationRoute(
             navigateToNext = onNavigateToFinish,
-            padding = padding
+            padding = padding,
+            viewModel = getBackStackUploadViewModel(it)
         )
     }
     composable<OnboardingFinishRoute> {
         FinishRoute(
             navigateToNext = onNavigateToHome,
-            padding = padding
+            padding = padding,
+            viewModel = getBackStackUploadViewModel(it)
         )
     }
     composable<LoginRoute> {

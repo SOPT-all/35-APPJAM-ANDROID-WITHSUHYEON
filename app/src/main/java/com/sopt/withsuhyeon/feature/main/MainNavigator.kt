@@ -43,7 +43,7 @@ class MainNavigator(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = MainTabRoute.Home
+    val startDestination = Route.OnBoarding
 
     val currentTab: MainTab?
         @Composable get() = MainTab.entries.find { tab ->
@@ -144,8 +144,8 @@ class MainNavigator(
         navController.navigateToGalleryUpload()
     }
 
-    fun navigateToGalleryPostDetail() {
-        navController.navigateToGalleryPostDetail()
+    fun navigateToGalleryPostDetail(galleryId: Long) {
+        navController.navigateToGalleryPostDetail(galleryId)
     }
 
     fun navigateToChatRoom() {
