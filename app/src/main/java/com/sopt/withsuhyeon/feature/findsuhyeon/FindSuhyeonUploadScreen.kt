@@ -99,12 +99,6 @@ fun FindSuhyeonUploadScreen(
 
     val imeIsShown = WindowInsets.isImeVisible
     val dividerBorderColor = colors.Grey100
-    val textFieldBorderColor = when {
-        uploadState.priceTextValue.isEmpty() && !uploadState.isPriceTextFieldFocused-> colors.Grey100
-        uploadState.priceTextValue.isNotEmpty() && !uploadState.isPriceValid -> colors.Red01
-        uploadState.isPriceTextFieldFocused -> colors.Purple300
-        else -> colors.Grey100
-    }
     val priceErrorMessageResource = stringResource(R.string.find_suhyeon_upload_title_error_message)
 
     Column(
@@ -144,9 +138,19 @@ fun FindSuhyeonUploadScreen(
                 modifier = Modifier
                     .weight(1f)
                     .padding(16.dp)
+                    .padding(bottom = 8.dp)
                     .verticalScroll(scrollState),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                val borderColor = when {
+                    (uploadState.selectedPrice ?: 0) > 99999 -> colors.Red01
+                    uploadState.priceTextValue.isEmpty() && uploadState.isPriceTextFieldFocused -> colors.Purple300
+                    uploadState.priceTextValue.isEmpty() && !uploadState.isPriceTextFieldFocused -> colors.Grey100
+                    (uploadState.selectedPrice
+                        ?: 0) <= 99999 && uploadState.isPriceTextFieldFocused -> colors.Purple300
+
+                    else -> colors.Grey100
+                }
                 FindSuhyeonSection(
                     title = stringResource(R.string.find_suhyeon_upload_title_price),
                     visible = uploadState.isSelectedDate,
@@ -160,19 +164,18 @@ fun FindSuhyeonUploadScreen(
                                 },
                             value = uploadState.priceTextValue,
                             onValueChange = { input ->
-                                viewModel.updatePrice(input, priceErrorMessageResource)
-                                // TODO: 입력 완료 버튼은 활성화, 자동으로 99,999원으로 변경되도록
+                                viewModel.updatePrice(input)
                             },
                             hint = stringResource(R.string.find_suhyeon_upload_hint_price),
                             onFocusChange = { isFocused ->
                                 viewModel.updateIsPriceTextFieldFocused(isFocused)
                             },
-                            textFieldBorderColor = textFieldBorderColor,
+                            textFieldBorderColor = borderColor,
                             keyboardActions = KeyboardActions(onDone = {
                                 focusManager.moveFocus(FocusDirection.Next)
                             }),
                             isValid = uploadState.isPriceValid,
-                            errorMessage = uploadState.priceErrorMessage,
+                            errorMessage = uploadState.priceErrorMessage
                         )
                     },
                     isLastStep = true
@@ -341,7 +344,7 @@ fun FindSuhyeonUploadScreen(
         if (imeIsShown) {
             LargeButton(
                 text = stringResource(R.string.find_suhyeon_upload_text_input_done),
-                isDisabled = !uploadState.priceButtonEnabled,
+                isDisabled = uploadState.priceTextValue.isEmpty(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .drawBehind {
@@ -356,6 +359,8 @@ fun FindSuhyeonUploadScreen(
                     .padding(16.dp)
                     .imePadding(),
                 onClick = {
+                    if ((uploadState.selectedPrice ?: 0) > 99999)
+                        viewModel.updatePrice("${99999}")
                     onCompleteButtonClick()
                 },
                 isDownloadBtn = false
