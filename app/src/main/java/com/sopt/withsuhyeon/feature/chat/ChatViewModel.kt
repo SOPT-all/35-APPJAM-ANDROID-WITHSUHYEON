@@ -1,7 +1,7 @@
 package com.sopt.withsuhyeon.feature.chat
 
 import androidx.lifecycle.ViewModel
-import com.sopt.withsuhyeon.domain.entity.ChatRoomModel
+import com.sopt.withsuhyeon.domain.entity.ChatRoomListInfoModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,70 +14,70 @@ class ChatViewModel @Inject constructor(
 
     private val _chatRooms = MutableStateFlow(
         listOf(
-            ChatRoomModel(
+            ChatRoomListInfoModel(
                 profileImage = "https://via.placeholder.com/150",
                 partnerName = "작심이 친구",
                 recentChat = "나는야 작심이 나는야 작심이 나는야 작심이 나는야 작심이",
                 recentChatDateTime = "1월 2일",
                 unreadChatCount = "5"
             ),
-            ChatRoomModel(
+            ChatRoomListInfoModel(
                 profileImage = "https://via.placeholder.com/150",
                 partnerName = "작심이 친구",
                 recentChat = "나는야 작심이 나는야 작심이 나는야 작심이 나는야 작심이",
                 recentChatDateTime = "1월 2일",
                 unreadChatCount = "12"
             ),
-            ChatRoomModel(
+            ChatRoomListInfoModel(
                 profileImage = "https://via.placeholder.com/150",
                 partnerName = "작심이 친구",
                 recentChat = "나는야 작심이 나는야 작심이 나는야 작심이 나는야 작심이",
                 recentChatDateTime = "1월 2일",
                 unreadChatCount = "+99"
             ),
-            ChatRoomModel(
+            ChatRoomListInfoModel(
                 profileImage = "https://via.placeholder.com/150",
                 partnerName = "작심이 친구",
                 recentChat = "나는야 작심이 나는야 작심이 나는야 작심이 나는야 작심이",
                 recentChatDateTime = "1월 2일",
                 unreadChatCount = "+99"
             ),
-            ChatRoomModel(
+            ChatRoomListInfoModel(
                 profileImage = "https://via.placeholder.com/150",
                 partnerName = "작심이 친구",
                 recentChat = "나는야 작심이 나는야 작심이 나는야 작심이 나는야 작심이",
                 recentChatDateTime = "1월 2일",
                 unreadChatCount = "+99"
             ),
-            ChatRoomModel(
+            ChatRoomListInfoModel(
                 profileImage = "https://via.placeholder.com/150",
                 partnerName = "작심이 친구",
                 recentChat = "나는야 작심이 나는야 작심이 나는야 작심이 나는야 작심이",
                 recentChatDateTime = "1월 2일",
                 unreadChatCount = "+99"
             ),
-            ChatRoomModel(
+            ChatRoomListInfoModel(
                 profileImage = "https://via.placeholder.com/150",
                 partnerName = "작심이 친구",
                 recentChat = "나는야 작심이 나는야 작심이 나는야 작심이 나는야 작심이",
                 recentChatDateTime = "1월 2일",
                 unreadChatCount = "+99"
             ),
-            ChatRoomModel(
+            ChatRoomListInfoModel(
                 profileImage = "https://via.placeholder.com/150",
                 partnerName = "작심이 친구",
                 recentChat = "나는야 작심이 나는야 작심이 나는야 작심이 나는야 작심이",
                 recentChatDateTime = "1월 2일",
                 unreadChatCount = "+99"
             ),
-            ChatRoomModel(
+            ChatRoomListInfoModel(
                 profileImage = "https://via.placeholder.com/150",
                 partnerName = "작심이 친구",
                 recentChat = "나는야 작심이 나는야 작심이 나는야 작심이 나는야 작심이",
                 recentChatDateTime = "1월 2일",
                 unreadChatCount = "+99"
             ),
-            ChatRoomModel(
+            ChatRoomListInfoModel(
                 profileImage = "https://via.placeholder.com/150",
                 partnerName = "작심이 친구",
                 recentChat = "나는야 작심이 나는야 작심이 나는야 작심이 나는야 작심이",
@@ -86,5 +86,5 @@ class ChatViewModel @Inject constructor(
             ),
         )
     )
-    val chatRooms: StateFlow<List<ChatRoomModel>> = _chatRooms.asStateFlow()
+    val chatRooms: StateFlow<List<ChatRoomListInfoModel>> = _chatRooms.asStateFlow()
 }

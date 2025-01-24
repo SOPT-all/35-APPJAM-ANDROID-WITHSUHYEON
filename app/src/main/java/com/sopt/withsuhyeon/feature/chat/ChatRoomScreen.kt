@@ -1,5 +1,6 @@
     package com.sopt.withsuhyeon.feature.chat
 
+    import android.util.Log
     import androidx.compose.foundation.background
     import androidx.compose.foundation.layout.Box
     import androidx.compose.foundation.layout.Column
@@ -13,6 +14,7 @@
     import androidx.compose.foundation.lazy.rememberLazyListState
     import androidx.compose.runtime.Composable
     import androidx.compose.runtime.LaunchedEffect
+    import androidx.compose.runtime.getValue
     import androidx.compose.runtime.mutableStateListOf
     import androidx.compose.runtime.mutableStateOf
     import androidx.compose.runtime.remember
@@ -22,11 +24,13 @@
     import androidx.compose.ui.tooling.preview.Preview
     import androidx.compose.ui.unit.dp
     import androidx.hilt.navigation.compose.hiltViewModel
+    import androidx.lifecycle.compose.collectAsStateWithLifecycle
     import com.sopt.withsuhyeon.R
     import com.sopt.withsuhyeon.core.component.card.ChatRoomInfoCardItem
     import com.sopt.withsuhyeon.core.component.chat.ChatBubble
     import com.sopt.withsuhyeon.core.component.textfield.ChatRoomTextFieldRow
     import com.sopt.withsuhyeon.core.component.topbar.SubTopNavBar
+    import com.sopt.withsuhyeon.domain.entity.ChatRoomInfoModel
     import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
     import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
     import java.time.LocalTime
@@ -35,31 +39,43 @@
 
     @Composable
     fun ChatRoomRoute(
-        padding: PaddingValues
+        padding: PaddingValues,
+        chatRoomInfoModel: ChatRoomInfoModel?
     ) {
         ChatRoomScreen(
-            padding = padding
+            padding = padding,
+            chatRoomInfoModel = chatRoomInfoModel
         )
     }
 
     @Composable
     private fun ChatRoomScreen(
         padding: PaddingValues,
+        chatRoomInfoModel: ChatRoomInfoModel?,
         modifier: Modifier = Modifier,
-        viewModel: ChatViewModel = hiltViewModel()
+        viewModel: ChatRoomViewModel = hiltViewModel()
     ) {
-        val messages = remember {
-            mutableStateListOf(
-                Triple("안녕하세요", true, "오후 12:00"),
-                Triple("반갑습니다", false, "오후 12:01"),
-                Triple("안녕히계세요", true, "오후 12:02")
-            )
-        }
-        val (inputText, setInputText) = remember { mutableStateOf("") }
+
+//        val messages = remember {
+//            mutableStateListOf(
+//                Triple("안녕하세요", true, "오후 12:00"),
+//                Triple("반갑습니다", false, "오후 12:01"),
+//                Triple("안녕히계세요", true, "오후 12:02")
+//            )
+//        }
+        val messages by viewModel.message.collectAsStateWithLifecycle()
+        Log.e("chatRoomInfoModel", "${chatRoomInfoModel?.ownerId}, ${chatRoomInfoModel?.writerId}")
+
+        val inputText by viewModel.inputText.collectAsStateWithLifecycle()
 
         val lazyListState = rememberLazyListState()
 
-        LaunchedEffect(messages.size) {
+        LaunchedEffect(Unit) {
+            viewModel.updateChatRoomInfo(chatRoomInfoModel!!)
+            viewModel.joinChatRoom()
+        }
+
+        LaunchedEffect(messages) {
             if (messages.isNotEmpty()) {
                 lazyListState.animateScrollToItem(messages.size - 1)
             }
@@ -108,23 +124,19 @@
                     state = lazyListState,
                     contentPadding = PaddingValues(vertical = 8.dp)
                 ) {
-                    items(messages) { (message, isSentByOwner, time) ->
+                    items(messages) { (message, time, isMine) ->
                         ChatBubble(
                             message = message,
                             time = time,
-                            isSentByOwner = isSentByOwner
+                            isSentByOwner = isMine
                         )
                     }
                 }
                 ChatRoomTextFieldRow(
                     text = inputText,
-                    onTextChange = setInputText,
+                    onTextChange = { viewModel.updateInputText(it) },
                     onSendClick = {
-                        if (inputText.isNotBlank()) {
-                            val currentTime = getCurrentTime()
-                            messages.add(Triple(inputText, true, currentTime))
-                            setInputText("")
-                        }
+                        viewModel.sendMessage()
                     },
                     modifier = Modifier.fillMaxWidth().imePadding()
                 )

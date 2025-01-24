@@ -16,5 +16,5 @@ data class ResponseFindSuhyeonPostDetailDto(
     val matching: Boolean,
     val isExpired: Boolean,
     val postDetailInfo: PostDetailInfoModel,
-    val chatRoomInfoPost: ChatRoomInfoModel
+    val chatRoomInfoPost: ChatRoomInfoModel?
 )

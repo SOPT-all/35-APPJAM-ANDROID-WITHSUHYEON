@@ -27,6 +27,7 @@ import com.sopt.withsuhyeon.core.component.chip.MediumChip
 import com.sopt.withsuhyeon.core.component.modal.AlertModal
 import com.sopt.withsuhyeon.core.component.profile.PostProfileInfoRow
 import com.sopt.withsuhyeon.core.component.topbar.SubTopNavBar
+import com.sopt.withsuhyeon.domain.entity.ChatRoomInfoModel
 import com.sopt.withsuhyeon.core.type.MediumChipType
 import com.sopt.withsuhyeon.feature.findsuhyeon.component.DetailMeetingInformation
 import com.sopt.withsuhyeon.feature.findsuhyeon.viewmodel.FindSuhyeonPostViewModel
@@ -37,12 +38,14 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 fun FindSuhyeonPostRoute(
     id: Long,
     navigateToFindSuhyeon: () -> Unit,
+    navigateToChatRoom: (ChatRoomInfoModel) -> Unit,
     padding: PaddingValues,
     viewModel: FindSuhyeonPostViewModel = hiltViewModel()
 ) {
     FindSuhyeonPostScreen(
         id = id,
         onDeleteButtonClick = navigateToFindSuhyeon,
+        onChatButtonClick = navigateToChatRoom,
         padding = padding,
         viewModel = viewModel
     )
@@ -51,6 +54,7 @@ fun FindSuhyeonPostRoute(
 fun FindSuhyeonPostScreen(
     id: Long,
     onDeleteButtonClick: () -> Unit,
+    onChatButtonClick: (ChatRoomInfoModel) -> Unit,
     modifier: Modifier = Modifier,
     padding: PaddingValues,
     viewModel: FindSuhyeonPostViewModel = hiltViewModel()
@@ -164,7 +168,16 @@ fun FindSuhyeonPostScreen(
             price = state.postDetailData.price,
             isMyPost = state.postDetailData.owner,
             isDisabled = state.postDetailData.isExpired,
-            onClick = { }
+            onClick = {
+                onChatButtonClick(
+                    state.postDetailData.chatRoomInfoPost?: ChatRoomInfoModel(
+                        postId = 0,
+                        ownerId = 0,
+                        writerId = 0,
+                        ownerChatRoomId = "",
+                        peerChatRoomId = ""
+                    )
+                ) }
         )
     }
 }
@@ -176,5 +189,6 @@ fun PreviewFindSuhyeonPostScreen() {
         id = 0,
         padding = PaddingValues(0.dp),
         onDeleteButtonClick = { },
+        onChatButtonClick = { }
     )
 }

@@ -6,11 +6,11 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.sopt.withsuhyeon.core.component.listitem.ChatRoomListItem
-import com.sopt.withsuhyeon.domain.entity.ChatRoomModel
+import com.sopt.withsuhyeon.domain.entity.ChatRoomListInfoModel
 
 @Composable
 fun TotalChatRoomList(
-    chatRooms: List<ChatRoomModel>,
+    chatRooms: List<ChatRoomListInfoModel>,
     onChatRoomListItemClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {

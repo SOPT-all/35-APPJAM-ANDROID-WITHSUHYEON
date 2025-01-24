@@ -171,8 +171,20 @@ class MainNavigator(
         navController.navigateToGalleryPostDetail(galleryId)
     }
 
-    fun navigateToChatRoom() {
-        navController.navigateToChatRoom()
+    fun navigateToChatRoom(
+        postId: Long? = null,
+        ownerId: Long? = null,
+        writerId: Long? = null,
+        ownerChatRoomId: String? = null,
+        peerChatRoomId: String? = null
+    ) {
+        navController.navigateToChatRoom(
+            postId = postId,
+            ownerId = ownerId,
+            writerId = writerId,
+            ownerChatRoomId = ownerChatRoomId,
+            peerChatRoomId = peerChatRoomId
+        )
     }
 
     fun navigateToFindSuhyeon(navOptions: NavOptions? = null) {
