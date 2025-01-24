@@ -71,7 +71,7 @@ fun SelectProfileScreen(
     val state by viewModel.signUpState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
-        viewModel.updateProgress(state.progress + 1f / 7)
+        viewModel.updateProgress(6f / 7)
     }
 
     Column(

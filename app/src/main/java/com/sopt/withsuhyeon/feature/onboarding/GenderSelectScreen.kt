@@ -65,6 +65,12 @@ fun GenderSelectScreen(
     modifier: Modifier = Modifier,
 ) {
     val state by viewModel.signUpState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.updateProgress(5f / 7)
+    }
+
+
     var genderState by remember { mutableStateOf<Boolean?>(null) }
     val backgroundMale = if (genderState == true) {
         Modifier
@@ -99,10 +105,6 @@ fun GenderSelectScreen(
             color = colors.Grey25,
             shape = RoundedCornerShape(size = 24.dp)
         )
-    }
-
-    LaunchedEffect(Unit) {
-        viewModel.updateProgress(state.progress + 1f / 7)
     }
 
     Column(
