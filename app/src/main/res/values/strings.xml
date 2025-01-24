@@ -6,7 +6,7 @@
     <string name="error_fetch_user_details">유저 정보 불러오기에 실패하였습니다.</string>
     <string name="bottom_navigation_bar_item_home">홈</string>
     <string name="bottom_navigation_bar_item_find_suhyeon">수현이 찾기</string>
-    <string name="bottom_navigation_bar_item_gallery">갤러리</string>
+    <string name="bottom_navigation_bar_item_gallery">공유앨범</string>
     <string name="bottom_navigation_bar_item_chat">채팅</string>
     <string name="bottom_navigation_bar_item_my">MY</string>
     <string name="checkbox_image_name">체크박스</string>
@@ -15,6 +15,7 @@
     <!-- Component -->
     <string name="add_find_suhyeon_post_button_description">Add Find Suhyeon Post Floating Button</string>
     <string name="btn_add_gallery_post">업로드</string>
+    <string name="btn_add_find_suhyeon_post">글쓰기</string>
     <string name="am">오전</string>
     <string name="pm">오후</string>
     <string name="long_text_field_max_length_error_message">최대 200자까지 입력할 수 있어</string>
@@ -53,18 +54,18 @@
     <string name="find_suhyeon_no_message"></string>
     <string name="find_suhyeon_location">위치</string>
     <string name="find_suhyeon_multi_select_chip">MultiSelectChip</string>
-    <string name="find_suhyeon_upload_title_price">주고싶은 금액을 입력해줘</string>
+    <string name="find_suhyeon_upload_title_price">사례할 금액을 입력해주세요</string>
     <string name="find_suhyeon_upload_title_error_message">99,999원까지 입력할 수 있어요</string>
     <string name="find_suhyeon_upload_hint_price">금액 입력하기</string>
-    <string name="find_suhyeon_upload_title_date">언제 만날지 선택해줘</string>
+    <string name="find_suhyeon_upload_title_date">수현이와 언제 만날지 선택해주세요</string>
     <string name="find_suhyeon_upload_fint_date">날짜 및 시간 선택하기</string>
-    <string name="find_suhyeon_upload_title_location">수현이 만날 곳을 선택해줘</string>
-    <string name="find_suhyeon_upload_hint_location">만날 장소 선택하기</string>
-    <string name="find_suhyeon_upload_hint_requirements">요청사항 선택하기 (중복 선택 가능)</string>
-    <string name="find_suhyeon_upload_title_reqirements">요청사항을 선택해줘</string>
-    <string name="find_suhyeon_upload_title_age">수현이의 나이를 선택해줘</string>
+    <string name="find_suhyeon_upload_title_location">수현이와 만날 곳을 선택해주세요</string>
+    <string name="find_suhyeon_upload_hint_location">만날 위치 선택</string>
+    <string name="find_suhyeon_upload_hint_requirements">요청사항 선택 (중복 선택 가능)</string>
+    <string name="find_suhyeon_upload_title_reqirements">요청사항을 선택해주세요</string>
+    <string name="find_suhyeon_upload_title_age">수현이의 나이대를 선택해주세요</string>
     <string name="find_suhyeon_upload_hint_age">눌러서 나이 선택하기</string>
-    <string name="find_suhyeon_upload_title_gender">수현이의 성별을 선택해줘</string>
+    <string name="find_suhyeon_upload_title_gender">수현이의 성별을 선택해주세요</string>
     <string name="find_suhyeon_upload_text_input_done">입력 완료</string>
     <string name="smallselectchip">SmallSelectChip</string>
     <string name="find_suhyeon">수현이 찾기</string>
@@ -125,6 +126,7 @@
     <string name="alert_modal_delete_post_description">한번 삭제된 게시물은\n다시 복구할 수 없습니다.</string>
     <string name="alert_modal_delete_btn">삭제하기</string>
     <string name="alert_modal_cancel_btn">취소하기</string>
+    <string name="alert_modal_continue_btn">계속하기</string>
 
     <!-- 수현이 찾기 바텀 시트 -->
     <string name="bottom_sheet_title_age">나이대 선택</string>
@@ -206,9 +208,12 @@
     <!-- AlertModal -->
     <string name="alert_modal_logout_title">정말 로그아웃하시겠습니까?</string>
     <string name="alert_modal_leave_title">정말 탈퇴하시겠습니까?</string>
+    <string name="alert_modal_exit_title">정말 나가겠습니까?</string>
     <string name="alert_modal_leave_sub_title">작성한 내용이 저장되지 않고 모두 사라집니다.</string>
+    <string name="alert_modal_exit_sub_title">작성한 내용이 저장되지 않고 모두 사라집니다.</string>
     <string name="alert_modal_logout">로그아웃</string>
     <string name="alert_modal_leave">탈퇴하기</string>
+    <string name="alert_modal_exit">나가기</string>
 
     <!-- 시작 온보딩 -->
     <string name="onboarding_account_question">이미 계정이 있나요?</string>
