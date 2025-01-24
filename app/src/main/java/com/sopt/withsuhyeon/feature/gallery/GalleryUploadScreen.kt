@@ -25,6 +25,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -37,6 +38,7 @@ import com.sopt.withsuhyeon.core.component.textfield.BasicShortTextField
 import com.sopt.withsuhyeon.core.component.textfield.LongTextField
 import com.sopt.withsuhyeon.core.component.topbar.SubTopNavBar
 import com.sopt.withsuhyeon.core.util.image.createImagePart
+import com.sopt.withsuhyeon.core.util.modifier.addFocusCleaner
 import com.sopt.withsuhyeon.data.dto.request.RequestUploadGalleryDto
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
@@ -89,6 +91,7 @@ private fun GalleryUploadScreen(
             .fillMaxSize()
             .padding(padding)
             .background(colors.White)
+            .addFocusCleaner(LocalFocusManager.current)
     ) {
         Column(
             modifier = Modifier
