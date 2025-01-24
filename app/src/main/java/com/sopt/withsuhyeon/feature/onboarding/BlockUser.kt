@@ -116,8 +116,10 @@ fun BlockUserScreen(
             BasicShortTextField(
                 value = state.blockNumber,
                 onValueChange = { input ->
-                    viewModel.selectBlockUserNumber(input)
-                    isValid = input.length == 11 && input.checkValidPhoneNumber()
+                    if (input.length <= 11) {
+                        viewModel.selectBlockUserNumber(input)
+                        isValid = input.length == 11 && input.checkValidPhoneNumber()
+                    }
                 },
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Number
@@ -132,7 +134,7 @@ fun BlockUserScreen(
                             if (isValid) {
                                 viewModel.postBlockUser(
                                     state.blockNumber,
-                                    onError = { isValid = false}
+                                    onError = { isValid = false }
                                 )
                                 viewModel.selectBlockUserNumber(EMPTY_STRING)
                                 isValid = false

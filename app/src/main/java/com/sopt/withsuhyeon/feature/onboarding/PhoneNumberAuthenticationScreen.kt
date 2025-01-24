@@ -114,10 +114,12 @@ fun PhoneNumberAuthenticationScreen(
                     keyboardType = KeyboardType.Number
                 ),
                 onValueChange = { input ->
-                    isPhoneNumberInputValid =
-                        if (input.length == 11) input.checkValidPhoneNumber() else false
-                    isPhoneNumberAuthButtonEnabled = isPhoneNumberInputValid
-                    viewModel.updatePhoneNumber(input)
+                    if (input.length <= 11) {
+                        isPhoneNumberInputValid =
+                            if (input.length == 11) input.checkValidPhoneNumber() else false
+                        isPhoneNumberAuthButtonEnabled = isPhoneNumberInputValid
+                        viewModel.updatePhoneNumber(input)
+                    }
                 },
                 maxLength = 11,
                 modifier = Modifier
@@ -151,8 +153,10 @@ fun PhoneNumberAuthenticationScreen(
                         isAuthNumberInputFocused = it
                     },
                     onValueChange = { input ->
-                        isAuthNumberInputValid = input.length == 6
-                        authNumberValue = input
+                        if(input.length <= 6) {
+                            isAuthNumberInputValid = input.length == 6
+                            authNumberValue = input
+                        }
                     },
                     modifier = Modifier
                         .height(112.dp),
