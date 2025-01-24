@@ -40,6 +40,7 @@ import com.sopt.withsuhyeon.core.component.textfield.BasicShortTextField
 import com.sopt.withsuhyeon.core.component.topbar.SubTopNavBar
 import com.sopt.withsuhyeon.core.util.KeyStorage.SAVE_BUTTON_TEXT
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
+import com.sopt.withsuhyeon.core.util.regex.checkValidPhoneNumber
 import com.sopt.withsuhyeon.feature.onboarding.viewmodel.BlcokUserViewModel
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
@@ -112,7 +113,7 @@ fun BlockUserScreen(
                 value = state.blockNumber,
                 onValueChange = { input ->
                     viewModel.selectBlockUserNumber(input)
-                    isValid = input.length == 11
+                    isValid = input.length == 11 && input.checkValidPhoneNumber()
                 },
                 hint = stringResource(R.string.block_screen_phone_number_hint),
                 trailingContent = {
@@ -124,7 +125,7 @@ fun BlockUserScreen(
                             }
                         },
                         modifier = Modifier,
-                        enabled = true
+                        enabled = isValid
                     )
                 }
             )
