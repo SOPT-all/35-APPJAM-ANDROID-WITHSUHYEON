@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.chip.MediumChip
 import com.sopt.withsuhyeon.core.type.MediumChipType
-import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_20_TO_24
 import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_40
 import com.sopt.withsuhyeon.core.util.KeyStorage.PHONE_CALL
 import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_FEMALE
