@@ -55,8 +55,8 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.bottomsheet.BlockBottomSheet
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
-import com.sopt.withsuhyeon.feature.findsuhyeon.component.FindSuhyeonPostItem
 import com.sopt.withsuhyeon.feature.home.component.HomeCardItem
+import com.sopt.withsuhyeon.feature.home.component.HomePostItem
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
@@ -376,7 +376,7 @@ fun HomeScreen(
                             ) {
                                 homeState.homeData.homePosts.forEachIndexed { index, post ->
                                     val isLastItem = index == homeState.homeData.homePosts.size - 1
-                                    FindSuhyeonPostItem(
+                                    HomePostItem(
                                         postItemModel = post,
                                         modifier = Modifier
                                             .padding(bottom = if (isLastItem) 32.dp else 0.dp)
