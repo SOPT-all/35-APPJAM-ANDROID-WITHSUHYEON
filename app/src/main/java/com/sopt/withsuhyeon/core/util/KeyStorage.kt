@@ -45,4 +45,8 @@ object KeyStorage {
 
     const val LOGOUT_ALERT_TYPE = "logout"
     const val LEAVE_ALERT_TYPE = "leave"
+
+    const val TOTAL = "전체"
+    const val MT = "엠티"
+    const val ETC = "기타"
 }

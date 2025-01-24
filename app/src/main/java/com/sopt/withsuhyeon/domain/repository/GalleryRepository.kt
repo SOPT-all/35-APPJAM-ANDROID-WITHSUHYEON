@@ -9,6 +9,7 @@ import okhttp3.RequestBody
 interface GalleryRepository {
     suspend fun getGalleryCategories() : Result<List<Category>>
     suspend fun getGalleryTotal(category: String) : Result<List<Gallery>>
+    suspend fun getAllGalleries(): Result<List<Gallery>>
     suspend fun uploadGallery(image: MultipartBody.Part, request: RequestBody) : Result<Unit>
     suspend fun getGalleryPostDetail(galleryId: Long) : Result<GalleryPostDetailModel>
     suspend fun deleteGalleryPost(galleryId: Long) : Result<Unit>

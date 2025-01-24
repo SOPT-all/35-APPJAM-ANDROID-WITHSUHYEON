@@ -20,7 +20,7 @@ interface GalleryService {
 
     @GET("/api/v1/galleries")
     suspend fun getGalleryTotal(
-        @Query("category") category: String
+        @Query("category") category: String = ""
     ) : BaseResponse<ResponseGalleryTotalDto>
 
     @Multipart
