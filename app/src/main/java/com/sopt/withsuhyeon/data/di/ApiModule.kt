@@ -2,6 +2,7 @@ package com.sopt.withsuhyeon.data.di
 
 import com.sopt.withsuhyeon.data.service.DummyService
 import com.sopt.withsuhyeon.data.service.GalleryService
+import com.sopt.withsuhyeon.data.service.MyPageService
 import com.sopt.withsuhyeon.data.service.HomeService
 import dagger.Module
 import dagger.Provides
@@ -27,4 +28,9 @@ object ApiModule {
     @Singleton
     fun providesHomeService(retrofit: Retrofit): HomeService =
         retrofit.create(HomeService::class.java)
+
+    @Provides
+    @Singleton
+    fun providesMyPageService(retrofit: Retrofit): MyPageService =
+        retrofit.create(MyPageService::class.java)
 }
