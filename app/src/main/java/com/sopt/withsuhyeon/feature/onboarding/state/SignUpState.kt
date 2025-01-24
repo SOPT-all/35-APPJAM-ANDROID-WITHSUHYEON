@@ -21,6 +21,7 @@ data class SignUpState(
     val isSuccessRequestPhoneNumber: Boolean = false,
     val isAuthNumberError: Boolean = false,
     val authNumberErrorMessage: String = EMPTY_STRING,
-    val nicknameErrorState: String = EMPTY_STRING
+    val nicknameErrorState: String = EMPTY_STRING,
+    val errorState: Boolean = false
 )
 
