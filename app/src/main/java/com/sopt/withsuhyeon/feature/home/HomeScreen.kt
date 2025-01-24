@@ -89,15 +89,29 @@ fun HomeScreen(
     onViewAllButtonClick: () -> Unit,
     navigateToBlockUser: () -> Unit
 ) {
-    var isBlockBottomSheetVisible by rememberSaveable { mutableStateOf(true) }
-    if (isBlockBottomSheetVisible) {
-        BlockBottomSheet(
-            closeSheet = { isBlockBottomSheetVisible = false },
-            navigateToBlockScreen = navigateToBlockUser
-        )
+
+    LaunchedEffect(Unit) {
+        viewModel.getHomeData()
+        viewModel.startCountAnimation()
+        viewModel.getIsFirstLogin()
+    }
+    val homeState by viewModel.state.collectAsStateWithLifecycle()
+    var isBlockBottomSheetVisible by rememberSaveable { mutableStateOf(false) }
+
+    LaunchedEffect(homeState.isFirstLogin) {
+        isBlockBottomSheetVisible = homeState.isFirstLogin
     }
 
-    val homeState by viewModel.state.collectAsStateWithLifecycle()
+    if (isBlockBottomSheetVisible) {
+        BlockBottomSheet(
+            closeSheet = {
+                isBlockBottomSheetVisible = false
+                viewModel.setIsFirstLogin()
+                         },
+            navigateToBlockScreen = navigateToBlockUser,
+            nickname = homeState.homeData.nickname
+        )
+    }
 
     val composition by rememberLottieComposition(
         LottieCompositionSpec.RawRes(
@@ -113,11 +127,6 @@ fun HomeScreen(
             maxOffset
         else
             (pullToRefreshState.distanceFraction * maxOffset.toPx()).toDp()
-    }
-
-    LaunchedEffect(Unit) {
-        viewModel.getHomeData()
-        viewModel.startCountAnimation()
     }
 
     Column(

@@ -21,9 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.core.util.price.toDecimalFormat
 import com.sopt.withsuhyeon.R
-import com.sopt.withsuhyeon.core.component.chip.MediumChip
 import com.sopt.withsuhyeon.core.component.chip.SmallChip
-import com.sopt.withsuhyeon.core.type.MediumChipType
 import com.sopt.withsuhyeon.core.type.SmallChipType
 import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_20_TO_24
 import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_FEMALE
@@ -37,7 +35,7 @@ fun FindSuhyeonPostItem(
     postItemModel: PostItemModel,
     modifier: Modifier = Modifier
 ) {
-    val genderString = if(postItemModel.gender) SHORT_FEMALE else SHORT_MALE
+    val genderString = if(postItemModel.gender) SHORT_MALE else SHORT_FEMALE
     Column(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         modifier = modifier

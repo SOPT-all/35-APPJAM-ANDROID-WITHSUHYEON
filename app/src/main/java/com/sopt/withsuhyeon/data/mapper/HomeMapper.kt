@@ -8,5 +8,6 @@ fun ResponseHomeDto.toHomeModel(): HomeModel {
         count = this.count,
         region = this.region,
         homePosts = this.homePosts,
+        nickname = this.nickname
     )
 }

@@ -8,6 +8,14 @@ import javax.inject.Singleton
 class TokenManager @Inject constructor(
     private val sharedPreferences: SharedPreferences
 ) {
+    fun getIsFirstLogin(): Boolean {
+        return sharedPreferences.getBoolean("isFirstLogin", true)
+    }
+
+    fun saveIsFirstLogin(isFirstLogin: Boolean) {
+        sharedPreferences.edit().putBoolean("isFirstLogin", isFirstLogin).apply()
+    }
+
     fun getToken(): String {
         return sharedPreferences.getString("token", "").orEmpty()
     }
