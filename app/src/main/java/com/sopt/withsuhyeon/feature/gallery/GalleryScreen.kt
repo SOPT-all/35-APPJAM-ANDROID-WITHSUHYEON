@@ -142,6 +142,7 @@ private fun GalleryScreen(
                             isSelected = selectedCategory == "전체",
                             onClick = {
                                 viewModel.setSelectedCategory("전체")
+                                viewModel.getGalleryTotal("전체")
                             }
                         )
                     }
@@ -153,6 +154,7 @@ private fun GalleryScreen(
                             isSelected = selectedCategory == category.category,
                             onClick = {
                                 viewModel.setSelectedCategory(category.category)
+                                viewModel.getGalleryTotal(category.category)
                             }
                         )
                     }

@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.chip.MediumChip
 import com.sopt.withsuhyeon.core.type.MediumChipType
-import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_20_TO_24
+import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_40
 import com.sopt.withsuhyeon.core.util.KeyStorage.PHONE_CALL
 import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_FEMALE
 import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_MALE
@@ -38,6 +38,10 @@ fun DetailMeetingInformation (
         SHORT_MALE
     else
         SHORT_FEMALE
+    val ageString = if(postDetailInfoModel.age != AGE_40)
+        "${postDetailInfoModel.age}세"
+    else
+        postDetailInfoModel.age
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = modifier
@@ -94,7 +98,7 @@ fun DetailMeetingInformation (
                     style = typography.body03_B.merge(color = colors.Grey300)
                 )
                 Text(
-                    text = postDetailInfoModel.age,
+                    text = ageString,
                     style = typography.body03_B.merge(color = colors.Grey700)
                 )
             }
@@ -149,7 +153,7 @@ fun PreviewDetailMeetingInformation() {
         postDetailInfoModel = PostDetailInfoModel(
             region = "강남/역삼/삼성",
             gender = false,
-            age = AGE_20_TO_24,
+            age = AGE_40,
             date = "1월 25일 (토) 오후 2:00",
             requests = listOf(
                 stringResource(MediumChipType.CATEGORY_PHOTO.titleResId),
