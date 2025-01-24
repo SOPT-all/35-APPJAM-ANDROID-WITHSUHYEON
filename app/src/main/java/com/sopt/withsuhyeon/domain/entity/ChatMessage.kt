@@ -9,3 +9,5 @@ data class ChatMessage(
     val timestamp: String,
     val isRead: Boolean
 )
+
+fun ChatMessage.toTriple() = Triple(content, timestamp, if(type == "SEND") true else false)
