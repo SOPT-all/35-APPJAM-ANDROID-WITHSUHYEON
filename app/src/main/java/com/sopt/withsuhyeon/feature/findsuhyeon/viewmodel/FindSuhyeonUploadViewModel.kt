@@ -116,7 +116,7 @@ class FindSuhyeonUploadViewModel @Inject constructor(
                 priceErrorMessage = if(isBelowMax)
                     ""
                 else
-                    "금액 입력"
+                    "99,999원까지 입력할 수 있어요"
             )
         }
     }

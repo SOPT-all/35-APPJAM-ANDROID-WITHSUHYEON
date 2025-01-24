@@ -272,7 +272,7 @@ fun HomeScreen(
                                 imageResource = R.drawable.img_seek_and_hide,
                                 textColor = colors.White,
                                 modifier = Modifier.noRippleClickable {
-                                    onCategoryCardClick("캠핑/글램핑")
+                                    onCategoryCardClick("캠핑")
                                 }
                             )
                         }
@@ -283,7 +283,7 @@ fun HomeScreen(
                                 imageResource = R.drawable.img_study_cafe,
                                 textColor = colors.White,
                                 modifier = Modifier.noRippleClickable {
-                                    onCategoryCardClick("스터디카페")
+                                    onCategoryCardClick("도서관")
                                 }
                             )
                         }
@@ -308,7 +308,7 @@ fun HomeScreen(
                             .align(Alignment.TopEnd)
                     )
                     Column(
-                        modifier = Modifier.height(542.dp)
+                        modifier = Modifier.fillMaxWidth()
                     ) {
                         Row(
                             modifier = Modifier

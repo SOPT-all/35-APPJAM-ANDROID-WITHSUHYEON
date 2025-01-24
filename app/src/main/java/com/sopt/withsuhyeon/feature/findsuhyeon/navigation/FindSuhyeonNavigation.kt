@@ -44,7 +44,6 @@ fun NavGraphBuilder.findSuhyeonNavGraph(
         FindSuhyeonRoute(
             padding,
             navigateToUpload = onNavigateToFindSuheyonUpload,
-            navigateUp = onNavigateToFindSuhyeon,
             navigateToPost = onNavigateToFindSuhyeonPost
         )
     }

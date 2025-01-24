@@ -112,6 +112,11 @@ class FindSuhyeonViewModel @Inject constructor(
             _state.value.selectedDate
         )
     }
+    fun selectMainLocation(location: String?) {
+        _state.value = _state.value.copy(
+            selectedMainLocation = location,
+        )
+    }
 
     fun selectDate(date: String) {
         _state.value = _state.value.copy(selectedDate = date)
