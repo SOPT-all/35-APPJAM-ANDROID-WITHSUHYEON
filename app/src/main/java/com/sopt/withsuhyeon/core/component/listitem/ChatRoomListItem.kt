@@ -25,6 +25,7 @@ import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.chip.SmallChip
 import com.sopt.withsuhyeon.core.type.SmallChipType
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
+import com.sopt.withsuhyeon.domain.entity.ChatRoomDetailModel
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
@@ -34,15 +35,29 @@ fun ChatRoomListItem(
     partnerName: String,
     recentChat: String,
     recentChatDateTime: String,
-    unreadChatCount: String,
-    onChatRoomListItemClick: () -> Unit,
+    unreadChatCount: Int,
+    onChatRoomListItemClick: (ChatRoomDetailModel) -> Unit,
     modifier: Modifier = Modifier
 ) {
+
+    val chatRoomDetail = ChatRoomDetailModel(
+        ownerChatRoomId = "",
+        peerChatRoomId = "",
+        postId = 0,
+        chatOwnerId = 0,
+        chatPeerId = 0,
+        chatPeerNickname = partnerName,
+        chatPeerProfileImage = profileImage,
+        postTitle = "",
+        postPlace = "",
+        postCost = 0
+    )
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .background(colors.White)
-            .noRippleClickable { onChatRoomListItemClick() }
+            .noRippleClickable { onChatRoomListItemClick(chatRoomDetail) }
     ) {
         Row(
             modifier = Modifier
@@ -95,7 +110,7 @@ fun ChatRoomListItem(
                 Spacer(modifier = Modifier.height(8.dp))
                 SmallChip(
                     smallChipType = SmallChipType.CHAT_COUNT,
-                    dynamicString = unreadChatCount
+                    dynamicString = unreadChatCount.toString()
                 )
             }
         }
