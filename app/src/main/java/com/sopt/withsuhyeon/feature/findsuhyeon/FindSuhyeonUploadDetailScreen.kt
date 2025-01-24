@@ -37,7 +37,6 @@ import com.sopt.withsuhyeon.core.component.modal.AlertModal
 import com.sopt.withsuhyeon.core.component.progressbar.AnimatedProgressBar
 import com.sopt.withsuhyeon.core.component.textfield.BasicLongTextField
 import com.sopt.withsuhyeon.core.component.textfield.BasicShortTextField
-import com.sopt.withsuhyeon.core.component.textfield.LongTextField
 import com.sopt.withsuhyeon.core.component.topbar.SubTopNavBar
 import com.sopt.withsuhyeon.core.util.KeyStorage.EXIT_ALERT_TYPE
 import com.sopt.withsuhyeon.core.util.KeyStorage.FEMALE
