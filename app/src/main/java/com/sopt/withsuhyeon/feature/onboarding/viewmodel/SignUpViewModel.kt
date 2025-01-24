@@ -41,10 +41,17 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
+    fun updateState(nickname: String) {
+        _signUpState.update {
+            it.copy(
+                errorState = if (nickname.containsSpecialCharacters()) true else true
+            )
+        }
+    }
+
     fun updateNickname(nickname: String) {
         val errorState = when {
             nickname.containsSpecialCharacters() -> SPECIAL_CHARACTER_ERROR_MESSAGE
-            nickname.length !in 2..12 -> LENGTH_ERROR_MESSAGE
             else -> EMPTY_STRING
         }
 
@@ -160,7 +167,6 @@ class SignUpViewModel @Inject constructor(
         }
         // TODO - 성공 / 실패 분기처리 -> 버튼 색상 등등
     }
-
 
 
     fun getRegionInfo() {

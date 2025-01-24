@@ -24,10 +24,10 @@ import com.sopt.withsuhyeon.core.component.button.LargeButton
 import com.sopt.withsuhyeon.core.component.progressbar.AnimatedProgressBar
 import com.sopt.withsuhyeon.core.component.textfield.BasicShortTextField
 import com.sopt.withsuhyeon.core.component.topbar.MainTopNavBar
-import com.sopt.withsuhyeon.core.util.KeyStorage.DEFAULT
 import com.sopt.withsuhyeon.core.util.KeyStorage.EMPTY_STRING
-import com.sopt.withsuhyeon.core.util.KeyStorage.LENGTH_ERROR
 import com.sopt.withsuhyeon.core.util.KeyStorage.NEXT_BUTTON_TEXT
+import com.sopt.withsuhyeon.core.util.KeyStorage.SPECIAL_CHARACTER_ERROR
+import com.sopt.withsuhyeon.core.util.KeyStorage.SPECIAL_CHARACTER_ERROR_MESSAGE
 import com.sopt.withsuhyeon.feature.onboarding.components.OnBoardingTitle
 import com.sopt.withsuhyeon.feature.onboarding.viewmodel.SignUpViewModel
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
@@ -52,8 +52,8 @@ fun NickNameAuthenticationScreen(
     viewModel: SignUpViewModel,
     modifier: Modifier = Modifier,
 ) {
-    var nicknameErrorType by remember { mutableStateOf(LENGTH_ERROR) }
     var isNicknameTextFiledFocused by remember { mutableStateOf(false) }
+    var isBorderBlue by remember { mutableStateOf(true) }
 
     val state by viewModel.signUpState.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) {
@@ -93,13 +93,16 @@ fun NickNameAuthenticationScreen(
                 title = stringResource(R.string.onboarding_nickname_input_title),
                 hint = stringResource(R.string.onboarding_nickname_input_hint),
                 isValid = state.nicknameErrorState == EMPTY_STRING,
+                textFieldBorderColor = if(state.nicknameErrorState == EMPTY_STRING) colors.Purple300 else colors.Red01,
                 onFocusChange = {
                     isNicknameTextFiledFocused = it
                 },
                 onValueChange = { input ->
-                    viewModel.updateNickname(input)
+                    if(input.length <= 12) {
+                        viewModel.updateNickname(input)
+                        viewModel.updateState(input)
+                    }
                 },
-                maxLength = 12,
                 errorMessage = state.nicknameErrorState
             )
             Spacer(modifier = Modifier.weight(1f))
