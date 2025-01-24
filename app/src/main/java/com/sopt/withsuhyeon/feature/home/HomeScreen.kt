@@ -90,14 +90,16 @@ fun HomeScreen(
     navigateToBlockUser: () -> Unit
 ) {
     var isBlockBottomSheetVisible by rememberSaveable { mutableStateOf(true) }
+    val homeState by viewModel.state.collectAsStateWithLifecycle()
+
     if (isBlockBottomSheetVisible) {
         BlockBottomSheet(
             closeSheet = { isBlockBottomSheetVisible = false },
-            navigateToBlockScreen = navigateToBlockUser
+            navigateToBlockScreen = navigateToBlockUser,
+            nickname = homeState.homeData.nickname
         )
     }
 
-    val homeState by viewModel.state.collectAsStateWithLifecycle()
 
     val composition by rememberLottieComposition(
         LottieCompositionSpec.RawRes(
