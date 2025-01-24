@@ -1,5 +1,6 @@
 package com.sopt.withsuhyeon.core.component.bottomsheet
 
+import android.provider.ContactsContract.CommonDataKinds.Nickname
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -36,6 +37,7 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 fun BlockBottomSheet(
     closeSheet: () -> Unit,
     navigateToBlockScreen: () -> Unit,
+    nickname: String,
     modifier: Modifier = Modifier,
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -82,7 +84,7 @@ fun BlockBottomSheet(
                     )
                     Text(
                         modifier = Modifier.fillMaxWidth(),
-                        text = stringResource(R.string.block_bottomsheet_sub_title),
+                        text = "차단한 사용자는 ${nickname}님의 게시글을 볼 수 없어요",
                         style = typography.body03_SB,
                         color = colors.Grey500
                     )
