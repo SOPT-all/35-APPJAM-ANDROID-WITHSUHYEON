@@ -3,6 +3,7 @@ package com.sopt.withsuhyeon.feature.onboarding.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sopt.withsuhyeon.core.network.TokenManager
 import com.sopt.withsuhyeon.data.dto.base.BaseResponse
 import com.sopt.withsuhyeon.domain.repository.LoginRepository
 import com.sopt.withsuhyeon.feature.onboarding.state.LoginState
@@ -16,6 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
+    private val tokenManager: TokenManager,
     private val loginRepository: LoginRepository
 ) : ViewModel() {
     private val _loginState = MutableStateFlow(LoginState())
@@ -106,6 +108,7 @@ class LoginViewModel @Inject constructor(
                         refreshToken = loginToken.refreshToken
                     )
                 }
+                tokenManager.saveToken(loginToken.accessToken)
                 Log.d("log", "${_loginState.value.accessToken} ${_loginState.value.refreshToken}")
             }.onFailure { error ->
                 Log.d("log", error.message.toString())
