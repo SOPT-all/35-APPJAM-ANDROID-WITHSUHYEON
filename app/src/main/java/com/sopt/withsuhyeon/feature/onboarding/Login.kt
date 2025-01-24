@@ -7,7 +7,11 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -16,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -28,6 +33,7 @@ import com.sopt.withsuhyeon.core.util.KeyStorage.AFTER_SEND_BUTTON_TEXT
 import com.sopt.withsuhyeon.core.util.KeyStorage.BEFORE_SEND_BUTTON_TEXT
 import com.sopt.withsuhyeon.core.util.KeyStorage.EMPTY_STRING
 import com.sopt.withsuhyeon.core.util.KeyStorage.NEXT_BUTTON_TEXT
+import com.sopt.withsuhyeon.core.util.regex.checkValidPhoneNumber
 import com.sopt.withsuhyeon.feature.onboarding.components.OnBoardingTitle
 import com.sopt.withsuhyeon.feature.onboarding.viewmodel.LoginViewModel
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
@@ -66,7 +72,9 @@ fun LoginScreen(
         modifier = modifier
             .background(colors.White)
             .padding(padding)
+            .imePadding()
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
     ) {
         MainTopNavBar(
             text = EMPTY_STRING
@@ -88,9 +96,13 @@ fun LoginScreen(
                 onFocusChange = {
                     isPhoneNumberInputFocused = it
                 },
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    keyboardType = KeyboardType.Number
+                ),
                 onValueChange = { input ->
-                    isPhoneNumberInputValid = input.length == 11
-                    isPhoneNumberAuthButtonEnabled = input.length == 11
+                    isPhoneNumberInputValid =
+                        if (input.length == 11) input.checkValidPhoneNumber() else false
+                    isPhoneNumberAuthButtonEnabled = isPhoneNumberInputValid
                     viewModel.updatePhoneNumber(input)
                 },
                 maxLength = 11,
@@ -124,6 +136,9 @@ fun LoginScreen(
                         isAuthNumberInputValid = input.length == 6
                         viewModel.updateAuthNumber(input)
                     },
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Number
+                    ),
                     maxLength = 6,
                 )
             }
@@ -140,12 +155,15 @@ fun LoginScreen(
             onClick = {
                 viewModel.postVerifyNumberAuth(
                     state.phoneNumber,
-                    state.authNumber
+                    state.authNumber,
+                    onSuccess = {
+                        onNavigateToLoginFinish()
+                    },
+                    onError = { isAuthNumberInputValid = false}
                 )
-                onNavigateToLoginFinish()
             },
             text = NEXT_BUTTON_TEXT,
-            modifier = Modifier.padding(horizontal = 16.dp),
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
             isDisabled = !isAuthNumberInputValid
         )
     }

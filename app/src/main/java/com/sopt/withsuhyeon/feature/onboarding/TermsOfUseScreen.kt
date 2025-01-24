@@ -72,7 +72,7 @@ fun TermsOfUseScreen(
     val state by viewModel.signUpState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
-        viewModel.updateProgress(state.progress + 1f / 7)
+        viewModel.updateProgress(1f / 7)
     }
 
     fun updateAllTermsSelectedState() {
@@ -162,9 +162,6 @@ fun TermsOfUseScreen(
                         type = SECONDARY_TYPE,
                         state = if (isAgedSelected) CHECKED else DEFAULT
                     )
-                    ShowButton(onClick = {
-                        // TODO - 정책 연결
-                    })
                 }
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -179,9 +176,6 @@ fun TermsOfUseScreen(
                         type = SECONDARY_TYPE,
                         state = if (isTermsSelected) CHECKED else DEFAULT
                     )
-                    ShowButton(onClick = {
-                        // TODO - 정책 연결
-                    })
                 }
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -197,9 +191,6 @@ fun TermsOfUseScreen(
                         type = SECONDARY_TYPE,
                         state = if (isPersonalInformationSelected) CHECKED else DEFAULT
                     )
-                    ShowButton(onClick = {
-                        // TODO - 정책 연결
-                    })
                 }
             }
         }
@@ -217,7 +208,7 @@ fun TermsOfUseScreen(
                 }
             },
             text = NEXT_BUTTON_TEXT,
-            modifier = Modifier.padding(horizontal = 16.dp),
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
             isDisabled = !isAllTermsSelected,
         )
     }
