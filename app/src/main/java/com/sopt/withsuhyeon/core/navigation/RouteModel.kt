@@ -1,9 +1,10 @@
 package com.sopt.withsuhyeon.core.navigation
 
-import com.sopt.withsuhyeon.domain.entity.ChatRoomInfoModel
 import kotlinx.serialization.Serializable
 
 sealed interface Route {
+    @Serializable
+    data object Splash : Route
     @Serializable
     data object OnBoarding : Route
     @Serializable
@@ -44,6 +45,14 @@ sealed interface Route {
         val ownerChatRoomId: String?,
         val peerChatRoomId: String?
     ) : Route
+    @Serializable
+    data object MyPageFavoriteLocation : Route
+    @Serializable
+    data object MyPagePost : Route
+    @Serializable
+    data object MyPageWithdraw : Route
+    @Serializable
+    data object LoginFinish: Route
 }
 
 sealed interface MainTabRoute : Route {

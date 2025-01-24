@@ -22,7 +22,9 @@ import com.sopt.withsuhyeon.feature.home.navigation.homeNavGraph
 import com.sopt.withsuhyeon.feature.main.MainNavigator
 import com.sopt.withsuhyeon.feature.mypage.navigation.myPageNavGraph
 import com.sopt.withsuhyeon.feature.onboarding.navigation.onBoardingNavGraph
+import com.sopt.withsuhyeon.feature.onboarding.viewmodel.LoginViewModel
 import com.sopt.withsuhyeon.feature.onboarding.viewmodel.SignUpViewModel
+import com.sopt.withsuhyeon.feature.splash.splashNavGraph
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
 @SuppressLint("UnrememberedGetBackStackEntry")
@@ -88,7 +90,17 @@ fun MainNavHost(
                 padding = padding,
                 onNavigateToBlockUser = navigator::navigateToBlockUserFromMyPage,
                 onNavigateToOnboarding = navigator::navigateToOnboarding,
+                onNavigateToMyPagePost = navigator::navigateToMyPagePost,
+                onNavigateToFavoriteLocation = navigator::navigateToMyPageFavoriteLocation,
+                onNavigateToWithdraw = navigator::navigateToMyPageWithdraw,
+                onNavigateUp = navigator::popBackStack,
             )
+
+            splashNavGraph(
+                padding = padding,
+                onNavigateToOnboarding = navigator::navigateToOnboarding
+            )
+
             onBoardingNavGraph(
                 padding = padding,
                 onBoardingPadding = PaddingValues(
@@ -105,7 +117,8 @@ fun MainNavHost(
                 onNavigateToSelectGender = navigator::navigateToSelectGender,
                 onNavigateToPostProfileImage = navigator::navigateToPostProfileImage,
                 onNavigateToSelectLocation = navigator::navigateToSelectLocation,
-                onNavigateToFinish = navigator::navigateToOnboardingFinish,
+                onNavigateToSignUpFinish = navigator::navigateToOnboardingFinish,
+                onNavigateToLoginFinish = navigator::navigateToLoginFinish,
                 onNavigateToHome = navigator::navigateToHome,
                 getBackStackUploadViewModel = { navBackStackEntry ->
                     val parentEntry = try {
@@ -116,6 +129,11 @@ fun MainNavHost(
                     parentEntry?.let { hiltViewModel<SignUpViewModel>(it) } ?: hiltViewModel(
                         navBackStackEntry
                     )
+                },
+                getBackStackLoginViewModel = { navBackStackEntry ->
+                    navigator.navController.previousBackStackEntry?.let { previousEntry ->
+                        hiltViewModel<LoginViewModel>(previousEntry)
+                    } ?: hiltViewModel(navBackStackEntry)
                 }
             )
         }

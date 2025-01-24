@@ -1,19 +1,23 @@
 package com.sopt.withsuhyeon.feature.onboarding.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.sopt.withsuhyeon.core.util.KeyStorage.DEFAULT
 import com.sopt.withsuhyeon.core.util.KeyStorage.LENGTH_ERROR
 import com.sopt.withsuhyeon.core.util.KeyStorage.SPECIAL_CHARACTER_ERROR
+import com.sopt.withsuhyeon.domain.repository.SignUpRepository
 import com.sopt.withsuhyeon.feature.onboarding.state.SignUpState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-
+    private val signUpRepository: SignUpRepository
 ) : ViewModel() {
     private val _signUpState = MutableStateFlow(SignUpState())
     val signUpState: StateFlow<SignUpState> = _signUpState
@@ -58,7 +62,7 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-    fun updateRegion(region: String?) {
+    fun updateRegion(region: String) {
         _signUpState.update {
             it.copy(
                 region = region,
@@ -84,4 +88,72 @@ class SignUpViewModel @Inject constructor(
         val specialCharactersRegex = "[^a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ0-9\\s]".toRegex()
         return specialCharactersRegex.containsMatchIn(input)
     }
+
+    fun postPhoneNumberAuth(phoneNumber: String) {
+        viewModelScope.launch {
+            signUpRepository.postPhoneNumber(phoneNumber = phoneNumber).onSuccess {
+                Log.d("phone", "성공")
+            }.onFailure { error ->
+                Log.d("phone", error.message.toString())
+            }
+        }
+    }
+
+    fun postVerifyNumberAuth(phoneNumber: String, verifyNumber: String) {
+        viewModelScope.launch {
+            signUpRepository.postVerifyNumber(
+                phoneNumber = phoneNumber,
+                verifyNumber = verifyNumber
+            ).onSuccess {
+                Log.d("phone", "성공")
+            }.onFailure { error ->
+                Log.d("phone", error.message.toString())
+            }
+        }
+        // TODO - 성공 / 실패 분기처리 -> 버튼 색상 등등
+    }
+
+    fun getRegionInfo() {
+        viewModelScope.launch {
+            if (_signUpState.value.regionList.regions.isEmpty()) {
+                signUpRepository.getRegionList().onSuccess { regionList ->
+                    _signUpState.update { current ->
+                        current.copy(
+                            regionList = regionList,
+                            mainLocationList = regionList.regions.map { it.location },
+                            subLocationList = regionList.regions.map { it.subLocations }
+                        )
+                    }
+                }.onFailure { error ->
+                    Log.d("phone", error.message.toString())
+                }
+            }
+        }
+    }
+
+    fun postSignUp(
+        phoneNumber: String = _signUpState.value.phoneNumber,
+        nickname: String = _signUpState.value.nickname,
+        birthYear: Int = _signUpState.value.birthYear,
+        gender: Boolean = _signUpState.value.gender,
+        profileImage: String = _signUpState.value.profileImage,
+        region: String = _signUpState.value.region
+    ) {
+        viewModelScope.launch {
+            signUpRepository.postSignUp(
+                phoneNumber = phoneNumber,
+                nickname = nickname,
+                birthYear = birthYear,
+                gender = gender,
+                profileImage = profileImage,
+                region = region
+            ).onSuccess {
+                Log.d("result", "성공")
+            }.onFailure { error ->
+                Log.d("result", error.message.toString())
+            }
+        }
+    }
 }
+
+// TODO - 실패 케이스에서 상태관리

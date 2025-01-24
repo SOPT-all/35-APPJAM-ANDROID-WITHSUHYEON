@@ -48,12 +48,18 @@ fun MyPageRoute(
     padding: PaddingValues,
     navigateToBlockUser: () -> Unit,
     navigateToOnboarding: () -> Unit,
+    navigateToPost: () -> Unit,
+    navigateToLocation: () -> Unit,
+    navigateToWithdraw: () -> Unit,
     viewModel: MyPageViewModel = hiltViewModel()
 ) {
     MyPageScreen(
         padding = padding,
-        navigateToBlockUser,
-        navigateToOnboarding
+        navigateToBlockUser = navigateToBlockUser,
+        navigateToOnboarding = navigateToOnboarding,
+        navigateToPost = navigateToPost,
+        navigateToLocation = navigateToLocation,
+        navigateToWithdraw = navigateToWithdraw
     )
 }
 
@@ -61,6 +67,9 @@ fun MyPageRoute(
 private fun MyPageScreen(
     padding: PaddingValues,
     navigateToBlockUser: () -> Unit,
+    navigateToPost: () -> Unit,
+    navigateToLocation: () -> Unit,
+    navigateToWithdraw: () -> Unit,
     navigateToOnboarding: () -> Unit,
     viewModel: MyPageViewModel = hiltViewModel()
 ) {
@@ -68,8 +77,7 @@ private fun MyPageScreen(
         viewModel.getMyPageInfo()
     }
 
-    val nickname by remember { mutableStateOf("") }
-    var alertState by remember { mutableStateOf<String>(DISABLED_TYPE) }
+    var alertState by remember { mutableStateOf(DISABLED_TYPE) }
     val myPageInfo by viewModel.myPageInfo.collectAsState()
 
     when (alertState) {
@@ -150,7 +158,8 @@ private fun MyPageScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 20.dp, end = 20.dp, bottom = 8.dp),
+                    .padding(start = 20.dp, end = 20.dp, bottom = 8.dp)
+                    .noRippleClickable(navigateToPost),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
@@ -228,7 +237,8 @@ private fun MyPageScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 8.dp, vertical = 8.dp),
+                    .padding(horizontal = 8.dp, vertical = 8.dp)
+                    .noRippleClickable(navigateToLocation),
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Row(
@@ -301,7 +311,7 @@ private fun MyPageScreen(
                     .fillMaxWidth()
                     .padding(start = 20.dp, end = 20.dp, bottom = 8.dp)
                     .noRippleClickable {
-                        alertState = LEAVE_ALERT_TYPE
+                        navigateToWithdraw()
                     },
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
@@ -328,6 +338,13 @@ private fun MyPageScreen(
 @Composable
 private fun MyPageScreenPreview() {
     WithSuhyeonTheme {
-        MyPageScreen(padding = PaddingValues(), navigateToBlockUser = {}, navigateToOnboarding = {})
+        MyPageScreen(
+            padding = PaddingValues(),
+            navigateToBlockUser = {},
+            navigateToOnboarding = {},
+            navigateToPost = {},
+            navigateToLocation = {},
+            navigateToWithdraw = {}
+        )
     }
 }
