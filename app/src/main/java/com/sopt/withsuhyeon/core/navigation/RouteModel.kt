@@ -38,6 +38,12 @@ sealed interface Route {
     @Serializable
     data object ChatRoom : Route
     @Serializable
+    data object MyPageFavoriteLocation : Route
+    @Serializable
+    data object MyPagePost : Route
+    @Serializable
+    data object MyPageWithdraw : Route
+    @Serializable
     data object LoginFinish: Route
 }
 

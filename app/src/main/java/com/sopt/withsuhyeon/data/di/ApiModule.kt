@@ -6,6 +6,7 @@ import com.sopt.withsuhyeon.data.service.GalleryService
 import com.sopt.withsuhyeon.data.service.SignUpService
 import com.sopt.withsuhyeon.data.service.MyPageService
 import com.sopt.withsuhyeon.data.service.HomeService
+import com.sopt.withsuhyeon.data.service.MyPageService
 import com.sopt.withsuhyeon.data.service.LoginService
 import dagger.Module
 import dagger.Provides
@@ -29,6 +30,11 @@ object ApiModule {
 
     @Provides
     @Singleton
+    fun providesMyPageService(retrofit: Retrofit): MyPageService =
+        retrofit.create(MyPageService::class.java)
+
+    @Provides
+    @Singleton
     fun provideSignUpService(retrofit: Retrofit): SignUpService =
         retrofit.create(SignUpService::class.java)
 
@@ -46,9 +52,4 @@ object ApiModule {
     @Singleton
     fun providesLoginService(retrofit: Retrofit): LoginService =
         retrofit.create(LoginService::class.java)
-
-    @Provides
-    @Singleton
-    fun providesMyPageService(retrofit: Retrofit): MyPageService =
-        retrofit.create(MyPageService::class.java)
 }
