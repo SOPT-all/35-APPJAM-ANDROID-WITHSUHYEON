@@ -33,7 +33,6 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 @Composable
 fun FindSuhyeonPostItem(
     postItemModel: PostItemModel,
-    mediumChipType: MediumChipType? = null,
     modifier: Modifier = Modifier
 ) {
     val genderString = if(postItemModel.gender) SHORT_FEMALE else SHORT_MALE
@@ -60,9 +59,9 @@ fun FindSuhyeonPostItem(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                if (mediumChipType != null) {
+                if (postItemModel.isExpired) {
                     MediumChip(
-                        mediumChipType = mediumChipType
+                        mediumChipType = MediumChipType.DURATION_FINISHED
                     )
                 }
                 Row(
@@ -148,8 +147,8 @@ fun PreviewFindSuhyeonPost() {
             gender = true,
             age = AGE_20_TO_24,
             date = "1월 25일 (토) 오후 2:30",
-            matching = true
-        ),
-        mediumChipType = MediumChipType.DURATION_FINISHED
+            matching = true,
+            isExpired = true
+        )
     )
 }

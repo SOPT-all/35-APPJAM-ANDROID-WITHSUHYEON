@@ -18,5 +18,7 @@ data class PostItemModel(
     @SerialName("date")
     val date: String,
     @SerialName("matching")
-    val matching: Boolean
+    val matching: Boolean,
+    @SerialName("isExpired")
+    val isExpired: Boolean
 )

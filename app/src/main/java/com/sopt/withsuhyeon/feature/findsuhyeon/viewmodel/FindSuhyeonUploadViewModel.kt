@@ -1,72 +1,57 @@
 package com.sopt.withsuhyeon.feature.findsuhyeon.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.sopt.withsuhyeon.core.util.KeyStorage.MALE
 import com.sopt.withsuhyeon.core.util.KeyStorage.MAX_PRICE_STRING
 import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_TEXTFIELD_MAX_LENGTH
+import com.sopt.withsuhyeon.core.util.time.currentDateTime
+import com.sopt.withsuhyeon.domain.entity.FindSuhyeonPostUploadModel
+import com.sopt.withsuhyeon.domain.entity.LocationListModel
+import com.sopt.withsuhyeon.domain.repository.FindSuhyeonRepository
 import com.sopt.withsuhyeon.feature.findsuhyeon.state.FindSuhyeonDetailState
 import com.sopt.withsuhyeon.feature.findsuhyeon.state.FindSuhyeonUploadState
 import com.sopt.withsuhyeon.feature.findsuhyeon.type.BottomSheetType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
-class FindSuhyeonUploadViewModel @Inject constructor() : ViewModel() {
-    val subLocationList = mutableListOf(
-        listOf(
-            "강남/역삼/삼성",
-            "신사/청담/압구정",
-            "서초/교대/사당/동작",
-            "잠실/송파/강동",
-            "을지로/명동/중구/동대문",
-            "서울역/이태원/용산",
-            "종로/인사동",
-            "홍대/합정/마포/서대문/은평",
-            "여의도/영등포역/목동/양천",
-            "구로/신도림/금천/관악/신림",
-            "김포공항/염창/강서",
-            "건대입구/성수/왕십리",
-            "성북/강북/노원/도봉/중랑"
-        ),
-        listOf(
-            "해운대/마린시티",
-            "벡스코/센텀시티",
-            "서초/교대/사당/동작",
-            "잠실/송파/강동",
-            "을지로/명동/중구/동대문",
-            "서울역/이태원/용산",
-            "종로/인사동",
-            "홍대/합정/마포/서대문/은평",
-            "여의도/영등포역/목동/양천",
-            "구로/신도림/금천/관악/신림",
-            "김포공항/염창/강서",
-            "건대입구/성수/왕십리",
-            "성북/강북/노원/도봉/중랑"
-        )
-    )
-    val mainLocationList = mutableListOf(
-        "전국",
-        "서울",
-        "부산",
-        "제주",
-        "인천",
-        "강원",
-        "경기",
-        "경상"
-    )
-
-    private val _uploadState = MutableStateFlow(FindSuhyeonUploadState(
-        mainLocationList = mainLocationList,
-        subLocationList = subLocationList
-    ))
+class FindSuhyeonUploadViewModel @Inject constructor(
+    val findSuhyeonRepository: FindSuhyeonRepository
+) : ViewModel() {
+    private val _uploadState = MutableStateFlow(FindSuhyeonUploadState())
     val uploadState: StateFlow<FindSuhyeonUploadState> = _uploadState
 
     private val _detailState = MutableStateFlow(FindSuhyeonDetailState())
     val detailState: StateFlow<FindSuhyeonDetailState> = _detailState
 
+    private val _errorMessage = MutableStateFlow<String?>(null)
+    val errorMessage: StateFlow<String?> = _errorMessage.asStateFlow()
+
+    fun postFindSuhyeonUpload(){
+        viewModelScope.launch {
+            _uploadState.value.run {
+                findSuhyeonRepository.postFindSuhyeonUpload(
+                    request = FindSuhyeonPostUploadModel(
+                        region = selectedSubLocation.orEmpty(),
+                        gender = selectedGender == MALE,
+                        age = selectedAge.orEmpty(),
+                        date = selectedDate ?: currentDateTime,
+                        price = selectedPrice ?: 0,
+                        requests = selectedRequirementsList,
+                        title = _detailState.value.titleValue,
+                        content = _detailState.value.findSuhyeonContentValue
+                    )
+                )
+            }
+        }
+    }
     fun updateGender(selectedGender: String) {
         _uploadState.update {
             it.copy(
@@ -131,7 +116,7 @@ class FindSuhyeonUploadViewModel @Inject constructor() : ViewModel() {
                 priceTextValue = input,
                 isPriceValid = isPriceValid,
                 priceErrorMessage = if (!isEmpty && !isBelowMax) errorMessage.orEmpty() else "",
-                selectedPrice = if (isPriceValid) input.toLong() else it.selectedPrice,
+                selectedPrice = if (isPriceValid) input.toInt() else _uploadState.value.selectedPrice,
                 isSelectedPrice = isPriceValid,
                 priceButtonEnabled = isPriceValid
             )
@@ -170,35 +155,40 @@ class FindSuhyeonUploadViewModel @Inject constructor() : ViewModel() {
         _uploadState.update { it.copy(progress = progress) }
         _detailState.update { it.copy(progress = progress) }
     }
+    fun showLocationBottomSheet() {
+        viewModelScope.launch {
+            findSuhyeonRepository.getRegionList().onSuccess { regionList ->
+                _uploadState.update { current ->
+                    current.copy(
+                        regionList = regionList,
+                        selectedMainLocation = findLocationBySubLocation(
+                            _uploadState.value.selectedSubLocation.orEmpty(),
+                            regionList.regions
+                        ),
+                        mainLocationList = regionList.regions.map { it.location },
+                        subLocationList = regionList.regions.map { it.subLocations }
+                    )
+                }
+            }.onFailure { error ->
+                _errorMessage.update { error.message }
+            }
 
-    fun checkIsComplete(): Boolean {
-        _uploadState.value.run {
-            if (isSelectedGender
-                && isSelectedAge
-                && isSelectedRequirements
-                && isSelectedLocation
-                && isSelectedDate
-                && isSelectedPrice
-            )
-                _uploadState.update {
-                    it.copy(
-                        isComplete = true
-                    )
-                }
-            else
-                _uploadState.update {
-                    it.copy(
-                        isComplete = false
-                    )
-                }
-            return _uploadState.value.isComplete
+            _uploadState.update { current ->
+                current.copy(isLocationBottomSheetVisible = true)
+            }
         }
     }
-
-    fun toggleDeleteAlertModalVisibility() {
-        _uploadState.update { it.copy(isDeleteAlertModalVisible = !it.isDeleteAlertModalVisible) }
+    private fun findLocationBySubLocation(
+        subLocation: String,
+        regions: List<LocationListModel>
+    ): String? {
+        for (region in regions) {
+            if (subLocation in region.subLocations) {
+                return region.location
+            }
+        }
+        return null
     }
-
     fun toggleBottomSheet(type: BottomSheetType) {
         _uploadState.update {
             when (type) {
@@ -206,17 +196,6 @@ class FindSuhyeonUploadViewModel @Inject constructor() : ViewModel() {
                 BottomSheetType.REQUIREMENTS -> it.copy(isRequirementsBottomSheetVisible = !it.isRequirementsBottomSheetVisible)
                 BottomSheetType.LOCATION -> it.copy(isLocationBottomSheetVisible = !it.isLocationBottomSheetVisible)
                 BottomSheetType.DATE -> it.copy(isDateTimePickerBottomSheetVisible = !it.isDateTimePickerBottomSheetVisible)
-            }
-        }
-    }
-
-    fun showBottomSheet(type: BottomSheetType) {
-        _uploadState.update {
-            when (type) {
-                BottomSheetType.AGE -> it.copy(isAgeBottomSheetVisible = true)
-                BottomSheetType.REQUIREMENTS -> it.copy(isRequirementsBottomSheetVisible = true)
-                BottomSheetType.LOCATION -> it.copy(isLocationBottomSheetVisible = true)
-                BottomSheetType.DATE -> it.copy(isDateTimePickerBottomSheetVisible = true)
             }
         }
     }

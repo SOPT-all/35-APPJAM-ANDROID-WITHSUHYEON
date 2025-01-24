@@ -23,9 +23,13 @@ import com.sopt.withsuhyeon.feature.gallery.navigation.navigateToGalleryUpload
 import com.sopt.withsuhyeon.feature.home.navigation.navigateToBlockUser
 import com.sopt.withsuhyeon.feature.home.navigation.navigateToHome
 import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToBlockUserFromMyPage
+import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToFavoriteLocation
 import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToMyPage
+import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToMyPagePost
 import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToOnBoarding
+import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToWithdraw
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToLogin
+import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToLoginFinish
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToNickNameAuth
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToOnboardingFinish
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToPhoneNumberAuth
@@ -43,7 +47,7 @@ class MainNavigator(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = MainTabRoute.Home
+    val startDestination = Route.Splash
 
     val currentTab: MainTab?
         @Composable get() = MainTab.entries.find { tab ->
@@ -110,6 +114,15 @@ class MainNavigator(
     fun navigateToBlockUser() {
         navController.navigateToBlockUser()
     }
+    fun navigateToMyPageFavoriteLocation() {
+        navController.navigateToFavoriteLocation()
+    }
+    fun navigateToMyPageWithdraw() {
+        navController.navigateToWithdraw()
+    }
+    fun navigateToMyPagePost() {
+        navController.navigateToMyPagePost()
+    }
 
     fun navigateToBlockUserFromMyPage() {
         navController.navigateToBlockUserFromMyPage()
@@ -117,6 +130,10 @@ class MainNavigator(
 
     fun navigateToOnboarding() {
         navController.navigateToOnBoarding()
+    }
+
+    fun navigateToLoginFinish() {
+        navController.navigateToLoginFinish()
     }
 
     fun navigateToHome(navOptions: NavOptions? = null) {
@@ -171,7 +188,7 @@ class MainNavigator(
         navController.navigateToFindSuhyeonUploadDetail()
     }
 
-    fun navigateToFindSuhyeonPost(id: Long?) {
+    fun navigateToFindSuhyeonPost(id: Long) {
         navController.navigateToFindSuhyeonPost(id)
     }
 

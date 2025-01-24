@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -30,6 +31,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.button.LargeButton
 import com.sopt.withsuhyeon.core.component.progressbar.AnimatedProgressBar
@@ -39,16 +42,19 @@ import com.sopt.withsuhyeon.core.util.KeyStorage.EMPTY_STRING
 import com.sopt.withsuhyeon.core.util.KeyStorage.NEXT_BUTTON_TEXT
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.feature.onboarding.components.OnBoardingTitle
+import com.sopt.withsuhyeon.feature.onboarding.viewmodel.SignUpViewModel
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
 @Composable
 fun SelectProfileRoute(
     padding: PaddingValues,
-    navigateToNext: () -> Unit
+    navigateToNext: () -> Unit,
+    viewModel: SignUpViewModel
 ) {
     SelectProfileScreen(
         padding = padding,
-        onButtonClick = navigateToNext
+        onButtonClick = navigateToNext,
+        viewModel
     )
 }
 
@@ -57,10 +63,17 @@ fun SelectProfileRoute(
 fun SelectProfileScreen(
     padding: PaddingValues,
     onButtonClick: () -> Unit,
-    modifier: Modifier = Modifier
+    viewModel: SignUpViewModel,
+    modifier: Modifier = Modifier,
 ) {
     val profileTypes = ProfileType.entries
     var profileImage by remember { mutableIntStateOf(R.drawable.img_grey_suma) }
+    val state by viewModel.signUpState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.updateProgress(state.progress + 1f / 7)
+    }
+
     Column(
         modifier = modifier
             .background(color = colors.White)
@@ -78,7 +91,7 @@ fun SelectProfileScreen(
                 .padding(horizontal = 16.dp)
         ) {
             AnimatedProgressBar(
-                progress = 0.66f,
+                progress = state.progress,
                 modifier = Modifier.padding(top = 16.dp)
             )
             Spacer(modifier = Modifier.height(16.dp))
@@ -120,7 +133,7 @@ fun SelectProfileScreen(
                                         Modifier
                                     }
                                 ),
-                            contentAlignment = Alignment.Center // Box 내부 자식 요소를 중앙 정렬
+                            contentAlignment = Alignment.Center
                         ) {
                             Image(
                                 modifier = Modifier
@@ -129,6 +142,7 @@ fun SelectProfileScreen(
                                     .alpha(if (profileImage == profileType.titleResId) 1f else 0.3f)
                                     .noRippleClickable {
                                         profileImage = profileType.titleResId
+                                        viewModel.updateProfileImage(profileType.title)
                                     },
                                 imageVector = ImageVector.vectorResource(profileType.titleResId),
                                 contentDescription = stringResource(R.string.profile_image),
