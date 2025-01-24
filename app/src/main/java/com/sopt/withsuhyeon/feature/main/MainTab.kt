@@ -8,32 +8,38 @@ import com.sopt.withsuhyeon.core.navigation.MainTabRoute
 import com.sopt.withsuhyeon.core.navigation.Route
 
 enum class MainTab(
-    @DrawableRes val iconResId: Int,
+    @DrawableRes val defaultIconResId: Int,
+    @DrawableRes val selectIconResId: Int,
     @StringRes val descriptionResId: Int,
     val route: MainTabRoute,
 ) {
     HOME(
-        iconResId = R.drawable.ic_home,
+        defaultIconResId = R.drawable.ic_home_default,
+        selectIconResId =  R.drawable.ic_home_select,
         descriptionResId = R.string.bottom_navigation_bar_item_home,
         route = MainTabRoute.Home,
     ),
     FINDSUHYEON(
-        iconResId = R.drawable.ic_find,
+        defaultIconResId = R.drawable.ic_find_suhyeon_default,
+        selectIconResId =  R.drawable.ic_find_suhyeon_select,
         descriptionResId = R.string.bottom_navigation_bar_item_find_suhyeon,
         MainTabRoute.FindSuhyeon
     ),
     GALLERY(
-        iconResId = R.drawable.ic_gallery,
+        defaultIconResId = R.drawable.ic_gallery_default,
+        selectIconResId =  R.drawable.ic_gallery_select,
         descriptionResId = R.string.bottom_navigation_bar_item_gallery,
         MainTabRoute.Gallery(null),
     ),
     CHAT(
-        iconResId = R.drawable.ic_message,
+        defaultIconResId = R.drawable.ic_chat_default,
+        selectIconResId =  R.drawable.ic_chat_select,
         descriptionResId = R.string.bottom_navigation_bar_item_chat,
         MainTabRoute.Chat,
     ),
     MYPAGE(
-        iconResId = R.drawable.ic_mypage,
+        defaultIconResId = R.drawable.ic_my_default,
+        selectIconResId =  R.drawable.ic_my_select,
         descriptionResId = R.string.bottom_navigation_bar_item_my,
         MainTabRoute.MyPage,
     );
