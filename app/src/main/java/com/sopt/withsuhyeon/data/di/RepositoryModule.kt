@@ -3,9 +3,11 @@ package com.sopt.withsuhyeon.data.di
 import com.sopt.withsuhyeon.data.repositoryimpl.DummyRepositoryImpl
 import com.sopt.withsuhyeon.data.repositoryimpl.GalleryRepositoryImpl
 import com.sopt.withsuhyeon.data.repositoryimpl.MyPageRepositoryImpl
+import com.sopt.withsuhyeon.data.repositoryimpl.HomeRepositoryImpl
 import com.sopt.withsuhyeon.domain.repository.DummyRepository
 import com.sopt.withsuhyeon.domain.repository.GalleryRepository
 import com.sopt.withsuhyeon.domain.repository.MyPageRepository
+import com.sopt.withsuhyeon.domain.repository.HomeRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -22,6 +24,10 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindsGalleryRepository(galleryRepositoryImpl: GalleryRepositoryImpl): GalleryRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindsHomeRepository(homeRepositoryImpl: HomeRepositoryImpl): HomeRepository
 
     @Binds
     @Singleton

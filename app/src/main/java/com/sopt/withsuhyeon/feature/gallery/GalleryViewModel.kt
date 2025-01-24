@@ -2,6 +2,7 @@ package com.sopt.withsuhyeon.feature.gallery
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sopt.withsuhyeon.core.util.KeyStorage.TOTAL
 import com.sopt.withsuhyeon.domain.entity.Category
 import com.sopt.withsuhyeon.domain.entity.Gallery
 import com.sopt.withsuhyeon.domain.entity.GalleryPostDetailModel
@@ -31,7 +32,7 @@ class GalleryViewModel @Inject constructor(
     private val _galleryPostDetail = MutableStateFlow<GalleryPostDetailModel?>(null)
     val galleryPostDetail: StateFlow<GalleryPostDetailModel?> = _galleryPostDetail.asStateFlow()
 
-    private val _selectedCategory = MutableStateFlow("전체")
+    private val _selectedCategory = MutableStateFlow(TOTAL)
     val selectedCategory: StateFlow<String> = _selectedCategory.asStateFlow()
 
     init {
@@ -52,7 +53,13 @@ class GalleryViewModel @Inject constructor(
 
     fun getGalleryTotal(category: String) {
         viewModelScope.launch {
-            galleryRepository.getGalleryTotal(category)
+            val result = if (category == TOTAL) {
+                galleryRepository.getAllGalleries()
+            } else {
+                galleryRepository.getGalleryTotal(category)
+            }
+
+            result
                 .onSuccess { galleries ->
                     _galleries.update { galleries }
                 }
