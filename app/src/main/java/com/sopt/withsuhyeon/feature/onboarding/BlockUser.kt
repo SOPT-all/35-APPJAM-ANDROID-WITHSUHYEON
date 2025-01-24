@@ -1,6 +1,5 @@
 package com.sopt.withsuhyeon.feature.onboarding
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -11,10 +10,12 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,6 +30,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -38,10 +40,10 @@ import com.sopt.withsuhyeon.core.component.button.LargeButton
 import com.sopt.withsuhyeon.core.component.listitem.BlockPhoneNumberItem
 import com.sopt.withsuhyeon.core.component.textfield.BasicShortTextField
 import com.sopt.withsuhyeon.core.component.topbar.SubTopNavBar
+import com.sopt.withsuhyeon.core.util.KeyStorage.EMPTY_STRING
 import com.sopt.withsuhyeon.core.util.KeyStorage.SAVE_BUTTON_TEXT
-import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.core.util.regex.checkValidPhoneNumber
-import com.sopt.withsuhyeon.feature.onboarding.viewmodel.BlcokUserViewModel
+import com.sopt.withsuhyeon.feature.onboarding.viewmodel.BlockUserViewModel
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
@@ -49,7 +51,7 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 fun BlockUserRoute(
     padding: PaddingValues,
     navigateToPreviousScreen: () -> Unit,
-    viewModel: BlcokUserViewModel = hiltViewModel()
+    viewModel: BlockUserViewModel = hiltViewModel()
 ) {
     BlockUserScreen(
         padding = padding,
@@ -62,7 +64,7 @@ fun BlockUserRoute(
 fun BlockUserScreen(
     padding: PaddingValues,
     onSaveButtonClick: () -> Unit,
-    viewModel: BlcokUserViewModel,
+    viewModel: BlockUserViewModel,
     modifier: Modifier = Modifier,
 ) {
     var isValid by remember { mutableStateOf(false) }
@@ -77,6 +79,7 @@ fun BlockUserScreen(
             .background(colors.White)
             .padding(padding)
             .fillMaxSize()
+            .imePadding()
     ) {
         SubTopNavBar(
             text = stringResource(R.string.block_screen_title),
@@ -96,7 +99,8 @@ fun BlockUserScreen(
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = stringResource(R.string.block_screen_description),
+                text = "차단한 사용자는 ${state.nickname}님의 게시글을 볼 수 없어요",
+                //  TODO - 닉네임 연동
                 style = typography.caption01_SB.merge(colors.Grey400)
             )
         }
@@ -115,13 +119,19 @@ fun BlockUserScreen(
                     viewModel.selectBlockUserNumber(input)
                     isValid = input.length == 11 && input.checkValidPhoneNumber()
                 },
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    keyboardType = KeyboardType.Number
+                ),
                 hint = stringResource(R.string.block_screen_phone_number_hint),
+                maxLength = 11,
                 trailingContent = {
                     BasicButtonForTextField(
                         text = stringResource(R.string.block_screen_block_text),
                         onClick = {
                             if (isValid) {
                                 viewModel.postBlockUser(state.blockNumber)
+                                viewModel.selectBlockUserNumber(EMPTY_STRING)
+                                isValid = false
                             }
                         },
                         modifier = Modifier,
@@ -190,7 +200,8 @@ fun BlockUserScreen(
         LargeButton(
             onClick = onSaveButtonClick,
             text = SAVE_BUTTON_TEXT,
-            modifier = Modifier.padding(horizontal = 16.dp),
+            modifier = Modifier
+                .padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
             isDisabled = state.blockNumbers.isEmpty()
         )
     }

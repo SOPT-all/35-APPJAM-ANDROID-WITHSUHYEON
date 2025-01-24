@@ -50,10 +50,9 @@ private fun MainScreenContent(
                 padding = PaddingValues(
                     start = padding.calculateStartPadding(layoutDirection = LayoutDirection.Ltr),
                     end = padding.calculateEndPadding(layoutDirection = LayoutDirection.Ltr),
-                    bottom = if(imeIsShown) 0.dp else padding.calculateBottomPadding(),
+                    bottom = if (imeIsShown) 0.dp else padding.calculateBottomPadding(),
                     top = 16.dp
                 )
-
             )
         },
         bottomBar = {

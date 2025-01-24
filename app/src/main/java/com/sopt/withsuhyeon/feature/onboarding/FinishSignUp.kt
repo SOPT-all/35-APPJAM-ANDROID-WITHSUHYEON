@@ -40,12 +40,12 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 @Composable
 fun FinishSignUpRoute(
     padding: PaddingValues,
-    navigateToNext: () -> Unit,
+    navigateToOnLogin: () -> Unit,
     viewModel: SignUpViewModel
 ) {
     FinishSignUpScreen(
         padding = padding,
-        onButtonClick = navigateToNext,
+        onButtonClick = navigateToOnLogin,
         viewModel = viewModel
     )
 }
