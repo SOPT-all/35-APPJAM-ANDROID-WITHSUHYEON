@@ -37,8 +37,16 @@ fun PostProfileInfoRow(
         verticalAlignment = Alignment.CenterVertically,
     ) {
 
+        val profileImageResId = when (profileImage) {
+            stringResource(R.string.suma_img_purple) -> R.drawable.img_purple_suma
+            stringResource(R.string.suma_img_red) -> R.drawable.img_red_suma
+            stringResource(R.string.suma_img_green) -> R.drawable.img_green_suma
+            stringResource(R.string.suma_img_blue) -> R.drawable.img_blue_suma
+            else -> ""
+        }
+
         AsyncImage(
-            model = profileImage,
+            model = profileImageResId,
             contentDescription = stringResource(R.string.post_basic_profile_image_description),
             modifier = Modifier
                 .size(38.dp)
@@ -66,7 +74,7 @@ fun PostProfileInfoRow(
     }
 }
 
-@Preview (showBackground = true)
+@Preview(showBackground = true)
 @Composable
 private fun Preview() {
     PostProfileInfoRow(

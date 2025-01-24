@@ -18,13 +18,13 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.BottomEnd
 import androidx.compose.ui.Modifier
@@ -42,7 +42,7 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 fun GalleryRoute(
     padding: PaddingValues,
     navigateToGalleryUpload: () -> Unit,
-    navigateToGalleryPostDetail: () -> Unit,
+    navigateToGalleryPostDetail: (Long) -> Unit,
     viewModel: GalleryViewModel = hiltViewModel()
 ) {
     GalleryScreen(
@@ -50,8 +50,8 @@ fun GalleryRoute(
         onFloatingButtonClick = {
             navigateToGalleryUpload()
         },
-        onGalleryCardItemClick = {
-            navigateToGalleryPostDetail()
+        onGalleryCardItemClick = { galleryId ->
+            navigateToGalleryPostDetail(galleryId)
         }
     )
 }
@@ -60,7 +60,7 @@ fun GalleryRoute(
 private fun GalleryScreen(
     padding: PaddingValues,
     onFloatingButtonClick: () -> Unit,
-    onGalleryCardItemClick: () -> Unit,
+    onGalleryCardItemClick: (Long) -> Unit,
     viewModel: GalleryViewModel = hiltViewModel()
 ) {
     val lazyGridState = rememberLazyGridState()
@@ -74,6 +74,18 @@ private fun GalleryScreen(
         animationSpec = tween(durationMillis = 300), label = "Category Row Height"
     )
 
+    val categories by viewModel.categories.collectAsState()
+    val galleries by viewModel.galleries.collectAsState()
+    val selectedCategory by viewModel.selectedCategory.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.getGalleryCategories()
+    }
+
+    LaunchedEffect(selectedCategory) {
+        viewModel.getGalleryTotal(selectedCategory)
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -85,12 +97,12 @@ private fun GalleryScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
-            val total = stringResource(R.string.gallery_main_category_chip_total)
-            var selectedCategory by remember { mutableStateOf(total) }
-            val categories by viewModel.categories.collectAsState()
-            val items by viewModel.items.collectAsState()
-
             MainTopNavBar(stringResource(R.string.gallery_top_nav_bar_title))
+
+            HorizontalDivider(
+                thickness = 1.dp,
+                color = colors.Grey100
+            )
 
             Spacer(modifier = Modifier.fillMaxWidth().height(16.dp).background(colors.White))
 
@@ -106,12 +118,26 @@ private fun GalleryScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                 ) {
+                    item {
+                        NewCategoryChip(
+                            imageUrl = "",
+                            category = "전체",
+                            scrollOffset = lazyGridState.firstVisibleItemScrollOffset.toFloat(),
+                            isSelected = selectedCategory == "전체",
+                            onClick = {
+                                viewModel.setSelectedCategory("전체")
+                            }
+                        )
+                    }
                     items(categories) { category ->
                         NewCategoryChip(
-                            category = category,
+                            imageUrl = category.imageUrl,
+                            category = category.category,
                             scrollOffset = lazyGridState.firstVisibleItemScrollOffset.toFloat(),
-                            isSelected = selectedCategory == category,
-                            onClick = { selectedCategory = category }
+                            isSelected = selectedCategory == category.category,
+                            onClick = {
+                                viewModel.setSelectedCategory(category.category)
+                            }
                         )
                     }
                 }
@@ -128,12 +154,14 @@ private fun GalleryScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(items.size) { index ->
-                    val (text, image) = items[index]
+                items(galleries.size) { index ->
+                    val gallery = galleries[index]
                     GalleryMainCardItem(
-                        text = text,
-                        image = image,
-                        onClick = onGalleryCardItemClick,
+                        text = gallery.title,
+                        image = gallery.imageUrl,
+                        onClick = {
+                            onGalleryCardItemClick(gallery.galleryId)
+                        },
                         modifier = Modifier
                     )
                 }

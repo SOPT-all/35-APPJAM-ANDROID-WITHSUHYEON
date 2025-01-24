@@ -10,38 +10,58 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.bottombar.PostBottomBar
 import com.sopt.withsuhyeon.core.component.bottomsheet.DeletePostBottomSheet
+import com.sopt.withsuhyeon.core.component.chip.MediumChip
 import com.sopt.withsuhyeon.core.component.modal.AlertModal
 import com.sopt.withsuhyeon.core.component.profile.PostProfileInfoRow
 import com.sopt.withsuhyeon.core.component.topbar.SubTopNavBar
 import com.sopt.withsuhyeon.core.type.MediumChipType
-import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_20_TO_24
-import com.sopt.withsuhyeon.domain.entity.PostDetailInfoModel
 import com.sopt.withsuhyeon.feature.findsuhyeon.component.DetailMeetingInformation
+import com.sopt.withsuhyeon.feature.findsuhyeon.viewmodel.FindSuhyeonPostViewModel
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
 @Composable
-fun FindSuhyeonPostScreen(
-    modifier: Modifier = Modifier,
-    padding: PaddingValues
+fun FindSuhyeonPostRoute(
+    id: Long,
+    navigateToFindSuhyeon: () -> Unit,
+    padding: PaddingValues,
+    viewModel: FindSuhyeonPostViewModel = hiltViewModel()
 ) {
-    var isDeleteBottomSheetVisible by remember { mutableStateOf(false) }
-    var isDeleteAlertModalVisible by remember { mutableStateOf (false) }
+    FindSuhyeonPostScreen(
+        id = id,
+        onDeleteButtonClick = navigateToFindSuhyeon,
+        padding = padding,
+        viewModel = viewModel
+    )
+}
+@Composable
+fun FindSuhyeonPostScreen(
+    id: Long,
+    onDeleteButtonClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    padding: PaddingValues,
+    viewModel: FindSuhyeonPostViewModel = hiltViewModel()
+) {
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
-    val bolderColor = colors.Grey100
+    LaunchedEffect(id) {
+        viewModel.getFindSuhyeonPostDetail(id)
+    }
+
+    val borderColor = colors.Grey100
 
     Column(
         modifier = modifier
@@ -60,11 +80,11 @@ fun FindSuhyeonPostScreen(
                 btnIcon = painterResource(R.drawable.ic_menu),
                 isTextVisible = false,
                 isBtnVisible = true,
-                onCloseBtnClicked = { isDeleteBottomSheetVisible = true },
+                onCloseBtnClicked = { viewModel.toggleDeleteBottomSheet() },
                 modifier = Modifier.drawBehind {
                     val borderThickness = 1.dp.toPx()
                     drawLine(
-                        color = bolderColor,
+                        color = borderColor,
                         start = Offset(0f, size.height),
                         end = Offset(size.width, size.height),
                         strokeWidth = borderThickness
@@ -75,22 +95,27 @@ fun FindSuhyeonPostScreen(
             Column(
                 modifier = Modifier
                     .weight(1f)
-                    .padding(16.dp)
+                    .padding(top = 32.dp, start = 16.dp, end = 16.dp, bottom = 16.dp)
                     .verticalScroll(rememberScrollState()),
             ) {
+                if(state.postDetailData.isExpired)
+                    MediumChip(
+                        mediumChipType = MediumChipType.DURATION_FINISHED,
+                        modifier = Modifier.padding(bottom = 16.dp)
+                    )
                 Text(
-                    text = "강남역 수현이 구해요", //title 받아오기
+                    text = state.postDetailData.title,
                     style = typography.title01_B.merge(color = colors.Grey900),
-                    modifier = Modifier.padding(top = 32.dp, bottom = 8.dp)
+                    modifier = Modifier.padding(bottom = 8.dp)
                 )
-                PostProfileInfoRow( // TODO: 데이터 받아오기
-                    profileImage = "https://via.placeholder.com/150",
-                    userName = "작심이",
-                    date = "1월 12일",
+                PostProfileInfoRow(
+                    profileImage = state.postDetailData.profileImage,
+                    userName = state.postDetailData.nickname,
+                    date = state.postDetailData.createdAt,
                     modifier = Modifier.drawBehind {
                         val borderThickness = 1.dp.toPx()
                         drawLine(
-                            color = bolderColor,
+                            color = borderColor,
                             start = Offset(0f, size.height),
                             end = Offset(size.width, size.height),
                             strokeWidth = borderThickness
@@ -98,57 +123,48 @@ fun FindSuhyeonPostScreen(
                     }
                 )
                 Text(
-                    text = "강남역에서 사진 찍을 수현이 있나요? 강남역에서 사진 찍을 수현이 있나요? 강남역에서 사진 찍을 수현이 있나요?",
+                    text = state.postDetailData.content,
                     style = typography.body03_R.merge(color = colors.Grey900),
                     modifier = Modifier.padding(vertical = 32.dp)
                 )
-                DetailMeetingInformation( // TODO: 데이터 받아오기
-                    postDetailInfoModel = PostDetailInfoModel(
-                        region = "강남/역삼/삼성",
-                        gender = false,
-                        age = AGE_20_TO_24,
-                        date = "1월 25일 (토) 오후 2:00",
-                        price = 5000,
-                        requests = listOf(
-                            MediumChipType.CATEGORY_PHOTO,
-                            MediumChipType.CATEGORY_VIDEO_CALL,
-                            MediumChipType.CATEGORY_PHONE_CALL,
-                        )
-                    )
-                )
+                state.postDetailData.postDetailInfo.let {
+                    DetailMeetingInformation(postDetailInfoModel = it)
+                }
             }
         }
-        if (isDeleteBottomSheetVisible) {
+        if (state.isDeleteBottomSheetVisible) {
             DeletePostBottomSheet(
-                isBottomSheetVisible = isDeleteBottomSheetVisible,
+                isBottomSheetVisible = true,
                 onDeleteClick = {
-                    isDeleteBottomSheetVisible = false
-                    isDeleteAlertModalVisible = true
+                    viewModel.toggleDeleteBottomSheet()
+                    viewModel.toggleDeleteAlertModal(true)
                 },
                 onCloseClick = {
-                    isDeleteBottomSheetVisible = false
+                    viewModel.toggleDeleteBottomSheet()
                 },
                 onDismiss = {
-                    isDeleteBottomSheetVisible = false
+                    viewModel.toggleDeleteBottomSheet()
                 }
             )
         }
 
-        if (isDeleteAlertModalVisible) {
+        if (state.isDeleteAlertModalVisible) {
             AlertModal(
                 onDeleteClick = {
-                    isDeleteAlertModalVisible = false
+                    viewModel.deleteFindSuhyeonPost(id)
+                    viewModel.toggleDeleteAlertModal(false)
+                    onDeleteButtonClick()
                 },
                 onCancelClick = {
-                    isDeleteAlertModalVisible = false
+                    viewModel.toggleDeleteAlertModal(false)
                 }
             )
         }
         PostBottomBar(
-            price = 5000,
-            isMyPost = true,
-            isDisabled = false,
-            onClick = {  }
+            price = state.postDetailData.price,
+            isMyPost = state.postDetailData.owner,
+            isDisabled = state.postDetailData.isExpired,
+            onClick = { }
         )
     }
 }
@@ -157,6 +173,8 @@ fun FindSuhyeonPostScreen(
 @Composable
 fun PreviewFindSuhyeonPostScreen() {
     FindSuhyeonPostScreen(
-        padding = PaddingValues(0.dp)
+        id = 0,
+        padding = PaddingValues(0.dp),
+        onDeleteButtonClick = { },
     )
 }

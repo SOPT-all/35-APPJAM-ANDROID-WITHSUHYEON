@@ -33,13 +33,13 @@ enum class SmallChipType(
         horizontalPadding = 8.dp,
         requiresDynamicString = true
     ),
-    FINISHED(
+    DURATION_FINISHED(
         titleResId = R.string.type_finished,
         backgroundColor = defaultWithSuhyeonColors.Grey400,
         textColor = defaultWithSuhyeonColors.White,
         requiresDynamicString = false
     ),
-    MATCH(
+    MATCH_FINISHED(
         titleResId = R.string.type_match,
         backgroundColor = defaultWithSuhyeonColors.Grey100,
         textColor = defaultWithSuhyeonColors.Grey500,

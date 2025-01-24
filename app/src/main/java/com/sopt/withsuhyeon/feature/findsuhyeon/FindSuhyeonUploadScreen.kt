@@ -23,10 +23,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
@@ -39,6 +35,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.bottomsheet.AgeBottomSheet
 import com.sopt.withsuhyeon.core.component.bottomsheet.DateTimePickerBottomSheet
@@ -58,76 +56,51 @@ import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_25_TO_29
 import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_30_TO_34
 import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_35_TO_39
 import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_40
-import com.sopt.withsuhyeon.core.util.KeyStorage.MAX_PRICE_STRING
 import com.sopt.withsuhyeon.core.util.KeyStorage.PHONE_CALL
 import com.sopt.withsuhyeon.core.util.KeyStorage.TAKE_A_PHOTO
 import com.sopt.withsuhyeon.core.util.KeyStorage.VIDEO_CALL
 import com.sopt.withsuhyeon.core.util.modifier.addFocusCleaner
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
-import kotlinx.datetime.LocalDateTime
+import com.sopt.withsuhyeon.core.util.time.currentDateTime
+import com.sopt.withsuhyeon.feature.findsuhyeon.type.BottomSheetType
+import com.sopt.withsuhyeon.feature.findsuhyeon.viewmodel.FindSuhyeonUploadViewModel
 
 @Composable
 fun FindSuhyeonUploadRoute(
     padding: PaddingValues,
+    navigateUp: () -> Unit,
+    navigateToUploadDetail: () -> Unit,
+    viewModel: FindSuhyeonUploadViewModel
 ) {
     FindSuhyeonUploadScreen(
-        padding = padding
+        padding = padding,
+        onCloseButtonClick = navigateUp,
+        onCompleteButtonClick = navigateToUploadDetail,
+        viewModel = viewModel
     )
 }
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun FindSuhyeonUploadScreen(
-    // TODO: navigateToUploadDetail: () -> Unit, 추가하기
     modifier: Modifier = Modifier,
     padding: PaddingValues,
-    // TODO: viewModel: FindSuhyeonViewMdel = hiltViewModel()
+    onCloseButtonClick: () -> Unit,
+    onCompleteButtonClick: () -> Unit,
+    viewModel: FindSuhyeonUploadViewModel
 ) {
+    val uploadState by viewModel.uploadState.collectAsStateWithLifecycle()
+
     val step = 7
-    val oneStep = 1f / step
     val focusManager = LocalFocusManager.current
     val scrollState = rememberScrollState()
 
     val density = LocalDensity.current
     val navigationBarsPadding = WindowInsets.navigationBars.getBottom(density).dp
 
-    var isPriceTextFieldFocused by remember { mutableStateOf(false) }
-
-    val selectedGender = remember { mutableStateOf<String?>(null) }
-    var selectedAge by remember { mutableStateOf<String?>(null) }
-    var selectedRequirementsList by remember { mutableStateOf(listOf<String>()) }
-    var selectedLocation by remember { mutableStateOf<Pair<String?, String?>?>(null) }
-    var selectedMainLocation by remember { mutableStateOf<String?>(null) }
-    var selectedSubLocation by remember { mutableStateOf<String?>(null) }
-    var selectedDate by remember { mutableStateOf<LocalDateTime?>(null) }
-    var selectedDateString by remember { mutableStateOf<String?>(null) }
-    var selectedPrice by remember { mutableStateOf<Long?>(null) }
-
-    var isSelectedGender by remember { mutableStateOf(false) }
-    var isSelectedAge by remember { mutableStateOf(false) }
-    var isSelectedRequirements by remember { mutableStateOf(false) }
-    var isSelectedLocation by remember { mutableStateOf(false) }
-    var isSelectedDate by remember { mutableStateOf(false) }
-    var isSelectedPrice by remember { mutableStateOf(false) }
-
-    var isAgeBottomSheetVisible by remember { mutableStateOf(false) }
-    var isRequirementsBottomSheetVisible by remember { mutableStateOf(false) }
-    var isLocationBottomSheetVisible by remember { mutableStateOf(false) }
-    var isDateTimePickerBottomSheetVisible by remember { mutableStateOf(false) }
-
-    val isComplete =
-        isSelectedGender && isSelectedAge && isSelectedRequirements && isSelectedLocation && isSelectedPrice
-
-    var priceTextValue by remember { mutableStateOf("") }
-    var isPriceValid by remember { mutableStateOf(false) }
-    var priceButtonEnabled by remember { mutableStateOf(true) }
-    var priceErrorMessage by remember { mutableStateOf("") }
-
-
-    var progress by remember { mutableFloatStateOf(oneStep) }
-
     val imeIsShown = WindowInsets.isImeVisible
-    val bolderColor = colors.Grey100
+    val dividerBorderColor = colors.Grey100
     val priceErrorMessageResource = stringResource(R.string.find_suhyeon_upload_title_error_message)
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -145,11 +118,11 @@ fun FindSuhyeonUploadScreen(
                 btnIcon = painterResource(R.drawable.ic_close),
                 isTextVisible = false,
                 isBtnVisible = true,
-                onCloseBtnClicked = { },
+                onCloseBtnClicked = onCloseButtonClick,
                 modifier = Modifier.drawBehind {
                     val borderThickness = 1.dp.toPx()
                     drawLine(
-                        color = bolderColor,
+                        color = dividerBorderColor,
                         start = Offset(0f, size.height),
                         end = Offset(size.width, size.height),
                         strokeWidth = borderThickness
@@ -159,19 +132,29 @@ fun FindSuhyeonUploadScreen(
             )
             AnimatedProgressBar(
                 modifier = Modifier.padding(16.dp),
-                progress = progress
+                progress = uploadState.progress
             )
             Column(
                 modifier = Modifier
                     .weight(1f)
                     .padding(16.dp)
+                    .padding(bottom = 8.dp)
                     .verticalScroll(scrollState),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                val borderColor = when {
+                    (uploadState.selectedPrice ?: 0) > 99999 -> colors.Red01
+                    uploadState.priceTextValue.isEmpty() && uploadState.isPriceTextFieldFocused -> colors.Purple300
+                    uploadState.priceTextValue.isEmpty() && !uploadState.isPriceTextFieldFocused -> colors.Grey100
+                    (uploadState.selectedPrice
+                        ?: 0) <= 99999 && uploadState.isPriceTextFieldFocused -> colors.Purple300
+
+                    else -> colors.Grey100
+                }
                 FindSuhyeonSection(
                     title = stringResource(R.string.find_suhyeon_upload_title_price),
-                    visible = isSelectedDate,
-                    isSelected = isSelectedPrice,
+                    visible = uploadState.isSelectedDate,
+                    isSelected = uploadState.isSelectedPrice,
                     content = { contentModifier ->
                         BasicShortTextFieldForPrice(
                             modifier = contentModifier
@@ -179,99 +162,84 @@ fun FindSuhyeonUploadScreen(
                                 .noRippleClickable {
                                     focusManager.clearFocus()
                                 },
-                            value = priceTextValue,
+                            value = uploadState.priceTextValue,
                             onValueChange = { input ->
-                                isPriceValid = input.isNotEmpty()
-                                        && (input.length < MAX_PRICE_STRING.length
-                                        || (input.length == MAX_PRICE_STRING.length && input <= MAX_PRICE_STRING))
-                                priceErrorMessage = if (!isPriceValid)
-                                    priceErrorMessageResource
-                                else
-                                    ""
-                                priceTextValue = input
-                                if (isPriceValid) {
-                                    selectedPrice = priceTextValue.toLong()
-                                    isSelectedPrice = true
-                                } else {
-                                    isSelectedPrice = false
-                                }
-                                priceButtonEnabled = isPriceValid
-                                // TODO: 입력 완료 버튼은 활성화, 자동으로 99,999원으로 변경되도록
+                                viewModel.updatePrice(input)
                             },
                             hint = stringResource(R.string.find_suhyeon_upload_hint_price),
                             onFocusChange = { isFocused ->
-                                isPriceTextFieldFocused = isFocused
+                                viewModel.updateIsPriceTextFieldFocused(isFocused)
                             },
+                            textFieldBorderColor = borderColor,
                             keyboardActions = KeyboardActions(onDone = {
                                 focusManager.moveFocus(FocusDirection.Next)
                             }),
-                            isValid = isPriceValid,
-                            errorMessage = priceErrorMessage,
+                            isValid = uploadState.isPriceValid,
+                            errorMessage = uploadState.priceErrorMessage
                         )
                     },
                     isLastStep = true
                 )
                 FindSuhyeonSection(
                     title = stringResource(R.string.find_suhyeon_upload_title_date),
-                    visible = isSelectedLocation,
-                    isSelected = isSelectedDate,
+                    visible = uploadState.isSelectedLocation,
+                    isSelected = uploadState.isSelectedDate,
                     content = { contentModifier ->
                         TextDropDown(
                             modifier = contentModifier.fillMaxWidth(),
                             hint = stringResource(R.string.find_suhyeon_upload_fint_date),
-                            value = selectedDateString,
+                            value = uploadState.selectedDateString,
                             isError = false,
                             onClick = {
-                                isDateTimePickerBottomSheetVisible =
-                                    !isDateTimePickerBottomSheetVisible
+                                viewModel.toggleBottomSheet(BottomSheetType.DATE)
                             }
                         )
                     }
                 )
                 FindSuhyeonSection(
                     title = stringResource(R.string.find_suhyeon_upload_title_location),
-                    visible = isSelectedRequirements,
-                    isSelected = isSelectedLocation,
+                    visible = uploadState.isSelectedRequirements,
+                    isSelected = uploadState.isSelectedLocation,
                     content = { contentModifier ->
                         TextDropDown(
                             modifier = contentModifier.fillMaxWidth(),
                             hint = stringResource(R.string.find_suhyeon_upload_hint_location),
-                            value = selectedSubLocation,
+                            value = uploadState.selectedSubLocation,
                             isError = false,
                             onClick = {
-                                isLocationBottomSheetVisible = !isLocationBottomSheetVisible
+                                viewModel.showLocationBottomSheet()
                             }
                         )
                     }
                 )
                 FindSuhyeonSection(
                     title = stringResource(R.string.find_suhyeon_upload_title_reqirements),
-                    visible = isSelectedAge,
-                    isSelected = isSelectedRequirements,
+                    visible = uploadState.isSelectedAge,
+                    isSelected = uploadState.isSelectedRequirements,
                     content = { contentModifier ->
                         MediumChipDropDown(
                             modifier = contentModifier.fillMaxWidth(),
                             hint = stringResource(R.string.find_suhyeon_upload_hint_requirements),
                             isError = false,
                             onClick = {
-                                isRequirementsBottomSheetVisible = !isRequirementsBottomSheetVisible
+                                viewModel.toggleBottomSheet(BottomSheetType.REQUIREMENTS)
                             },
-                            selectedList = selectedRequirementsList
+                            selectedList = uploadState.selectedRequirementsList
                         )
                     }
                 )
                 FindSuhyeonSection(
                     title = stringResource(R.string.find_suhyeon_upload_title_age),
-                    visible = isSelectedGender,
-                    isSelected = isSelectedAge,
+                    visible = uploadState.isSelectedGender,
+                    isSelected = uploadState.isSelectedAge,
                     content = { contentModifier ->
                         TextDropDown(
                             modifier = contentModifier.fillMaxWidth(),
                             hint = stringResource(R.string.find_suhyeon_upload_hint_age),
-                            value = selectedAge,
+                            value = uploadState.selectedAge,
                             isError = false,
                             onClick = {
-                                isAgeBottomSheetVisible = !isAgeBottomSheetVisible
+                                viewModel.toggleBottomSheet(BottomSheetType.AGE)
                             }
                         )
                     }
@@ -279,109 +247,55 @@ fun FindSuhyeonUploadScreen(
                 FindSuhyeonSection(
                     title = stringResource(R.string.find_suhyeon_upload_title_gender),
                     visible = true,
-                    isSelected = isSelectedGender,
+                    isSelected = uploadState.isSelectedGender,
                     content = { contentModifier ->
                         SingleSelectGender(
                             modifier = contentModifier.fillMaxWidth(),
+                            selectedGender = uploadState.selectedGender.orEmpty(),
                             onSelect = { gender ->
-                                if (selectedGender.value == null)
-                                    progress += oneStep
-                                selectedGender.value = gender
-                                isSelectedGender = selectedGender.value != null
+                                if (uploadState.selectedGender.isNullOrEmpty())
+                                    viewModel.updateProgress(2, step)
+                                viewModel.updateGender(gender.orEmpty())
                             }
                         )
                     }
                 )
             }
-            if (isDateTimePickerBottomSheetVisible) {
+            if (uploadState.isDateTimePickerBottomSheetVisible) {
                 DateTimePickerBottomSheet(
                     isVisible = true,
                     onConfirmClick = { dateString, date ->
-                        isDateTimePickerBottomSheetVisible = false
-                        if (!isSelectedDate)
-                            progress += oneStep
-                        selectedDateString = dateString
-                        selectedDate = date
-                        isSelectedDate = !selectedDateString.isNullOrEmpty()
+                        viewModel.hideBottomSheet(BottomSheetType.DATE)
+                        if (!uploadState.isSelectedDate)
+                            viewModel.updateProgress(6, step)
+                        viewModel.updateDate(date ?: currentDateTime, dateString.orEmpty())
                     },
                     onDismiss = {
-                        isRequirementsBottomSheetVisible = false
+                        viewModel.hideBottomSheet(BottomSheetType.DATE)
                     },
                     modifier = Modifier.padding(bottom = navigationBarsPadding),
-                    selectedDateString = selectedDateString,
-                    selectedDate = selectedDate
+                    selectedDateString = uploadState.selectedDateString,
+                    selectedDate = uploadState.selectedDate
                 )
             }
             //BottomSheet
-            if (isLocationBottomSheetVisible) {
-                val mainLocationList = remember {
-                    mutableListOf(
-                        "전국",
-                        "서울",
-                        "부산",
-                        "제주",
-                        "인천",
-                        "강원",
-                        "경기",
-                        "경상"
-                    )
-                }
-                val subLocationList = remember {
-                    mutableListOf(
-                        listOf(
-                            "강남/역삼/삼성",
-                            "신사/청담/압구정",
-                            "서초/교대/사당/동작",
-                            "잠실/송파/강동",
-                            "을지로/명동/중구/동대문",
-                            "서울역/이태원/용산",
-                            "종로/인사동",
-                            "홍대/합정/마포/서대문/은평",
-                            "여의도/영등포역/목동/양천",
-                            "구로/신도림/금천/관악/신림",
-                            "김포공항/염창/강서",
-                            "건대입구/성수/왕십리",
-                            "성북/강북/노원/도봉/중랑"
-                        ),
-                        listOf(
-                            "해운대/마린시티",
-                            "벡스코/센텀시티",
-                            "서초/교대/사당/동작",
-                            "잠실/송파/강동",
-                            "을지로/명동/중구/동대문",
-                            "서울역/이태원/용산",
-                            "종로/인사동",
-                            "홍대/합정/마포/서대문/은평",
-                            "여의도/영등포역/목동/양천",
-                            "구로/신도림/금천/관악/신림",
-                            "김포공항/염창/강서",
-                            "건대입구/성수/왕십리",
-                            "성북/강북/노원/도봉/중랑"
-                        )
-                    )
-                }
+            if (uploadState.isLocationBottomSheetVisible) {
                 LocationBottomSheet(
                     isVisible = true,
-                    subLocationList = subLocationList,
+                    subLocationList = uploadState.subLocationList,
                     onConfirmClick = { location ->
-                        isLocationBottomSheetVisible = false
-                        if (!isSelectedLocation)
-                            progress += oneStep
-                        selectedLocation = location
-                        selectedMainLocation = location.first
-                        selectedSubLocation = location.second
-                        isSelectedLocation = !selectedSubLocation.isNullOrEmpty()
+                        viewModel.updateLocation(location)
                     },
                     onDismiss = {
-                        isLocationBottomSheetVisible = false
+                        viewModel.hideBottomSheet(BottomSheetType.LOCATION)
                     },
-                    selectedMainLocation = selectedMainLocation,
-                    mainLocationList = mainLocationList,
-                    selectedSubLocation = selectedSubLocation,
+                    selectedMainLocation = uploadState.selectedMainLocation,
+                    mainLocationList = uploadState.mainLocationList,
+                    selectedSubLocation = uploadState.selectedSubLocation,
                     modifier = Modifier.padding(bottom = navigationBarsPadding)
                 )
             }
-            if (isRequirementsBottomSheetVisible) {
+            if (uploadState.isRequirementsBottomSheetVisible) {
                 RequirementsBottomSheet(
                     isVisible = true,
                     requirementsList = listOf(
@@ -391,20 +305,19 @@ fun FindSuhyeonUploadScreen(
                     ),
 
                     onConfirmClick = { requirements ->
-                        isRequirementsBottomSheetVisible = false
-                        if (!isSelectedRequirements)
-                            progress += oneStep
-                        selectedRequirementsList = requirements
-                        isSelectedRequirements = selectedRequirementsList.isNotEmpty()
+                        viewModel.hideBottomSheet(BottomSheetType.REQUIREMENTS)
+                        if (!uploadState.isSelectedRequirements)
+                            viewModel.updateProgress(4, step)
+                        viewModel.updateRequirements(requirements)
                     },
                     onDismiss = {
-                        isRequirementsBottomSheetVisible = false
+                        viewModel.hideBottomSheet(BottomSheetType.REQUIREMENTS)
                     },
-                    selectedRequirementsList = selectedRequirementsList,
+                    selectedRequirementsList = uploadState.selectedRequirementsList,
                     modifier = Modifier.padding(bottom = navigationBarsPadding)
                 )
             }
-            if (isAgeBottomSheetVisible) {
+            if (uploadState.isAgeBottomSheetVisible) {
                 AgeBottomSheet(
                     isVisible = true,
                     ageList = listOf(
@@ -415,30 +328,29 @@ fun FindSuhyeonUploadScreen(
                         AGE_40
                     ),
                     onConfirmClick = { age ->
-                        isAgeBottomSheetVisible = false
-                        if (!isSelectedAge)
-                            progress += oneStep
-                        selectedAge = age
-                        isSelectedAge = !selectedAge.isNullOrEmpty()
+                        viewModel.hideBottomSheet(BottomSheetType.AGE)
+                        if (!uploadState.isSelectedAge)
+                            viewModel.updateProgress(3,step)
+                        viewModel.updateAge(age.orEmpty())
                     },
                     onDismiss = {
-                        isAgeBottomSheetVisible = false
+                        viewModel.hideBottomSheet(BottomSheetType.AGE)
                     },
                     modifier = Modifier.padding(bottom = navigationBarsPadding),
-                    selectedAge = selectedAge
+                    selectedAge = uploadState.selectedAge
                 )
             }
         }
         if (imeIsShown) {
             LargeButton(
                 text = stringResource(R.string.find_suhyeon_upload_text_input_done),
-                isDisabled = !isComplete,
+                isDisabled = uploadState.priceTextValue.isEmpty(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .drawBehind {
                         val borderThickness = 1.dp.toPx()
                         drawLine(
-                            color = bolderColor,
+                            color = dividerBorderColor,
                             start = Offset(0f, 0f),
                             end = Offset(size.width, 0f),
                             strokeWidth = borderThickness
@@ -447,7 +359,9 @@ fun FindSuhyeonUploadScreen(
                     .padding(16.dp)
                     .imePadding(),
                 onClick = {
-                    // TODO: navigateToUploadDetail()
+                    if ((uploadState.selectedPrice ?: 0) > 99999)
+                        viewModel.updatePrice("${99999}")
+                    onCompleteButtonClick()
                 },
                 isDownloadBtn = false
             )
@@ -495,10 +409,10 @@ private fun FindSuhyeonTitle(
                 textStyle = if (isSelected && !isLastStep)
                     typography.body03_R.merge(colors.Grey400)
                 else
-                    typography.title02_B,
+                    typography.title02_B.merge(colors.Black),
                 modifier = Modifier.padding(
                     if (isSelected && !isLastStep)
-                        PaddingValues(top = 24.dp, bottom = 8.dp)
+                        PaddingValues(top = 24.dp, bottom = 12.dp)
                     else
                         PaddingValues(vertical = 20.dp)
                 )
@@ -518,7 +432,7 @@ private fun FindSuhyeonTitle(
             content(
                 contentModifier.padding(
                     if (isSelected && !isLastStep)
-                        PaddingValues(bottom = 8.dp)
+                        PaddingValues(top = 8.dp, bottom = 12.dp)
                     else
                         PaddingValues(vertical = 12.dp)
                 )
@@ -531,7 +445,9 @@ private fun FindSuhyeonTitle(
 @Composable
 fun PreviewFindSuhyeon2() {
     FindSuhyeonUploadScreen(
-        padding = PaddingValues()
-        // TODO: navigateToUploadDetail = {}
+        padding = PaddingValues(),
+        onCloseButtonClick = { },
+        onCompleteButtonClick = { },
+        viewModel = hiltViewModel()
     )
 }

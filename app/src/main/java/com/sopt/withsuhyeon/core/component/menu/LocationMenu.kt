@@ -32,7 +32,8 @@ fun LocationMenu(
     onMainLocationSelect: (String?) -> Unit = {},
     onSubLocationSelect: (String?) -> Unit = {},
 ) {
-    var selectedMainLocationIndex by remember { mutableIntStateOf(0) }
+    val initialMainLocationIndex = mainLocationList.indexOf(selectedMainLocation).coerceAtLeast(0)
+    var selectedMainLocationIndex by remember { mutableIntStateOf(initialMainLocationIndex) }
     var tempSelectedMainLocation by remember { mutableStateOf(selectedMainLocation) }
     var tempSelectedSubLocation by remember { mutableStateOf(selectedSubLocation) }
     

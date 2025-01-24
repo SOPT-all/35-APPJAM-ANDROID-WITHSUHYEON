@@ -22,7 +22,9 @@ import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.core.util.price.toDecimalFormat
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.chip.MediumChip
+import com.sopt.withsuhyeon.core.component.chip.SmallChip
 import com.sopt.withsuhyeon.core.type.MediumChipType
+import com.sopt.withsuhyeon.core.type.SmallChipType
 import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_20_TO_24
 import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_FEMALE
 import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_MALE
@@ -33,7 +35,6 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 @Composable
 fun FindSuhyeonPostItem(
     postItemModel: PostItemModel,
-    mediumChipType: MediumChipType? = null,
     modifier: Modifier = Modifier
 ) {
     val genderString = if(postItemModel.gender) SHORT_FEMALE else SHORT_MALE
@@ -49,7 +50,7 @@ fun FindSuhyeonPostItem(
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
         ) {
             Text(
@@ -60,9 +61,9 @@ fun FindSuhyeonPostItem(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                if (mediumChipType != null) {
-                    MediumChip(
-                        mediumChipType = mediumChipType
+                if (postItemModel.isExpired) {
+                    SmallChip(
+                        smallChipType = SmallChipType.DURATION_FINISHED
                     )
                 }
                 Row(
@@ -82,7 +83,7 @@ fun FindSuhyeonPostItem(
         }
         Column(
             verticalArrangement = Arrangement.spacedBy(12.dp),
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
         ) {
             HorizontalDivider(
@@ -99,9 +100,9 @@ fun FindSuhyeonPostItem(
                     horizontalArrangement = Arrangement.spacedBy(4.dp),
                 ) {
                     Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.ic_find),
+                        imageVector = ImageVector.vectorResource(R.drawable.ic_user_filled),
                         contentDescription = stringResource(R.string.find_suhyeon_detail_meeting_wanted),
-                        tint = colors.Grey400,
+                        tint = colors.Grey300,
                         modifier = Modifier.size(18.dp)
                     )
                     Text(
@@ -122,9 +123,9 @@ fun FindSuhyeonPostItem(
                     horizontalArrangement = Arrangement.spacedBy(4.dp),
                 ) {
                     Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.ic_calander),
+                        imageVector = ImageVector.vectorResource(R.drawable.ic_calender_filled),
                         contentDescription = stringResource(R.string.find_suhyeon_detail_meeting_wanted),
-                        tint = colors.Grey400,
+                        tint = colors.Grey300,
                         modifier = Modifier.size(18.dp)
                     )
                     Text(
@@ -148,8 +149,8 @@ fun PreviewFindSuhyeonPost() {
             gender = true,
             age = AGE_20_TO_24,
             date = "1월 25일 (토) 오후 2:30",
-            matching = true
-        ),
-        mediumChipType = MediumChipType.DURATION_FINISHED
+            matching = true,
+            isExpired = true
+        )
     )
 }

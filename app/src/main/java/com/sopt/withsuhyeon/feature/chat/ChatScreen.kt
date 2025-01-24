@@ -9,12 +9,14 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.list.TotalChatRoomList
@@ -24,15 +26,20 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 @Composable
 fun ChatRoute(
     padding: PaddingValues,
+    navigateToChatRoom: () -> Unit,
     viewModel: ChatViewModel = hiltViewModel()
 ) {
     ChatScreen(
-        padding = padding
+        padding = padding,
+        onChatRoomListItemClick = {
+            navigateToChatRoom()
+        }
     )
 }
 @Composable
 private fun ChatScreen(
     padding: PaddingValues,
+    onChatRoomListItemClick: () -> Unit,
     viewModel: ChatViewModel = hiltViewModel()
 ) {
     val sampleChatRooms by viewModel.chatRooms.collectAsState()
@@ -48,12 +55,20 @@ private fun ChatScreen(
             text = stringResource(R.string.total_chatroom_top_nav_bar_title)
         )
 
+        HorizontalDivider(
+            thickness = 1.dp,
+            color = colors.Grey100
+        )
+
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
         ) {
-            TotalChatRoomList(chatRooms = sampleChatRooms)
+            TotalChatRoomList(
+                chatRooms = sampleChatRooms,
+                onChatRoomListItemClick = onChatRoomListItemClick
+            )
         }
     }
 }

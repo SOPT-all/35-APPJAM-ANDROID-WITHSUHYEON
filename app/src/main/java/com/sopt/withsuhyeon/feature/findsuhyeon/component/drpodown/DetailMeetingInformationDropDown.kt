@@ -35,9 +35,12 @@ import com.sopt.withsuhyeon.core.component.chip.MediumChip
 import com.sopt.withsuhyeon.core.type.MediumChipType
 import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_20_TO_24
 import com.sopt.withsuhyeon.core.util.KeyStorage.FIND_SUHYEON_DETAIL_MEETING_INFORMATION_EXPAND
+import com.sopt.withsuhyeon.core.util.KeyStorage.PHONE_CALL
 import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_FEMALE
+import com.sopt.withsuhyeon.core.util.KeyStorage.TAKE_A_PHOTO
+import com.sopt.withsuhyeon.core.util.KeyStorage.VIDEO_CALL
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
-import com.sopt.withsuhyeon.domain.entity.PostDetailInfoModel
+import com.sopt.withsuhyeon.core.util.price.toDecimalFormat
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
@@ -47,11 +50,12 @@ fun DetailMeetingInformationDropDown(
     gender: String,
     age: String,
     date: String,
-    mediumChipTypeList: List<MediumChipType>,
+    price: Int,
+    mediumChipTypeList: List<String>,
     itemId: String,
     modifier: Modifier = Modifier,
 ) {
-    var expanded by rememberSaveable(itemId) { mutableStateOf(false) }
+    var expanded by rememberSaveable(itemId) { mutableStateOf(true) }
     Column(
         modifier = modifier
             .animateContentSize(
@@ -97,7 +101,8 @@ fun DetailMeetingInformationDropDown(
                                 bottomEnd = 24.dp
                             ),
                             color = Color.Transparent
-                        )
+                        ),
+                    price = price
                 )
             }
     }
@@ -121,15 +126,6 @@ fun DetailMeetingInformationExpandButton(
             text = stringResource(R.string.find_suhyeon_detail_meeting_information),
             style = typography.body03_B.merge(color = colors.Grey900)
         )
-        if(!expanded) {
-            Icon(
-                imageVector = ImageVector.vectorResource(R.drawable.ic_arrow_down),
-                contentDescription = stringResource(R.string.find_suhyeon_detail_meeting_information),
-                tint = colors.Grey300,
-                modifier = Modifier
-                    .size(24.dp)
-            )
-        }
     }
 }
 @Composable
@@ -138,7 +134,8 @@ fun DetailMeetingInformationDropDownContent(
     gender: String,
     age: String,
     date: String,
-    mediumChipTypeList: List<MediumChipType>,
+    price: Int,
+    mediumChipTypeList: List<String>,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -217,10 +214,37 @@ fun DetailMeetingInformationDropDownContent(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 mediumChipTypeList.forEach { chipType ->
+                    val chipTypeMapping = when(chipType) {
+                        TAKE_A_PHOTO -> MediumChipType.CATEGORY_PHOTO
+                        PHONE_CALL -> MediumChipType.CATEGORY_PHONE_CALL
+                        VIDEO_CALL -> MediumChipType.CATEGORY_VIDEO_CALL
+                        else -> MediumChipType.CATEGORY_VIDEO_CALL
+                }
                     MediumChip(
-                        mediumChipType = chipType
+                        mediumChipType = chipTypeMapping
                     )
                 }
+            }
+        }
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(
+                text = stringResource(R.string.find_suhyeon_price),
+                style = typography.body03_R.merge(color = colors.Grey500)
+            )
+            Row {
+                Text(
+                    text = price.toDecimalFormat(),
+                    style = typography.body03_B.merge(color = colors.Grey700),
+                    modifier = Modifier.padding(end = 2.dp)
+                )
+                Text(
+                    text = stringResource(R.string.find_suhyeon_text_won),
+                    style = typography.body03_B.merge(color = colors.Grey400)
+                )
             }
         }
     }
@@ -230,7 +254,8 @@ fun DetailMeetingInformationDropDownContent(
 @Composable
 fun PreviewDetailMeetingInformationExpandButton() {
     Column(
-        modifier = Modifier.padding(10.dp)
+        modifier = Modifier
+            .padding(10.dp)
             .fillMaxSize()
     ) {
         DetailMeetingInformationDropDown(
@@ -239,11 +264,10 @@ fun PreviewDetailMeetingInformationExpandButton() {
             age = AGE_20_TO_24,
             date = "1월 25일 (토) 오후 2:00",
             mediumChipTypeList = listOf(
-                MediumChipType.CATEGORY_PHOTO,
-                MediumChipType.CATEGORY_VIDEO_CALL,
-                MediumChipType.CATEGORY_PHONE_CALL,
+                TAKE_A_PHOTO
             ),
-            itemId = FIND_SUHYEON_DETAIL_MEETING_INFORMATION_EXPAND
+            itemId = FIND_SUHYEON_DETAIL_MEETING_INFORMATION_EXPAND,
+            price = 5000,
         )
     }
 }

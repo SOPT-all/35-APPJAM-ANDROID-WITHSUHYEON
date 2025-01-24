@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,6 +21,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
+import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
@@ -27,6 +29,7 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 @Composable
 fun BlockPhoneNumberItem(
     phoneNumber: String,
+    onDeleteClick: () -> Unit,
     backgroundColor: Color = colors.Grey25,
     phoneNumberColor: Color = colors.Grey900,
     font: TextStyle = typography.body03_SB,
@@ -35,7 +38,7 @@ fun BlockPhoneNumberItem(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .background(backgroundColor)
+            .background(color = backgroundColor, RoundedCornerShape(size = 12.dp))
             .padding(start = 16.dp, end = 4.dp, top = 15.dp, bottom = 15.dp),
 
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -50,33 +53,10 @@ fun BlockPhoneNumberItem(
             modifier = Modifier.padding(10.dp)
         ) {
             Icon(
+                modifier = Modifier.noRippleClickable(onDeleteClick),
                 painter = painterResource(id = R.drawable.ic_xclose),
                 contentDescription = stringResource(R.string.x_close_description),
                 tint = colors.Grey400
-            )
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewBlockPhoneNumberList(
-    modifier: Modifier = Modifier
-) {
-    WithSuhyeonTheme {
-        Column(
-            modifier = modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-        ) {
-            BlockPhoneNumberItem(
-                phoneNumber = "01000000000"
-            )
-            BlockPhoneNumberItem(
-                phoneNumber = "01000000000"
-            )
-            BlockPhoneNumberItem(
-                phoneNumber = "01000000000"
             )
         }
     }

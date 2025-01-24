@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.sopt.withsuhyeon.core.component.bottomsheet.draghandle.BottomSheetDragHandle
 import com.sopt.withsuhyeon.core.component.button.DeleteLargeButton
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
@@ -26,11 +27,12 @@ fun DeletePostBottomSheet(
         ModalBottomSheet(
             onDismissRequest = { onDismiss() },
             sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
-            containerColor = colors.White
+            containerColor = colors.White,
+            dragHandle = { BottomSheetDragHandle() }
         ) {
             DeleteLargeButton(
                 text = "삭제하기",
-                modifier = Modifier.padding(horizontal = 16.dp),
+                modifier = Modifier.padding(horizontal = 14.dp),
                 isDownloadBtn = true,
                 onClick = {
                     onDeleteClick()
@@ -41,7 +43,7 @@ fun DeletePostBottomSheet(
 
             DeleteLargeButton(
                 text = "닫기",
-                modifier = Modifier.padding(horizontal = 16.dp),
+                modifier = Modifier.padding(horizontal = 14.dp),
                 isDownloadBtn = false
             ) {
                 onCloseClick()

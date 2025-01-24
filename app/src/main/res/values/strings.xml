@@ -6,14 +6,16 @@
     <string name="error_fetch_user_details">유저 정보 불러오기에 실패하였습니다.</string>
     <string name="bottom_navigation_bar_item_home">홈</string>
     <string name="bottom_navigation_bar_item_find_suhyeon">수현이 찾기</string>
-    <string name="bottom_navigation_bar_item_gallery">갤러리</string>
+    <string name="bottom_navigation_bar_item_gallery">공유앨범</string>
     <string name="bottom_navigation_bar_item_chat">채팅</string>
     <string name="bottom_navigation_bar_item_my">MY</string>
     <string name="checkbox_image_name">체크박스</string>
+    <string name="app_logo">수현이랑</string>
 
     <!-- Component -->
     <string name="add_find_suhyeon_post_button_description">Add Find Suhyeon Post Floating Button</string>
     <string name="btn_add_gallery_post">업로드</string>
+    <string name="btn_add_find_suhyeon_post">글쓰기</string>
     <string name="am">오전</string>
     <string name="pm">오후</string>
     <string name="long_text_field_max_length_error_message">최대 200자까지 입력할 수 있어</string>
@@ -52,18 +54,18 @@
     <string name="find_suhyeon_no_message"></string>
     <string name="find_suhyeon_location">위치</string>
     <string name="find_suhyeon_multi_select_chip">MultiSelectChip</string>
-    <string name="find_suhyeon_upload_title_price">주고싶은 금액을 입력해줘</string>
+    <string name="find_suhyeon_upload_title_price">사례할 금액을 입력해주세요</string>
     <string name="find_suhyeon_upload_title_error_message">99,999원까지 입력할 수 있어요</string>
     <string name="find_suhyeon_upload_hint_price">금액 입력하기</string>
-    <string name="find_suhyeon_upload_title_date">언제 만날지 선택해줘</string>
+    <string name="find_suhyeon_upload_title_date">수현이와 언제 만날지 선택해주세요</string>
     <string name="find_suhyeon_upload_fint_date">날짜 및 시간 선택하기</string>
-    <string name="find_suhyeon_upload_title_location">수현이 만날 곳을 선택해줘</string>
-    <string name="find_suhyeon_upload_hint_location">만날 장소 선택하기</string>
-    <string name="find_suhyeon_upload_hint_requirements">요청사항 선택하기 (중복 선택 가능)</string>
-    <string name="find_suhyeon_upload_title_reqirements">요청사항을 선택해줘</string>
-    <string name="find_suhyeon_upload_title_age">수현이의 나이를 선택해줘</string>
+    <string name="find_suhyeon_upload_title_location">수현이와 만날 곳을 선택해주세요</string>
+    <string name="find_suhyeon_upload_hint_location">만날 위치 선택</string>
+    <string name="find_suhyeon_upload_hint_requirements">요청사항 선택 (중복 선택 가능)</string>
+    <string name="find_suhyeon_upload_title_reqirements">요청사항을 선택해주세요</string>
+    <string name="find_suhyeon_upload_title_age">수현이의 나이대를 선택해주세요</string>
     <string name="find_suhyeon_upload_hint_age">눌러서 나이 선택하기</string>
-    <string name="find_suhyeon_upload_title_gender">수현이의 성별을 선택해줘</string>
+    <string name="find_suhyeon_upload_title_gender">수현이의 성별을 선택해주세요</string>
     <string name="find_suhyeon_upload_text_input_done">입력 완료</string>
     <string name="smallselectchip">SmallSelectChip</string>
     <string name="find_suhyeon">수현이 찾기</string>
@@ -71,6 +73,9 @@
     <string name="find_suhyeon_title_hint">제목 입력하기</string>
     <string name="find_suhyeon_content_hint">내용 입력하기</string>
     <string name="find_suhyeon_detail_title_error_message">필수로 입력해줘</string>
+    <string name="find_suhyeon_content">내용</string>
+    <string name="find_suhyeon_detail_done">작성 완료</string>
+    <string name="find_suhyeon_upload_floating_button">글쓰기</string>
 
     <!-- 공통 컴포넌트 PostBottomBar -->
     <string name="post_bottom_bar_start_chating">채팅하기</string>
@@ -88,8 +93,8 @@
     <string name="my_tab_bar_item_gallery">갤러리</string>
 
     <!-- 차단 바텀시트 -->
-    <string name="block_bottomsheet_title">차단하실 계정이 있을까요?</string>
-    <string name="block_bottomsheet_sub_title">차단하고자하는 전화번호를 입력해주시면,\n앱내에서 숨기기 처리됩니다.</string>
+    <string name="block_bottomsheet_title">차단하고 싶은 번호가 있나요?</string>
+    <string name="block_bottomsheet_sub_title">차단한 사용자는 [닉네임]님의 게시글을 볼 수 없어요</string>
     <string name="block_bottomsheet_button_text">차단하러 가기</string>
     <string name="block_bottomsheet_skip_text">괜찮아요</string>
 
@@ -122,6 +127,7 @@
     <string name="alert_modal_delete_post_description">한번 삭제된 게시물은\n다시 복구할 수 없습니다.</string>
     <string name="alert_modal_delete_btn">삭제하기</string>
     <string name="alert_modal_cancel_btn">취소하기</string>
+    <string name="alert_modal_continue_btn">계속하기</string>
 
     <!-- 수현이 찾기 바텀 시트 -->
     <string name="bottom_sheet_title_age">나이대 선택</string>
@@ -133,6 +139,9 @@
 
     <!-- 채팅 -->
     <string name="total_chatroom_top_nav_bar_title">채팅</string>
+    <string name="chatroom_textfield_hint">메시지를 입력해주세요</string>
+    <string name="navigate_to_post_button_title">게시물 보기</string>
+    <string name="message_textfield_send_button_description">Send Button</string>
 
     <!-- 수현이랑 온보딩 플로우 String 모음-->
     <string name="onboarding_temrs_of_use_title">수현이랑\n서비스 이용약관</string>
@@ -153,6 +162,8 @@
     <string name="onboarding_gender_select_title">성별을\n선택해주세요</string>
     <string name="onboarding_profile_select_title">프로필 이미지를\n등록해주세요</string>
     <string name="profile_image">프로필 이미지</string>
+    <string name="onboarding_location_select_title">자주 활동하는\n지역을 선택해주세요</string>
+    <string name="onboarding_finish_title">회원가입이\n완료되었습니다</string>
 
     <!-- ShowButton -->
     <string name="show_button_title">보기</string>
@@ -170,6 +181,65 @@
     <string name="my_page_right_arrow_description">My Page Right Arrow</string>
     <string name="my_page_block_icon_description">My Page Block Icon</string>
     <string name="my_page_info_icon_description">My Page Info Icon</string>
-    <string name="find_suhyeon_content">내용</string>
-    <string name="find_suhyeon_detail_done">작성 완료</string>
+
+    <!-- 홈 -->
+    <string name="home_title_count">지금까지 이만큼의\n수현이들의 여행이 이뤄졌어요!</string>
+    <string name="home_title_now">수현이는 지금</string>
+    <string name="home_view_all">전체보기</string>
+    <string name="home_title_post">수현이가 되어줘</string>
+    <string name="home_count">건</string>
+    <string name="home_text_around">내주변</string>
+
+    <!--  차단스크린  -->
+    <string name="block_screen_title">차단 계정 관리</string>
+    <string name="block_screen_sub_title">차단할 번호를 입력해주세요</string>
+    <string name="block_screen_description">차단한 사용자는 xx님의 게시글과 xx님이 다운로드한 사진들을\n볼 수 없습니다.</string>
+    <string name="block_screen_phone_number">휴대폰 번호</string>
+    <string name="block_screen_phone_number_hint">-를 제외한 휴대폰 번호를 입력해주세요</string>
+    <string name="block_screen_block_text">차단하기</string>
+    <string name="block_screen_empty_text">아직 차단된 번호가 없어요</string>
+    <string name="block_screen_block_number_text">차단된 연락처</string>
+    <string name="block_screen_empty_image">차단번호가 등록되지 않은 스크린을 설명하기 위한 이미지입니다.</string>
+
+    <!-- 로그인 화면   -->
+    <string name="login_title">휴대폰 번호 인증으로\n로그인해주세요</string>
+    <string name="login_input_hint"> - 를 제외한 휴대폰 번호를 입력해주세요</string>
+    <string name="login_input_title">휴대폰 번호</string>
+
+    <!-- AlertModal -->
+    <string name="alert_modal_logout_title">정말 로그아웃하시겠습니까?</string>
+    <string name="alert_modal_leave_title">정말 탈퇴하시겠습니까?</string>
+    <string name="alert_modal_exit_title">정말 나가겠습니까?</string>
+    <string name="alert_modal_leave_sub_title">작성한 내용이 저장되지 않고 모두 사라집니다.</string>
+    <string name="alert_modal_exit_sub_title">작성한 내용이 저장되지 않고 모두 사라집니다.</string>
+    <string name="alert_modal_logout">로그아웃</string>
+    <string name="alert_modal_leave">탈퇴하기</string>
+    <string name="alert_modal_exit">나가기</string>
+
+    <string name="login_finish_title">다시 오셨군요!\n수현이가 기다리고 있어요</string>
+
+    <!-- 시작 온보딩 -->
+    <string name="onboarding_account_question">이미 계정이 있나요?</string>
+    <string name="onboarding_login_text">로그인</string>
+    <string name="onboarding_start_text">시작하기</string>
+
+    <!-- 카테고리 칩 -->
+    <string name="category_chip_all">ALL</string>
+    <string name="category_chip_mt">MT</string>
+    <string name="category_chip_etc"> etc.</string>
+
+    <!-- 수마 -->
+    <string name="suma_img_purple">img_purple_suma</string>
+    <string name="suma_img_red">img_red_suma</string>
+    <string name="suma_img_green">img_green_suma</string>
+    <string name="suma_img_blue">img_blue_suma</string>
+
+    <!-- 온보딩 안내-->
+    <string name="onboarding_lottie_main_title_1">수현이랑 함께라면\n연인과 여행 걱정없어요</string>
+    <string name="onboarding_lottie_main_title_2">가짜 여행 친구 수현이를\n쉽고 빠르게 찾아봐요</string>
+    <string name="onboarding_lottie_main_title_3">내 여행상황에 맞는 사진 찾아\n바로 다운로드해요</string>
+    <string name="onboarding_lottie_sub_title_1">완벽하게 엄빠 몰래 가는 여행\n수현이랑 함께해요</string>
+    <string name="onboarding_lottie_sub_title_2">연인과의 여행을 숨기기 위해 가짜친구\n역할을 해줄 수 있는 다른 사용자와 매칭해줘요</string>
+    <string name="onboarding_lottie_sub_title_3">지금 당장 사진이 필요하다면\n수현이들이 올려둔 공유 앨범에서 찾아봐요</string>
+
 </resources>
