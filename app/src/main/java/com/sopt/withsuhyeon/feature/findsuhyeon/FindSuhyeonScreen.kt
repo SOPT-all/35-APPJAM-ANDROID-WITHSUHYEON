@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.HorizontalDivider
@@ -107,7 +106,7 @@ fun FindSuhyeonScreen(
             )
             LazyColumn(
                 modifier = Modifier
-                    .wrapContentHeight()
+                    .weight(1f)
                     .background(colors.Grey50)
                     .padding(top = 16.dp, start = 16.dp, end = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -128,9 +127,7 @@ fun FindSuhyeonScreen(
             LocationBottomSheet(
                 isVisible = true,
                 subLocationList = state.subLocationList,
-                onConfirmClick = {
-                    viewModel.selectLocation(it)
-                    },
+                onConfirmClick = { viewModel.selectLocation(it) },
                 onDismiss = { viewModel.toggleLocationBottomSheet() },
                 selectedMainLocation = state.selectedMainLocation,
                 mainLocationList = state.mainLocationList,

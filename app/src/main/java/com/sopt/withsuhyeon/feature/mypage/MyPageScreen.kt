@@ -1,6 +1,5 @@
 package com.sopt.withsuhyeon.feature.mypage
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,10 +11,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,11 +25,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.modal.AlertModal
 import com.sopt.withsuhyeon.core.component.topbar.MainTopNavBar
@@ -44,12 +48,18 @@ fun MyPageRoute(
     padding: PaddingValues,
     navigateToBlockUser: () -> Unit,
     navigateToOnboarding: () -> Unit,
+    navigateToPost: () -> Unit,
+    navigateToLocation: () -> Unit,
+    navigateToWithdraw: () -> Unit,
     viewModel: MyPageViewModel = hiltViewModel()
 ) {
     MyPageScreen(
         padding = padding,
-        navigateToBlockUser,
-        navigateToOnboarding
+        navigateToBlockUser = navigateToBlockUser,
+        navigateToOnboarding = navigateToOnboarding,
+        navigateToPost = navigateToPost,
+        navigateToLocation = navigateToLocation,
+        navigateToWithdraw = navigateToWithdraw
     )
 }
 
@@ -57,10 +67,19 @@ fun MyPageRoute(
 private fun MyPageScreen(
     padding: PaddingValues,
     navigateToBlockUser: () -> Unit,
-    navigateToOnboarding: () -> Unit
+    navigateToPost: () -> Unit,
+    navigateToLocation: () -> Unit,
+    navigateToWithdraw: () -> Unit,
+    navigateToOnboarding: () -> Unit,
+    viewModel: MyPageViewModel = hiltViewModel()
 ) {
-    val nickname by remember { mutableStateOf("") }
-    var alertState by remember { mutableStateOf<String>(DISABLED_TYPE) }
+    LaunchedEffect(Unit) {
+        viewModel.getMyPageInfo()
+    }
+
+    var alertState by remember { mutableStateOf(DISABLED_TYPE) }
+    val myPageInfo by viewModel.myPageInfo.collectAsState()
+
     when (alertState) {
         LOGOUT_ALERT_TYPE -> {
             AlertModal(
@@ -114,13 +133,22 @@ private fun MyPageScreen(
                     .padding(horizontal = 20.dp, vertical = 20.dp),
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
             ) {
-                Image(
-                    painter = painterResource(R.drawable.ic_profile),
+                val profileImageResId = when (myPageInfo.profileImage) {
+                    stringResource(R.string.suma_img_purple) -> R.drawable.img_purple_suma
+                    stringResource(R.string.suma_img_red) -> R.drawable.img_red_suma
+                    stringResource(R.string.suma_img_green) -> R.drawable.img_green_suma
+                    stringResource(R.string.suma_img_blue) -> R.drawable.img_blue_suma
+                    else -> ""
+                }
+
+                AsyncImage(
+                    model = profileImageResId,
                     contentDescription = stringResource(R.string.my_page_profile_description),
                     modifier = Modifier.size(44.dp)
+                        .clip(CircleShape)
                 )
                 Text(
-                    text = nickname,
+                    text = myPageInfo.nickname,
                     style = typography.body02_B,
                     modifier = Modifier
                         .align(CenterVertically)
@@ -130,7 +158,8 @@ private fun MyPageScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 20.dp, end = 20.dp, bottom = 8.dp),
+                    .padding(start = 20.dp, end = 20.dp, bottom = 8.dp)
+                    .noRippleClickable(navigateToPost),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
@@ -208,7 +237,8 @@ private fun MyPageScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 8.dp, vertical = 8.dp),
+                    .padding(horizontal = 8.dp, vertical = 8.dp)
+                    .noRippleClickable(navigateToLocation),
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Row(
@@ -281,7 +311,7 @@ private fun MyPageScreen(
                     .fillMaxWidth()
                     .padding(start = 20.dp, end = 20.dp, bottom = 8.dp)
                     .noRippleClickable {
-                        alertState = LEAVE_ALERT_TYPE
+                        navigateToWithdraw()
                     },
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
@@ -308,6 +338,13 @@ private fun MyPageScreen(
 @Composable
 private fun MyPageScreenPreview() {
     WithSuhyeonTheme {
-        MyPageScreen(padding = PaddingValues(), navigateToBlockUser = {}, navigateToOnboarding = {})
+        MyPageScreen(
+            padding = PaddingValues(),
+            navigateToBlockUser = {},
+            navigateToOnboarding = {},
+            navigateToPost = {},
+            navigateToLocation = {},
+            navigateToWithdraw = {}
+        )
     }
 }

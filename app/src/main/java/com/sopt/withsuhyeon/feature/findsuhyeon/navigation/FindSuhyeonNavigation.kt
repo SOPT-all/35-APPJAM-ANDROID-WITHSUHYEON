@@ -26,7 +26,7 @@ fun NavController.navigateToFindSuhyeonUpload() {
 fun NavController.navigateToFindSuhyeonUploadDetail() {
     navigate(Route.FindSuhyeonUploadDetail)
 }
-fun NavController.navigateToFindSuhyeonPost(id: Long?) {
+fun NavController.navigateToFindSuhyeonPost(id: Long) {
     navigate(Route.FindSuhyeonPost(id))
 }
 
