@@ -1,5 +1,6 @@
 package com.sopt.withsuhyeon.feature.splash
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,6 +13,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
@@ -22,24 +25,36 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun SplashRoute(
-    onSplashCompleted: () -> Unit,
-    padding: PaddingValues
+    onNavigateToHome: () -> Unit,
+    onNavigateToOnboarding: () -> Unit,
+    padding: PaddingValues,
+    viewModel: SplashViewModel = hiltViewModel()
 ) {
     SplashScreen(
-        onSplashCompleted = onSplashCompleted,
-        padding = padding
+        onNavigateToHome = onNavigateToHome,
+        onNavigateToOnboarding = onNavigateToOnboarding,
+        padding = padding,
     )
 }
 
 @Composable
 fun SplashScreen(
-    onSplashCompleted: () -> Unit,
+    onNavigateToHome: () -> Unit,
+    onNavigateToOnboarding: () -> Unit,
     padding: PaddingValues,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: SplashViewModel = hiltViewModel()
 ) {
+    val state by viewModel.state.collectAsStateWithLifecycle()
+
     LaunchedEffect(Unit) {
+        viewModel.getToken()
         delay(2500)
-        onSplashCompleted() // 콜백 호출
+        if (state.token.isNotEmpty()) {
+            onNavigateToHome()
+        } else {
+            onNavigateToOnboarding()
+        }
     }
 
     val composition by rememberLottieComposition(
@@ -57,7 +72,6 @@ fun SplashScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-
         LottieAnimation(
             composition = composition,
             progress = { progress },
