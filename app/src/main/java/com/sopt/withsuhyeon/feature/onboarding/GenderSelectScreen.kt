@@ -17,8 +17,8 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -29,7 +29,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.button.LargeButton
 import com.sopt.withsuhyeon.core.component.progressbar.AnimatedProgressBar
@@ -40,6 +40,7 @@ import com.sopt.withsuhyeon.core.util.KeyStorage.MALE
 import com.sopt.withsuhyeon.core.util.KeyStorage.NEXT_BUTTON_TEXT
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.feature.onboarding.components.OnBoardingTitle
+import com.sopt.withsuhyeon.feature.onboarding.viewmodel.SignUpViewModel
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
@@ -47,10 +48,12 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 fun GenderSelectRoute(
     navigateToNext: () -> Unit,
     padding: PaddingValues,
+    viewModel: SignUpViewModel
 ) {
     GenderSelectScreen(
+        padding = padding,
         onButtonClick = navigateToNext,
-        padding = padding
+        viewModel
     )
 }
 
@@ -58,9 +61,10 @@ fun GenderSelectRoute(
 fun GenderSelectScreen(
     padding: PaddingValues,
     onButtonClick: () -> Unit,
+    viewModel: SignUpViewModel,
     modifier: Modifier = Modifier,
-    viewModel: OnBoardingViewModel = hiltViewModel()
 ) {
+    val state by viewModel.signUpState.collectAsStateWithLifecycle()
     var genderState by remember { mutableStateOf<Boolean?>(null) }
     val backgroundMale = if (genderState == true) {
         Modifier
@@ -97,6 +101,10 @@ fun GenderSelectScreen(
         )
     }
 
+    LaunchedEffect(Unit) {
+        viewModel.updateProgress(state.progress + 1f / 7)
+    }
+
     Column(
         modifier = modifier
             .background(color = colors.White)
@@ -114,7 +122,7 @@ fun GenderSelectScreen(
                 .padding(horizontal = 16.dp)
         ) {
             AnimatedProgressBar(
-                progress = 0.66f,
+                progress = state.progress,
                 modifier = Modifier.padding(top = 16.dp)
             )
             Spacer(modifier = Modifier.height(16.dp))
