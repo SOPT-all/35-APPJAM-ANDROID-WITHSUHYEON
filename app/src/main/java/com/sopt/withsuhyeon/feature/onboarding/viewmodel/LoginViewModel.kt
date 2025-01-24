@@ -90,7 +90,7 @@ class LoginViewModel @Inject constructor(
                 onError(errorMessage)
                 _loginState.update {
                     it.copy(
-
+                        authNumberErrorMessage = errorMessage
                     )
                 }
             }

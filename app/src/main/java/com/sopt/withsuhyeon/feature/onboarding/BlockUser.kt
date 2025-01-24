@@ -124,18 +124,22 @@ fun BlockUserScreen(
                 ),
                 hint = stringResource(R.string.block_screen_phone_number_hint),
                 maxLength = 11,
+                errorMessage = state.errorMessage,
                 trailingContent = {
                     BasicButtonForTextField(
                         text = stringResource(R.string.block_screen_block_text),
                         onClick = {
                             if (isValid) {
-                                viewModel.postBlockUser(state.blockNumber)
+                                viewModel.postBlockUser(
+                                    state.blockNumber,
+                                    onError = { isValid = false}
+                                )
                                 viewModel.selectBlockUserNumber(EMPTY_STRING)
                                 isValid = false
                             }
                         },
                         modifier = Modifier,
-                        enabled = isValid
+                        enabled = isValid,
                     )
                 }
             )
