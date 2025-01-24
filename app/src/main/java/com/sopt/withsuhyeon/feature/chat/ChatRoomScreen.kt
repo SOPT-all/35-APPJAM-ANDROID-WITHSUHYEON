@@ -63,16 +63,23 @@
 //                Triple("안녕히계세요", true, "오후 12:02")
 //            )
 //        }
-
+        val messages by viewModel.message.collectAsStateWithLifecycle()
         Log.e("chatRoomInfoModel", "${chatRoomInfoModel?.ownerId}, ${chatRoomInfoModel?.writerId}")
+
+        val inputText by viewModel.inputText.collectAsStateWithLifecycle()
+
+        val lazyListState = rememberLazyListState()
 
         LaunchedEffect(Unit) {
             viewModel.updateChatRoomInfo(chatRoomInfoModel!!)
             viewModel.joinChatRoom()
         }
-        val (inputText, setInputText) = remember { mutableStateOf("") }
 
-        val lazyListState = rememberLazyListState()
+        LaunchedEffect(messages) {
+            if (messages.isNotEmpty()) {
+                lazyListState.animateScrollToItem(messages.size - 1)
+            }
+        }
 
         fun getCurrentTime(): String {
             val now = LocalTime.now()
@@ -117,7 +124,7 @@
                     state = lazyListState,
                     contentPadding = PaddingValues(vertical = 8.dp)
                 ) {
-                    items(viewModel.message.value) { (message, time, isMine) ->
+                    items(messages) { (message, time, isMine) ->
                         ChatBubble(
                             message = message,
                             time = time,
@@ -127,9 +134,9 @@
                 }
                 ChatRoomTextFieldRow(
                     text = inputText,
-                    onTextChange = setInputText,
+                    onTextChange = { viewModel.updateInputText(it) },
                     onSendClick = {
-                        viewModel.sendMessage(inputText)
+                        viewModel.sendMessage()
                     },
                     modifier = Modifier.fillMaxWidth().imePadding()
                 )

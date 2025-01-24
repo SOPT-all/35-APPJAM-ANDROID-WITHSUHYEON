@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.sopt.withsuhyeon.data.dto.request.RequestChatDto
 import com.sopt.withsuhyeon.data.socket.WebSocketClient
 import com.sopt.withsuhyeon.domain.entity.ChatRoomInfoModel
+import com.sopt.withsuhyeon.domain.entity.toTriple
 import com.sopt.withsuhyeon.domain.repository.ChatRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,18 +29,23 @@ class ChatRoomViewModel @Inject constructor(
     val message: StateFlow<List<Triple<String, String, Boolean>>> = _message.asStateFlow()
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
+    private val _inputText = MutableStateFlow<String>("")
+    val inputText: StateFlow<String> = _inputText.asStateFlow()
 
     val webSocketClient = WebSocketClient.getInstance()
 
     init {
     }
+    fun updateInputText(input: String) {
+        _inputText.value = input
+    }
 
     fun updateChatRoomInfo(chatRoomInfoModel: ChatRoomInfoModel) {
         _chatRoomInfo.value = chatRoomInfoModel
     }
-    fun sendMessage(input: String) {
+    fun sendMessage() {
         var newMessages = _message.value
-        newMessages += Triple(input, "1:1", true)
+        newMessages += Triple(inputText.value, "1:1", true)
 
         _message.value = newMessages
         val requestChatDto = RequestChatDto(
@@ -48,12 +54,13 @@ class ChatRoomViewModel @Inject constructor(
             senderId = _chatRoomInfo.value!!.ownerId.toInt(),
             receiverId = _chatRoomInfo.value!!.writerId.toInt(),
             postId = _chatRoomInfo.value!!.postId.toInt(),
-            content = input,
+            content = inputText.value,
             type = if(_chatRoomInfo?.value!!.ownerChatRoomId == "NO") "CREATE" else "MESSAGE"
         )
 
         val jsonString = Json.encodeToString(RequestChatDto.serializer(), requestChatDto)
         webSocketClient.sendWebSocketMessage(requestChatDto, RequestChatDto.serializer())
+        _inputText.value = ""
     }
 
     fun joinChatRoom() {
@@ -68,6 +75,9 @@ class ChatRoomViewModel @Inject constructor(
 
                 Log.e("되냐???2", "히융")
                 collectChat()
+                chatRepository.getChatRoomMessageTotal(_chatRoomInfo?.value!!.ownerChatRoomId).onSuccess {
+                    _message.emit(it.map { it.toTriple() })
+                }
             }
         }
     }
