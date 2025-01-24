@@ -12,10 +12,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,15 +23,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.chip.MediumChip
 import com.sopt.withsuhyeon.core.type.MediumChipType
 import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_20_TO_24
+import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_40
 import com.sopt.withsuhyeon.core.util.KeyStorage.FIND_SUHYEON_DETAIL_MEETING_INFORMATION_EXPAND
 import com.sopt.withsuhyeon.core.util.KeyStorage.PHONE_CALL
 import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_FEMALE
@@ -138,6 +135,10 @@ fun DetailMeetingInformationDropDownContent(
     mediumChipTypeList: List<String>,
     modifier: Modifier = Modifier
 ) {
+    val ageString = if(age != AGE_40)
+        "${age}세"
+    else
+        age
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = modifier
@@ -181,7 +182,7 @@ fun DetailMeetingInformationDropDownContent(
                     style = typography.body03_B.merge(color = colors.Grey300)
                 )
                 Text(
-                    text = age,
+                    text = ageString,
                     style = typography.body03_B.merge(color = colors.Grey700)
                 )
             }
