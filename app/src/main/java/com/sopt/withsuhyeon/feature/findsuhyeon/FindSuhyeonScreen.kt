@@ -52,14 +52,12 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 fun FindSuhyeonRoute(
     padding: PaddingValues,
     navigateToUpload: () -> Unit,
-    navigateUp: () -> Unit,
     navigateToPost: (Long) -> Unit,
     viewModel: FindSuhyeonViewModel = hiltViewModel()
 ) {
     FindSuhyeonScreen(
         padding = padding,
         onPostButtonClick = navigateToUpload,
-        onCloseButtonClick = navigateUp,
         onPostItemClick = navigateToPost
     )
 }
@@ -68,7 +66,6 @@ fun FindSuhyeonRoute(
 fun FindSuhyeonScreen(
     padding: PaddingValues,
     onPostButtonClick: () -> Unit,
-    onCloseButtonClick: () -> Unit,
     onPostItemClick: (Long) -> Unit,
     viewModel: FindSuhyeonViewModel = viewModel(),
     modifier: Modifier = Modifier
@@ -217,6 +214,9 @@ fun FindSuhyeonScreen(
                 selectedMainLocation = state.selectedMainLocation,
                 mainLocationList = state.mainLocationList,
                 selectedSubLocation = state.selectedSubLocation,
+                onMainLocationSelect = { mainLocation ->
+                    viewModel.selectMainLocation(mainLocation)
+                }
             )
         }
 
@@ -238,6 +238,5 @@ fun PreviewFindSuhyeonScreen() {
         padding = PaddingValues(0.dp),
         {},
         {},
-        onPostItemClick = { }
     )
 }

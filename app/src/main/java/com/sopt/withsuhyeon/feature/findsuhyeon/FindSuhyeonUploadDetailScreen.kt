@@ -185,6 +185,7 @@ fun FindSuhyeonUploadDetailScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 24.dp, bottom = 12.dp)
+                            .imePadding()
                             .noRippleClickable {
                                 focusManager.clearFocus()
                             },
