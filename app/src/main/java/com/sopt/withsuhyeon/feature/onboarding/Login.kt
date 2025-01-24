@@ -100,10 +100,12 @@ fun LoginScreen(
                     keyboardType = KeyboardType.Number
                 ),
                 onValueChange = { input ->
-                    isPhoneNumberInputValid =
-                        if (input.length == 11) input.checkValidPhoneNumber() else false
-                    isPhoneNumberAuthButtonEnabled = isPhoneNumberInputValid
-                    viewModel.updatePhoneNumber(input)
+                    if (input.length <= 11) {
+                        isPhoneNumberInputValid =
+                            if (input.length == 11) input.checkValidPhoneNumber() else false
+                        isPhoneNumberAuthButtonEnabled = isPhoneNumberInputValid
+                        viewModel.updatePhoneNumber(input)
+                    }
                 },
                 maxLength = 11,
                 trailingContent = {
@@ -133,8 +135,10 @@ fun LoginScreen(
                         isAuthNumberInputFocused = it
                     },
                     onValueChange = { input ->
-                        isAuthNumberInputValid = input.length == 6
-                        viewModel.updateAuthNumber(input)
+                        if (input.length <= 6) {
+                            isAuthNumberInputValid = input.length == 6
+                            viewModel.updateAuthNumber(input)
+                        }
                     },
                     keyboardOptions = KeyboardOptions.Default.copy(
                         keyboardType = KeyboardType.Number
@@ -160,7 +164,7 @@ fun LoginScreen(
                     onSuccess = {
                         onNavigateToLoginFinish()
                     },
-                    onError = { isAuthNumberInputValid = false}
+                    onError = { isAuthNumberInputValid = false }
                 )
             },
             text = NEXT_BUTTON_TEXT,
