@@ -1,90 +1,41 @@
 package com.sopt.withsuhyeon.feature.chat
 
 import androidx.lifecycle.ViewModel
-import com.sopt.withsuhyeon.domain.entity.ChatRoomListInfoModel
+import androidx.lifecycle.viewModelScope
+import com.sopt.withsuhyeon.data.dto.response.ChatRoom
+import com.sopt.withsuhyeon.data.socket.WebSocketClient
+import com.sopt.withsuhyeon.domain.repository.ChatRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ChatViewModel @Inject constructor(
+    private val chatRepository: ChatRepository
 ) : ViewModel() {
 
-    private val _chatRooms = MutableStateFlow(
-        listOf(
-            ChatRoomListInfoModel(
-                profileImage = "https://via.placeholder.com/150",
-                partnerName = "작심이 친구",
-                recentChat = "나는야 작심이 나는야 작심이 나는야 작심이 나는야 작심이",
-                recentChatDateTime = "1월 2일",
-                unreadChatCount = "5"
-            ),
-            ChatRoomListInfoModel(
-                profileImage = "https://via.placeholder.com/150",
-                partnerName = "작심이 친구",
-                recentChat = "나는야 작심이 나는야 작심이 나는야 작심이 나는야 작심이",
-                recentChatDateTime = "1월 2일",
-                unreadChatCount = "12"
-            ),
-            ChatRoomListInfoModel(
-                profileImage = "https://via.placeholder.com/150",
-                partnerName = "작심이 친구",
-                recentChat = "나는야 작심이 나는야 작심이 나는야 작심이 나는야 작심이",
-                recentChatDateTime = "1월 2일",
-                unreadChatCount = "+99"
-            ),
-            ChatRoomListInfoModel(
-                profileImage = "https://via.placeholder.com/150",
-                partnerName = "작심이 친구",
-                recentChat = "나는야 작심이 나는야 작심이 나는야 작심이 나는야 작심이",
-                recentChatDateTime = "1월 2일",
-                unreadChatCount = "+99"
-            ),
-            ChatRoomListInfoModel(
-                profileImage = "https://via.placeholder.com/150",
-                partnerName = "작심이 친구",
-                recentChat = "나는야 작심이 나는야 작심이 나는야 작심이 나는야 작심이",
-                recentChatDateTime = "1월 2일",
-                unreadChatCount = "+99"
-            ),
-            ChatRoomListInfoModel(
-                profileImage = "https://via.placeholder.com/150",
-                partnerName = "작심이 친구",
-                recentChat = "나는야 작심이 나는야 작심이 나는야 작심이 나는야 작심이",
-                recentChatDateTime = "1월 2일",
-                unreadChatCount = "+99"
-            ),
-            ChatRoomListInfoModel(
-                profileImage = "https://via.placeholder.com/150",
-                partnerName = "작심이 친구",
-                recentChat = "나는야 작심이 나는야 작심이 나는야 작심이 나는야 작심이",
-                recentChatDateTime = "1월 2일",
-                unreadChatCount = "+99"
-            ),
-            ChatRoomListInfoModel(
-                profileImage = "https://via.placeholder.com/150",
-                partnerName = "작심이 친구",
-                recentChat = "나는야 작심이 나는야 작심이 나는야 작심이 나는야 작심이",
-                recentChatDateTime = "1월 2일",
-                unreadChatCount = "+99"
-            ),
-            ChatRoomListInfoModel(
-                profileImage = "https://via.placeholder.com/150",
-                partnerName = "작심이 친구",
-                recentChat = "나는야 작심이 나는야 작심이 나는야 작심이 나는야 작심이",
-                recentChatDateTime = "1월 2일",
-                unreadChatCount = "+99"
-            ),
-            ChatRoomListInfoModel(
-                profileImage = "https://via.placeholder.com/150",
-                partnerName = "작심이 친구",
-                recentChat = "나는야 작심이 나는야 작심이 나는야 작심이 나는야 작심이",
-                recentChatDateTime = "1월 2일",
-                unreadChatCount = "98"
-            ),
-        )
-    )
-    val chatRooms: StateFlow<List<ChatRoomListInfoModel>> = _chatRooms.asStateFlow()
+    private val webSocketClient = WebSocketClient.getInstance()
+    private val _chatRooms = MutableStateFlow<List<ChatRoom>>(emptyList())
+    val chatRooms: StateFlow<List<ChatRoom>> = _chatRooms.asStateFlow()
+
+    fun getChatRooms() {
+        viewModelScope.launch {
+            chatRepository.getTotalChatRooms().onSuccess {
+                _chatRooms.emit(it)
+            }.onFailure {
+
+            }
+        }
+    }
+
+    fun receiveChatRooms() {
+        viewModelScope.launch {
+            webSocketClient.subscribeChatRooms().collect {
+                _chatRooms.emit(it.chatRooms)
+            }
+        }
+    }
 }

@@ -15,7 +15,11 @@ data class ChatRoom(
     val chatOwnerId: Int,
     val chatPeerId: Int,
     val chatPeerNickname: String,
+    val chatPeerProfileImage: String,
     val lastChatMessage: String,
     val lastChatAt: String,
-    val unReadCount: Int
+    val unReadCount: Int,
+    val postTitle: String,
+    val postPlace: String,
+    val postCost: Int,
 )

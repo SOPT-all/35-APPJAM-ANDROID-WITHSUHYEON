@@ -63,7 +63,7 @@ class WebSocketClient @Inject constructor() {
 
             override fun onMessage(webSocket: WebSocket, text: String) {
                 super.onMessage(webSocket, text)
-                Log.e("에이시팔", webSocket.toString())
+                Log.e("에이", webSocket.toString())
                 Log.d("WebSocket", "📩 WebSocket 수신 메시지: $text")
                 CoroutineScope(Dispatchers.Main).launch {
                     _messageFlow.emit(text)

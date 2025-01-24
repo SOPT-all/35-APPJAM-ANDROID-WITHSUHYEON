@@ -46,6 +46,19 @@ sealed interface Route {
         val peerChatRoomId: String?
     ) : Route
     @Serializable
+    data class ChatRoomReal(
+        val ownerChatRoomId: String?,
+        val peerChatRoomId: String?,
+        val postId: Int?,
+        val chatOwnerId: Int?,
+        val chatPeerId: Int?,
+        val chatPeerNickname: String?,
+        val chatPeerProfileImage: String?,
+        val postTitle: String?,
+        val postPlace: String?,
+        val postCost: Int?
+    ) : Route
+    @Serializable
     data object MyPageFavoriteLocation : Route
     @Serializable
     data object MyPagePost : Route
