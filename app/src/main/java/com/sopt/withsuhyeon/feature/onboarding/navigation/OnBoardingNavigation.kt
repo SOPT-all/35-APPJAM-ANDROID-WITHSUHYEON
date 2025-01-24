@@ -152,7 +152,7 @@ fun NavGraphBuilder.onBoardingNavGraph(
     }
     composable<OnboardingFinishRoute> {
         FinishSignUpRoute(
-            navigateToNext = onNavigateToHome,
+            navigateToOnLogin = onNavigateToLogin,
             padding = padding,
             viewModel = getBackStackSignUpViewModel(it)
         )

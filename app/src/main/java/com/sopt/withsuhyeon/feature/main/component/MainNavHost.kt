@@ -91,7 +91,8 @@ fun MainNavHost(
 
             splashNavGraph(
                 padding = padding,
-                onNavigateToOnboarding = navigator::navigateToOnboarding
+                onNavigateToOnboarding = navigator::navigateToOnboarding,
+                onNavigateToHome = navigator::navigateToHome,
             )
 
             onBoardingNavGraph(
