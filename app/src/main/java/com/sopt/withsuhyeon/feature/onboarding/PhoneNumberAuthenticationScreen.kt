@@ -155,7 +155,7 @@ fun PhoneNumberAuthenticationScreen(
                         authNumberValue = input
                     },
                     modifier = Modifier
-                        .height(84.dp),
+                        .height(112.dp),
                     maxLength = 6,
                     errorMessage = state.authNumberErrorMessage,
                 )
