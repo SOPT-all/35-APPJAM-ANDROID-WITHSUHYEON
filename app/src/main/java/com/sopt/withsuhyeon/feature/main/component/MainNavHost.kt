@@ -113,7 +113,7 @@ fun MainNavHost(
                 onNavigateToSignUpFinish = navigator::navigateToOnboardingFinish,
                 onNavigateToLoginFinish = navigator::navigateToLoginFinish,
                 onNavigateToHome = navigator::navigateToHome,
-                getBackStackUploadViewModel = { navBackStackEntry ->
+                getBackStackSignUpViewModel = { navBackStackEntry ->
                     val parentEntry = try {
                         navigator.navController.getBackStackEntry(Route.OnBoarding)
                     } catch (e: IllegalArgumentException) {

@@ -90,7 +90,7 @@ fun NavGraphBuilder.onBoardingNavGraph(
     onNavigateToSignUpFinish: () -> Unit,
     onNavigateToLoginFinish: () -> Unit,
     onNavigateToHome: () -> Unit,
-    getBackStackUploadViewModel: @Composable (NavBackStackEntry) -> SignUpViewModel,
+    getBackStackSignUpViewModel: @Composable (NavBackStackEntry) -> SignUpViewModel,
     getBackStackLoginViewModel: @Composable (NavBackStackEntry) -> LoginViewModel
 ) {
     composable<OnBoardingRoute> {
@@ -105,56 +105,56 @@ fun NavGraphBuilder.onBoardingNavGraph(
         TermsOfUseRoute(
             navigateToNext = onNavigateToPhoneNumberAuth,
             padding = padding,
-            viewModel = getBackStackUploadViewModel(it)
+            viewModel = getBackStackSignUpViewModel(it)
         )
     }
     composable<PhoneNumberAuthRoute> {
         PhoneNumberAuthenticationRoute(
             navigateToNext = onNavigateToNickNameAuth,
             padding = padding,
-            viewModel = getBackStackUploadViewModel(it)
+            viewModel = getBackStackSignUpViewModel(it)
         )
     }
     composable<NickNameAuthRoute> {
         NickNameAuthenticationRoute(
             navigateToNext = onNavigateToSelectYearOfBirth,
             padding = padding,
-            viewModel = getBackStackUploadViewModel(it)
+            viewModel = getBackStackSignUpViewModel(it)
         )
     }
     composable<YearOfBirthRoute> {
         YearOfBirthRoute(
             navigateToNext = onNavigateToSelectGender,
             padding = padding,
-            viewModel = getBackStackUploadViewModel(it)
+            viewModel = getBackStackSignUpViewModel(it)
         )
     }
     composable<SelectGenderRoute> {
         GenderSelectRoute(
             navigateToNext = onNavigateToPostProfileImage,
             padding = padding,
-            viewModel = getBackStackUploadViewModel(it)
+            viewModel = getBackStackSignUpViewModel(it)
         )
     }
     composable<PostProfileImageRoute> {
         SelectProfileRoute(
             navigateToNext = onNavigateToSelectLocation,
             padding = padding,
-            viewModel = getBackStackUploadViewModel(it)
+            viewModel = getBackStackSignUpViewModel(it)
         )
     }
     composable<SelectLocationRoute> {
         SelectLocationRoute(
             navigateToNext = onNavigateToSignUpFinish,
             padding = padding,
-            viewModel = getBackStackUploadViewModel(it)
+            viewModel = getBackStackSignUpViewModel(it)
         )
     }
     composable<OnboardingFinishRoute> {
         FinishSignUpRoute(
             navigateToNext = onNavigateToHome,
             padding = padding,
-            viewModel = getBackStackUploadViewModel(it)
+            viewModel = getBackStackSignUpViewModel(it)
         )
     }
     composable<LoginRoute> {
