@@ -7,6 +7,8 @@ import com.sopt.withsuhyeon.data.repositoryimpl.GalleryRepositoryImpl
 import com.sopt.withsuhyeon.data.repositoryimpl.MyPageRepositoryImpl
 import com.sopt.withsuhyeon.data.repositoryimpl.HomeRepositoryImpl
 import com.sopt.withsuhyeon.data.repositoryimpl.UserRepositoryImpl
+import com.sopt.withsuhyeon.data.service.ChatService
+import com.sopt.withsuhyeon.data.socket.WebSocketClient
 import com.sopt.withsuhyeon.domain.repository.ChatRepository
 import com.sopt.withsuhyeon.domain.repository.DummyRepository
 import com.sopt.withsuhyeon.domain.repository.FindSuhyeonRepository
@@ -16,6 +18,7 @@ import com.sopt.withsuhyeon.domain.repository.HomeRepository
 import com.sopt.withsuhyeon.domain.repository.UserRepository
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton

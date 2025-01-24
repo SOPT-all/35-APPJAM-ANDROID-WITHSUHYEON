@@ -3,6 +3,9 @@ package com.sopt.withsuhyeon.data.di
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.sopt.withsuhyeon.BuildConfig
 import com.sopt.withsuhyeon.core.network.TokenManager
+import com.sopt.withsuhyeon.data.service.ChatService
+import com.sopt.withsuhyeon.domain.repository.ChatRepository
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -61,4 +64,6 @@ object NetworkModule {
         .client(client)
         .addConverterFactory(converterFactory)
         .build()
+
+
 }
