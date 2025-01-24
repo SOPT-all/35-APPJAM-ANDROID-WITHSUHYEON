@@ -41,7 +41,7 @@ import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.bottomsheet.LocationBottomSheet
 import com.sopt.withsuhyeon.core.component.dropdown.text.TextSelectDropDownWithIcon
 import com.sopt.withsuhyeon.core.component.floatingbutton.AnimatedAddFindSuhyeonPostButton
-import com.sopt.withsuhyeon.core.component.topbar.SubTopNavBar
+import com.sopt.withsuhyeon.core.component.topbar.MainTopNavBar
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.feature.findsuhyeon.component.DateChipListRow
 import com.sopt.withsuhyeon.feature.findsuhyeon.component.FindSuhyeonPostItem
@@ -99,12 +99,8 @@ fun FindSuhyeonScreen(
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-            SubTopNavBar(
-                text = "",
-                btnIcon = painterResource(R.drawable.ic_close),
-                isTextVisible = true,
-                isBtnVisible = true,
-                onCloseBtnClicked = onCloseButtonClick,
+            MainTopNavBar(
+                text = stringResource(R.string.find_suhyeon),
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(colors.White)
