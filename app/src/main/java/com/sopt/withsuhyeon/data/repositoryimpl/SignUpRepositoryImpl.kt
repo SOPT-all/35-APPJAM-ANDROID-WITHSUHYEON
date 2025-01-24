@@ -1,5 +1,6 @@
 package com.sopt.withsuhyeon.data.repositoryimpl
 
+import com.sopt.withsuhyeon.data.dto.base.BaseResponse
 import com.sopt.withsuhyeon.data.dto.request.RequestAuthNumberDto
 import com.sopt.withsuhyeon.data.dto.request.RequestPhoneNumberAuthDto
 import com.sopt.withsuhyeon.data.dto.request.RequestSignUpDto
@@ -21,7 +22,7 @@ class SignUpRepositoryImpl @Inject constructor(
             response.message
         }
 
-    override suspend fun postVerifyNumber(phoneNumber: String, verifyNumber: String): Result<Unit> =
+    override suspend fun postVerifyNumber(phoneNumber: String, verifyNumber: String): Result<BaseResponse<Unit>> =
         runCatching {
             val response = signUpService.verifyAuthNumber(
                 flow = "signup",
@@ -30,7 +31,7 @@ class SignUpRepositoryImpl @Inject constructor(
                     verifyNumber = verifyNumber
                 )
             )
-            response.message
+            response
         }
 
     override suspend fun getRegionList(): Result<RegionListModel> =

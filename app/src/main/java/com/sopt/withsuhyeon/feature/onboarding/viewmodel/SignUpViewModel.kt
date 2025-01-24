@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.sopt.withsuhyeon.core.util.KeyStorage.DEFAULT
 import com.sopt.withsuhyeon.core.util.KeyStorage.LENGTH_ERROR
 import com.sopt.withsuhyeon.core.util.KeyStorage.SPECIAL_CHARACTER_ERROR
+import com.sopt.withsuhyeon.data.dto.base.BaseResponse
 import com.sopt.withsuhyeon.domain.repository.SignUpRepository
 import com.sopt.withsuhyeon.feature.onboarding.state.SignUpState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,6 +14,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json.Default.decodeFromString
 import javax.inject.Inject
 
 @HiltViewModel
@@ -92,22 +94,52 @@ class SignUpViewModel @Inject constructor(
     fun postPhoneNumberAuth(phoneNumber: String) {
         viewModelScope.launch {
             signUpRepository.postPhoneNumber(phoneNumber = phoneNumber).onSuccess {
-                Log.d("phone", "성공")
+                _signUpState.update {
+                    it.copy(
+                        isSuccessRequestPhoneNumber = true
+                    )
+                }
             }.onFailure { error ->
                 Log.d("phone", error.message.toString())
             }
         }
     }
 
-    fun postVerifyNumberAuth(phoneNumber: String, verifyNumber: String) {
+    fun postVerifyNumberAuth(
+        phoneNumber: String,
+        verifyNumber: String,
+        onSuccess: () -> Unit,
+        onError: () -> Unit,
+    ) {
         viewModelScope.launch {
             signUpRepository.postVerifyNumber(
                 phoneNumber = phoneNumber,
-                verifyNumber = verifyNumber
+                verifyNumber = verifyNumber,
             ).onSuccess {
-                Log.d("phone", "성공")
+                onSuccess()
             }.onFailure { error ->
-                Log.d("phone", error.message.toString())
+                val errorMessage = when (error) {
+                    is retrofit2.HttpException -> {
+                        val errorBody = error.response()?.errorBody()?.string()
+                        try {
+                            val baseResponse = decodeFromString<BaseResponse<Unit>>(errorBody ?: "")
+                            baseResponse.message ?: "알 수 없는 에러가 발생했습니다."
+                        } catch (e: Exception) {
+                            "에러 응답 파싱 실패: ${e.message}"
+                        }
+                    }
+
+                    else -> {
+                        "알 수 없는 에러가 발생했습니다: ${error.message}"
+                    }
+                }
+                _signUpState.update {
+                    it.copy(
+                        authNumberErrorMessage = errorMessage
+                    )
+                }
+                onError()
+                Log.d("errorCase", errorMessage)
             }
         }
         // TODO - 성공 / 실패 분기처리 -> 버튼 색상 등등
@@ -150,7 +182,7 @@ class SignUpViewModel @Inject constructor(
             ).onSuccess {
                 Log.d("result", "성공")
             }.onFailure { error ->
-                Log.d("result", error.message.toString())
+                Log.d("result", error.toString())
             }
         }
     }
