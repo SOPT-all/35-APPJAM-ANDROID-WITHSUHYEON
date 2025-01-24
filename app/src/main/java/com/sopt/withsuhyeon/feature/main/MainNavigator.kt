@@ -29,6 +29,7 @@ import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToMyPagePost
 import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToOnBoarding
 import com.sopt.withsuhyeon.feature.mypage.navigation.navigateToWithdraw
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToLogin
+import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToLoginFinish
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToNickNameAuth
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToOnboardingFinish
 import com.sopt.withsuhyeon.feature.onboarding.navigation.navigateToPhoneNumberAuth
@@ -46,7 +47,7 @@ class MainNavigator(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = MainTabRoute.Home
+    val startDestination = Route.Splash
 
     val currentTab: MainTab?
         @Composable get() = MainTab.entries.find { tab ->
@@ -129,6 +130,10 @@ class MainNavigator(
 
     fun navigateToOnboarding() {
         navController.navigateToOnBoarding()
+    }
+
+    fun navigateToLoginFinish() {
+        navController.navigateToLoginFinish()
     }
 
     fun navigateToHome(navOptions: NavOptions? = null) {

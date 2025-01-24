@@ -4,6 +4,8 @@ import kotlinx.serialization.Serializable
 
 sealed interface Route {
     @Serializable
+    data object Splash : Route
+    @Serializable
     data object OnBoarding : Route
     @Serializable
     data object TermsOfUse : Route
@@ -43,6 +45,8 @@ sealed interface Route {
     data object MyPagePost : Route
     @Serializable
     data object MyPageWithdraw : Route
+    @Serializable
+    data object LoginFinish: Route
 }
 
 sealed interface MainTabRoute : Route {

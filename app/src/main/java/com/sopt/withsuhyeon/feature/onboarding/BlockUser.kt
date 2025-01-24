@@ -1,5 +1,6 @@
 package com.sopt.withsuhyeon.feature.onboarding
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,7 +18,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,26 +30,30 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.button.BasicButtonForTextField
 import com.sopt.withsuhyeon.core.component.button.LargeButton
 import com.sopt.withsuhyeon.core.component.listitem.BlockPhoneNumberItem
 import com.sopt.withsuhyeon.core.component.textfield.BasicShortTextField
 import com.sopt.withsuhyeon.core.component.topbar.SubTopNavBar
-import com.sopt.withsuhyeon.core.util.KeyStorage.EMPTY_STRING
 import com.sopt.withsuhyeon.core.util.KeyStorage.SAVE_BUTTON_TEXT
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
+import com.sopt.withsuhyeon.feature.onboarding.viewmodel.BlcokUserViewModel
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
 @Composable
 fun BlockUserRoute(
     padding: PaddingValues,
-    navigateToPreviousScreen: () -> Unit
+    navigateToPreviousScreen: () -> Unit,
+    viewModel: BlcokUserViewModel = hiltViewModel()
 ) {
     BlockUserScreen(
         padding = padding,
-        onSaveButtonClick =  navigateToPreviousScreen
+        onSaveButtonClick = navigateToPreviousScreen,
+        viewModel = viewModel
     )
 }
 
@@ -56,13 +61,15 @@ fun BlockUserRoute(
 fun BlockUserScreen(
     padding: PaddingValues,
     onSaveButtonClick: () -> Unit,
-    modifier: Modifier = Modifier
+    viewModel: BlcokUserViewModel,
+    modifier: Modifier = Modifier,
 ) {
-    var value by remember { mutableStateOf(EMPTY_STRING) }
     var isValid by remember { mutableStateOf(false) }
+    val state by viewModel.blockUserState.collectAsStateWithLifecycle()
 
-    var phoneNumberList by remember { mutableStateOf(listOf<String>()) }
-    val isEmpty by remember { derivedStateOf { phoneNumberList.isEmpty() } }
+    LaunchedEffect(Unit) {
+        viewModel.getBlockUser()
+    }
 
     Column(
         modifier = modifier
@@ -102,10 +109,10 @@ fun BlockUserScreen(
             )
             Spacer(modifier = Modifier.height(8.dp))
             BasicShortTextField(
-                value = value,
+                value = state.blockNumber,
                 onValueChange = { input ->
+                    viewModel.selectBlockUserNumber(input)
                     isValid = input.length == 11
-                    value = input
                 },
                 hint = stringResource(R.string.block_screen_phone_number_hint),
                 trailingContent = {
@@ -113,8 +120,7 @@ fun BlockUserScreen(
                         text = stringResource(R.string.block_screen_block_text),
                         onClick = {
                             if (isValid) {
-                                phoneNumberList = listOf(value) + phoneNumberList
-                                value = EMPTY_STRING
+                                viewModel.postBlockUser(state.blockNumber)
                             }
                         },
                         modifier = Modifier,
@@ -125,7 +131,7 @@ fun BlockUserScreen(
         }
         HorizontalDivider(modifier = Modifier.height(4.dp), color = colors.Grey100)
 
-        if (isEmpty) {
+        if (state.blockNumbers.isEmpty()) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -158,7 +164,7 @@ fun BlockUserScreen(
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = phoneNumberList.size.toString(),
+                        text = state.blockNumbers.size.toString(),
                         style = typography.caption01_SB
                     )
                 }
@@ -169,10 +175,10 @@ fun BlockUserScreen(
                         .weight(1f),
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
-                    items(phoneNumberList) { phoneNumber ->
+                    items(state.blockNumbers) { phoneNumber ->
                         BlockPhoneNumberItem(
-                            modifier = Modifier.noRippleClickable {
-                                phoneNumberList = phoneNumberList - phoneNumber
+                            modifier =  Modifier.noRippleClickable {
+                                viewModel.deleteBlockUser(phoneNumber)
                             },
                             phoneNumber = phoneNumber,
                         )
@@ -186,7 +192,9 @@ fun BlockUserScreen(
             onClick = onSaveButtonClick,
             text = SAVE_BUTTON_TEXT,
             modifier = Modifier.padding(horizontal = 16.dp),
-            isDisabled = phoneNumberList.isEmpty()
+            isDisabled = state.blockNumbers.isEmpty()
         )
     }
 }
+
+

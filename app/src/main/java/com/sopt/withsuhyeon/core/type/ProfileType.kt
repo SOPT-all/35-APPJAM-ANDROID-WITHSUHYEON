@@ -7,10 +7,27 @@ import com.sopt.withsuhyeon.ui.theme.defaultWithSuhyeonColors
 
 enum class ProfileType(
     @StringRes val titleResId: Int,
-    val borderColor: Color
+    val borderColor: Color,
+    val title: String,
 ) {
-    BLUE_SUMA(titleResId = R.drawable.img_purple_suma, borderColor = defaultWithSuhyeonColors.Purple100),
-    RED_SUMA(titleResId = R.drawable.img_red_suma, borderColor = defaultWithSuhyeonColors.Red02),
-    GREEN_SUMA(titleResId = R.drawable.img_green_suma, borderColor = Color(0xFFA9EC66)),
-    PURPLE_SUMA(titleResId = R.drawable.img_blue_suma, borderColor = Color(0xFF94C4FF))
+    PURPLE_SUMA(
+        titleResId = R.drawable.img_purple_suma,
+        borderColor = defaultWithSuhyeonColors.Purple100,
+        title = "img_purple_suma"
+    ),
+    RED_SUMA(
+        titleResId = R.drawable.img_red_suma,
+        borderColor = defaultWithSuhyeonColors.Red02,
+        title = "img_red_suma"
+    ),
+    GREEN_SUMA(
+        titleResId = R.drawable.img_green_suma,
+        borderColor = Color(0xFFA9EC66),
+        title = "img_green_suma"
+    ),
+    BLUE_SUMA(
+        titleResId = R.drawable.img_blue_suma,
+        borderColor = Color(0xFF94C4FF),
+        title = "img_blue_suma"
+    )
 }
