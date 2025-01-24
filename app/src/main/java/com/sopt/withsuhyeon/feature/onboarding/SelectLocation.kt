@@ -11,16 +11,12 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.button.LargeButton
-import com.sopt.withsuhyeon.core.component.chip.MainLocationChip
 import com.sopt.withsuhyeon.core.component.menu.LocationMenu
 import com.sopt.withsuhyeon.core.component.progressbar.AnimatedProgressBar
 import com.sopt.withsuhyeon.core.component.topbar.MainTopNavBar
@@ -50,9 +46,6 @@ fun SelectLocationScreen(
     viewModel: SignUpViewModel,
     modifier: Modifier = Modifier,
 ) {
-    val selectedMainLocation by remember { mutableStateOf("") }
-    val selectedSubLocation by remember { mutableStateOf("") }
-
     val state by viewModel.signUpState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
@@ -85,10 +78,14 @@ fun SelectLocationScreen(
             LocationMenu(
                 mainLocationList = state.mainLocationList,
                 subLocationList = state.subLocationList,
-                selectedMainLocation = selectedMainLocation,
-                selectedSubLocation = selectedSubLocation,
+                selectedMainLocation = state.selectedMainLocation,
+                selectedSubLocation = state.selectedSubLocation,
                 onSubLocationSelect = { region ->
-                    viewModel.updateRegion(region ?: EMPTY_STRING)
+                    viewModel.updateSubRegion(region ?: EMPTY_STRING)
+                },
+                onMainLocationSelect = { mainLocatoin ->
+                    viewModel.updateMainRegion(mainLocatoin ?: EMPTY_STRING)
+
                 }
             )
         }
@@ -98,6 +95,7 @@ fun SelectLocationScreen(
             onClick = {
                 onButtonClick()
             },
+            isDisabled = state.selectedSubLocation.isEmpty(),
             text = NEXT_BUTTON_TEXT,
             modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
         )
