@@ -18,6 +18,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -36,17 +37,20 @@ import com.sopt.withsuhyeon.core.component.card.GalleryMainCardItem
 import com.sopt.withsuhyeon.core.component.chip.NewCategoryChip
 import com.sopt.withsuhyeon.core.component.floatingbutton.AnimatedAddPostButton
 import com.sopt.withsuhyeon.core.component.topbar.MainTopNavBar
+import com.sopt.withsuhyeon.core.util.KeyStorage.TOTAL
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
 @Composable
 fun GalleryRoute(
     padding: PaddingValues,
+    category: String?,
     navigateToGalleryUpload: () -> Unit,
     navigateToGalleryPostDetail: (Long) -> Unit,
     viewModel: GalleryViewModel = hiltViewModel()
 ) {
     GalleryScreen(
         padding = padding,
+        category = category,
         onFloatingButtonClick = {
             navigateToGalleryUpload()
         },
@@ -59,6 +63,7 @@ fun GalleryRoute(
 @Composable
 private fun GalleryScreen(
     padding: PaddingValues,
+    category: String?,
     onFloatingButtonClick: () -> Unit,
     onGalleryCardItemClick: (Long) -> Unit,
     viewModel: GalleryViewModel = hiltViewModel()
@@ -77,13 +82,23 @@ private fun GalleryScreen(
     val categories by viewModel.categories.collectAsState()
     val galleries by viewModel.galleries.collectAsState()
     val selectedCategory by viewModel.selectedCategory.collectAsState()
+    val lazyRowState = rememberLazyListState()
 
-    LaunchedEffect(Unit) {
-        viewModel.getGalleryCategories()
-    }
+    LaunchedEffect(category, categories) {
+        if (categories.isNotEmpty()) {
+            if (!category.isNullOrEmpty()) {
+                viewModel.setSelectedCategory(category)
+                viewModel.getGalleryTotal(category)
 
-    LaunchedEffect(selectedCategory) {
-        viewModel.getGalleryTotal(selectedCategory)
+                val index = categories.indexOfFirst { it.category == category }
+                if (index >= 0) {
+                    lazyRowState.scrollToItem(index + 1) // "전체" 칩이 첫 번째이므로 +1
+                }
+            } else {
+                viewModel.setSelectedCategory(TOTAL)
+                viewModel.getGalleryTotal(TOTAL)
+            }
+        }
     }
 
     Box(
@@ -114,6 +129,7 @@ private fun GalleryScreen(
                     .padding(start = 16.dp, end = 16.dp)
             ) {
                 LazyRow(
+                    state = lazyRowState,
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                     modifier = Modifier
                         .fillMaxWidth()

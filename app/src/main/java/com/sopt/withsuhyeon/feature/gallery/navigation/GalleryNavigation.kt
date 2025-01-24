@@ -30,13 +30,15 @@ fun NavGraphBuilder.galleryNavGraph(
     onNavigateToGalleryPostDetail: (Long) -> Unit,
     onPopBackStackToGallery: () -> Unit
 ) {
-    composable<MainTabRoute.Gallery> {
+    composable<MainTabRoute.Gallery> { navBackStackEntry->
+        val category = navBackStackEntry.toRoute<MainTabRoute.Gallery>().category
         GalleryRoute(
             padding = padding,
             navigateToGalleryUpload = onNavigateToGalleryUpload,
             navigateToGalleryPostDetail = { galleryId ->
                 onNavigateToGalleryPostDetail(galleryId)
-            }
+            },
+            category = category
         )
     }
     composable<Route.GalleryUpload> {
