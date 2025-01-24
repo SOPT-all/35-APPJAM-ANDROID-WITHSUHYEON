@@ -1,13 +1,17 @@
 package com.sopt.withsuhyeon.feature.onboarding
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -19,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.button.BasicButtonForTextField
@@ -74,7 +77,9 @@ fun PhoneNumberAuthenticationScreen(
         modifier = modifier
             .background(color = colors.White)
             .padding(padding)
+            .imePadding()
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
     ) {
         MainTopNavBar(text = EMPTY_STRING)
         HorizontalDivider(
@@ -110,6 +115,8 @@ fun PhoneNumberAuthenticationScreen(
                     viewModel.updatePhoneNumber(input)
                 },
                 maxLength = 11,
+                modifier = Modifier
+                    .height(84.dp),
                 trailingContent = {
                     BasicButtonForTextField(
                         text = phoneNumberAuthButtonText,
@@ -142,35 +149,39 @@ fun PhoneNumberAuthenticationScreen(
                         isAuthNumberInputValid = input.length == 6
                         authNumberValue = input
                     },
+                    modifier = Modifier
+                        .height(84.dp),
                     maxLength = 6,
-                    errorMessage = state.authNumberErrorMessage
+                    errorMessage = state.authNumberErrorMessage,
                 )
             }
-            Spacer(modifier = Modifier.weight(1f))
         }
-        HorizontalDivider(
-            modifier = Modifier.height(1.dp),
-            color = colors.Grey100
-        )
-        Spacer(modifier = Modifier.height(16.dp))
+        Column {
+            HorizontalDivider(
+                modifier = Modifier.height(1.dp),
+                color = colors.Grey100
+            )
+            Spacer(modifier = Modifier.height(16.dp))
 
-        LargeButton(
-            onClick = {
-                viewModel.postVerifyNumberAuth(
-                    phoneNumber = state.phoneNumber,
-                    verifyNumber = authNumberValue,
-                    onSuccess = {
-                        onButtonClick()
-                    },
-                    onError = {
-                        isAuthNumberError = true
-                        isAuthNumberInputValid = false
-                    }
-                )
-            },
-            text = NEXT_BUTTON_TEXT,
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
-            isDisabled = !isAuthNumberInputValid
-        )
+            LargeButton(
+                onClick = {
+                    viewModel.postVerifyNumberAuth(
+                        phoneNumber = state.phoneNumber,
+                        verifyNumber = authNumberValue,
+                        onSuccess = {
+                            onButtonClick()
+                        },
+                        onError = {
+                            isAuthNumberError = true
+                            isAuthNumberInputValid = false
+                        }
+                    )
+                },
+                text = NEXT_BUTTON_TEXT,
+                modifier = Modifier
+                    .padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
+                isDisabled = !isAuthNumberInputValid
+            )
+        }
     }
 }
