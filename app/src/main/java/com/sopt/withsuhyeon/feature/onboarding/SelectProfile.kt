@@ -161,7 +161,7 @@ fun SelectProfileScreen(
         LargeButton(
             onClick = onButtonClick,
             text = NEXT_BUTTON_TEXT,
-            modifier = Modifier.padding(horizontal = 16.dp),
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
             isDisabled = profileImage == R.drawable.img_grey_suma
         )
     }
