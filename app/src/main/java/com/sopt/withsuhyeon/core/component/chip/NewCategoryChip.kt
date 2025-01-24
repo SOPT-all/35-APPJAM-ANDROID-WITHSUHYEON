@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
@@ -23,12 +25,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.sopt.withsuhyeon.R
+import com.sopt.withsuhyeon.core.util.KeyStorage.ETC
+import com.sopt.withsuhyeon.core.util.KeyStorage.MT
+import com.sopt.withsuhyeon.core.util.KeyStorage.TOTAL
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
+import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
 @Composable
 fun NewCategoryChip(
@@ -101,13 +109,34 @@ fun NewCategoryChip(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                if (category == "전체") {
+                if (category == TOTAL) {
                     Text(
-                        text = "ALL",
-                        fontSize = 14.sp,
+                        text = stringResource(R.string.category_chip_all),
+                        fontSize = 16.sp,
                         fontWeight = FontWeight.Bold,
                         color = if (isSelected) Color.White else colors.Purple500,
                         modifier = Modifier
+                            .width(allTextWidth.dp)
+                            .alpha(allTextOpacity)
+                    )
+                }
+                else if (category == MT) {
+                    Text(
+                        text = stringResource(R.string.category_chip_mt),
+                        style = typography.title03_B,
+                        color = if (isSelected) Color.White else colors.Purple500,
+                        modifier = Modifier
+                            .width(allTextWidth.dp)
+                            .alpha(allTextOpacity)
+                    )
+                }
+                else if (category == ETC) {
+                    Text(
+                        text = stringResource(R.string.category_chip_etc),
+                        style = typography.body03_B,
+                        color = if (isSelected) Color.White else colors.Purple500,
+                        modifier = Modifier
+                            .padding(8.dp)
                             .width(allTextWidth.dp)
                             .alpha(allTextOpacity)
                     )
@@ -122,8 +151,7 @@ fun NewCategoryChip(
 
                 Text(
                     text = category,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.SemiBold,
+                    style = typography.body03_SB,
                     color = chipTextColor,
                     maxLines = 1,
                     modifier = Modifier
@@ -133,11 +161,12 @@ fun NewCategoryChip(
             }
         }
 
+        Spacer(modifier = Modifier.height(6.dp))
+
         Text(
             text = category,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Bold,
-            color = if (isSelected) colors.Purple500 else colors.Grey400,
+            style = typography.body03_B,
+            color = if (isSelected) colors.Purple600 else colors.Grey400,
             modifier = Modifier
                 .height(textHeight.dp)
                 .alpha(outsideTextOpacity)

@@ -114,7 +114,7 @@ private fun GalleryScreen(
                 ) {
                     item {
                         NewCategoryChip(
-                            imageUrl = "https://example.com/default-image.jpg",
+                            imageUrl = "",
                             category = "전체",
                             scrollOffset = lazyGridState.firstVisibleItemScrollOffset.toFloat(),
                             isSelected = selectedCategory == "전체",

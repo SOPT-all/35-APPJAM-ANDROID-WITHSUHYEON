@@ -210,10 +210,17 @@
     <string name="alert_modal_logout">로그아웃</string>
     <string name="alert_modal_leave">탈퇴하기</string>
 
+    <string name="login_finish_title">다시 오셨군요!\n수현이가 기다리고 있어요</string>
+
     <!-- 시작 온보딩 -->
     <string name="onboarding_account_question">이미 계정이 있나요?</string>
     <string name="onboarding_login_text">로그인</string>
     <string name="onboarding_start_text">시작하기</string>
+
+    <!-- 카테고리 칩 -->
+    <string name="category_chip_all">ALL</string>
+    <string name="category_chip_mt">MT</string>
+    <string name="category_chip_etc"> etc.</string>
 
     <!-- 수마 -->
     <string name="suma_img_purple">img_purple_suma</string>

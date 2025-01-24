@@ -43,6 +43,8 @@ sealed interface Route {
     data object MyPagePost : Route
     @Serializable
     data object MyPageWithdraw : Route
+    @Serializable
+    data object LoginFinish: Route
 }
 
 sealed interface MainTabRoute : Route {
