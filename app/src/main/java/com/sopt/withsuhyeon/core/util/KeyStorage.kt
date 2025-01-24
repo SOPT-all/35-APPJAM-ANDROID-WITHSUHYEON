@@ -38,13 +38,14 @@ object KeyStorage {
 
     const val LENGTH_ERROR = "lengthError"
     const val SPECIAL_CHARACTER_ERROR = "specialError"
-    const val LENGTH_ERROR_MESSAGE = "최대 12글자 이하로 입력해주세요"
+    const val LENGTH_ERROR_MESSAGE = "12자까지 입력할 수 있어요"
     const val SPECIAL_CHARACTER_ERROR_MESSAGE = "특수기호를 제거해주세요"
 
     const val EMPTY_STRING =""
 
     const val LOGOUT_ALERT_TYPE = "logout"
     const val LEAVE_ALERT_TYPE = "leave"
+    const val EXIT_ALERT_TYPE = "exit"
 
     const val TOTAL = "전체"
     const val MT = "엠티"

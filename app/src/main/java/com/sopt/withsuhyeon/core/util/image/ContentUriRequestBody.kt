@@ -41,28 +41,36 @@ class ContentUriRequestBody(
     }
 
     private fun compressBitmap() {
-        var originalBitmap: Bitmap
-        val exif: ExifInterface
+        val originalSizeMb = size / (1024.0 * 1024.0)
+        // 1) 먼저 Exif 정보 읽기
+        val exif = contentResolver.openInputStream(uri)?.use { ExifInterface(it) } ?: return
 
-        contentResolver.openInputStream(uri).use { inputStream ->
-            if (inputStream == null) return
-            exif = ExifInterface(inputStream)
+        // 2) inJustDecodeBounds = true 설정해서 이미지 크기만 읽어오기
+        val options = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+        contentResolver.openInputStream(uri)?.use { input ->
+            BitmapFactory.decodeStream(input, null, options)
+        }
+        // 이제 options.outWidth, options.outHeight 가 세팅됨
 
-            val imageSizeMb = size / (1024.0 * 1024.0)
-            val option = BitmapFactory.Options().apply {
-                if (imageSizeMb >= IMAGE_SIZE_MB) {
-                    inSampleSize = calculateInSampleSize(this, MAX_WIDTH, MAX_HEIGHT)
-                }
-            }
-
-            originalBitmap =
-                BitmapFactory.decodeStream(contentResolver.openInputStream(uri), null, option)
-                    ?: return
+        // 3) 실제 디코딩을 위한 inSampleSize 계산
+        val (width, height) = options.run { outWidth to outHeight }
+        val needDownSample = (originalSizeMb >= IMAGE_SIZE_MB)
+        if (needDownSample) {
+            options.inSampleSize = calculateInSampleSize(options, MAX_WIDTH, MAX_HEIGHT)
         }
 
+        // 4) inJustDecodeBounds = false 로 다시 설정
+        options.inJustDecodeBounds = false
+
+        // 5) 실제 이미지를 다시 decodeStream
+        val originalBitmap = contentResolver.openInputStream(uri)?.use { input ->
+            BitmapFactory.decodeStream(input, null, options)
+        } ?: return
+
+        // 6) 회전 처리
         val orientation = exif.getAttributeInt(
             ExifInterface.TAG_ORIENTATION,
-            ExifInterface.ORIENTATION_NORMAL,
+            ExifInterface.ORIENTATION_NORMAL
         )
         val rotatedBitmap = when (orientation) {
             ExifInterface.ORIENTATION_ROTATE_90 -> rotateBitmap(originalBitmap, 90f)
@@ -70,27 +78,40 @@ class ContentUriRequestBody(
             ExifInterface.ORIENTATION_ROTATE_270 -> rotateBitmap(originalBitmap, 270f)
             else -> originalBitmap
         }
-
-        val outputStream = ByteArrayOutputStream()
-        val imageSizeMb = size / (MAX_WIDTH * MAX_HEIGHT.toDouble())
-
-        outputStream.use {
-            val compressRate = ((IMAGE_SIZE_MB / imageSizeMb) * 100).toInt()
-            rotatedBitmap.compress(
-                Bitmap.CompressFormat.JPEG,
-                if (imageSizeMb >= IMAGE_SIZE_MB) compressRate else 100,
-                it,
-            )
-        }
-
-        compressedImage = outputStream.toByteArray()
-        size = compressedImage?.size?.toLong() ?: -1L
-
         if (rotatedBitmap != originalBitmap) {
             originalBitmap.recycle()
         }
+
+        // 7) JPEG 품질 조정 후 메모리에 저장
+        val outputStream = ByteArrayOutputStream()
+        val compressedOnce: ByteArray = outputStream.use {
+            // 일단 100%로 시도 (또는 적당히 80%~90%로 시작)
+            rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
+            it.toByteArray()
+        }
+
+        // 8) 만약 여기서도 1MB를 초과하면, “반복” 압축 전략(퀄리티 점차 낮추기)을 적용해본다
+        var finalData = compressedOnce
+        var compressQuality = 90
+        while (finalData.size > 1_048_576 && compressQuality > 10) {
+            val tempOut = ByteArrayOutputStream()
+            rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, compressQuality, tempOut)
+            val tempData = tempOut.toByteArray()
+
+            // 더 작아졌으면 교체
+            if (tempData.size < finalData.size) {
+                finalData = tempData
+            }
+            compressQuality -= 10
+        }
+
         rotatedBitmap.recycle()
+
+        // 9) 최종 compressed 이미지 바이트 & 사이즈 세팅
+        compressedImage = finalData
+        size = finalData.size.toLong()
     }
+
 
     private fun rotateBitmap(bitmap: Bitmap, degrees: Float): Bitmap {
         val matrix = Matrix().apply {

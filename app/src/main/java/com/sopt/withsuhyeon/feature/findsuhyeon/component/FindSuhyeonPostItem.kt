@@ -22,7 +22,9 @@ import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.core.util.price.toDecimalFormat
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.chip.MediumChip
+import com.sopt.withsuhyeon.core.component.chip.SmallChip
 import com.sopt.withsuhyeon.core.type.MediumChipType
+import com.sopt.withsuhyeon.core.type.SmallChipType
 import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_20_TO_24
 import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_FEMALE
 import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_MALE
@@ -60,8 +62,8 @@ fun FindSuhyeonPostItem(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 if (postItemModel.isExpired) {
-                    MediumChip(
-                        mediumChipType = MediumChipType.DURATION_FINISHED
+                    SmallChip(
+                        smallChipType = SmallChipType.DURATION_FINISHED
                     )
                 }
                 Row(
@@ -98,9 +100,9 @@ fun FindSuhyeonPostItem(
                     horizontalArrangement = Arrangement.spacedBy(4.dp),
                 ) {
                     Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.ic_find),
+                        imageVector = ImageVector.vectorResource(R.drawable.ic_user_filled),
                         contentDescription = stringResource(R.string.find_suhyeon_detail_meeting_wanted),
-                        tint = colors.Grey400,
+                        tint = colors.Grey300,
                         modifier = Modifier.size(18.dp)
                     )
                     Text(
@@ -121,9 +123,9 @@ fun FindSuhyeonPostItem(
                     horizontalArrangement = Arrangement.spacedBy(4.dp),
                 ) {
                     Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.ic_calander),
+                        imageVector = ImageVector.vectorResource(R.drawable.ic_calender_filled),
                         contentDescription = stringResource(R.string.find_suhyeon_detail_meeting_wanted),
-                        tint = colors.Grey400,
+                        tint = colors.Grey300,
                         modifier = Modifier.size(18.dp)
                     )
                     Text(

@@ -18,6 +18,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -97,6 +98,11 @@ private fun GalleryScreen(
             verticalArrangement = Arrangement.Top
         ) {
             MainTopNavBar(stringResource(R.string.gallery_top_nav_bar_title))
+
+            HorizontalDivider(
+                thickness = 1.dp,
+                color = colors.Grey100
+            )
 
             Spacer(modifier = Modifier.fillMaxWidth().height(16.dp).background(colors.White))
 

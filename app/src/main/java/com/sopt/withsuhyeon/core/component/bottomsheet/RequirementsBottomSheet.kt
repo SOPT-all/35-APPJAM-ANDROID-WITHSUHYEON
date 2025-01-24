@@ -20,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -88,7 +89,17 @@ fun RequirementsBottomSheet(
                                 } else {
                                     tempSelectedList + requirement
                                 }
-                            }
+                            },
+                            selectedImageList = listOf(
+                                painterResource(R.drawable.img_camera_selected),
+                                painterResource(R.drawable.img_video_selected),
+                                painterResource(R.drawable.img_phone_selected)
+                            ),
+                            deselectedImageList = listOf(
+                                painterResource(R.drawable.img_camera_deselected),
+                                painterResource(R.drawable.img_video_deselected),
+                                painterResource(R.drawable.img_phone_deselected)
+                            )
                         )
                     }
                     LargeButton(

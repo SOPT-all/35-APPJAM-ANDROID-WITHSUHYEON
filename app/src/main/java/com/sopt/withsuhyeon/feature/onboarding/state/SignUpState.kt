@@ -16,12 +16,9 @@ data class SignUpState(
     ),
     val mainLocationList: List<String> = emptyList(),
     val subLocationList: List<List<String>> = listOf(emptyList()),
+    val isSuccessRequestPhoneNumber: Boolean = false,
+    val isAuthNumberError: Boolean = false,
+    val authNumberErrorMessage: String = EMPTY_STRING,
+    val nicknameErrorState: String = EMPTY_STRING
 )
 
-//    제약조건
-//    phoneNumber.length == 11,
-//    nickname.length in 2..12,
-//    birthYear != null,
-//    gender != null,
-//    profileImage.length == 5,
-//    region.isNotEmpty()

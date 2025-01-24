@@ -92,13 +92,13 @@ fun PreviewSmallSelectChip() {
         SmallSelectChip(
             text = MALE,
             isSelected = false,
-            image =  ImageVector.vectorResource(R.drawable.img_boy_suma),
+            image =  ImageVector.vectorResource(R.drawable.img_boy_selected),
             modifier = Modifier.weight(1f)
         )
         SmallSelectChip(
             text = FEMALE,
             isSelected = true,
-            image = ImageVector.vectorResource(R.drawable.img_girl_suma),
+            image = ImageVector.vectorResource(R.drawable.img_girl_selected),
             modifier = Modifier.weight(1f)
         )
     }

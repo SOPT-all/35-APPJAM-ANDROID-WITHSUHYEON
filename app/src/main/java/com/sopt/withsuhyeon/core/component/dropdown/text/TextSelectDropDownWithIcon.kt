@@ -34,7 +34,7 @@ fun TextSelectDropDownWithIcon(
         onClick = onClick,
         startContent = {
             Icon(
-                imageVector = ImageVector.vectorResource(R.drawable.ic_location),
+                imageVector = ImageVector.vectorResource(R.drawable.ic_location_home),
                 contentDescription = stringResource(R.string.find_suhyeon_location),
                 tint = colors.Grey500,
                 modifier = Modifier

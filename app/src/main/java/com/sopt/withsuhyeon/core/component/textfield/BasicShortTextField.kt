@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -39,7 +38,6 @@ import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_TEXTFIELD_MAX_LENGTH
 import com.sopt.withsuhyeon.core.util.modifier.addFocusCleaner
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
-import kotlinx.datetime.format.Padding
 
 @Composable
 fun BasicShortTextField(
@@ -61,12 +59,10 @@ fun BasicShortTextField(
     onFocusChange: (Boolean) -> Unit = {},
 ) {
     var isFocused by remember { mutableStateOf(false) }
-    var isMaxLengthExceeded by remember { mutableStateOf(false) }
     val borderColor =
         textFieldBorderColor
             ?: when {
                 value.isNotEmpty() && !isValid -> colors.Red01
-                isMaxLengthExceeded -> colors.Red01
                 isFocused -> colors.Purple300
                 !isValid -> colors.Red01
                 else -> colors.Grey100
@@ -76,8 +72,7 @@ fun BasicShortTextField(
 
     Column(
         modifier = modifier.fillMaxWidth()
-            .wrapContentHeight()
-        ,
+            .wrapContentHeight(),
         verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically)
     ) {
         if (title.isNotEmpty()) {
@@ -90,13 +85,7 @@ fun BasicShortTextField(
             value = value,
             enabled = enabled,
             onValueChange = { input ->
-                if (maxLength > 0 && input.length > maxLength) {
-                    isMaxLengthExceeded = true
-                    onValueChange(input.take(maxLength))
-                } else {
-                    isMaxLengthExceeded = false
-                    onValueChange(input)
-                }
+                onValueChange(input)
             },
             textStyle = typography.body03_R.merge(color = textColor),
             decorationBox = { innerTextField ->
@@ -104,7 +93,7 @@ fun BasicShortTextField(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(8.dp),
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.Top
                 ) {
                     Box(
                         modifier = Modifier
@@ -149,32 +138,11 @@ fun BasicShortTextField(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
         ) {
-            if (isMaxLengthExceeded) {
-                Text(
-                    text = stringResource(
-                        R.string.short_text_field_text_max_length_message,
-                        maxLength
-                    ),
-                    style = typography.body03_R.merge(color = colors.Red01),
-                    modifier = Modifier.weight(1f)
-                )
-            } else if (
-                !isValid
-                && enabled
-                && errorMessage.isNotEmpty()
-            ) {
-                Text(
-                    text = errorMessage,
-                    style = typography.body03_R.merge(color = colors.Red01),
-                    modifier = Modifier.weight(1f)
-                )
-            } else {
-                Text(
-                    text = "",
-                    style = typography.body03_R.merge(color = colors.Red01),
-                    modifier = Modifier.weight(1f)
-                )
-            }
+            Text(
+                text = errorMessage,
+                style = typography.body03_R.merge(color = colors.Red01),
+                modifier = Modifier.weight(1f)
+            )
             if (visibleLength && maxLength != -1) {
                 Text(
                     text = stringResource(

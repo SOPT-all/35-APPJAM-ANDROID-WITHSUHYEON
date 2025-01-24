@@ -55,7 +55,7 @@ fun YearOfBirthScreen(
     val state by viewModel.signUpState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
-        viewModel.updateProgress(state.progress + 1f / 7)
+        viewModel.updateProgress(4f / 7)
     }
 
     Column(
@@ -96,7 +96,7 @@ fun YearOfBirthScreen(
                 onButtonClick()
             },
             text = NEXT_BUTTON_TEXT,
-            modifier = Modifier.padding(horizontal = 16.dp),
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
             isDisabled = false,
         )
     }

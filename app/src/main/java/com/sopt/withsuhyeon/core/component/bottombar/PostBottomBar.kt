@@ -72,7 +72,7 @@ fun PostBottomBar(
                 style = typography.caption01_SB.merge(colors.Grey500)
             )
             Text(
-                text = price.toDecimalFormat(),
+                text = "${price.toDecimalFormat()}원",
                 style = typography.body02_B.merge(colors.Grey900)
             )
         }

@@ -39,6 +39,26 @@ class FindSuhyeonViewModel @Inject constructor(
                 }
         }
     }
+    fun refreshFindSuhyeonAllPost(regionType: String, date: String) {
+        viewModelScope.launch {
+            _state.update { it.copy(isRefreshing = true) }
+            findSuhyeonRepository.getFindSuhyeonAllPost(regionType, date)
+                .onSuccess { findSuhyeonData ->
+                    _state.update {
+                        it.copy(
+                            findSuhyeonData = findSuhyeonData,
+                            selectedSubLocation = findSuhyeonData.region,
+                            selectedDate = date
+                        )
+                    }
+                    _state.update { it.copy(isRefreshing = false) }
+                }
+                .onFailure { error ->
+                    _errorMessage.update { error.message }
+                    _state.update { it.copy(isRefreshing = false) }
+                }
+        }
+    }
 
     private fun findLocationBySubLocation(
         subLocation: String,

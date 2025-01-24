@@ -21,6 +21,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
+import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
@@ -28,6 +29,7 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 @Composable
 fun BlockPhoneNumberItem(
     phoneNumber: String,
+    onDeleteClick: () -> Unit,
     backgroundColor: Color = colors.Grey25,
     phoneNumberColor: Color = colors.Grey900,
     font: TextStyle = typography.body03_SB,
@@ -51,33 +53,10 @@ fun BlockPhoneNumberItem(
             modifier = Modifier.padding(10.dp)
         ) {
             Icon(
+                modifier = Modifier.noRippleClickable(onDeleteClick),
                 painter = painterResource(id = R.drawable.ic_xclose),
                 contentDescription = stringResource(R.string.x_close_description),
                 tint = colors.Grey400
-            )
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewBlockPhoneNumberList(
-    modifier: Modifier = Modifier
-) {
-    WithSuhyeonTheme {
-        Column(
-            modifier = modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-        ) {
-            BlockPhoneNumberItem(
-                phoneNumber = "01000000000",
-            )
-            BlockPhoneNumberItem(
-                phoneNumber = "01000000000",
-            )
-            BlockPhoneNumberItem(
-                phoneNumber = "01000000000",
             )
         }
     }
