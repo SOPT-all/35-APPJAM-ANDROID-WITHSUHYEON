@@ -36,12 +36,12 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
 @Composable
-fun FinishRoute(
+fun FinishSignUpRoute(
     padding: PaddingValues,
     navigateToNext: () -> Unit,
     viewModel: SignUpViewModel
 ) {
-    OnBoardingFinishScreen(
+    FinishSignUpScreen(
         padding = padding,
         onButtonClick = navigateToNext,
         viewModel = viewModel
@@ -49,7 +49,7 @@ fun FinishRoute(
 }
 
 @Composable
-fun OnBoardingFinishScreen(
+fun FinishSignUpScreen(
     padding: PaddingValues,
     onButtonClick: () -> Unit,
     viewModel: SignUpViewModel,

@@ -2,12 +2,13 @@ package com.sopt.withsuhyeon.feature.onboarding.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.sopt.withsuhyeon.feature.onboarding.FinishRoute
+import com.sopt.withsuhyeon.core.navigation.Route
+import com.sopt.withsuhyeon.feature.onboarding.FinishLoginRoute
+import com.sopt.withsuhyeon.feature.onboarding.FinishSignUpRoute
 import com.sopt.withsuhyeon.feature.onboarding.GenderSelectRoute
 import com.sopt.withsuhyeon.feature.onboarding.LoginRoute
 import com.sopt.withsuhyeon.feature.onboarding.NickNameAuthenticationRoute
@@ -17,6 +18,7 @@ import com.sopt.withsuhyeon.feature.onboarding.SelectLocationRoute
 import com.sopt.withsuhyeon.feature.onboarding.SelectProfileRoute
 import com.sopt.withsuhyeon.feature.onboarding.TermsOfUseRoute
 import com.sopt.withsuhyeon.feature.onboarding.YearOfBirthRoute
+import com.sopt.withsuhyeon.feature.onboarding.viewmodel.LoginViewModel
 import com.sopt.withsuhyeon.feature.onboarding.viewmodel.SignUpViewModel
 import com.sopt.withsuhyeon.core.navigation.Route.OnBoarding as OnBoardingRoute
 import com.sopt.withsuhyeon.core.navigation.Route.TermsOfUse as TermsOfUseRoute
@@ -70,6 +72,10 @@ fun NavController.navigateToHome() {
     navigate(HomeRoute)
 }
 
+fun NavController.navigateToLoginFinish() {
+    navigate(Route.LoginFinish)
+}
+
 fun NavGraphBuilder.onBoardingNavGraph(
     onBoardingPadding: PaddingValues,
     padding: PaddingValues,
@@ -81,9 +87,11 @@ fun NavGraphBuilder.onBoardingNavGraph(
     onNavigateToSelectGender: () -> Unit,
     onNavigateToPostProfileImage: () -> Unit,
     onNavigateToSelectLocation: () -> Unit,
-    onNavigateToFinish: () -> Unit,
+    onNavigateToSignUpFinish: () -> Unit,
+    onNavigateToLoginFinish: () -> Unit,
     onNavigateToHome: () -> Unit,
-    getBackStackUploadViewModel: @Composable (NavBackStackEntry) -> SignUpViewModel
+    getBackStackUploadViewModel: @Composable (NavBackStackEntry) -> SignUpViewModel,
+    getBackStackLoginViewModel: @Composable (NavBackStackEntry) -> LoginViewModel
 ) {
     composable<OnBoardingRoute> {
         OnBoardingRoute(
@@ -137,13 +145,13 @@ fun NavGraphBuilder.onBoardingNavGraph(
     }
     composable<SelectLocationRoute> {
         SelectLocationRoute(
-            navigateToNext = onNavigateToFinish,
+            navigateToNext = onNavigateToSignUpFinish,
             padding = padding,
             viewModel = getBackStackUploadViewModel(it)
         )
     }
     composable<OnboardingFinishRoute> {
-        FinishRoute(
+        FinishSignUpRoute(
             navigateToNext = onNavigateToHome,
             padding = padding,
             viewModel = getBackStackUploadViewModel(it)
@@ -151,8 +159,15 @@ fun NavGraphBuilder.onBoardingNavGraph(
     }
     composable<LoginRoute> {
         LoginRoute(
-            navigateToLoginFinish = onNavigateToFinish,
-            padding = padding
+            navigateToLoginFinish = onNavigateToLoginFinish,
+            padding = padding,
+        )
+    }
+    composable<Route.LoginFinish> {
+        FinishLoginRoute(
+            padding = padding,
+            navigateToNext = onNavigateToHome,
+            viewModel = getBackStackLoginViewModel(it)
         )
     }
 }

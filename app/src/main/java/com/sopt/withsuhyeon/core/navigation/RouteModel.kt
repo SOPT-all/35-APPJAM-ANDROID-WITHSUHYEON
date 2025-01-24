@@ -37,6 +37,8 @@ sealed interface Route {
     data object Login: Route
     @Serializable
     data object ChatRoom : Route
+    @Serializable
+    data object LoginFinish: Route
 }
 
 sealed interface MainTabRoute : Route {
