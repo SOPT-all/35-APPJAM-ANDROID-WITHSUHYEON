@@ -11,6 +11,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
@@ -37,7 +38,7 @@ fun SplashScreen(
     modifier: Modifier = Modifier
 ) {
     LaunchedEffect(Unit) {
-        delay(3500)
+        delay(2500)
         onSplashCompleted() // 콜백 호출
     }
 
@@ -59,7 +60,8 @@ fun SplashScreen(
 
         LottieAnimation(
             composition = composition,
-            progress = { progress }
+            progress = { progress },
+            modifier = Modifier.scale(1.5f)
         )
     }
 }

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -17,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment.Companion.BottomEnd
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -25,7 +27,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.bottomsheet.LocationBottomSheet
 import com.sopt.withsuhyeon.core.component.dropdown.text.TextSelectDropDownWithIcon
-import com.sopt.withsuhyeon.core.component.floatingbutton.AddFindSuhyeonPostButton
+import com.sopt.withsuhyeon.core.component.floatingbutton.AnimatedAddFindSuhyeonPostButton
 import com.sopt.withsuhyeon.core.component.topbar.SubTopNavBar
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
 import com.sopt.withsuhyeon.feature.findsuhyeon.component.DateChipListRow
@@ -45,7 +47,7 @@ fun FindSuhyeonRoute(
         padding = padding,
         onCompleteButtonClick = navigateToUpload,
         onCloseButtonClick = navigateUp,
-        onPostItemClick = navigateToPost
+        onPostItemClick = navigateToPost,
     )
 }
 @Composable
@@ -58,6 +60,7 @@ fun FindSuhyeonScreen(
     modifier: Modifier = Modifier
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val lazyListState = rememberLazyListState()
 
     LaunchedEffect(Unit) {
         viewModel.getFindSuhyeonAllPost(
@@ -105,6 +108,7 @@ fun FindSuhyeonScreen(
                 modifier = Modifier.background(colors.White).padding(start = 8.dp)
             )
             LazyColumn(
+                state = lazyListState,
                 modifier = Modifier
                     .weight(1f)
                     .background(colors.Grey50)
@@ -135,7 +139,9 @@ fun FindSuhyeonScreen(
             )
         }
 
-        AddFindSuhyeonPostButton(
+        AnimatedAddFindSuhyeonPostButton(
+            text = stringResource(R.string.find_suhyeon_upload_floating_button),
+            lazyListState = lazyListState,
             modifier = Modifier
                 .align(BottomEnd)
                 .padding(bottom = 16.dp, end = 16.dp),
