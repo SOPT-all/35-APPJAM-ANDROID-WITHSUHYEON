@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -21,28 +22,34 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.list.TotalChatRoomList
 import com.sopt.withsuhyeon.core.component.topbar.MainTopNavBar
+import com.sopt.withsuhyeon.data.dto.response.ChatRoom
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
 @Composable
 fun ChatRoute(
     padding: PaddingValues,
-    navigateToChatRoom: () -> Unit,
+    navigateToChatRoomReal: (ChatRoom) -> Unit,
     viewModel: ChatViewModel = hiltViewModel()
 ) {
     ChatScreen(
         padding = padding,
         onChatRoomListItemClick = {
-            navigateToChatRoom()
+            navigateToChatRoomReal(viewModel.chatRooms.value[it])
         }
     )
 }
 @Composable
 private fun ChatScreen(
     padding: PaddingValues,
-    onChatRoomListItemClick: () -> Unit,
+    onChatRoomListItemClick: (Int) -> Unit,
     viewModel: ChatViewModel = hiltViewModel()
 ) {
     val sampleChatRooms by viewModel.chatRooms.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.getChatRooms()
+        viewModel.receiveChatRooms()
+    }
 
     Column(
         modifier = Modifier.fillMaxSize()

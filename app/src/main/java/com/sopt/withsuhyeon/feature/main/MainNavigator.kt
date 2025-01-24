@@ -13,6 +13,7 @@ import com.sopt.withsuhyeon.core.navigation.MainTabRoute
 import com.sopt.withsuhyeon.core.navigation.Route
 import com.sopt.withsuhyeon.feature.chat.navigation.navigateToChat
 import com.sopt.withsuhyeon.feature.chat.navigation.navigateToChatRoom
+import com.sopt.withsuhyeon.feature.chat.navigation.navigateToChatRoomReal
 import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.navigateToFindSuhyeon
 import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.navigateToFindSuhyeonPost
 import com.sopt.withsuhyeon.feature.findsuhyeon.navigation.navigateToFindSuhyeonUpload
@@ -184,6 +185,32 @@ class MainNavigator(
             writerId = writerId,
             ownerChatRoomId = ownerChatRoomId,
             peerChatRoomId = peerChatRoomId
+        )
+    }
+
+    fun navigateToChatRoomReal(
+        ownerChatRoomId: String? = null,
+        peerChatRoomId: String? = null,
+        postId: Int? = null,
+        chatOwnerId: Int? = null,
+        chatPeerId: Int? = null,
+        chatPeerNickname: String? = null,
+        chatPeerProfileImage: String? = null,
+        postTitle: String? = null,
+        postPlace: String? = null,
+        postCost: Int? = null,
+    ) {
+        navController.navigateToChatRoomReal(
+            ownerChatRoomId = ownerChatRoomId,
+            peerChatRoomId = peerChatRoomId,
+            postId = postId,
+            chatOwnerId = chatOwnerId,
+            chatPeerId = chatPeerId,
+            chatPeerNickname = chatPeerNickname,
+            chatPeerProfileImage = chatPeerProfileImage,
+            postTitle = postTitle,
+            postPlace = postPlace,
+            postCost = postCost
         )
     }
 

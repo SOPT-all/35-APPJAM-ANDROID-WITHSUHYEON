@@ -80,9 +80,18 @@ fun MainNavHost(
             )
             chatNavGraph(
                 padding = padding,
-                onNavigateToChatRoom = {
-                    navigator.navigateToChatRoom(
-
+                onNavigateToChatRoomReal = {
+                    navigator.navigateToChatRoomReal(
+                        ownerChatRoomId = it.ownerChatRoomId,
+                        peerChatRoomId = it.peerChatRoomId,
+                        postId = it.postId,
+                        chatOwnerId = it.chatOwnerId,
+                        chatPeerId = it.chatPeerId,
+                        chatPeerNickname = it.chatPeerNickname,
+                        chatPeerProfileImage = it.chatPeerProfileImage,
+                        postTitle = it.postTitle,
+                        postPlace = it.postPlace,
+                       postCost = it.postCost
                     )
                 }
             )
