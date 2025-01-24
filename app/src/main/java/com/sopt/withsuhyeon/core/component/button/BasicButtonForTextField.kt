@@ -46,7 +46,12 @@ fun BasicButtonForTextField(
                 shape = RoundedCornerShape(8.dp)
             )
             .padding(horizontal = 10.dp, vertical = 9.dp)
-            .noRippleClickable(onClick)
+            .let {
+                if(enabled)
+                    it.noRippleClickable(onClick)
+                else
+                    it
+            }
     ) {
         Text(
             text = text,
