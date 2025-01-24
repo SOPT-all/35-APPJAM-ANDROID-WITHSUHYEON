@@ -25,6 +25,12 @@ class GalleryRepositoryImpl @Inject constructor(
             response.result?.galleries ?: throw Exception("Response data is null")
         }
 
+    override suspend fun getAllGalleries(): Result<List<Gallery>> =
+        runCatching {
+            val response = galleryService.getGalleryTotal("")
+            response.result?.galleries ?: throw Exception("Response data is null")
+        }
+
     override suspend fun uploadGallery(image: MultipartBody.Part, request: RequestBody): Result<Unit> =
         runCatching {
             val response = galleryService.uploadGallery(image, request)
@@ -35,5 +41,11 @@ class GalleryRepositoryImpl @Inject constructor(
         runCatching {
             val response = galleryService.getGalleryPostDetail(galleryId)
             response.result?.toGalleryPostDetailModel() ?: throw Exception("Response data is null")
+        }
+
+    override suspend fun deleteGalleryPost(galleryId: Long): Result<Unit> =
+        runCatching {
+            val response = galleryService.deleteGalleryPost(galleryId)
+            response.result
         }
 }

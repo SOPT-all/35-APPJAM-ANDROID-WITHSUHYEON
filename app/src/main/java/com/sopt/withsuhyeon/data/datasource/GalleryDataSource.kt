@@ -12,4 +12,5 @@ interface GalleryDataSource {
     suspend fun getGalleryTotal(category: String): BaseResponse<ResponseGalleryTotalDto>
     suspend fun uploadGallery(image: MultipartBody.Part, request: RequestBody) : BaseResponse<Unit>
     suspend fun getGalleryPostDetail(galleryId: Long): BaseResponse<ResponseGalleryPostDetailDto>
+    suspend fun deleteGalleryPost(galleryId: Long): BaseResponse<Unit>
 }

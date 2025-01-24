@@ -144,8 +144,8 @@ class MainNavigator(
         navController.navigateToGalleryUpload()
     }
 
-    fun navigateToGalleryPostDetail() {
-        navController.navigateToGalleryPostDetail()
+    fun navigateToGalleryPostDetail(galleryId: Long) {
+        navController.navigateToGalleryPostDetail(galleryId)
     }
 
     fun navigateToChatRoom() {

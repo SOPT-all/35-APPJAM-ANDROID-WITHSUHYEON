@@ -23,9 +23,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.BottomEnd
 import androidx.compose.ui.Modifier
@@ -43,7 +41,7 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 fun GalleryRoute(
     padding: PaddingValues,
     navigateToGalleryUpload: () -> Unit,
-    navigateToGalleryPostDetail: () -> Unit,
+    navigateToGalleryPostDetail: (Long) -> Unit,
     viewModel: GalleryViewModel = hiltViewModel()
 ) {
     GalleryScreen(
@@ -51,8 +49,8 @@ fun GalleryRoute(
         onFloatingButtonClick = {
             navigateToGalleryUpload()
         },
-        onGalleryCardItemClick = {
-            navigateToGalleryPostDetail()
+        onGalleryCardItemClick = { galleryId ->
+            navigateToGalleryPostDetail(galleryId)
         }
     )
 }
@@ -61,7 +59,7 @@ fun GalleryRoute(
 private fun GalleryScreen(
     padding: PaddingValues,
     onFloatingButtonClick: () -> Unit,
-    onGalleryCardItemClick: () -> Unit,
+    onGalleryCardItemClick: (Long) -> Unit,
     viewModel: GalleryViewModel = hiltViewModel()
 ) {
     val lazyGridState = rememberLazyGridState()
@@ -77,17 +75,14 @@ private fun GalleryScreen(
 
     val categories by viewModel.categories.collectAsState()
     val galleries by viewModel.galleries.collectAsState()
-    var selectedCategory by remember { mutableStateOf("전체") }
+    val selectedCategory by viewModel.selectedCategory.collectAsState()
 
     LaunchedEffect(Unit) {
         viewModel.getGalleryCategories()
-        viewModel.getGalleryTotal("전체")
     }
 
     LaunchedEffect(selectedCategory) {
-        selectedCategory.let {
-            viewModel.getGalleryTotal(it)
-        }
+        viewModel.getGalleryTotal(selectedCategory)
     }
 
     Box(
@@ -119,12 +114,12 @@ private fun GalleryScreen(
                 ) {
                     item {
                         NewCategoryChip(
-                            imageUrl = "https://example.com/default-image.jpg",
+                            imageUrl = "",
                             category = "전체",
                             scrollOffset = lazyGridState.firstVisibleItemScrollOffset.toFloat(),
                             isSelected = selectedCategory == "전체",
                             onClick = {
-                                selectedCategory = "전체"
+                                viewModel.setSelectedCategory("전체")
                             }
                         )
                     }
@@ -135,7 +130,7 @@ private fun GalleryScreen(
                             scrollOffset = lazyGridState.firstVisibleItemScrollOffset.toFloat(),
                             isSelected = selectedCategory == category.category,
                             onClick = {
-                                selectedCategory = category.category
+                                viewModel.setSelectedCategory(category.category)
                             }
                         )
                     }
@@ -159,7 +154,7 @@ private fun GalleryScreen(
                         text = gallery.title,
                         image = gallery.imageUrl,
                         onClick = {
-                            onGalleryCardItemClick()
+                            onGalleryCardItemClick(gallery.galleryId)
                         },
                         modifier = Modifier
                     )
