@@ -48,6 +48,7 @@ class MainNavigator(
             .currentBackStackEntryAsState().value?.destination
 
     val startDestination = Route.Splash
+//    val startDestination = Route.BlockUser
 
     val currentTab: MainTab?
         @Composable get() = MainTab.entries.find { tab ->
