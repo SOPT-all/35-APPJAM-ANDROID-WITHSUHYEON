@@ -90,7 +90,7 @@ private fun RowScope.MainBottomBarItem(
     selected: Boolean,
     onClick: () -> Unit,
 ) {
-    val itemSelectColor = if (selected) colors.Purple500 else colors.Black
+    val itemSelectColor = if (selected) colors.Purple500 else colors.Grey600
     val itemSelectIcon = if (selected) tab.selectIconResId else tab.defaultIconResId
 
     Column(
