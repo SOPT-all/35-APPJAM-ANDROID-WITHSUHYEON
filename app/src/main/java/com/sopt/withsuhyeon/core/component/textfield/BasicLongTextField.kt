@@ -6,11 +6,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
@@ -28,21 +26,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.withsuhyeon.R
-import com.sopt.withsuhyeon.core.component.button.BasicButtonForTextField
-import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_TEXTFIELD_MAX_LENGTH
-import com.sopt.withsuhyeon.core.util.modifier.addFocusCleaner
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
-import kotlinx.datetime.format.Padding
 
 @Composable
-fun BasicShortTextField(
+fun BasicLongTextField(
     value: String,
     onValueChange: (String) -> Unit,
     hint: String,
@@ -125,12 +117,12 @@ fun BasicShortTextField(
             singleLine = true,
             modifier = Modifier
                 .fillMaxWidth()
+                .heightIn(min = 188.dp)
                 .background(
                     color = backgroundColor,
                     shape = RoundedCornerShape(7.dp),
                 )
                 .border(1.dp, borderColor, RoundedCornerShape(12.dp))
-                .height(52.dp)
                 .onFocusChanged {
                     isFocused = it.isFocused
                     onFocusChange(isFocused)
@@ -157,81 +149,5 @@ fun BasicShortTextField(
                 )
             }
         }
-    }
-}
-
-@Composable
-@Preview
-fun PreviewBasicShortTextField() {
-    var value by remember { mutableStateOf("") }
-    var isValid by remember { mutableStateOf(false) }
-    var enabled by remember { mutableStateOf(true) }
-    var isFocused by remember { mutableStateOf(false) }
-    BasicShortTextField(
-        value = value,
-        hint = "텍스트를 입력해주세요",
-        isValid = isValid,
-        enabled = enabled,
-        onFocusChange = {
-            isFocused = it
-        },
-        onValueChange = {
-            value = it
-            if (it == "텍스트")
-                isValid = true
-            if (it == "불가")
-                enabled = false
-        }
-    )
-}
-
-@Composable
-@Preview
-fun PreviewFullOptionBasicShortTextField() {
-    var value by remember { mutableStateOf("") }
-    var errorMessage by remember { mutableStateOf("") }
-    var isValid by remember { mutableStateOf(false) }
-    var enabled by remember { mutableStateOf(true) }
-    var isFocused by remember { mutableStateOf(false) }
-
-    //Button
-    var buttonText by remember { mutableStateOf("인증 요청") }
-    var buttonEnabled by remember { mutableStateOf(true) }
-
-    val maxLength = SHORT_TEXTFIELD_MAX_LENGTH
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .addFocusCleaner(LocalFocusManager.current)
-    ) {
-        BasicShortTextField(
-            value = value,
-            hint = "텍스트를 입력해주세요",
-            title = "제목",
-            isValid = isValid,
-            enabled = enabled,
-            onFocusChange = {
-                isFocused = it
-            },
-            onValueChange = { input ->
-                isValid = input == "텍스트"
-                errorMessage = if (!isValid) "\"텍스트\"라고 입력해주세요." else ""
-                value = input
-                enabled = value != "불가"
-            },
-            errorMessage = errorMessage,
-            visibleLength = true,
-            maxLength = maxLength,
-            trailingContent = {
-                BasicButtonForTextField(
-                    text = buttonText,
-                    enabled = buttonEnabled,
-                    onClick = {
-                        buttonEnabled = !buttonEnabled
-                        buttonText = if (buttonEnabled) "인증 요청" else "전송 완료"
-                    }
-                )
-            }
-        )
     }
 }
