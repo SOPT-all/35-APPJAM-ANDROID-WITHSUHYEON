@@ -5,5 +5,6 @@ data class FindSuhyeonDetailState(
     val isTitleValid: Boolean = true,
     val titleErrorMessage: String = "",
     val findSuhyeonContentValue: String = "",
-    val progress: Float = 1f / 7 * 6
+    val progress: Float = 1f / 7 * 6,
+    val isDeleteAlertModalVisible: Boolean = false
 )

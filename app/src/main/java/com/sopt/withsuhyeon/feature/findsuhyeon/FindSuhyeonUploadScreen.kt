@@ -404,10 +404,10 @@ private fun FindSuhyeonTitle(
                 textStyle = if (isSelected && !isLastStep)
                     typography.body03_R.merge(colors.Grey400)
                 else
-                    typography.title02_B,
+                    typography.title02_B.merge(colors.Black),
                 modifier = Modifier.padding(
                     if (isSelected && !isLastStep)
-                        PaddingValues(top = 24.dp, bottom = 8.dp)
+                        PaddingValues(top = 24.dp, bottom = 12.dp)
                     else
                         PaddingValues(vertical = 20.dp)
                 )
@@ -427,7 +427,7 @@ private fun FindSuhyeonTitle(
             content(
                 contentModifier.padding(
                     if (isSelected && !isLastStep)
-                        PaddingValues(bottom = 8.dp)
+                        PaddingValues(top = 8.dp, bottom = 12.dp)
                     else
                         PaddingValues(vertical = 12.dp)
                 )

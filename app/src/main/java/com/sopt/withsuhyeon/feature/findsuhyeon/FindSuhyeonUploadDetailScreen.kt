@@ -1,5 +1,6 @@
 package com.sopt.withsuhyeon.feature.findsuhyeon
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,6 +15,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
@@ -25,12 +29,16 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.button.LargeButton
+import com.sopt.withsuhyeon.core.component.modal.AlertModal
 import com.sopt.withsuhyeon.core.component.progressbar.AnimatedProgressBar
 import com.sopt.withsuhyeon.core.component.textfield.BasicShortTextField
 import com.sopt.withsuhyeon.core.component.textfield.LongTextField
 import com.sopt.withsuhyeon.core.component.topbar.SubTopNavBar
+import com.sopt.withsuhyeon.core.util.KeyStorage.DISABLED_TYPE
+import com.sopt.withsuhyeon.core.util.KeyStorage.EXIT_ALERT_TYPE
 import com.sopt.withsuhyeon.core.util.KeyStorage.FEMALE
 import com.sopt.withsuhyeon.core.util.KeyStorage.FIND_SUHYEON_DETAIL_MEETING_INFORMATION_EXPAND
+import com.sopt.withsuhyeon.core.util.KeyStorage.LEAVE_ALERT_TYPE
 import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_FEMALE
 import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_MALE
 import com.sopt.withsuhyeon.core.util.modifier.addFocusCleaner
@@ -68,6 +76,9 @@ fun FindSuhyeonUploadDetailScreen(
 
     val titleLengthErrorMessage = stringResource(R.string.find_suhyeon_detail_title_error_message)
 
+    BackHandler {
+        viewModel.toggleAlert()
+    }
     LaunchedEffect(Unit) {
         viewModel.updateProgress(7, 7)
     }
@@ -78,6 +89,17 @@ fun FindSuhyeonUploadDetailScreen(
             .background(colors.White)
             .addFocusCleaner(focusManager)
     ) {
+        if(detailState.isDeleteAlertModalVisible)
+            AlertModal(
+                onDeleteClick = {
+                    viewModel.toggleAlert()
+                    onCloseBtnClick()
+                },
+                onCancelClick = {
+                    viewModel.toggleAlert()
+                },
+                alertModalType = EXIT_ALERT_TYPE
+            )
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -88,7 +110,9 @@ fun FindSuhyeonUploadDetailScreen(
                 btnIcon = painterResource(R.drawable.ic_close),
                 isTextVisible = true,
                 isBtnVisible = true,
-                onCloseBtnClicked = onCloseBtnClick,
+                onCloseBtnClicked = {
+                    viewModel.toggleAlert()
+                },
                 modifier = modifier
                     .fillMaxWidth()
                     .background(colors.White)
@@ -109,7 +133,7 @@ fun FindSuhyeonUploadDetailScreen(
                 ) {
                     DetailMeetingInformationDropDown(
                         location = uploadState.selectedSubLocation.orEmpty(),
-                        gender = if(uploadState.selectedGender.orEmpty() == FEMALE)
+                        gender = if (uploadState.selectedGender.orEmpty() == FEMALE)
                             SHORT_FEMALE
                         else
                             SHORT_MALE,
@@ -117,7 +141,8 @@ fun FindSuhyeonUploadDetailScreen(
                         date = uploadState.selectedDateString.orEmpty(),
                         mediumChipTypeList = uploadState.selectedRequirementsList,
                         itemId = FIND_SUHYEON_DETAIL_MEETING_INFORMATION_EXPAND,
-                        modifier = Modifier.padding(vertical = 20.dp)
+                        modifier = Modifier.padding(vertical = 20.dp),
+                        price = uploadState.selectedPrice ?: 0
                     )
                     BasicShortTextField(
                         title = stringResource(R.string.find_suhyeon_title),

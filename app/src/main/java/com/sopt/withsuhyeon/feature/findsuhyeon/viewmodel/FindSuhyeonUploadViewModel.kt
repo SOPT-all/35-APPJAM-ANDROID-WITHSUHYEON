@@ -199,6 +199,11 @@ class FindSuhyeonUploadViewModel @Inject constructor(
             }
         }
     }
+    fun toggleAlert() {
+        _detailState.value = _detailState.value.copy(
+            isDeleteAlertModalVisible = !_detailState.value.isDeleteAlertModalVisible
+        )
+    }
 
     fun hideBottomSheet(type: BottomSheetType) {
         _uploadState.update {

@@ -23,9 +23,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.bottombar.PostBottomBar
 import com.sopt.withsuhyeon.core.component.bottomsheet.DeletePostBottomSheet
+import com.sopt.withsuhyeon.core.component.chip.MediumChip
 import com.sopt.withsuhyeon.core.component.modal.AlertModal
 import com.sopt.withsuhyeon.core.component.profile.PostProfileInfoRow
 import com.sopt.withsuhyeon.core.component.topbar.SubTopNavBar
+import com.sopt.withsuhyeon.core.type.MediumChipType
 import com.sopt.withsuhyeon.feature.findsuhyeon.component.DetailMeetingInformation
 import com.sopt.withsuhyeon.feature.findsuhyeon.viewmodel.FindSuhyeonPostViewModel
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
@@ -93,13 +95,18 @@ fun FindSuhyeonPostScreen(
             Column(
                 modifier = Modifier
                     .weight(1f)
-                    .padding(16.dp)
+                    .padding(top = 32.dp, start = 16.dp, end = 16.dp, bottom = 16.dp)
                     .verticalScroll(rememberScrollState()),
             ) {
+                if(state.postDetailData.isExpired)
+                    MediumChip(
+                        mediumChipType = MediumChipType.DURATION_FINISHED,
+                        modifier = Modifier.padding(bottom = 16.dp)
+                    )
                 Text(
                     text = state.postDetailData.title,
                     style = typography.title01_B.merge(color = colors.Grey900),
-                    modifier = Modifier.padding(top = 32.dp, bottom = 8.dp)
+                    modifier = Modifier.padding(bottom = 8.dp)
                 )
                 PostProfileInfoRow(
                     profileImage = state.postDetailData.profileImage,
@@ -155,8 +162,8 @@ fun FindSuhyeonPostScreen(
         }
         PostBottomBar(
             price = state.postDetailData.price,
-            isMyPost = true,
-            isDisabled = false,
+            isMyPost = state.postDetailData.owner,
+            isDisabled = state.postDetailData.isExpired,
             onClick = { }
         )
     }
