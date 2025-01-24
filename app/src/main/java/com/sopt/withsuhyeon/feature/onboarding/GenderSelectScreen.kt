@@ -148,9 +148,9 @@ fun GenderSelectScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.img_boy_suma),
+                        imageVector = if(genderState == true) ImageVector.vectorResource(R.drawable.img_boy_selected) else ImageVector.vectorResource(R.drawable.img_boy_default),
                         tint = Color.Unspecified,
-                        contentDescription = MALE
+                        contentDescription = FEMALE
                     )
                     Text(
                         text = MALE,
@@ -172,7 +172,7 @@ fun GenderSelectScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.img_girl_suma),
+                        imageVector = if(genderState == true || genderState == null) ImageVector.vectorResource(R.drawable.img_girl_default) else ImageVector.vectorResource(R.drawable.img_girl_selected),
                         tint = Color.Unspecified,
                         contentDescription = FEMALE
                     )
