@@ -2,6 +2,7 @@ package com.sopt.withsuhyeon.feature.findsuhyeon.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sopt.withsuhyeon.core.util.KeyStorage.LONG_TEXTFIELD_MAX_LENGTH
 import com.sopt.withsuhyeon.core.util.KeyStorage.MALE
 import com.sopt.withsuhyeon.core.util.KeyStorage.MAX_PRICE_STRING
 import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_TEXTFIELD_MAX_LENGTH
@@ -127,22 +128,37 @@ class FindSuhyeonUploadViewModel @Inject constructor(
     ) {
         _detailState.update {
             val isValid = value.length <= maxLength
+            val isAllValid = isValid && value.isNotEmpty()
             it.copy(
+                isTitleValid = isAllValid,
                 titleValue = value,
-                titleErrorMessage = if (isValid) "" else "최대 ${maxLength}자까지 입력할 수 있어"
+                titleErrorMessage = if(!isValid)
+                    "최대 ${maxLength}자까지 입력할 수 있어"
+                else if(value.isEmpty())
+                    "필수로 입력해줘"
+                else
+                    ""
             )
         }
     }
 
     fun updateContent(
         value: String,
-        maxLength: Int = SHORT_TEXTFIELD_MAX_LENGTH
+        maxLength: Int = LONG_TEXTFIELD_MAX_LENGTH
     ) {
         _detailState.update {
             val isValid = value.length <= maxLength
+            val isAllValid = isValid && value.isNotEmpty()
             it.copy(
                 contentValue = value,
-                contentErrorMessage = if(isValid) "" else "최대 ${maxLength}자까지 입력할 수 있어"
+                isContentValid = isAllValid,
+                contentErrorMessage = if(!isValid)
+                    "최대 ${maxLength}자까지 입력할 수 있어"
+                else if(value.isEmpty())
+                    "필수로 입력해줘"
+                else
+                    ""
+
             )
         }
     }

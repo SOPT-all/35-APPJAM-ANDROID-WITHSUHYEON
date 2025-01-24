@@ -221,7 +221,8 @@ fun FindSuhyeonUploadDetailScreen(
                                 detailState.isContentFocused
                             )
                         },
-                        modifier = Modifier.height(248.dp)
+                        modifier = Modifier.height(248.dp),
+                        errorMessage = detailState.contentErrorMessage
                     )
                     Spacer(modifier = Modifier.height(12.dp))
                 }
