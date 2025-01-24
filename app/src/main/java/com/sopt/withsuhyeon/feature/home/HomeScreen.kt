@@ -55,6 +55,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.bottomsheet.BlockBottomSheet
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
+import com.sopt.withsuhyeon.core.util.price.toDecimalFormat
 import com.sopt.withsuhyeon.feature.home.component.HomeCardItem
 import com.sopt.withsuhyeon.feature.home.component.HomePostItem
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
@@ -185,7 +186,7 @@ fun HomeScreen(
                                 .padding(vertical = 16.dp)
                         ) {
                             Text(
-                                homeState.count.toString(),
+                                homeState.count.toDecimalFormat(),
                                 style = typography.heading01_B.copy(
                                     fontSize = 32.sp,
                                     fontWeight = FontWeight(800),
