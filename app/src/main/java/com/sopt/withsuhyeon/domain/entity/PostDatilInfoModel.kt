@@ -1,12 +1,12 @@
 package com.sopt.withsuhyeon.domain.entity
 
-import com.sopt.withsuhyeon.core.type.MediumChipType
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class PostDetailInfoModel(
     val region: String,
     val gender: Boolean,
     val age: String,
     val date: String,
-    val price: Int,
-    val requests: List<MediumChipType>
+    val requests: List<String>
 )

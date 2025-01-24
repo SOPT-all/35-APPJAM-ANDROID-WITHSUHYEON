@@ -24,7 +24,7 @@ sealed interface Route {
     @Serializable
     data object FindSuhyeonUploadDetail : Route
     @Serializable
-    data class FindSuhyeonPost(val id: Long?) : Route
+    data class FindSuhyeonPost(val id: Long) : Route
     @Serializable
     data object PostProfileImage : Route
     @Serializable
