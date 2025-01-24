@@ -82,6 +82,8 @@ private fun GalleryUploadScreen(
     var isBottomSheetVisible by remember { mutableStateOf(false) }
     var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
 
+    var isCompleteBtnEnabled by remember { mutableStateOf(true) }
+
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -213,7 +215,7 @@ private fun GalleryUploadScreen(
                 modifier = modifier.padding(horizontal = 16.dp)
             )
 
-            Spacer(modifier = modifier.height(80.dp))
+            Spacer(modifier = modifier.height(320.dp))
         }
 
         Box(
@@ -226,40 +228,44 @@ private fun GalleryUploadScreen(
             LargeButton(
                 text = "완료",
                 onClick = {
-                    val isTitleInputValid = titleValue.isNotEmpty()
-                    val isCategoryInputValid = selectedCategory.isNotEmpty()
+                    if (isCompleteBtnEnabled) {
+                        val isTitleInputValid = titleValue.isNotEmpty()
+                        val isCategoryInputValid = selectedCategory.isNotEmpty()
 
-                    isTitleValid = isTitleInputValid
-                    isCategoryValid = isCategoryInputValid
+                        isTitleValid = isTitleInputValid
+                        isCategoryValid = isCategoryInputValid
 
-                    if (isTitleInputValid && isCategoryInputValid && selectedImageUri != null) {
-                        onCompleteBtnClick()
-                        val request = RequestUploadGalleryDto(
-                            category = selectedCategory,
-                            title = titleValue,
-                            content = galleryUploadDescription
-                        )
+                        if (isTitleInputValid && isCategoryInputValid && selectedImageUri != null) {
+                            isCompleteBtnEnabled = false
+                            onCompleteBtnClick()
+                            val request = RequestUploadGalleryDto(
+                                category = selectedCategory,
+                                title = titleValue,
+                                content = galleryUploadDescription
+                            )
 
-                        val imageUri = selectedImageUri
+                            val imageUri = selectedImageUri
 
-                        if (imageUri != null) {
-                            val imagePart = createImagePart(contentResolver, imageUri.toString())
+                            if (imageUri != null) {
+                                val imagePart =
+                                    createImagePart(contentResolver, imageUri.toString())
 
-                            if (imagePart != null) {
-                                try {
-                                    galleryUploadViewModel.uploadGallery(
-                                        imageUri = imageUri,
-                                        request = request,
-                                        contentResolver = contentResolver
-                                    )
-                                } catch (e: Exception) {
-                                    Log.e("GalleryUpload", "Error uploading gallery", e)
+                                if (imagePart != null) {
+                                    try {
+                                        galleryUploadViewModel.uploadGallery(
+                                            imageUri = imageUri,
+                                            request = request,
+                                            contentResolver = contentResolver
+                                        )
+                                    } catch (e: Exception) {
+                                        Log.e("GalleryUpload", "Error uploading gallery", e)
+                                    }
+                                } else {
+                                    Log.e("GalleryUpload", "Invalid image part")
                                 }
                             } else {
-                                Log.e("GalleryUpload", "Invalid image part")
+                                Log.e("GalleryUpload", "Image URI is null")
                             }
-                        } else {
-                            Log.e("GalleryUpload", "Image URI is null")
                         }
                     }
                 }

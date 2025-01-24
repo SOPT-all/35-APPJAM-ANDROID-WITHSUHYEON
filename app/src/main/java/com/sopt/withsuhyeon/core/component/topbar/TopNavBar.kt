@@ -66,7 +66,7 @@ fun SubTopNavBar(
         modifier = modifier
             .fillMaxWidth()
             .background(colors.White)
-            .padding(bottom = 16.dp)
+            .padding(bottom = 3.dp)
     ) {
         Row(
             modifier = Modifier

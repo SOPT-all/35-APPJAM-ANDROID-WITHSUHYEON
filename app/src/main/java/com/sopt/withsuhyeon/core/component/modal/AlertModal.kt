@@ -22,6 +22,7 @@ import com.sopt.withsuhyeon.core.component.button.SmallButton
 import com.sopt.withsuhyeon.core.util.KeyStorage.ALERT_TYPE
 import com.sopt.withsuhyeon.core.util.KeyStorage.DEFAULT
 import com.sopt.withsuhyeon.core.util.KeyStorage.DISABLED_TYPE
+import com.sopt.withsuhyeon.core.util.KeyStorage.EXIT_ALERT_TYPE
 import com.sopt.withsuhyeon.core.util.KeyStorage.LEAVE_ALERT_TYPE
 import com.sopt.withsuhyeon.core.util.KeyStorage.LOGOUT_ALERT_TYPE
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
@@ -43,7 +44,7 @@ fun AlertModal(
             color = colors.White,
         ) {
             Column(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth()
                     .padding(vertical = 20.dp, horizontal = 24.dp),
                 horizontalAlignment = Alignment.Start
@@ -57,7 +58,13 @@ fun AlertModal(
                             color = colors.Black
                         )
                     }
-
+                    EXIT_ALERT_TYPE -> {
+                        Text(
+                            text = stringResource(R.string.alert_modal_exit),
+                            style = typography.title03_B,
+                            color = colors.Black
+                        )
+                    }
                     LEAVE_ALERT_TYPE -> {
                         Text(
                             text = stringResource(R.string.alert_modal_leave_title),
@@ -77,7 +84,7 @@ fun AlertModal(
 
                 Spacer(modifier = Modifier.height(10.dp))
                 when (alertModalType) {
-                    LEAVE_ALERT_TYPE -> {
+                    LEAVE_ALERT_TYPE, EXIT_ALERT_TYPE -> {
                         Text(
                             text = stringResource(R.string.alert_modal_leave_sub_title),
                             style = typography.body03_SB,
@@ -104,14 +111,25 @@ fun AlertModal(
                         .height(56.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    SmallButton(
-                        text = stringResource(R.string.alert_modal_cancel_btn),
-                        type = DISABLED_TYPE,
-                        modifier = Modifier.weight(1f)
-                    ) {
-                        onCancelClick()
-                    }
+                    when (alertModalType) {
+                        EXIT_ALERT_TYPE ->
+                            SmallButton(
+                                text = stringResource(R.string.alert_modal_continue_btn),
+                                type = DISABLED_TYPE,
+                                modifier = Modifier.weight(1f)
+                            ) {
+                                onCancelClick()
+                            }
+                        else ->
+                            SmallButton(
+                                text = stringResource(R.string.alert_modal_cancel_btn),
+                                type = DISABLED_TYPE,
+                                modifier = Modifier.weight(1f)
+                            ) {
+                                onCancelClick()
+                            }
 
+                    }
                     when (alertModalType) {
                         LOGOUT_ALERT_TYPE -> {
                             SmallButton(
@@ -132,7 +150,14 @@ fun AlertModal(
                                 onDeleteClick()
                             }
                         }
-
+                        EXIT_ALERT_TYPE ->
+                            SmallButton(
+                                text = stringResource(R.string.alert_modal_exit),
+                                type = ALERT_TYPE,
+                                modifier = Modifier.weight(1f)
+                            ) {
+                                onDeleteClick()
+                            }
                         else -> {
                             SmallButton(
                                 text = stringResource(R.string.alert_modal_delete_btn),

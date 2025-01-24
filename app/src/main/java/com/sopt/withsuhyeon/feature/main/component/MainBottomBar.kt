@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -89,7 +90,8 @@ private fun RowScope.MainBottomBarItem(
     selected: Boolean,
     onClick: () -> Unit,
 ) {
-    val itemSelectColor = if (selected) colors.Purple500 else colors.Black
+    val itemSelectColor = if (selected) colors.Purple500 else colors.Grey600
+    val itemSelectIcon = if (selected) tab.selectIconResId else tab.defaultIconResId
 
     Column(
         modifier = modifier
@@ -108,9 +110,9 @@ private fun RowScope.MainBottomBarItem(
         verticalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterVertically)
     ) {
         Icon(
-            imageVector = ImageVector.vectorResource(tab.iconResId),
+            imageVector = ImageVector.vectorResource(itemSelectIcon),
             contentDescription = stringResource(tab.descriptionResId),
-            tint = itemSelectColor
+            tint = Color.Unspecified
         )
         Text(
             text = stringResource(tab.descriptionResId),

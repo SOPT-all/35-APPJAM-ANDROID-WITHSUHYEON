@@ -46,7 +46,7 @@ class FindSuhyeonUploadViewModel @Inject constructor(
                         price = selectedPrice ?: 0,
                         requests = selectedRequirementsList,
                         title = _detailState.value.titleValue,
-                        content = _detailState.value.findSuhyeonContentValue
+                        content = _detailState.value.contentValue
                     )
                 )
             }
@@ -104,50 +104,67 @@ class FindSuhyeonUploadViewModel @Inject constructor(
         }
     }
 
-    fun updatePrice(input: String, errorMessage: String?) {
-        val isEmpty = input.isEmpty()
+    fun updatePrice(input: String) {
         val isBelowMax = input.length < MAX_PRICE_STRING.length ||
                 (input.length == MAX_PRICE_STRING.length && input <= MAX_PRICE_STRING)
-
-        val isPriceValid = !isEmpty && isBelowMax
 
         _uploadState.update {
             it.copy(
                 priceTextValue = input,
-                isPriceValid = isPriceValid,
-                priceErrorMessage = if (!isEmpty && !isBelowMax) errorMessage.orEmpty() else "",
-                selectedPrice = if (isPriceValid) input.toInt() else _uploadState.value.selectedPrice,
-                isSelectedPrice = isPriceValid,
-                priceButtonEnabled = isPriceValid
+                selectedPrice = if (isBelowMax) input.toInt() else 100000,
+                isSelectedPrice =  input.isNotEmpty(),
+                priceErrorMessage = if(isBelowMax)
+                    ""
+                else
+                    "금액 입력"
             )
         }
     }
 
     fun updateTitle(
         value: String,
-        maxLength: Int = SHORT_TEXTFIELD_MAX_LENGTH,
-        errorMessage: String
+        maxLength: Int = SHORT_TEXTFIELD_MAX_LENGTH
     ) {
         _detailState.update {
             val isValid = value.length <= maxLength
             it.copy(
                 titleValue = value,
-                isTitleValid = isValid,
-                titleErrorMessage = if (isValid) "" else errorMessage
+                titleErrorMessage = if (isValid) "" else "최대 ${maxLength}자까지 입력할 수 있어"
             )
         }
     }
 
-    fun updateContent(value: String) {
-        _detailState.update { it.copy(findSuhyeonContentValue = value) }
+    fun updateContent(
+        value: String,
+        maxLength: Int = SHORT_TEXTFIELD_MAX_LENGTH
+    ) {
+        _detailState.update {
+            val isValid = value.length <= maxLength
+            it.copy(
+                contentValue = value,
+                contentErrorMessage = if(isValid) "" else "최대 ${maxLength}자까지 입력할 수 있어"
+            )
+        }
     }
 
     fun updateIsTitleValid(isValid: Boolean) {
         _detailState.update { it.copy(isTitleValid = isValid) }
     }
+    fun updateIsTitleFocused(isFocused: Boolean) {
+        _detailState.update { it.copy(isTitleFocused = isFocused) }
+    }
+    fun updateIsContentValid(isValid: Boolean) {
+        _detailState.update { it.copy(isContentValid = isValid) }
+    }
+    fun updateIsContentFocused(isFocused: Boolean) {
+        _detailState.update { it.copy(isContentFocused = isFocused) }
+    }
 
-    fun updateErrorMessage(message: String) {
+    fun updateTitleErrorMessage(message: String) {
         _detailState.update { it.copy(titleErrorMessage = message) }
+    }
+    fun updateContentErrorMessage(message: String) {
+        _detailState.update { it.copy(contentErrorMessage = message) }
     }
 
     fun updateProgress(currentStep: Int, totalSteps: Int) {
@@ -198,6 +215,11 @@ class FindSuhyeonUploadViewModel @Inject constructor(
                 BottomSheetType.DATE -> it.copy(isDateTimePickerBottomSheetVisible = !it.isDateTimePickerBottomSheetVisible)
             }
         }
+    }
+    fun toggleAlert() {
+        _detailState.value = _detailState.value.copy(
+            isDeleteAlertModalVisible = !_detailState.value.isDeleteAlertModalVisible
+        )
     }
 
     fun hideBottomSheet(type: BottomSheetType) {

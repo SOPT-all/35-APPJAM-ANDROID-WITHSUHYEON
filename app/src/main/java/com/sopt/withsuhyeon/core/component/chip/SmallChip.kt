@@ -57,10 +57,10 @@ fun PreviewSmallChip() {
             smallChipType = SmallChipType.CATEGORY
         )
         SmallChip(
-            smallChipType = SmallChipType.MATCH
+            smallChipType = SmallChipType.MATCH_FINISHED
         )
         SmallChip(
-            smallChipType = SmallChipType.FINISHED
+            smallChipType = SmallChipType.DURATION_FINISHED
         )
         SmallChip(
             dynamicString = "3",

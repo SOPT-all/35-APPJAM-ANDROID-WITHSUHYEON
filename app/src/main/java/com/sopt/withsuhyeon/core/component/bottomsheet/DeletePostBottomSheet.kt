@@ -32,7 +32,7 @@ fun DeletePostBottomSheet(
         ) {
             DeleteLargeButton(
                 text = "삭제하기",
-                modifier = Modifier.padding(horizontal = 16.dp),
+                modifier = Modifier.padding(horizontal = 14.dp),
                 isDownloadBtn = true,
                 onClick = {
                     onDeleteClick()
@@ -43,7 +43,7 @@ fun DeletePostBottomSheet(
 
             DeleteLargeButton(
                 text = "닫기",
-                modifier = Modifier.padding(horizontal = 16.dp),
+                modifier = Modifier.padding(horizontal = 14.dp),
                 isDownloadBtn = false
             ) {
                 onCloseClick()
