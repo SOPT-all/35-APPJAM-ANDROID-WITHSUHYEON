@@ -66,6 +66,8 @@ fun LoginScreen(
     var isAuthNumberInputValid by remember { mutableStateOf(false) }
     var isAuthNumberInputFocused by remember { mutableStateOf(false) }
 
+    var isBorderBlue by remember { mutableStateOf(true) }
+
     val state by viewModel.loginState.collectAsStateWithLifecycle()
 
     Column(
@@ -130,11 +132,16 @@ fun LoginScreen(
                     value = state.authNumber,
                     title = stringResource(R.string.onboarding_phone_number_auth_input_title),
                     hint = stringResource(R.string.onboarding_phone_number_auth_input_hint),
-                    isValid = isAuthNumberInputValid,
+                    isValid = isBorderBlue,
+                    textFieldBorderColor = if (isBorderBlue && isAuthNumberInputFocused) colors.Purple300 else if (isBorderBlue == false) colors.Red01 else colors.Grey100,
                     onFocusChange = {
                         isAuthNumberInputFocused = it
                     },
                     onValueChange = { input ->
+                        if (!isAuthNumberInputValid) {
+                            viewModel.refreshErrorMessage()
+                            isBorderBlue = true
+                        }
                         if (input.length <= 6) {
                             isAuthNumberInputValid = input.length == 6
                             viewModel.updateAuthNumber(input)
@@ -164,7 +171,11 @@ fun LoginScreen(
                     onSuccess = {
                         onNavigateToLoginFinish()
                     },
-                    onError = { isAuthNumberInputValid = false }
+                    onError = {
+                        isAuthNumberInputValid = false
+                        viewModel.updateAuthNumber(EMPTY_STRING)
+                        isBorderBlue = false
+                    }
                 )
             },
             text = NEXT_BUTTON_TEXT,

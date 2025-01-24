@@ -67,8 +67,9 @@ fun PhoneNumberAuthenticationScreen(
     var authNumberValue by remember { mutableStateOf("") }
     var isAuthNumberInputValid by remember { mutableStateOf(false) }
     var isAuthNumberInputFocused by remember { mutableStateOf(false) }
-//    var isAuthNumberError by remember { mutableStateOf(false) }
-//    var authErrorMessage by remember { mutableStateOf(EMPTY_STRING) }
+
+    var isBorderBlue by remember { mutableStateOf(true) }
+
     val state by viewModel.signUpState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
@@ -145,15 +146,20 @@ fun PhoneNumberAuthenticationScreen(
                     value = authNumberValue,
                     title = stringResource(R.string.onboarding_phone_number_auth_input_title),
                     hint = stringResource(R.string.onboarding_phone_number_auth_input_hint),
-                    isValid = !state.isAuthNumberError,
+                    isValid = isBorderBlue,
                     keyboardOptions = KeyboardOptions.Default.copy(
                         keyboardType = KeyboardType.Number
                     ),
+                    textFieldBorderColor = if (isBorderBlue && isAuthNumberInputFocused) colors.Purple300 else if (isBorderBlue == false) colors.Red01 else colors.Grey100,
                     onFocusChange = {
                         isAuthNumberInputFocused = it
                     },
                     onValueChange = { input ->
-                        if(input.length <= 6) {
+                        if (!isAuthNumberInputValid) {
+                            viewModel.refreshErrorMessage()
+                            isBorderBlue = true
+                        }
+                        if (input.length <= 6) {
                             isAuthNumberInputValid = input.length == 6
                             authNumberValue = input
                         }
@@ -180,7 +186,11 @@ fun PhoneNumberAuthenticationScreen(
                         onSuccess = {
                             onButtonClick()
                         },
-                        onError = { isAuthNumberInputValid = false }
+                        onError = {
+                            isAuthNumberInputValid = false
+                            authNumberValue = EMPTY_STRING
+                            isBorderBlue = false
+                        }
                     )
                 },
                 text = NEXT_BUTTON_TEXT,

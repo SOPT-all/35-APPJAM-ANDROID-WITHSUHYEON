@@ -22,7 +22,6 @@ fun NavController.navigateToBlockUser() {
 fun NavGraphBuilder.homeNavGraph(
     padding: PaddingValues,
     onNavigateToBlockUser: () -> Unit,
-    popBackStack: () -> Unit,
     navigateToGallery: () -> Unit,
     navigateToGalleryWithCategory: (String) -> Unit,
     navigateToPost: (Long) -> Unit
@@ -35,8 +34,5 @@ fun NavGraphBuilder.homeNavGraph(
             navigateToPost = navigateToPost,
             navigateToBlockUser = onNavigateToBlockUser
         )
-    }
-    composable<Route.BlockUser> {
-        BlockUserRoute(padding, navigateToPreviousScreen = popBackStack)
     }
 }
