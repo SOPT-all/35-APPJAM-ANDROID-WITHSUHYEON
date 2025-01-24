@@ -213,7 +213,7 @@ private fun GalleryUploadScreen(
                 modifier = modifier.padding(horizontal = 16.dp)
             )
 
-            Spacer(modifier = modifier.height(80.dp))
+            Spacer(modifier = modifier.height(320.dp))
         }
 
         Box(
