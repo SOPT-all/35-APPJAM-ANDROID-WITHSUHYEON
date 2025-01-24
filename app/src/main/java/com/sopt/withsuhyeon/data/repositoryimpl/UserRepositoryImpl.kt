@@ -9,7 +9,7 @@ import com.sopt.withsuhyeon.domain.repository.UserRepository
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
-    private val userService: UserService
+    private val userService: UserService,
 ) : UserRepository {
     val webSocketClient = WebSocketClient.getInstance()
     override suspend fun connectWithUserId(): Result<Unit> =
@@ -19,7 +19,7 @@ class UserRepositoryImpl @Inject constructor(
             response.result ?: throw Exception("Response data is null")
             webSocketClient.connect(WEB_SOCKET_URL)*/
         }.mapCatching {
-            val response = it.result
+            val response = it.result?.userId
             webSocketClient.connect(WEB_SOCKET_URL+"/chat?userId=$response")
             //response.result ?: throw Exception("Response data is null")
         }.recoverCatching { throwable ->

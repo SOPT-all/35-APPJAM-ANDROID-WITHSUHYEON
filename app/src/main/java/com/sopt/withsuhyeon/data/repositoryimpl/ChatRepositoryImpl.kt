@@ -7,9 +7,10 @@ import com.sopt.withsuhyeon.domain.repository.ChatRepository
 import javax.inject.Inject
 
 class ChatRepositoryImpl @Inject constructor(
-    private val chatService: ChatService
+    val chatService: ChatService
 ) : ChatRepository {
-    override suspend fun getTotalChatRooms() : Result<List<ChatRoom>> =
+
+    override suspend fun getTotalChatRooms(): Result<List<ChatRoom>> =
         runCatching {
             val response = chatService.getTotalChatRooms()
             response.result?.chatRooms ?: throw Exception("Response data is null")
@@ -32,4 +33,5 @@ class ChatRepositoryImpl @Inject constructor(
             val response = chatService.patchExitChatRoom(request)
             response.result
         }
+
 }

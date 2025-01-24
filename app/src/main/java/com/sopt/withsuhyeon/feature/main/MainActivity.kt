@@ -8,12 +8,10 @@ import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import com.sopt.withsuhyeon.domain.repository.UserRepository
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

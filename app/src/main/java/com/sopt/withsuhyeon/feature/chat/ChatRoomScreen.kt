@@ -14,6 +14,7 @@
     import androidx.compose.foundation.lazy.rememberLazyListState
     import androidx.compose.runtime.Composable
     import androidx.compose.runtime.LaunchedEffect
+    import androidx.compose.runtime.getValue
     import androidx.compose.runtime.mutableStateListOf
     import androidx.compose.runtime.mutableStateOf
     import androidx.compose.runtime.remember
@@ -23,6 +24,7 @@
     import androidx.compose.ui.tooling.preview.Preview
     import androidx.compose.ui.unit.dp
     import androidx.hilt.navigation.compose.hiltViewModel
+    import androidx.lifecycle.compose.collectAsStateWithLifecycle
     import com.sopt.withsuhyeon.R
     import com.sopt.withsuhyeon.core.component.card.ChatRoomInfoCardItem
     import com.sopt.withsuhyeon.core.component.chat.ChatBubble
@@ -51,27 +53,26 @@
         padding: PaddingValues,
         chatRoomInfoModel: ChatRoomInfoModel?,
         modifier: Modifier = Modifier,
-        viewModel: ChatViewModel = hiltViewModel()
+        viewModel: ChatRoomViewModel = hiltViewModel()
     ) {
-        val messages = remember {
-            mutableStateListOf(
-                Triple("안녕하세요", true, "오후 12:00"),
-                Triple("반갑습니다", false, "오후 12:01"),
-                Triple("안녕히계세요", true, "오후 12:02")
-            )
+
+//        val messages = remember {
+//            mutableStateListOf(
+//                Triple("안녕하세요", true, "오후 12:00"),
+//                Triple("반갑습니다", false, "오후 12:01"),
+//                Triple("안녕히계세요", true, "오후 12:02")
+//            )
+//        }
+
+        Log.e("chatRoomInfoModel", "${chatRoomInfoModel?.ownerId}, ${chatRoomInfoModel?.writerId}")
+
+        LaunchedEffect(Unit) {
+            viewModel.updateChatRoomInfo(chatRoomInfoModel!!)
+            viewModel.joinChatRoom()
         }
-
-        Log.e("chatRoomInfoModel", "${chatRoomInfoModel?.ownerChatRoomId}, ${chatRoomInfoModel?.postId}")
-
         val (inputText, setInputText) = remember { mutableStateOf("") }
 
         val lazyListState = rememberLazyListState()
-
-        LaunchedEffect(messages.size) {
-            if (messages.isNotEmpty()) {
-                lazyListState.animateScrollToItem(messages.size - 1)
-            }
-        }
 
         fun getCurrentTime(): String {
             val now = LocalTime.now()
@@ -116,11 +117,11 @@
                     state = lazyListState,
                     contentPadding = PaddingValues(vertical = 8.dp)
                 ) {
-                    items(messages) { (message, isSentByOwner, time) ->
+                    items(viewModel.message.value) { (message, time, isMine) ->
                         ChatBubble(
                             message = message,
                             time = time,
-                            isSentByOwner = isSentByOwner
+                            isSentByOwner = isMine
                         )
                     }
                 }
@@ -128,11 +129,7 @@
                     text = inputText,
                     onTextChange = setInputText,
                     onSendClick = {
-                        if (inputText.isNotBlank()) {
-                            val currentTime = getCurrentTime()
-                            messages.add(Triple(inputText, true, currentTime))
-                            setInputText("")
-                        }
+                        viewModel.sendMessage(inputText)
                     },
                     modifier = Modifier.fillMaxWidth().imePadding()
                 )
