@@ -178,10 +178,8 @@ fun BlockUserScreen(
                 ) {
                     items(state.blockNumbers) { phoneNumber ->
                         BlockPhoneNumberItem(
-                            modifier =  Modifier.noRippleClickable {
-                                viewModel.deleteBlockUser(phoneNumber)
-                            },
                             phoneNumber = phoneNumber,
+                            onDeleteClick = { viewModel.deleteBlockUser(phoneNumber) }
                         )
                     }
                 }
