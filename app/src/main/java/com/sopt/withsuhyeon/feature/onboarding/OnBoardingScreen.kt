@@ -16,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -25,10 +26,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.button.LargeButton
@@ -57,28 +56,24 @@ fun OnBoardingScreen(
     onLoginButtonClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+
+    var isPlaying by remember { mutableStateOf(false) }
+
+    var selectedIndex by remember { mutableIntStateOf(0) }
+
+    isPlaying = false
+
     val lottieFiles = listOf(
         R.raw.function_1,
         R.raw.function_2,
         R.raw.function_3
     )
 
-    var selectedIndex by remember { mutableIntStateOf(0) }
     var dragDirection by remember { mutableIntStateOf(0) }
 
     Box(
         modifier = modifier.fillMaxSize(),
     ) {
-        Column {
-            Text(
-                text = "수현이랑 함께라면 \n" +
-                        "연인과 여행 걱정없어요"
-            )
-            Text(
-                text = "어쩌고 저쩌수현이랑 함께라면 \n" +
-                        "연인과 여행 걱정없어요"
-            )
-        }
         Column(
             modifier = modifier
                 .background(color = colors.White)
@@ -94,7 +89,6 @@ fun OnBoardingScreen(
                 Box(
                     modifier = modifier
                         .fillMaxWidth()
-
                         .pointerInput(Unit) {
                             detectHorizontalDragGestures(
                                 onHorizontalDrag = { _, dragAmount ->
@@ -141,20 +135,38 @@ fun OnBoardingScreen(
                         )
                     )
 
-                    LottieAnimation(
-                        composition = when (selectedIndex) {
-                            0 -> firstLottie
-                            1 -> secondLottie
-                            else -> thirdLottie
-                        },
-                        iterations = LottieConstants.IterateForever,
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        contentScale = ContentScale.Crop,
-                        speed = 1.2f
-                    )
+                    if (selectedIndex == 0) {
+                        LottieAnimation(
+                            composition = firstLottie,
+                            iterations = 1,
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            contentScale = ContentScale.Crop,
+                            speed = 1f
+                        )
+                    }
 
+                    if (selectedIndex == 1) {
+                        LottieAnimation(
+                            composition = secondLottie,
+                            iterations = 1,
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            contentScale = ContentScale.Crop,
+                            speed = 1f
+                        )
+                    }
 
+                    if (selectedIndex == 2) {
+                        LottieAnimation(
+                            composition = thirdLottie,
+                            iterations = 1,
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            contentScale = ContentScale.Crop,
+                            speed = 1f
+                        )
+                    }
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -201,7 +213,7 @@ fun OnBoardingScreen(
                     .padding(
                         start = 16.dp,
                         end = 16.dp,
-                        bottom = 46.dp
+                        bottom = 14.dp
                     )
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
