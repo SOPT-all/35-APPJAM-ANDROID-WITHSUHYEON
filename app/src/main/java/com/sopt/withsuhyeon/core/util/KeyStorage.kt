@@ -45,4 +45,5 @@ object KeyStorage {
 
     const val LOGOUT_ALERT_TYPE = "logout"
     const val LEAVE_ALERT_TYPE = "leave"
+    const val EXIT_ALERT_TYPE = "exit"
 }
