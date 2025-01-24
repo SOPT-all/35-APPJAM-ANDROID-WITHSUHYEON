@@ -1,5 +1,6 @@
 package com.sopt.withsuhyeon.feature.onboarding
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -56,6 +58,12 @@ fun FinishSignUpScreen(
     modifier: Modifier = Modifier
 ) {
     val state by viewModel.signUpState.collectAsStateWithLifecycle()
+    LaunchedEffect(Unit) {
+        Log.d(
+            "state 체크",
+            "${state.phoneNumber} ${state.birthYear} ${state.region} ${state.gender} ${state.nickname} ${state.profileImage}"
+        )
+    }
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.signup))
     var isAnimationPlaying by remember { mutableStateOf(true) }
     val progress by animateLottieCompositionAsState(

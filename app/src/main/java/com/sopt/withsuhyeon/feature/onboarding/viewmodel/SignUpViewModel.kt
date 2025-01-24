@@ -36,6 +36,14 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
+    fun updateRequestPhoneNumberState(state: Boolean) {
+        _signUpState.update {
+            it.copy(
+                isSuccessRequestPhoneNumber = state
+            )
+        }
+    }
+
     fun updateNickname(nickname: String) {
         val errorState = when {
             nickname.containsSpecialCharacters() -> SPECIAL_CHARACTER_ERROR_MESSAGE

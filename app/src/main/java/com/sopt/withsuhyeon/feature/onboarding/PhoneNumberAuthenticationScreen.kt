@@ -73,6 +73,8 @@ fun PhoneNumberAuthenticationScreen(
 
     LaunchedEffect(Unit) {
         viewModel.updateProgress(2f / 7)
+        viewModel.updatePhoneNumber(EMPTY_STRING)
+        viewModel.updateRequestPhoneNumberState(false)
     }
 
     Column(

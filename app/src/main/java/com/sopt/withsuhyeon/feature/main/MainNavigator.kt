@@ -47,8 +47,8 @@ class MainNavigator(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-    //    val startDestination = Route.Splash
-    val startDestination = Route.NickNameAuth
+    val startDestination = Route.Splash
+//    val startDestination = Route.NickNameAuth
 
     val currentTab: MainTab?
         @Composable get() = MainTab.entries.find { tab ->
