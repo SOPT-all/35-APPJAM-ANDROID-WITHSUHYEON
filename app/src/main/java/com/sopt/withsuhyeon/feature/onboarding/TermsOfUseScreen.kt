@@ -162,9 +162,6 @@ fun TermsOfUseScreen(
                         type = SECONDARY_TYPE,
                         state = if (isAgedSelected) CHECKED else DEFAULT
                     )
-                    ShowButton(onClick = {
-                        // TODO - 정책 연결
-                    })
                 }
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -179,9 +176,6 @@ fun TermsOfUseScreen(
                         type = SECONDARY_TYPE,
                         state = if (isTermsSelected) CHECKED else DEFAULT
                     )
-                    ShowButton(onClick = {
-                        // TODO - 정책 연결
-                    })
                 }
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -197,9 +191,6 @@ fun TermsOfUseScreen(
                         type = SECONDARY_TYPE,
                         state = if (isPersonalInformationSelected) CHECKED else DEFAULT
                     )
-                    ShowButton(onClick = {
-                        // TODO - 정책 연결
-                    })
                 }
             }
         }
