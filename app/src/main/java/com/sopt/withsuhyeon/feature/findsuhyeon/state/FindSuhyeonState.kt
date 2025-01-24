@@ -19,4 +19,5 @@ data class FindSuhyeonState(
     val mainLocationList: List<String> = emptyList(),
     val subLocationList: List<List<String>> = listOf(emptyList()),
     val selectedDate: String = "",
+    val isRefreshing: Boolean = false,
 )

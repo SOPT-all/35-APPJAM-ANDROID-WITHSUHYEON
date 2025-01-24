@@ -1,6 +1,7 @@
 package com.sopt.withsuhyeon.feature.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,6 +19,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -41,8 +43,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.airbnb.lottie.compose.LottieAnimation
@@ -51,8 +55,9 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.sopt.withsuhyeon.R
 import com.sopt.withsuhyeon.core.component.bottomsheet.BlockBottomSheet
 import com.sopt.withsuhyeon.core.util.modifier.noRippleClickable
-import com.sopt.withsuhyeon.feature.findsuhyeon.component.FindSuhyeonPostItem
+import com.sopt.withsuhyeon.core.util.price.toDecimalFormat
 import com.sopt.withsuhyeon.feature.home.component.HomeCardItem
+import com.sopt.withsuhyeon.feature.home.component.HomePostItem
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
@@ -110,12 +115,12 @@ fun HomeScreen(
             (pullToRefreshState.distanceFraction * maxOffset.toPx()).toDp()
     }
 
-    LaunchedEffect(Unit){
+    LaunchedEffect(Unit) {
         viewModel.getHomeData()
         viewModel.startCountAnimation()
     }
 
-    Column (
+    Column(
         modifier = modifier
             .fillMaxSize()
             .background(
@@ -181,8 +186,14 @@ fun HomeScreen(
                                 .padding(vertical = 16.dp)
                         ) {
                             Text(
-                                homeState.count.toString(),
-                                style = typography.heading01_B.merge(colors.White),
+                                homeState.count.toDecimalFormat(),
+                                style = typography.heading01_B.copy(
+                                    fontSize = 32.sp,
+                                    fontWeight = FontWeight(800),
+                                    lineHeight = 34.sp,
+                                ).merge(
+                                    colors.White
+                                ),
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
@@ -195,7 +206,7 @@ fun HomeScreen(
                 Column(
                     modifier = Modifier
                         .background(color = colors.White)
-                        .padding(top = 24.dp, bottom = 24.dp)
+                        .padding(top = 17.dp, bottom = 24.dp)
                         .fillMaxHeight()
                 ) {
                     Row(
@@ -203,7 +214,7 @@ fun HomeScreen(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(start = 16.dp, end = 16.dp)
+                            .padding(start = 16.dp, end = 16.dp, top = 7.dp, bottom = 7.dp)
                     ) {
                         Text(
                             text = stringResource(R.string.home_title_now),
@@ -227,7 +238,7 @@ fun HomeScreen(
                             )
                         }
                     }
-                    Spacer(Modifier.height(8.dp))
+                    Spacer(Modifier.height(9.dp))
                     LazyRow(
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
@@ -277,7 +288,6 @@ fun HomeScreen(
                     modifier = Modifier
                         .background(color = colors.White)
                         .fillMaxWidth()
-                        .weight(1f)
                         .padding(start = 16.dp, end = 16.dp, top = 24.dp)
                 ) {
                     Icon(
@@ -289,7 +299,7 @@ fun HomeScreen(
                             .align(Alignment.TopEnd)
                     )
                     Column(
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.height(542.dp)
                     ) {
                         Row(
                             modifier = Modifier
@@ -310,7 +320,7 @@ fun HomeScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Icon(
-                                imageVector = ImageVector.vectorResource(R.drawable.ic_location),
+                                imageVector = ImageVector.vectorResource(R.drawable.ic_location_home),
                                 tint = colors.Grey400,
                                 modifier = Modifier.size(16.dp),
                                 contentDescription = stringResource(R.string.home_view_all)
@@ -321,22 +331,61 @@ fun HomeScreen(
                                 style = typography.body03_SB.merge(colors.Grey400)
                             )
                         }
-                        Column(
-                            modifier = Modifier
-                                .wrapContentHeight()
-                                .padding(vertical = 16.dp),
-                            verticalArrangement = Arrangement.spacedBy(16.dp)
-                        ) {
-                            homeState.homeData.homePosts.forEachIndexed { index, post ->
-                                val isLastItem = index == homeState.homeData.homePosts.size - 1
-                                FindSuhyeonPostItem(
-                                    postItemModel = post,
+                        if (homeState.homeData.homePosts.isEmpty()) {
+                            Column(
+                                modifier = Modifier
+                                    .wrapContentHeight()
+                                    .padding(vertical = 16.dp)
+                                    .height(426.dp)
+                                    .background(colors.White, RoundedCornerShape(24.dp))
+                                    .border(
+                                        1.dp,
+                                        colors.Grey100,
+                                        RoundedCornerShape(24.dp)
+                                    ),
+                                verticalArrangement = Arrangement.spacedBy(16.dp)
+                            ) {
+                                Column(
                                     modifier = Modifier
-                                        .padding(bottom = if (isLastItem) 32.dp else 0.dp)
-                                        .noRippleClickable {
-                                            onPostClick(post.postId)
-                                        }
-                                )
+                                        .fillMaxWidth()
+                                        .fillMaxHeight(),
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.Center
+                                ) {
+                                    Spacer(Modifier.height(118.dp))
+                                    Icon(
+                                        imageVector = ImageVector.vectorResource(R.drawable.img_empty),
+                                        tint = Color.Unspecified,
+                                        contentDescription = "",
+                                        modifier = Modifier
+                                            .size(150.dp)
+                                    )
+                                    Text(
+                                        text = "아직 게시글이 없어요",
+                                        style = typography.body03_R.merge(colors.Grey400)
+                                    )
+                                    Spacer(Modifier.height(118.dp))
+                                }
+                            }
+
+                        } else {
+                            Column(
+                                modifier = Modifier
+                                    .wrapContentHeight()
+                                    .padding(vertical = 16.dp),
+                                verticalArrangement = Arrangement.spacedBy(16.dp)
+                            ) {
+                                homeState.homeData.homePosts.forEachIndexed { index, post ->
+                                    val isLastItem = index == homeState.homeData.homePosts.size - 1
+                                    HomePostItem(
+                                        postItemModel = post,
+                                        modifier = Modifier
+                                            .padding(bottom = if (isLastItem) 32.dp else 0.dp)
+                                            .noRippleClickable {
+                                                onPostClick(post.postId)
+                                            }
+                                    )
+                                }
                             }
                         }
                     }

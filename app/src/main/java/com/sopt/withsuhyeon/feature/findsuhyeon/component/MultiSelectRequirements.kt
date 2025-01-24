@@ -3,13 +3,14 @@ package com.sopt.withsuhyeon.feature.findsuhyeon.component
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -20,6 +21,8 @@ import com.sopt.withsuhyeon.feature.findsuhyeon.component.chip.LargeSelectChip
 fun MultiSelectRequirements(
     modifier: Modifier = Modifier,
     requirementsList: List<String>,
+    selectedImageList: List<Painter>,
+    deselectedImageList: List<Painter>,
     onRequirementsChipClick: (String) -> Unit,
     selectList: List<String>
 ) {
@@ -27,11 +30,12 @@ fun MultiSelectRequirements(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         modifier = modifier.fillMaxWidth()
     ) {
-        items(requirementsList) { requirements->
+        itemsIndexed(requirementsList) { index, requirements->
             LargeSelectChip(
                 text = requirements,
                 isSelected = selectList.contains(requirements),
-                image =  painterResource(R.drawable.dummy_ellipse),
+                image = if(selectList.contains(requirements)) selectedImageList[index]
+                else deselectedImageList[index],
                 onClick = { onRequirementsChipClick(requirements) }
             )
         }
@@ -53,7 +57,18 @@ fun PreviewMultiSelectRequirements() {
                 selectedRequirements - requirements
             } else {
                 selectedRequirements + requirements
-            } },
-        selectList = selectedRequirements
+            }
+        },
+        selectList = selectedRequirements,
+        selectedImageList = listOf(
+            painterResource(R.drawable.img_camera_selected),
+            painterResource(R.drawable.img_video_selected),
+            painterResource(R.drawable.img_phone_selected)
+        ),
+        deselectedImageList = listOf(
+            painterResource(R.drawable.img_camera_deselected),
+            painterResource(R.drawable.img_video_deselected),
+            painterResource(R.drawable.img_phone_deselected)
+        )
     )
 }

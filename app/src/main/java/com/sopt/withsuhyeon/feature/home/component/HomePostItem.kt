@@ -1,4 +1,4 @@
-package com.sopt.withsuhyeon.feature.findsuhyeon.component
+package com.sopt.withsuhyeon.feature.home.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,24 +17,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.sopt.withsuhyeon.core.util.price.toDecimalFormat
 import com.sopt.withsuhyeon.R
-import com.sopt.withsuhyeon.core.component.chip.MediumChip
-import com.sopt.withsuhyeon.core.component.chip.SmallChip
-import com.sopt.withsuhyeon.core.type.MediumChipType
-import com.sopt.withsuhyeon.core.type.SmallChipType
-import com.sopt.withsuhyeon.core.util.KeyStorage.AGE_20_TO_24
 import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_FEMALE
 import com.sopt.withsuhyeon.core.util.KeyStorage.SHORT_MALE
-import com.sopt.withsuhyeon.domain.entity.PostItemModel
+import com.sopt.withsuhyeon.core.util.price.toDecimalFormat
+import com.sopt.withsuhyeon.domain.entity.HomePostItemModel
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
 @Composable
-fun FindSuhyeonPostItem(
-    postItemModel: PostItemModel,
+fun HomePostItem(
+    postItemModel: HomePostItemModel,
     modifier: Modifier = Modifier
 ) {
     val genderString = if(postItemModel.gender) SHORT_FEMALE else SHORT_MALE
@@ -61,11 +55,6 @@ fun FindSuhyeonPostItem(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                if (postItemModel.isExpired) {
-                    SmallChip(
-                        smallChipType = SmallChipType.DURATION_FINISHED
-                    )
-                }
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(2.dp),
@@ -136,21 +125,4 @@ fun FindSuhyeonPostItem(
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun PreviewFindSuhyeonPost() {
-    FindSuhyeonPostItem(
-        PostItemModel(
-            postId = 0,
-            title = "서울역 수현이 구해요ㅠㅠ",
-            price = 5000,
-            gender = true,
-            age = AGE_20_TO_24,
-            date = "1월 25일 (토) 오후 2:30",
-            matching = true,
-            isExpired = true
-        )
-    )
 }
