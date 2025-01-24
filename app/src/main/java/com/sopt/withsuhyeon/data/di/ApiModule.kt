@@ -1,5 +1,6 @@
 package com.sopt.withsuhyeon.data.di
 
+import com.sopt.withsuhyeon.data.service.BlockUserService
 import com.sopt.withsuhyeon.data.service.DummyService
 import com.sopt.withsuhyeon.data.service.FindSuhyeonService
 import com.sopt.withsuhyeon.data.service.GalleryService
@@ -52,4 +53,9 @@ object ApiModule {
     @Singleton
     fun providesLoginService(retrofit: Retrofit): LoginService =
         retrofit.create(LoginService::class.java)
+
+    @Provides
+    @Singleton
+    fun providesBlockUserService(retrofit: Retrofit): BlockUserService =
+        retrofit.create(BlockUserService::class.java)
 }

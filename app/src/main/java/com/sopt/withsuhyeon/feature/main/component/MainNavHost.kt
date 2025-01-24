@@ -24,6 +24,7 @@ import com.sopt.withsuhyeon.feature.mypage.navigation.myPageNavGraph
 import com.sopt.withsuhyeon.feature.onboarding.navigation.onBoardingNavGraph
 import com.sopt.withsuhyeon.feature.onboarding.viewmodel.LoginViewModel
 import com.sopt.withsuhyeon.feature.onboarding.viewmodel.SignUpViewModel
+import com.sopt.withsuhyeon.feature.splash.splashNavGraph
 import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.colors
 
 @SuppressLint("UnrememberedGetBackStackEntry")
@@ -87,6 +88,12 @@ fun MainNavHost(
                 onNavigateToWithdraw = navigator::navigateToMyPageWithdraw,
                 onNavigateUp = navigator::popBackStack,
             )
+
+            splashNavGraph(
+                padding = padding,
+                onNavigateToOnboarding = navigator::navigateToOnboarding
+            )
+
             onBoardingNavGraph(
                 padding = padding,
                 onBoardingPadding = PaddingValues(
