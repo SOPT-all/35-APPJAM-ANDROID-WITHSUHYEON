@@ -45,7 +45,6 @@ fun MainNavHost(
         ) {
             homeNavGraph(
                 onNavigateToBlockUser = navigator::navigateToBlockUser,
-                popBackStack = navigator::popBackStack,
                 padding = PaddingValues(
                     start = padding.calculateStartPadding(layoutDirection = LayoutDirection.Ltr),
                     end = padding.calculateEndPadding(layoutDirection = LayoutDirection.Ltr),
@@ -94,6 +93,7 @@ fun MainNavHost(
                 onNavigateToFavoriteLocation = navigator::navigateToMyPageFavoriteLocation,
                 onNavigateToWithdraw = navigator::navigateToMyPageWithdraw,
                 onNavigateUp = navigator::popBackStack,
+                popBackStack = navigator::popBackStack,
             )
 
             splashNavGraph(

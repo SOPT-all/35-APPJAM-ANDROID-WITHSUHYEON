@@ -3,6 +3,7 @@ package com.sopt.withsuhyeon.feature.onboarding.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sopt.withsuhyeon.core.util.KeyStorage.EMPTY_STRING
 import com.sopt.withsuhyeon.data.dto.base.BaseResponse
 import com.sopt.withsuhyeon.domain.repository.BlockUserRepository
 import com.sopt.withsuhyeon.feature.onboarding.state.BlockUserState
@@ -76,6 +77,14 @@ class BlockUserViewModel @Inject constructor(
                         )
                     }
                 }
+        }
+    }
+
+    fun refreshErrorMessage() {
+        _blockUserState.update {
+            it.copy(
+                errorMessage = EMPTY_STRING
+            )
         }
     }
 

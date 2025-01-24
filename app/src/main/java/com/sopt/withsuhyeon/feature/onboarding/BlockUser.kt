@@ -26,6 +26,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -69,6 +71,7 @@ fun BlockUserScreen(
 ) {
     var isValid by remember { mutableStateOf(false) }
     val state by viewModel.blockUserState.collectAsStateWithLifecycle()
+    val dividerBorderColor = colors.Grey100
 
     LaunchedEffect(Unit) {
         viewModel.getBlockUser()
@@ -83,8 +86,19 @@ fun BlockUserScreen(
     ) {
         SubTopNavBar(
             text = stringResource(R.string.block_screen_title),
-            btnIcon = painterResource(R.drawable.ic_xclose_24),
-            onCloseBtnClicked = onSaveButtonClick
+            btnIcon = painterResource(R.drawable.ic_close),
+            isTextVisible = true,
+            isBtnVisible = true,
+            onCloseBtnClicked = onSaveButtonClick,
+            modifier = Modifier.drawBehind {
+                val borderThickness = 1.dp.toPx()
+                drawLine(
+                    color = dividerBorderColor,
+                    start = Offset(0f, size.height),
+                    end = Offset(size.width, size.height),
+                    strokeWidth = borderThickness
+                )
+            },
         )
         HorizontalDivider(color = colors.Grey100)
         Spacer(modifier = Modifier.height(4.dp))
@@ -116,6 +130,9 @@ fun BlockUserScreen(
             BasicShortTextField(
                 value = state.blockNumber,
                 onValueChange = { input ->
+                    if (!isValid) {
+                        viewModel.refreshErrorMessage()
+                    }
                     if (input.length <= 11) {
                         viewModel.selectBlockUserNumber(input)
                         isValid = input.length == 11 && input.checkValidPhoneNumber()
@@ -208,7 +225,7 @@ fun BlockUserScreen(
             text = SAVE_BUTTON_TEXT,
             modifier = Modifier
                 .padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
-            isDisabled = state.blockNumbers.isEmpty()
+            isDisabled = false
         )
     }
 }
