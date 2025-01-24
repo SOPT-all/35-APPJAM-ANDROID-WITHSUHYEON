@@ -140,6 +140,7 @@ fun LoginScreen(
                         keyboardType = KeyboardType.Number
                     ),
                     maxLength = 6,
+                    errorMessage = state.authNumberErrorMessage
                 )
             }
         }
