@@ -114,7 +114,7 @@ fun BasicLongTextField(
             keyboardOptions = keyboardOptions,
             keyboardActions = keyboardActions,
             visualTransformation = visualTransformation,
-            singleLine = true,
+            singleLine = false,
             modifier = Modifier
                 .fillMaxWidth()
                 .heightIn(min = 188.dp)
