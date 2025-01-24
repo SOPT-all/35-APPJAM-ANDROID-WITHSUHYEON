@@ -14,6 +14,8 @@ data class SignUpState(
     val regionList: RegionListModel = RegionListModel(
         regions = emptyList()
     ),
+    val selectedSubLocation: String = "",
+    val selectedMainLocation: String = "",
     val mainLocationList: List<String> = emptyList(),
     val subLocationList: List<List<String>> = listOf(emptyList()),
     val isSuccessRequestPhoneNumber: Boolean = false,

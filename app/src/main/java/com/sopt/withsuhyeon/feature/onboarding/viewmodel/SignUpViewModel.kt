@@ -3,11 +3,8 @@ package com.sopt.withsuhyeon.feature.onboarding.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sopt.withsuhyeon.core.util.KeyStorage.DEFAULT
 import com.sopt.withsuhyeon.core.util.KeyStorage.EMPTY_STRING
-import com.sopt.withsuhyeon.core.util.KeyStorage.LENGTH_ERROR
 import com.sopt.withsuhyeon.core.util.KeyStorage.LENGTH_ERROR_MESSAGE
-import com.sopt.withsuhyeon.core.util.KeyStorage.SPECIAL_CHARACTER_ERROR
 import com.sopt.withsuhyeon.core.util.KeyStorage.SPECIAL_CHARACTER_ERROR_MESSAGE
 import com.sopt.withsuhyeon.core.util.regex.containsSpecialCharacters
 import com.sopt.withsuhyeon.data.dto.base.BaseResponse
@@ -83,10 +80,20 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-    fun updateRegion(region: String) {
+    fun updateSubRegion(region: String) {
         _signUpState.update {
             it.copy(
                 region = region,
+                selectedSubLocation = region
+            )
+        }
+    }
+
+    fun updateMainRegion(region: String) {
+        _signUpState.update {
+            it.copy(
+                selectedMainLocation = region,
+                selectedSubLocation = EMPTY_STRING
             )
         }
     }
