@@ -33,7 +33,7 @@ import com.sopt.withsuhyeon.ui.theme.WithSuhyeonTheme.typography
 
 @Composable
 fun FindSuhyeonPostRoute(
-    id: Long?,
+    id: Long,
     navigateToFindSuhyeon: () -> Unit,
     padding: PaddingValues,
     viewModel: FindSuhyeonPostViewModel = hiltViewModel()
@@ -47,7 +47,7 @@ fun FindSuhyeonPostRoute(
 }
 @Composable
 fun FindSuhyeonPostScreen(
-    id: Long?,
+    id: Long,
     onDeleteButtonClick: () -> Unit,
     modifier: Modifier = Modifier,
     padding: PaddingValues,
@@ -56,7 +56,7 @@ fun FindSuhyeonPostScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(id) {
-        viewModel.loadPostData()
+        viewModel.getFindSuhyeonPostDetail(id)
     }
 
     val borderColor = colors.Grey100
@@ -78,7 +78,7 @@ fun FindSuhyeonPostScreen(
                 btnIcon = painterResource(R.drawable.ic_menu),
                 isTextVisible = false,
                 isBtnVisible = true,
-                onCloseBtnClicked = { viewModel.toggleDeleteBottomSheet(true) },
+                onCloseBtnClicked = { viewModel.toggleDeleteBottomSheet() },
                 modifier = Modifier.drawBehind {
                     val borderThickness = 1.dp.toPx()
                     drawLine(
@@ -97,14 +97,14 @@ fun FindSuhyeonPostScreen(
                     .verticalScroll(rememberScrollState()),
             ) {
                 Text(
-                    text = state.postTitle,
+                    text = state.postDetailData.title,
                     style = typography.title01_B.merge(color = colors.Grey900),
                     modifier = Modifier.padding(top = 32.dp, bottom = 8.dp)
                 )
                 PostProfileInfoRow(
-                    profileImage = state.profileImage,
-                    userName = state.userName,
-                    date = state.date,
+                    profileImage = state.postDetailData.profileImage,
+                    userName = state.postDetailData.nickname,
+                    date = state.postDetailData.createdAt,
                     modifier = Modifier.drawBehind {
                         val borderThickness = 1.dp.toPx()
                         drawLine(
@@ -116,27 +116,27 @@ fun FindSuhyeonPostScreen(
                     }
                 )
                 Text(
-                    text = state.postDescription,
+                    text = state.postDetailData.content,
                     style = typography.body03_R.merge(color = colors.Grey900),
                     modifier = Modifier.padding(vertical = 32.dp)
                 )
-                state.detailInfo?.let {
+                state.postDetailData.postDetailInfo.let {
                     DetailMeetingInformation(postDetailInfoModel = it)
                 }
             }
         }
         if (state.isDeleteBottomSheetVisible) {
             DeletePostBottomSheet(
-                isBottomSheetVisible = state.isDeleteBottomSheetVisible,
+                isBottomSheetVisible = true,
                 onDeleteClick = {
-                    viewModel.toggleDeleteBottomSheet(false)
+                    viewModel.toggleDeleteBottomSheet()
                     viewModel.toggleDeleteAlertModal(true)
                 },
                 onCloseClick = {
-                    viewModel.toggleDeleteBottomSheet(false)
+                    viewModel.toggleDeleteBottomSheet()
                 },
                 onDismiss = {
-                    viewModel.toggleDeleteBottomSheet(false)
+                    viewModel.toggleDeleteBottomSheet()
                 }
             )
         }
@@ -144,6 +144,7 @@ fun FindSuhyeonPostScreen(
         if (state.isDeleteAlertModalVisible) {
             AlertModal(
                 onDeleteClick = {
+                    viewModel.deleteFindSuhyeonPost(id)
                     viewModel.toggleDeleteAlertModal(false)
                     onDeleteButtonClick()
                 },
@@ -153,7 +154,7 @@ fun FindSuhyeonPostScreen(
             )
         }
         PostBottomBar(
-            price = state.detailInfo?.price ?: 0,
+            price = state.postDetailData.price,
             isMyPost = true,
             isDisabled = false,
             onClick = { }

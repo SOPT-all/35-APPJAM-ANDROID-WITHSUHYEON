@@ -83,6 +83,10 @@ fun MainNavHost(
                 padding = padding,
                 onNavigateToBlockUser = navigator::navigateToBlockUserFromMyPage,
                 onNavigateToOnboarding = navigator::navigateToOnboarding,
+                onNavigateToMyPagePost = navigator::navigateToMyPagePost,
+                onNavigateToFavoriteLocation = navigator::navigateToMyPageFavoriteLocation,
+                onNavigateToWithdraw = navigator::navigateToMyPageWithdraw,
+                onNavigateUp = navigator::popBackStack,
             )
 
             splashNavGraph(

@@ -5,15 +5,19 @@ import com.sopt.withsuhyeon.data.repositoryimpl.DummyRepositoryImpl
 import com.sopt.withsuhyeon.data.repositoryimpl.FindSuhyeonRepositoryImpl
 import com.sopt.withsuhyeon.data.repositoryimpl.GalleryRepositoryImpl
 import com.sopt.withsuhyeon.data.repositoryimpl.SignUpRepositoryImpl
+import com.sopt.withsuhyeon.data.repositoryimpl.MyPageRepositoryImpl
 import com.sopt.withsuhyeon.data.repositoryimpl.HomeRepositoryImpl
 import com.sopt.withsuhyeon.data.repositoryimpl.LoginRepositoryImpl
 import com.sopt.withsuhyeon.domain.repository.BlockUserRepository
+import com.sopt.withsuhyeon.data.repositoryimpl.MyPageRepositoryImpl
 import com.sopt.withsuhyeon.domain.repository.DummyRepository
 import com.sopt.withsuhyeon.domain.repository.FindSuhyeonRepository
 import com.sopt.withsuhyeon.domain.repository.GalleryRepository
 import com.sopt.withsuhyeon.domain.repository.SignUpRepository
+import com.sopt.withsuhyeon.domain.repository.MyPageRepository
 import com.sopt.withsuhyeon.domain.repository.HomeRepository
 import com.sopt.withsuhyeon.domain.repository.LoginRepository
+import com.sopt.withsuhyeon.domain.repository.MyPageRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -34,6 +38,10 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindsSignUpRepository(signUpRepositoryImpl: SignUpRepositoryImpl): SignUpRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindsMyPageRepository(myPageRepositoryImpl: MyPageRepositoryImpl): MyPageRepository
 
     @Binds
     @Singleton

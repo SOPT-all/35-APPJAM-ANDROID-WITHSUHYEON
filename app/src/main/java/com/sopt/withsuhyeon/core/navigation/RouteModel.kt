@@ -26,7 +26,7 @@ sealed interface Route {
     @Serializable
     data object FindSuhyeonUploadDetail : Route
     @Serializable
-    data class FindSuhyeonPost(val id: Long?) : Route
+    data class FindSuhyeonPost(val id: Long) : Route
     @Serializable
     data object PostProfileImage : Route
     @Serializable
@@ -39,6 +39,12 @@ sealed interface Route {
     data object Login: Route
     @Serializable
     data object ChatRoom : Route
+    @Serializable
+    data object MyPageFavoriteLocation : Route
+    @Serializable
+    data object MyPagePost : Route
+    @Serializable
+    data object MyPageWithdraw : Route
     @Serializable
     data object LoginFinish: Route
 }

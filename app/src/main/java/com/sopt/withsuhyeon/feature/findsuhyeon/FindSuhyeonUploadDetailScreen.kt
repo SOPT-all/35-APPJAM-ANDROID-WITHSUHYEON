@@ -173,6 +173,7 @@ fun FindSuhyeonUploadDetailScreen(
                     if(!isTitleInputValid)
                         viewModel.updateErrorMessage(titleLengthErrorMessage)
                     if (isTitleInputValid) {
+                        viewModel.postFindSuhyeonUpload()
                         onCompleteBtnClick()
                     }
                 }
